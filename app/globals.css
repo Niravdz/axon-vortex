@@ -1,0 +1,92 @@
+@import '../styles/tokens.css';
+@import '../styles/animations.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body,
+  button,
+  input,
+  textarea,
+  select,
+  a,
+  p,
+  span,
+  div,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  label {
+    font-family: var(--font-primary), 'Poppins', sans-serif !important;
+  }
+
+  html {
+    background-color: #FFF8EC;
+    color: #0F2747;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #FFF8EC;
+    color: #0F2747;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  ::selection {
+    background: #FF8A00;
+    color: #FFFFFF;
+  }
+
+  /* Thin minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FFF8EC;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(15, 39, 71, 0.2);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FF8A00;
+  }
+}
+
+/* Lenis CSS integration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

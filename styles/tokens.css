@@ -1,0 +1,35 @@
+:root {
+  /* AxonVortex Canonical Brand Palette */
+  --sand-white: #FFF8EC;
+  --sunrise-orange: #FF8A00;
+  --warm-gold: #F4C430;
+  --deep-slate: #0F2747;
+  --soft-gray: #E9EDF2;
+
+  /* Base & Surfaces */
+  --base-bg: #FFF8EC;
+  --bg-primary: #FFF8EC;
+  --bg-secondary: #F6EFE3;
+  --bg-surface: #FFFFFF;
+  --bg-surface-muted: rgba(255, 248, 236, 0.85);
+
+  /* Foreground & Typography */
+  --text-primary: #0F2747;
+  --text-secondary: #2C3E55;
+  --text-muted: #64748B;
+
+  /* Borders & Dividers */
+  --border-default: rgba(15, 39, 71, 0.12);
+  --border-subtle: rgba(15, 39, 71, 0.06);
+  --border-bright: #FF8A00;
+
+  /* Accents */
+  --accent-orange: #FF8A00;
+  --accent-gold: #F4C430;
+
+  /* Strict Single Typography: Poppins */
+  --font-primary: var(--font-primary, 'Poppins', sans-serif);
+  --font-heading: var(--font-primary, 'Poppins', sans-serif);
+  --font-body: var(--font-primary, 'Poppins', sans-serif);
+  --font-mono: var(--font-primary, 'Poppins', sans-serif);
+}

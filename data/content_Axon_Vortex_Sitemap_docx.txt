@@ -1,0 +1,64 @@
+AXONVORTEX
+│
+├── HOME
+│
+├── SOLUTIONS
+│   │
+│   ├── Digital Marketing
+│   │   ├── Social Media Marketing
+│   │   ├── Content Marketing
+│   │   ├── Meta Ads
+│   │   ├── Google Ads
+│   │   └── SEO
+│   │
+│   ├── AI & Automation
+│   │   ├── AI Chatbots
+│   │   ├── AI Customer Support
+│   │   ├── AI Appointment Booking
+│   │   ├── AI Agents
+│   │   └── Workflow Automation
+│   │
+│   ├── Websites & E-Commerce
+│   │   ├── Business Websites
+│   │   ├── Landing Pages
+│   │   ├── E-Commerce
+│   │   └── Shopify
+│   │
+│   ├── Lead Generation
+│   │   ├── Lead Funnels
+│   │   ├── Campaigns
+│   │   ├── CRM Integration
+│   │   └── Automated Follow-ups
+│   │
+│   └── Technology & Digital Transformation
+│       ├── CRM
+│       ├── ERP
+│       ├── Custom Software
+│       ├── Business Automation
+│       └── Digital Transformation
+│
+├── APPROACH
+│
+├── ABOUT
+│
+├── GROWTH AUDIT
+│
+├── INSIGHTS
+│   ├── Marketing
+│   ├── AI for Business
+│   ├── Automation
+│   ├── Digital Transformation
+│   └── Business Growth
+│
+└── CONTACT
+FINAL SERVICE ARCHITECTURE
+DIGITAL MARKETING
+Social Media MarketingMeta AdsGoogle AdsSEO
+AI & AUTOMATION
+AI ChatbotsAI AgentsAI AutomationVoice AI
+WEBSITES & E-COMMERCE
+Website DevelopmentE-Commerce DevelopmentShopify
+LEAD GENERATION
+Lead Generation
+TECHNOLOGY & DIGITAL TRANSFORMATION
+CRMCustom Software
