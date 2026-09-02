@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { AnimationProvider } from "@/components/providers/AnimationProvider";
@@ -10,10 +10,19 @@ import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { siteConfig } from "@/data/siteConfig";
 
+// Heading typography: Poppins Semibold (600) & Bold (700)
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-primary",
+  weight: ["600", "700"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+// Body typography: Inter Regular (400), Medium (500), Semibold (600)
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -44,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFF8EC",
+  themeColor: "#FFFFFF",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -58,9 +67,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={poppins.variable}
+      className={`${poppins.variable} ${inter.variable}`}
     >
-      <body className="bg-[#FFF8EC] text-[#0F2747] min-h-screen selection:bg-accent-orange selection:text-white antialiased font-sans relative">
+      <body className="bg-[#FFFFFF] text-[#1E1E2E] min-h-screen selection:bg-brand-turquoise selection:text-white antialiased font-sans relative">
         <SmoothScrollProvider>
           <AnimationProvider>
             <PageLoader />

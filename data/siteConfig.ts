@@ -6,11 +6,12 @@ export const siteConfig = {
   description:
     "AxonVortex helps businesses build, market and scale smarter by combining AI, human strategy, creativity, marketing, automation and data.",
   colors: {
-    sunriseOrange: "#FF8A00",
-    warmGold: "#F4C430",
-    sandWhite: "#FFF8EC",
-    softGray: "#E9EDF2",
-    deepSlate: "#0F2747",
+    turquoise: "#00C2C7",
+    coral: "#FF7A59",
+    yellow: "#FFD28A",
+    navy: "#1E1E2E",
+    light: "#F4F7FA",
+    white: "#FFFFFF",
   },
   links: {
     contact: "/contact",

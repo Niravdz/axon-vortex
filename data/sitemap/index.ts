@@ -73,7 +73,9 @@ export const mainNavigationTree = [
     ],
   },
   { label: "Approach", href: "/approach" },
-  { label: "Authority & Conversion", href: "/authority-conversion" },
+  { label: "About", href: "/about" },
+  { label: "Growth Audit", href: "/growth-audit" },
+  { label: "Insights", href: "/insights" },
   { label: "Services", href: "/services" },
   { label: "Contact", href: "/contact" },
 ];

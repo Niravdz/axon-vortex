@@ -53,9 +53,9 @@ export function SpatialNetworkMesh() {
   const { linePositions, lineColors } = useMemo(() => {
     const positions: number[] = [];
     const colors: number[] = [];
-    const deepSlate = new THREE.Color("#0F2747");
-    const accentGold = new THREE.Color("#F4C430");
-    const accentOrange = new THREE.Color("#FF8A00");
+    const deepNavy = new THREE.Color("#1E1E2E");
+    const accentCoral = new THREE.Color("#FF7A59");
+    const accentTurquoise = new THREE.Color("#00C2C7");
 
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
@@ -65,7 +65,7 @@ export function SpatialNetworkMesh() {
           positions.push(nodes[j].x, nodes[j].y, nodes[j].z);
 
           const isAccent = (i + j) % 7 === 0;
-          const color = isAccent ? accentOrange : Math.random() > 0.5 ? accentGold : deepSlate;
+          const color = isAccent ? accentCoral : Math.random() > 0.5 ? accentTurquoise : deepNavy;
           colors.push(color.r, color.g, color.b);
           colors.push(color.r, color.g, color.b);
         }
@@ -135,7 +135,7 @@ export function SpatialNetworkMesh() {
         </bufferGeometry>
         <pointsMaterial
           size={0.04}
-          color="#FF8A00"
+          color="#00C2C7"
           transparent={true}
           opacity={0.85}
         />
@@ -145,7 +145,7 @@ export function SpatialNetworkMesh() {
       <mesh ref={coreRef}>
         <octahedronGeometry args={[0.45, 0]} />
         <meshStandardMaterial
-          color="#0F2747"
+          color="#1E1E2E"
           roughness={0.2}
           metalness={0.8}
           wireframe={true}
@@ -156,7 +156,7 @@ export function SpatialNetworkMesh() {
       <mesh scale={1.6}>
         <boxGeometry args={[1.4, 1.4, 1.4]} />
         <meshBasicMaterial
-          color="#0F2747"
+          color="#1E1E2E"
           wireframe={true}
           transparent={true}
           opacity={0.08}

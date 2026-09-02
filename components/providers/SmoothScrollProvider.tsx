@@ -53,30 +53,30 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       globalLenis = null;
     }
 
-    // Configure lightweight, responsive Lenis smooth scrolling
+    // Configure snappy, responsive Lenis smooth scrolling (zero heavy lag drift)
     const lenis = new Lenis({
-      lerp: 0.09,
-      duration: 1.1,
+      lerp: 0.1,
+      duration: 0.9,
       smoothWheel: true,
-      syncTouch: false, // Ensure native touch scrolling on mobile devices
-      wheelMultiplier: 0.9,
+      syncTouch: false, // Native touch scrolling on mobile
+      wheelMultiplier: 0.95,
       touchMultiplier: 1.0,
       orientation: "vertical",
       gestureOrientation: "vertical",
-      autoRaf: false, // We control RAF via GSAP ticker for synchronized ScrollTrigger updates
+      autoRaf: false, // We synchronize RAF via GSAP ticker
     });
 
     globalLenis = lenis;
     setLenisInstance(lenis);
     isInitialized.current = true;
 
-    // Connect Lenis updates directly to GSAP ScrollTrigger
+    // Connect Lenis scroll events to GSAP ScrollTrigger
     const handleScroll = () => {
       ScrollTrigger.update();
     };
     lenis.on("scroll", handleScroll);
 
-    // Synchronize Lenis render cycle with GSAP ticker loop
+    // Synchronize Lenis render cycle with GSAP ticker loop (time in ms)
     const tickerUpdate = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -85,7 +85,29 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     gsap.ticker.add(tickerUpdate);
     gsap.ticker.lagSmoothing(0);
 
+    // Coordinated ScrollTrigger refresh after document fonts and DOM layout settle
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+      });
+    }
+
+    // Debounced window resize / orientation refresh
+    let resizeTimer: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+    };
+    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("orientationchange", handleResize, { passive: true });
+
     return () => {
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+
       if (activeTickerHandler) {
         gsap.ticker.remove(activeTickerHandler);
         activeTickerHandler = null;
@@ -100,13 +122,18 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     };
   }, [prefersReducedMotion]);
 
-  // Reset scroll to top on route change smoothly
+  // Reset scroll to top on route change smoothly & refresh triggers
   useEffect(() => {
     if (globalLenis) {
       globalLenis.scrollTo(0, { immediate: true });
     } else if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
+    const { ScrollTrigger } = getGSAP();
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   const scrollTo = useMemo(

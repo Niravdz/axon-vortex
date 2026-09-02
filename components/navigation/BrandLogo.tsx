@@ -1,42 +1,31 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { siteConfig } from "@/data/siteConfig";
+import Image from "next/image";
 
 interface BrandLogoProps {
   className?: string;
   showText?: boolean;
+  tone?: "light" | "dark";
 }
 
-export function BrandLogo({ className, showText = true }: BrandLogoProps) {
+/** Render the supplied AxonVortex artwork without redrawing or recolouring it. */
+export function BrandLogo({ className }: BrandLogoProps) {
   return (
     <Link
       href="/"
-      className={`group flex items-center gap-3 select-none transition-opacity hover:opacity-90 ${className || ""}`}
+      aria-label="AxonVortex home"
+      className={`group block size-12 sm:size-14 shrink-0 overflow-hidden rounded-full select-none transition-opacity hover:opacity-90 ${className || ""}`}
     >
-      <div className="relative w-8 h-8 rounded-sm overflow-hidden bg-surface border border-border group-hover:border-accent-orange transition-colors flex-shrink-0">
-        <Image
-          src="/assets/axon-vortex-logo.jpeg"
-          alt="AxonVortex Logo"
-          fill
-          sizes="32px"
-          className="object-contain p-0.5"
-          priority
-        />
-      </div>
-
-      {showText && (
-        <div className="flex flex-col">
-          <span className="font-heading font-bold tracking-tight text-sm text-editorial-primary leading-tight">
-            {siteConfig.name}
-          </span>
-          <span className="font-mono text-[8px] uppercase tracking-widest text-editorial-muted">
-            STUDIO // ARCHITECTURE
-          </span>
-        </div>
-      )}
+      <Image
+        src="/assets/axon-vortex-logo.jpeg"
+        alt="AxonVortex"
+        width={56}
+        height={56}
+        priority
+        className="size-full object-cover"
+      />
     </Link>
   );
 }

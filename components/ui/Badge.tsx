@@ -22,7 +22,7 @@ export function Badge({
     >
       {variant === "dot" && (
         <span className="relative flex h-1.5 w-1.5">
-          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent-orange" />
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-turquoise" />
         </span>
       )}
       <span>{children}</span>

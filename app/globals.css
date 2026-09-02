@@ -14,43 +14,62 @@
 
   html,
   body,
-  button,
   input,
   textarea,
   select,
-  a,
   p,
   span,
   div,
+  label,
+  li {
+    font-family: var(--font-body), 'Inter', sans-serif;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
-  h6,
-  label {
-    font-family: var(--font-primary), 'Poppins', sans-serif !important;
+  h6 {
+    font-family: var(--font-heading), 'Poppins', sans-serif;
+    font-weight: 700 !important;
+  }
+
+  .font-heading,
+  .font-headline,
+  button {
+    font-family: var(--font-heading), 'Poppins', sans-serif;
+  }
+
+  p,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body), 'Inter', sans-serif;
+    font-weight: 400;
   }
 
   html {
-    background-color: #FFF8EC;
-    color: #0F2747;
+    background-color: #FFFFFF;
+    color: #1E1E2E;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    /* `hidden` creates a scroll container and breaks descendant sticky layouts. */
+    overflow-x: clip;
   }
 
   body {
-    background-color: #FFF8EC;
-    color: #0F2747;
-    overflow-x: hidden;
+    background-color: #FFFFFF;
+    color: #1E1E2E;
+    overflow-x: clip;
     min-height: 100vh;
     position: relative;
+    font-family: var(--font-body), 'Inter', sans-serif;
   }
 
   ::selection {
-    background: #FF8A00;
+    background: #00C2C7;
     color: #FFFFFF;
   }
 
@@ -59,14 +78,14 @@
     width: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #FFF8EC;
+    background: #FFFFFF;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(15, 39, 71, 0.2);
+    background: rgba(30, 30, 46, 0.2);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #FF8A00;
+    background: #00C2C7;
   }
 }
 

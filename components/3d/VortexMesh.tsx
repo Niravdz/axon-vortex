@@ -57,12 +57,12 @@ export function VortexMesh() {
         <mesh ref={coreRef} scale={1.15}>
           <torusKnotGeometry args={[1.0, 0.3, 96, 24, 2, 3]} />
           <meshPhysicalMaterial
-            color="#0F2747"
+            color="#1E1E2E"
             roughness={0.25}
             metalness={0.85}
             clearcoat={0.8}
             clearcoatRoughness={0.2}
-            emissive="#FF8A00"
+            emissive="#00C2C7"
             emissiveIntensity={0.12}
           />
         </mesh>
@@ -71,7 +71,7 @@ export function VortexMesh() {
         <mesh ref={orbitalRef} scale={1.22}>
           <torusKnotGeometry args={[1.0, 0.3, 48, 12, 2, 3]} />
           <meshBasicMaterial
-            color="#F4C430"
+            color="#FF7A59"
             wireframe={true}
             transparent={true}
             opacity={0.18}

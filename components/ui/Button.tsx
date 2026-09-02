@@ -36,13 +36,13 @@ export function Button({
 
   const variantStyles = {
     primary:
-      "bg-[#0F2747] text-[#FFF8EC] border border-[#0F2747] hover:bg-accent-orange hover:border-accent-orange hover:text-white shadow-sm",
+      "bg-brand-coral text-brand-navy border border-brand-coral hover:bg-brand-navy hover:border-brand-navy hover:text-white shadow-sm",
     secondary:
-      "bg-white/80 backdrop-blur-sm text-[#0F2747] border border-border hover:border-accent-orange hover:bg-white hover:text-accent-orange",
+      "bg-white/80 backdrop-blur-sm text-brand-navy border border-border hover:border-brand-turquoise hover:bg-white hover:text-brand-turquoise",
     outline:
-      "bg-transparent text-[#0F2747] border border-[#0F2747] hover:border-accent-orange hover:bg-accent-orange hover:text-white",
+      "bg-transparent text-brand-navy border border-brand-navy hover:border-brand-turquoise hover:bg-brand-turquoise hover:text-white",
     ghost:
-      "text-editorial-secondary hover:text-accent-orange border-none p-0 bg-transparent tracking-normal capitalize font-sans text-xs",
+      "text-editorial-secondary hover:text-brand-turquoise border-none p-0 bg-transparent tracking-normal capitalize font-sans text-xs",
   };
 
   const content = (

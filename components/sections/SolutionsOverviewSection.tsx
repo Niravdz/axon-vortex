@@ -4,6 +4,7 @@ import React, { useRef, useLayoutEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
+import { SectionMasthead } from "@/components/ui/SectionMasthead";
 import { homeContent } from "@/data/content/home";
 import { getGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
@@ -15,6 +16,7 @@ export function SolutionsOverviewSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const activeCardIndexRef = useRef(0);
   const prefersReducedMotion = useReducedMotion();
 
   const { solutionsOverview } = homeContent;
@@ -26,82 +28,85 @@ export function SolutionsOverviewSection() {
     const { gsap } = getGSAP();
     const section = sectionRef.current;
     const pinContainer = pinRef.current;
-    const viewport = viewportRef.current;
     const track = trackRef.current;
     const progressBar = progressBarRef.current;
 
     const mm = gsap.matchMedia();
 
-    // Desktop: Pinned 50/50 Layout with Full-Width Single-Card Track Translation & Final Reading Hold
-    mm.add("(min-width: 1024px)", () => {
-      // Measure the exact offset of the last card relative to the track's origin
-      const getFinalTranslation = () => {
-        const lastCard = track.querySelector("article:last-child") as HTMLElement | null;
-        return lastCard ? lastCard.offsetLeft : Math.max(0, track.scrollWidth - viewport.clientWidth);
+    // Universal Pinned Track Translation (Desktop & Mobile)
+    mm.add("(min-width: 320px)", () => {
+      const cards = track.querySelectorAll<HTMLElement>("article");
+      const cardCount = solutions.length;
+      if (cards.length === 0) return;
+
+      const getCardOffset = (idx: number) => {
+        if (!cards[idx]) return 0;
+        return cards[idx].offsetLeft;
       };
 
-      // 1.0 for active horizontal travel + 0.22 for scroll-controlled final hold (~18-20vh)
-      const travelDuration = 1.0;
-      const holdDuration = 0.22;
-      const totalTimelineDuration = travelDuration + holdDuration;
+      const isMobile = window.innerWidth < 1024;
+      const scrollPerCard = isMobile ? 500 : 620;
+      const totalScrollDistance = (cardCount - 1) * scrollPerCard + 350;
+
+      const dwellDuration = 0.55;
+      const slideDuration = 1.0;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${getFinalTranslation() + window.innerHeight * 0.20 + 900}`,
+          end: () => `+=${totalScrollDistance}`,
           pin: pinContainer,
           pinSpacing: true,
-          scrub: 0.35,
+          scrub: 0.25, // Snappy response without lagging drift
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            const travelProgress = Math.min(1, self.progress / (travelDuration / totalTimelineDuration));
-            const idx = Math.min(
-              Math.floor(travelProgress * solutions.length),
-              solutions.length - 1
-            );
-            setActiveCardIndex(idx);
+            const stepProgress = self.progress * (cardCount - 1);
+            const settledIdx = Math.min(Math.round(stepProgress), cardCount - 1);
+            if (settledIdx !== activeCardIndexRef.current) {
+              activeCardIndexRef.current = settledIdx;
+              setActiveCardIndex(settledIdx);
+            }
           },
         },
       });
 
-      // 1. Continuous, smooth horizontal track translation to exact Card 05 resting alignment
-      tl.to(
-        track,
-        {
-          x: () => -getFinalTranslation(),
-          ease: "none",
-          duration: travelDuration,
-        },
-        0
-      );
+      // Build discrete plateau progression with explicit card reading holds
+      for (let i = 0; i < cardCount - 1; i++) {
+        // 1. Reading Dwell at Card i
+        tl.to({}, { duration: dwellDuration });
 
-      // 2. Synchronized bottom progress bar (completes upon Card 05 alignment)
+        // 2. Smooth, continuous horizontal translation to Card i+1
+        tl.to(
+          track,
+          {
+            x: () => -getCardOffset(i + 1),
+            ease: "power2.inOut",
+            duration: slideDuration,
+          }
+        );
+      }
+
+      // 3. Final reading dwell on Card 05 before unpinning cleanly
+      tl.to({}, { duration: dwellDuration });
+
+      // Synchronized bottom progress bar
       if (progressBar) {
         tl.to(
           progressBar,
           {
             scaleX: 1,
             ease: "none",
-            duration: travelDuration,
+            duration: tl.duration(),
           },
           0
         );
       }
 
-      // 3. Explicit scroll-controlled final hold where Card 05 remains 100% stationary before release
-      tl.to({}, { duration: holdDuration }, travelDuration);
-
       return () => {
         tl.kill();
       };
-    });
-
-    // Mobile / Tablet: Natural Vertical Flow
-    mm.add("(max-width: 1023px)", () => {
-      gsap.set(track, { clearProps: "all" });
-      gsap.set(pinContainer, { clearProps: "all" });
     });
 
     return () => mm.revert();
@@ -116,57 +121,51 @@ export function SolutionsOverviewSection() {
     >
       <div
         ref={pinRef}
-        className="services-pin relative w-full min-h-screen lg:h-screen flex flex-col justify-between overflow-hidden py-8 lg:py-12 px-6 sm:px-8 md:px-12 max-w-[1720px] mx-auto"
+        className="services-pin relative w-full min-h-[100dvh] lg:h-screen flex flex-col justify-between overflow-hidden py-6 sm:py-8 lg:py-12 px-4 sm:px-6 md:px-12 max-w-[1720px] mx-auto"
       >
-        {/* Top Section Header HUD */}
-        <div className="relative z-20 flex items-center justify-between border-b border-border pb-4 mb-4 lg:mb-6">
-          <div className="flex items-center gap-3">
-            <Badge variant="code">{solutionsOverview.badge}</Badge>
-            <span className="text-[11px] font-mono text-editorial-secondary uppercase hidden sm:inline tracking-widest">
-              ARCHITECTURAL CAPABILITIES
-            </span>
-          </div>
-
-          <span className="text-xs font-mono font-bold text-accent-orange uppercase tracking-widest">
-            0{activeCardIndex + 1} / 05 DOMAINS
-          </span>
-        </div>
+        {/* Top Section Masthead */}
+        <SectionMasthead
+          badge={solutionsOverview.badge}
+          descriptor="ARCHITECTURAL CAPABILITIES"
+          rightLabel={`0${activeCardIndex + 1} / 05 DOMAINS`}
+          className="mb-3 lg:mb-6"
+        />
 
         {/* ========================================================================= */}
-        {/* 50/50 BALANCED DESKTOP STAGE: LEFT INTRO (STATIONARY) / RIGHT CARD TRACK  */}
+        {/* 50/50 BALANCED STAGE (DESKTOP: SIDE-BY-SIDE / MOBILE: STACKED INTRO + TRACK) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center flex-1 my-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 xl:gap-16 items-center flex-1 my-auto w-full">
           {/* ----------------------------------------------------------------------- */}
-          {/* LEFT HALF (STATIONARY): Oversized Dominant Heading & Introduction       */}
+          {/* LEFT HALF (DESKTOP) / TOP INTRO (MOBILE)                                */}
           {/* ----------------------------------------------------------------------- */}
-          <div className="lg:col-span-6 flex flex-col justify-center gap-5 xl:gap-7">
+          <div className="lg:col-span-6 flex flex-col justify-center gap-3 sm:gap-5 xl:gap-7">
             <div className="flex items-center gap-2">
               <Badge variant="dot">SYSTEM MATRIX</Badge>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[56px] 2xl:text-[62px] font-heading font-black uppercase tracking-tight text-editorial-primary leading-[1.04]">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[56px] 2xl:text-[62px] font-heading font-black uppercase tracking-tight text-editorial-primary leading-[1.04] break-words">
               ONE GROWTH PARTNER.<br className="hidden sm:inline" />
               MULTIPLE DIGITAL SOLUTIONS.
             </h2>
 
-            <p className="text-sm sm:text-base text-editorial-secondary font-sans leading-relaxed max-w-xl">
+            <p className="text-xs sm:text-base text-editorial-secondary font-sans leading-relaxed max-w-xl">
               {solutionsOverview.philosophy}
             </p>
 
-            <div className="hidden lg:flex items-center gap-2.5 text-xs font-mono text-accent-orange font-semibold pt-1">
+            <div className="hidden lg:flex items-center gap-2.5 text-xs font-mono text-brand-coral font-semibold pt-1">
               <span>EXPLORE ARCHITECTURE DOMAINS</span>
               <span>→</span>
             </div>
           </div>
 
           {/* ----------------------------------------------------------------------- */}
-          {/* RIGHT HALF: Clipped Viewport with Full-Width Solution Cards (40px/28px) */}
+          {/* RIGHT HALF (DESKTOP) / BOTTOM CARD TRACK (MOBILE)                       */}
           {/* ----------------------------------------------------------------------- */}
           <div className="lg:col-span-6 relative w-full">
-            {/* Outer Container with ~40px corner radius & comfortable inset padding */}
+            {/* Clipped Outer Container */}
             <div
               ref={viewportRef}
-              className="relative w-full h-[520px] sm:h-[540px] lg:h-[560px] xl:h-[600px] overflow-hidden rounded-[36px] sm:rounded-[40px] border border-[#0F2747]/20 bg-[#FFF8EC]/70 backdrop-blur-md shadow-[0_8px_32px_-8px_rgba(15,39,71,0.08)] p-3.5 sm:p-4"
+              className="relative w-full h-[470px] sm:h-[500px] lg:h-[560px] xl:h-[600px] overflow-hidden rounded-[24px] sm:rounded-[36px] lg:rounded-[40px] border border-[#1E1E2E]/20 bg-[#F4F7FA]/70 backdrop-blur-md shadow-[0_8px_32px_-8px_rgba(15,39,71,0.08)] p-3 sm:p-4"
             >
               {/* Continuous Horizontal Flex Track (Full-Width Cards with Gap) */}
               <div
@@ -180,21 +179,21 @@ export function SolutionsOverviewSection() {
                   return (
                     <article
                       key={svc.id}
-                      className={`w-full h-full flex-shrink-0 p-7 sm:p-9 xl:p-10 flex flex-col justify-between rounded-[26px] sm:rounded-[30px] border bg-[#FFF8EC]/95 shadow-sm transition-colors duration-300 ${
-                        !isLast ? "mr-6 sm:mr-8" : ""
+                      className={`w-full h-full flex-shrink-0 p-5 sm:p-8 xl:p-10 flex flex-col justify-between rounded-[18px] sm:rounded-[26px] lg:rounded-[30px] border bg-[#F4F7FA]/95 shadow-sm transition-colors duration-300 ${
+                        !isLast ? "mr-4 sm:mr-6 lg:mr-8" : ""
                       } ${
-                        isActive ? "border-accent-orange/70" : "border-[#0F2747]/15"
+                        isActive ? "border-brand-coral/70" : "border-[#1E1E2E]/15"
                       }`}
                       style={{ width: "100%" }}
                     >
                       {/* Top Metadata & Header Sequence */}
-                      <div className="flex flex-col gap-3.5">
-                        <div className="flex items-center justify-between border-b border-[#0F2747]/15 pb-3">
-                          <div className="flex items-center gap-3">
-                            <span className="font-mono text-sm font-bold text-accent-orange">
+                      <div className="flex flex-col gap-2.5 sm:gap-3.5">
+                        <div className="flex items-center justify-between border-b border-[#1E1E2E]/15 pb-2.5 sm:pb-3">
+                          <div className="flex items-center gap-2.5 sm:gap-3">
+                            <span className="font-mono text-xs sm:text-sm font-bold text-brand-coral">
                               0{idx + 1}
                             </span>
-                            <span className="text-[11px] font-mono uppercase tracking-widest text-editorial-secondary font-medium">
+                            <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-editorial-secondary font-medium">
                               ARCHITECTURE DOMAIN
                             </span>
                           </div>
@@ -202,27 +201,27 @@ export function SolutionsOverviewSection() {
                         </div>
 
                         <div>
-                          <h3 className="text-2xl sm:text-[28px] xl:text-[32px] font-heading font-bold uppercase tracking-tight text-editorial-primary mb-1.5 leading-snug">
+                          <h3 className="text-xl sm:text-[28px] xl:text-[32px] font-heading font-bold uppercase tracking-tight text-editorial-primary mb-1 sm:mb-1.5 leading-snug break-words">
                             {svc.title}
                           </h3>
-                          <p className="text-[14px] sm:text-[15px] xl:text-[15.5px] font-heading font-semibold text-accent-orange mb-2">
+                          <p className="text-xs sm:text-[15px] xl:text-[15.5px] font-heading font-semibold text-brand-coral mb-1.5 sm:mb-2">
                             {svc.tagline}
                           </p>
-                          <p className="text-[13px] sm:text-[13.5px] xl:text-[14px] text-editorial-secondary font-sans leading-relaxed">
+                          <p className="text-xs sm:text-[13.5px] xl:text-[14px] text-editorial-secondary font-sans leading-relaxed">
                             {svc.description}
                           </p>
                         </div>
 
-                        {/* Structured 2-Column Rectangular Service Tiles Grid */}
-                        <div className="pt-2">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                        {/* Structured Rectangular Service Tiles Grid */}
+                        <div className="pt-1.5 sm:pt-2">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2.5">
                             {svc.services.map((tag) => (
                               <div
                                 key={tag}
-                                className="flex items-center gap-2 px-3 py-2 rounded-[4px] bg-[#FFF8EC] border border-[#0F2747]/12 shadow-xs"
+                                className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-[4px] bg-[#F4F7FA] border border-[#1E1E2E]/12 shadow-xs"
                               >
-                                <span className="w-1.5 h-1.5 rounded-full bg-accent-orange/70 shrink-0" />
-                                <span className="text-[11px] sm:text-[11.5px] xl:text-[12px] font-mono text-editorial-primary font-medium leading-tight">
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-coral/70 shrink-0" />
+                                <span className="text-[10px] sm:text-[11.5px] xl:text-[12px] font-mono text-editorial-primary font-medium leading-tight">
                                   {tag}
                                 </span>
                               </div>
@@ -232,13 +231,13 @@ export function SolutionsOverviewSection() {
                       </div>
 
                       {/* Card Bottom CTA Link */}
-                      <div className="pt-4 border-t border-[#0F2747]/15 flex items-center justify-between">
+                      <div className="pt-3 sm:pt-4 border-t border-[#1E1E2E]/15 flex items-center justify-between">
                         <Link
                           href={svc.href}
-                          className="inline-flex items-center gap-2 text-xs xl:text-sm font-heading font-bold uppercase tracking-wider text-editorial-primary hover:text-accent-orange transition-colors duration-200 group"
+                          className="inline-flex min-h-11 items-center gap-2 text-xs xl:text-sm font-heading font-bold uppercase tracking-wider text-editorial-primary hover:text-brand-coral transition-colors duration-200 group py-2"
                         >
                           <span>Explore Architecture</span>
-                          <ArrowUpRight className="w-4 h-4 text-accent-orange transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          <ArrowUpRight className="w-4 h-4 text-brand-coral transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </Link>
                       </div>
                     </article>
@@ -250,10 +249,10 @@ export function SolutionsOverviewSection() {
         </div>
 
         {/* Bottom Progress Bar */}
-        <div className="relative z-20 w-full h-[2px] bg-[#0F2747]/10 mt-6">
+        <div className="relative z-20 w-full h-[2px] bg-[#1E1E2E]/10 mt-4 sm:mt-6">
           <div
             ref={progressBarRef}
-            className="h-full w-full bg-accent-orange origin-left scale-x-0 will-change-transform"
+            className="h-full w-full bg-brand-coral origin-left scale-x-0 will-change-transform"
           />
         </div>
       </div>

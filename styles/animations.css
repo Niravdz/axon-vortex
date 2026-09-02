@@ -10,17 +10,17 @@
   background: rgba(255, 255, 255, 0.75) !important;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(15, 39, 71, 0.12) !important;
+  border: 1px solid rgba(30, 30, 46, 0.12) !important;
   border-radius: 4px;
   position: relative;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px -4px rgba(15, 39, 71, 0.05);
+  box-shadow: 0 4px 20px -4px rgba(30, 30, 46, 0.05);
 }
 
 .editorial-card:hover {
-  border-color: rgba(255, 138, 0, 0.85) !important;
+  border-color: rgba(0, 194, 199, 0.85) !important;
   background: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 16px 36px -8px rgba(15, 39, 71, 0.12);
+  box-shadow: 0 16px 36px -8px rgba(30, 30, 46, 0.12);
 }
 
 .editorial-card .card-hover-accent {
@@ -29,7 +29,7 @@
   left: 0;
   width: 2px;
   height: 0%;
-  background: #FF8A00;
+  background: #00C2C7;
   transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -49,8 +49,8 @@
 .editorial-grid {
   background-size: 60px 60px;
   background-image: 
-    linear-gradient(to right, rgba(15, 39, 71, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 39, 71, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(30, 30, 46, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 30, 46, 0.03) 1px, transparent 1px);
 }
 
 /* Reduced motion */
@@ -63,4 +63,43 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Taxonomy Scroll Story (Unified Two-Column Stage) */
+.taxonomy-story {
+  position: relative;
+  width: 100%;
+}
+
+.taxonomy-story__stage {
+  position: relative;
+  width: 100%;
+}
+
+.taxonomy-story__sticky {
+  position: sticky;
+  top: 80px;
+  height: calc(100svh - 80px);
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 2.2fr);
+  column-gap: clamp(40px, 6vw, 112px);
+  align-items: center;
+  overflow: clip;
+  width: min(100% - 48px, 1500px);
+  margin-inline: auto;
+}
+
+.taxonomy-story__content {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(430px, 62svh, 650px);
+  display: grid;
+  align-content: center;
+  opacity: 1;
+  visibility: visible;
+}
+
+.taxonomy-story__step {
+  min-height: clamp(580px, 78svh, 860px);
 }

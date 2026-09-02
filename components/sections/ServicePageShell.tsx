@@ -28,7 +28,7 @@ export function ServicePageShell({
   ctaText = "Schedule Strategy Session",
 }: ServicePageShellProps) {
   return (
-    <div className="pt-32 pb-24 px-6 md:px-12 flex flex-col gap-24 max-w-7xl mx-auto text-editorial-primary">
+    <div className="pt-8 sm:pt-12 pb-24 px-6 md:px-12 flex flex-col gap-24 max-w-7xl mx-auto text-editorial-primary">
       {/* 1. Hero */}
       <div className="flex flex-col gap-5 max-w-4xl">
         <Badge variant="dot">{category}</Badge>
@@ -62,7 +62,7 @@ export function ServicePageShell({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {problemPoints.map((pt, i) => (
             <div key={i} className="p-6 rounded-sm bg-surface-muted border border-border flex flex-col gap-2">
-              <span className="font-mono text-xs text-accent-orange font-bold">0{i + 1}</span>
+              <span className="font-mono text-xs text-brand-turquoise font-bold">0{i + 1}</span>
               <p className="text-xs sm:text-sm text-editorial-secondary font-sans leading-relaxed">{pt}</p>
             </div>
           ))}
@@ -84,7 +84,7 @@ export function ServicePageShell({
               <div className="card-shift-content flex flex-col justify-between h-full">
                 <div>
                   <div className="flex items-center justify-between text-editorial-muted border-b border-border pb-3 mb-4">
-                    <span className="font-mono text-xs font-bold text-accent-orange">0{i + 1} — DOMAIN</span>
+                    <span className="font-mono text-xs font-bold text-brand-turquoise">0{i + 1} — DOMAIN</span>
                     <Plus className="w-4 h-4 text-editorial-secondary" />
                   </div>
                   <h3 className="text-lg font-heading font-bold text-editorial-primary mb-2">{cap.title}</h3>
@@ -107,7 +107,7 @@ export function ServicePageShell({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {processSteps.map((step, i) => (
             <div key={i} className="p-6 rounded-sm bg-surface border border-border flex flex-col gap-3">
-              <span className="font-mono text-xs text-accent-orange font-bold">{step.step}</span>
+              <span className="font-mono text-xs text-brand-turquoise font-bold">{step.step}</span>
               <h3 className="text-base font-heading font-semibold text-editorial-primary uppercase">{step.title}</h3>
               <p className="text-xs text-editorial-secondary font-sans leading-relaxed">{step.desc}</p>
             </div>

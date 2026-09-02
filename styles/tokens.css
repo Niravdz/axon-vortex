@@ -1,35 +1,44 @@
 :root {
-  /* AxonVortex Canonical Brand Palette */
-  --sand-white: #FFF8EC;
-  --sunrise-orange: #FF8A00;
-  --warm-gold: #F4C430;
-  --deep-slate: #0F2747;
-  --soft-gray: #E9EDF2;
+  /* AxonVortex Official Brand Palette (2026) */
+  --brand-turquoise: #00C2C7;
+  --brand-coral: #FF7A59;
+  --brand-warm-yellow: #FFD28A;
+  --brand-navy: #1E1E2E;
+  --brand-surface: #F4F7FA;
+  --brand-white: #FFFFFF;
 
-  /* Base & Surfaces */
-  --base-bg: #FFF8EC;
-  --bg-primary: #FFF8EC;
-  --bg-secondary: #F6EFE3;
+  /* Surfaces */
+  --base-bg: #FFFFFF;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F4F7FA;
   --bg-surface: #FFFFFF;
-  --bg-surface-muted: rgba(255, 248, 236, 0.85);
+  --bg-surface-muted: #F4F7FA;
 
   /* Foreground & Typography */
-  --text-primary: #0F2747;
-  --text-secondary: #2C3E55;
-  --text-muted: #64748B;
+  --text-primary: #1E1E2E;
+  --text-secondary: #4A4A5A;
+  --text-muted: #6B7280;
 
   /* Borders & Dividers */
-  --border-default: rgba(15, 39, 71, 0.12);
-  --border-subtle: rgba(15, 39, 71, 0.06);
-  --border-bright: #FF8A00;
+  --border-default: rgba(30, 30, 46, 0.12);
+  --border-subtle: rgba(30, 30, 46, 0.06);
+  --border-bright: #00C2C7;
 
-  /* Accents */
-  --accent-orange: #FF8A00;
-  --accent-gold: #F4C430;
+  /* Semantic Accents */
+  --accent-primary: var(--brand-turquoise);
+  --accent-secondary: var(--brand-coral);
+  --accent-warm: var(--brand-warm-yellow);
 
-  /* Strict Single Typography: Poppins */
-  --font-primary: var(--font-primary, 'Poppins', sans-serif);
-  --font-heading: var(--font-primary, 'Poppins', sans-serif);
-  --font-body: var(--font-primary, 'Poppins', sans-serif);
-  --font-mono: var(--font-primary, 'Poppins', sans-serif);
+  /* States */
+  --color-focus: #00C2C7;
+  --color-error: #DC2626;
+  --color-success: #16A34A;
+
+  /* Brand Gradient */
+  --gradient-brand: linear-gradient(90deg, #00C2C7 0%, #2EC4B6 25%, #FFD28A 60%, #FF7A59 100%);
+
+  /* Next/font supplies --font-heading and --font-body on the root html element. */
+  --font-sans: var(--font-body, 'Inter', sans-serif);
+  --font-mono: var(--font-body, 'Inter', sans-serif);
+  --font-primary: var(--font-heading, 'Poppins', sans-serif);
 }

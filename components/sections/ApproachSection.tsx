@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useLayoutEffect, useState } from "react";
-import { Badge } from "@/components/ui/Badge";
+import { SectionMasthead } from "@/components/ui/SectionMasthead";
 import { homeContent } from "@/data/content/home";
 import { getGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
@@ -24,14 +24,8 @@ const STEP_ICONS = [
   TrendingUp,  // 06 MEASURE & IMPROVE
 ];
 
-// Exact waypoint coordinates in the unified SVG track coordinate system (5400 x 640)
-// 01: Circle ABOVE content (x: 450, y: 150)
-// 02: Circle BELOW content (x: 1350, y: 490)
-// 03: Circle ABOVE content (x: 2250, y: 150)
-// 04: Circle BELOW content (x: 3150, y: 490)
-// 05: Circle ABOVE content (x: 4050, y: 150)
-// 06: Circle BELOW content (x: 4950, y: 490)
-const CIRCLE_WAYPOINTS = [
+// Desktop Waypoints (5400 x 640)
+const DESKTOP_WAYPOINTS = [
   { x: 450, y: 150, isCircleAbove: true },
   { x: 1350, y: 490, isCircleAbove: false },
   { x: 2250, y: 150, isCircleAbove: true },
@@ -40,9 +34,8 @@ const CIRCLE_WAYPOINTS = [
   { x: 4950, y: 490, isCircleAbove: false },
 ];
 
-// Smooth, continuous path with EXACTLY ONE simple, softly rounded oval loop per connection (5 loops total)
-// Gentle connecting sweep -> clean modest oval loop -> gentle approach to the next circle
-const FLOWING_FIVE_LOOP_PATH = `
+// Desktop Continuous Horizontal 5-Loop Path
+const DESKTOP_PATH = `
   M 450 150
   C 650 150, 800 240, 880 260
   C 960 280, 960 380, 900 380
@@ -66,30 +59,71 @@ const FLOWING_FIVE_LOOP_PATH = `
   C 4600 320, 4750 490, 4950 490
 `.replace(/\s+/g, " ").trim();
 
+// Mobile Waypoints (380 x 2400)
+const MOBILE_WAYPOINTS = [
+  { x: 70, y: 160, isLeft: true },
+  { x: 310, y: 560, isLeft: false },
+  { x: 70, y: 960, isLeft: true },
+  { x: 310, y: 1360, isLeft: false },
+  { x: 70, y: 1760, isLeft: true },
+  { x: 310, y: 2160, isLeft: false },
+];
+
+// Mobile Continuous Vertical 5-Loop Path (380 x 2400)
+const MOBILE_PATH = `
+  M 70 160
+  C 70 280, 150 320, 180 330
+  C 220 345, 230 385, 190 390
+  C 150 395, 150 355, 190 360
+  C 230 365, 310 440, 310 560
+  C 310 680, 230 720, 200 730
+  C 160 745, 150 785, 190 790
+  C 230 795, 230 755, 190 760
+  C 150 765, 70 840, 70 960
+  C 70 1080, 150 1120, 180 1130
+  C 220 1145, 230 1185, 190 1190
+  C 150 1195, 150 1155, 190 1160
+  C 230 1165, 310 1240, 310 1360
+  C 310 1480, 230 1520, 200 1530
+  C 160 1545, 150 1585, 190 1590
+  C 230 1595, 230 1555, 190 1560
+  C 150 1565, 70 1640, 70 1760
+  C 70 1880, 150 1920, 180 1930
+  C 220 1945, 230 1985, 190 1990
+  C 150 1995, 150 1955, 190 1960
+  C 230 1965, 310 2040, 310 2160
+`.replace(/\s+/g, " ").trim();
+
 export function ApproachSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinContainerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
-  const signalRef = useRef<SVGCircleElement>(null);
+  const desktopPathRef = useRef<SVGPathElement>(null);
+  const desktopSignalRef = useRef<SVGCircleElement>(null);
+  const mobilePathRef = useRef<SVGPathElement>(null);
+  const mobileSignalRef = useRef<SVGCircleElement>(null);
   const [activeStep, setActiveStep] = useState(0);
+  const activeStepRef = useRef(0);
   const prefersReducedMotion = useReducedMotion();
 
   const { howWeWork } = homeContent;
   const steps = howWeWork.steps;
 
   useLayoutEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current || !pinContainerRef.current || !trackRef.current) return;
+    if (prefersReducedMotion || !sectionRef.current) return;
 
     const { gsap } = getGSAP();
     const mm = gsap.matchMedia();
 
+    // -------------------------------------------------------------------------
+    // DESKTOP: Horizontal Pinned S-Curve Journey (≥1024px)
+    // -------------------------------------------------------------------------
     mm.add("(min-width: 1024px)", () => {
       const section = sectionRef.current;
       const pinContainer = pinContainerRef.current;
       const track = trackRef.current;
-      const path = pathRef.current;
-      const signal = signalRef.current;
+      const path = desktopPathRef.current;
+      const signal = desktopSignalRef.current;
 
       if (!section || !pinContainer || !track || !path || !signal) return;
 
@@ -99,10 +133,9 @@ export function ApproachSection() {
         strokeDashoffset: pathLength,
       });
 
-      // Calculate exact distance along the path to each circle waypoint
       const contactDistances: number[] = [];
       const sampleCount = 800;
-      CIRCLE_WAYPOINTS.forEach((circle) => {
+      DESKTOP_WAYPOINTS.forEach((circle) => {
         let minDist = Infinity;
         let bestLength = 0;
         for (let s = 0; s <= sampleCount; s++) {
@@ -116,74 +149,143 @@ export function ApproachSection() {
         }
         contactDistances.push(bestLength);
       });
-
-      // Ensure first waypoint starts at 0
       contactDistances[0] = 0;
 
-      // Place initial leading dot at start
       const startPt = path.getPointAtLength(0);
       gsap.set(signal, { cx: startPt.x, cy: startPt.y });
 
       const maxScrollX = track.scrollWidth - window.innerWidth + 160;
+      const drawDuration = 1.0;
+      const finalHold = 0.25;
+      const totalTimelineDuration = drawDuration + finalHold;
 
-      // Master ScrollTrigger timeline mapping scroll strictly to cumulative arc length
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${maxScrollX + 900}`,
+          end: () => `+=${maxScrollX + 750}`,
           pin: pinContainer,
           pinSpacing: true,
-          scrub: 0.3,
+          scrub: 0.25, // Snappy response (zero lag drift)
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            const currentDist = self.progress * pathLength;
-            
-            // 1. Advance strokeDashoffset based on master distance
+            const masterProgress = Math.min(1, self.progress / (drawDuration / totalTimelineDuration));
+            const currentDist = masterProgress * pathLength;
+
             gsap.set(path, { strokeDashoffset: pathLength - currentDist });
 
-            // 2. Position clean leading dot at exact physical tip
             const pt = path.getPointAtLength(currentDist);
             signal.setAttribute("cx", pt.x.toString());
             signal.setAttribute("cy", pt.y.toString());
 
-            // 3. Determine active step based strictly on physical contact with the circle
             let currentActive = 0;
             for (let i = 0; i < contactDistances.length; i++) {
               if (currentDist >= contactDistances[i] - 16) {
                 currentActive = i;
               }
             }
-            setActiveStep(currentActive);
+            if (currentActive !== activeStepRef.current) {
+              activeStepRef.current = currentActive;
+              setActiveStep(currentActive);
+            }
           },
         },
       });
 
-      // Synchronized Linear Horizontal Track Movement
+      // Synchronized Track Translation
       tl.to(
         track,
         {
           x: () => -maxScrollX,
           ease: "none",
-          duration: 1.0,
+          duration: drawDuration,
         },
         0
       );
+
+      // Final hold buffer before releasing cleanly into Philosophy & Footer
+      tl.to({}, { duration: finalHold }, drawDuration);
 
       return () => {
         tl.kill();
       };
     });
 
+    // -------------------------------------------------------------------------
+    // MOBILE: Vertical Connected-Line Journey (<1024px)
+    // -------------------------------------------------------------------------
     mm.add("(max-width: 1023px)", () => {
-      if (trackRef.current) gsap.set(trackRef.current, { clearProps: "all" });
+      const section = sectionRef.current;
+      const path = mobilePathRef.current;
+      const signal = mobileSignalRef.current;
+
+      if (!section || !path || !signal) return;
+
+      const pathLength = path.getTotalLength();
+      gsap.set(path, {
+        strokeDasharray: pathLength,
+        strokeDashoffset: pathLength,
+      });
+
+      const contactDistances: number[] = [];
+      const sampleCount = 600;
+      MOBILE_WAYPOINTS.forEach((circle) => {
+        let minDist = Infinity;
+        let bestLength = 0;
+        for (let s = 0; s <= sampleCount; s++) {
+          const l = (s / sampleCount) * pathLength;
+          const pt = path.getPointAtLength(l);
+          const distSq = (pt.x - circle.x) ** 2 + (pt.y - circle.y) ** 2;
+          if (distSq < minDist) {
+            minDist = distSq;
+            bestLength = l;
+          }
+        }
+        contactDistances.push(bestLength);
+      });
+      contactDistances[0] = 0;
+
+      const startPt = path.getPointAtLength(0);
+      gsap.set(signal, { cx: startPt.x, cy: startPt.y });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 60%",
+          end: "bottom 80%",
+          scrub: 0.25,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const currentDist = self.progress * pathLength;
+            gsap.set(path, { strokeDashoffset: pathLength - currentDist });
+
+            const pt = path.getPointAtLength(currentDist);
+            signal.setAttribute("cx", pt.x.toString());
+            signal.setAttribute("cy", pt.y.toString());
+
+            let currentActive = 0;
+            for (let i = 0; i < contactDistances.length; i++) {
+              if (currentDist >= contactDistances[i] - 12) {
+                currentActive = i;
+              }
+            }
+            if (currentActive !== activeStepRef.current) {
+              activeStepRef.current = currentActive;
+              setActiveStep(currentActive);
+            }
+          },
+        },
+      });
+
+      return () => {
+        tl.kill();
+      };
     });
 
     return () => mm.revert();
   }, [prefersReducedMotion, steps.length]);
 
-  // Handler to smoothly scroll to a specific phase
   const handleStepClick = (index: number) => {
     if (!sectionRef.current) return;
     const { ScrollTrigger } = getGSAP();
@@ -202,49 +304,48 @@ export function ApproachSection() {
       className="relative w-full bg-transparent text-editorial-primary border-t border-border"
       style={{ isolation: "isolate" }}
     >
-      {/* Pinned Desktop Viewport Stage */}
+      {/* Container */}
       <div
         ref={pinContainerRef}
-        className="w-full lg:h-screen flex flex-col justify-between py-8 lg:py-12 overflow-hidden"
+        className="w-full lg:h-screen flex flex-col justify-between py-6 sm:py-8 lg:py-12 overflow-hidden"
       >
-        {/* Stationary Top Section Header HUD with Step Navigation */}
-        <div className="relative z-30 max-w-7xl mx-auto w-full px-6 md:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-3.5 mb-2">
-          <div className="flex items-center gap-3">
-            <Badge variant="code">{howWeWork.badge}</Badge>
-            <span className="text-[11px] font-mono text-editorial-secondary uppercase tracking-widest">
-              {howWeWork.headline}
-            </span>
-          </div>
+        {/* Top Header Masthead with Step Navigation */}
+        <div className="relative z-30 max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 flex flex-col gap-3 mb-2">
+          <SectionMasthead
+            badge={howWeWork.badge}
+            descriptor={howWeWork.headline}
+            rightLabel={`PHASE 0${activeStep + 1} OF 06`}
+          >
+            {/* Interactive 6-Step Progress Navigation */}
+            <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto py-1" role="tablist" aria-label="Process Journey Phases">
+              {steps.map((st, idx) => {
+                const isActive = activeStep === idx;
+                const isCompleted = activeStep > idx;
 
-          {/* Interactive 6-Step Progress Navigation */}
-          <div className="flex items-center gap-2 sm:gap-4" role="tablist" aria-label="Process Journey Phases">
-            {steps.map((st, idx) => {
-              const isActive = activeStep === idx;
-              const isCompleted = activeStep > idx;
-
-              return (
-                <button
-                  key={st.step}
-                  onClick={() => handleStepClick(idx)}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono transition-all duration-300 ${
-                    isActive
-                      ? "bg-accent-orange text-white font-bold shadow-[0_0_16px_rgba(255,138,0,0.4)] scale-105"
-                      : isCompleted
-                      ? "bg-editorial-primary/10 text-editorial-primary font-semibold hover:bg-editorial-primary/20"
-                      : "text-editorial-muted hover:text-editorial-primary"
-                  }`}
-                  aria-label={`Jump to Phase ${st.step}: ${st.title}`}
-                  role="tab"
-                  aria-selected={isActive}
-                >
-                  <span>{isCompleted ? "✓" : `0${idx + 1}`}</span>
-                  <span className="hidden md:inline uppercase text-[10px] tracking-wider">
-                    {st.title.split(" ")[0]}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+                return (
+                  <button
+                    key={st.step}
+                    onClick={() => handleStepClick(idx)}
+                    className={`flex min-w-11 min-h-11 items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono transition-all duration-300 ${
+                      isActive
+                        ? "bg-brand-coral text-brand-navy font-bold shadow-xs scale-105"
+                        : isCompleted
+                        ? "bg-brand-turquoise/10 text-brand-turquoise font-semibold hover:bg-brand-turquoise/20"
+                        : "text-editorial-muted hover:text-editorial-primary"
+                    }`}
+                    aria-label={`Jump to Phase ${st.step}: ${st.title}`}
+                    role="tab"
+                    aria-selected={isActive}
+                  >
+                    <span>{isCompleted ? "✓" : `0${idx + 1}`}</span>
+                    <span className="hidden md:inline uppercase text-[10px] tracking-wider">
+                      {st.title.split(" ")[0]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </SectionMasthead>
         </div>
 
         {/* ========================================================================= */}
@@ -256,88 +357,87 @@ export function ApproachSection() {
             className="relative h-[640px] will-change-transform"
             style={{ width: "5400px" }}
           >
-            {/* Unified SVG Canvas for Line, Milestones, and Text Exclusions */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-auto"
               viewBox="0 0 5400 640"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* 1. Background Reference Path (Muted Preview Route) */}
+              <defs>
+                <linearGradient id="desktopPathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="var(--brand-turquoise)" />
+                  <stop offset="100%" stopColor="var(--brand-coral)" />
+                </linearGradient>
+              </defs>
+              {/* Reference Path */}
               <path
-                d={FLOWING_FIVE_LOOP_PATH}
-                stroke="#0F2747"
+                d={DESKTOP_PATH}
+                stroke="#1E1E2E"
                 strokeOpacity="0.10"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeDasharray="4 6"
               />
 
-              {/* 2. Foreground Progressive Line (Deep Slate #0F2747) */}
+              {/* Progressive Deep Slate Line */}
               <path
-                ref={pathRef}
-                d={FLOWING_FIVE_LOOP_PATH}
-                stroke="#0F2747"
+                ref={desktopPathRef}
+                d={DESKTOP_PATH}
+                stroke="url(#desktopPathGradient)"
                 strokeWidth="3.5"
                 strokeLinecap="round"
               />
 
-              {/* 3. Small Clean Leading Explorer Dot at the Drawing Tip */}
+              {/* Leading Tip Explorer Dot */}
               <circle
-                ref={signalRef}
+                ref={desktopSignalRef}
                 r="6.5"
-                fill="#FF8A00"
-                stroke="#FFF8EC"
+                fill="var(--brand-coral)"
+                stroke="#F4F7FA"
                 strokeWidth="2"
               />
 
-              {/* 4. Render All Six Milestones & Text in the Exact Same SVG Grid */}
+              {/* Six Desktop Milestones */}
               {steps.map((step, idx) => {
                 const IconComponent = STEP_ICONS[idx % STEP_ICONS.length];
-                const waypoint = CIRCLE_WAYPOINTS[idx];
+                const waypoint = DESKTOP_WAYPOINTS[idx];
                 const isCircleAbove = waypoint.isCircleAbove;
                 const isActive = activeStep === idx;
                 const isCompleted = activeStep >= idx;
 
                 return (
                   <g key={step.step} className="select-none">
-                    {/* A. MANDATORY WAYPOINT CIRCLE (Exact Center at waypoint.x, waypoint.y) */}
                     <g
                       transform={`translate(${waypoint.x}, ${waypoint.y})`}
                       className="cursor-pointer"
                       onClick={() => handleStepClick(idx)}
                     >
-                      {/* Solid Sand White Circle (Masks underlying SVG path completely) */}
                       <circle
                         r="38"
-                        fill="#FFF8EC"
-                        stroke={isActive ? "#FF8A00" : isCompleted ? "#0F2747" : "rgba(15,39,71,0.25)"}
+                        fill="#F4F7FA"
+                        stroke={isActive ? "var(--brand-coral)" : isCompleted ? "var(--brand-turquoise)" : "rgba(15,39,71,0.25)"}
                         strokeWidth="3.5"
                         filter="drop-shadow(0 0 14px rgba(15,39,71,0.08))"
                         className="transition-colors duration-300"
                       />
-
-                      {/* Icon inside Circle */}
                       <foreignObject x="-18" y="-18" width="36" height="36" className="pointer-events-none">
                         <div className="w-full h-full flex items-center justify-center">
                           <IconComponent
                             className={`w-6 h-6 transition-colors duration-300 ${
-                              isActive ? "text-accent-orange" : isCompleted ? "text-editorial-primary" : "text-editorial-muted"
+                              isActive ? "text-brand-turquoise" : isCompleted ? "text-editorial-primary" : "text-editorial-muted"
                             }`}
                           />
                         </div>
                       </foreignObject>
-
-                      {/* Step Number Tag Badge */}
                       <foreignObject x="-24" y="24" width="48" height="26" className="pointer-events-none">
                         <div className="w-full h-full flex items-center justify-center">
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border transition-colors duration-300 ${
                               isActive
-                                ? "bg-accent-orange text-white border-accent-orange"
+                                ? "bg-brand-coral text-brand-navy border-brand-coral"
                                 : isCompleted
-                                ? "bg-editorial-primary text-white border-editorial-primary"
-                                : "bg-[#FFF8EC] text-editorial-muted border-[rgba(15,39,71,0.20)]"
+                                ? "bg-brand-turquoise text-white border-brand-turquoise"
+                                : "bg-[#F4F7FA] text-editorial-muted border-[rgba(15,39,71,0.20)]"
                             }`}
                           >
                             {step.step}
@@ -346,7 +446,6 @@ export function ApproachSection() {
                       </foreignObject>
                     </g>
 
-                    {/* B. DEDICATED TOPIC CONTENT IN SAFE EXCLUSION ZONE (Never Touched by Path) */}
                     <foreignObject
                       x={waypoint.x - 220}
                       y={isCircleAbove ? waypoint.y + 54 : waypoint.y - 230}
@@ -365,7 +464,7 @@ export function ApproachSection() {
                       >
                         <span
                           className={`text-[11px] font-mono uppercase tracking-widest font-semibold mb-1.5 transition-colors duration-300 ${
-                            isActive ? "text-accent-orange" : isCompleted ? "text-editorial-primary" : "text-editorial-muted"
+                            isActive ? "text-brand-coral" : isCompleted ? "text-brand-turquoise" : "text-editorial-muted"
                           }`}
                         >
                           {`PHASE 0${idx + 1} // MILESTONE`}
@@ -396,51 +495,154 @@ export function ApproachSection() {
         </div>
 
         {/* ========================================================================= */}
-        {/* MOBILE & TABLET: Vertical Connected Process Timeline with Alternating Nodes */}
+        {/* MOBILE & TABLET: Vertical Connected-Line Journey with 5 Loops (380 x 2400)*/}
         {/* ========================================================================= */}
-        <div className="lg:hidden max-w-7xl mx-auto w-full px-6 py-8 flex flex-col gap-10">
-          {steps.map((step, idx) => {
-            const IconComponent = STEP_ICONS[idx % STEP_ICONS.length];
-            const isCircleAbove = idx % 2 === 0;
+        <div className="lg:hidden relative w-full max-w-md mx-auto px-4 py-8">
+          <div className="relative w-full h-[2400px]">
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-auto"
+              viewBox="0 0 380 2400"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="mobilePathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="var(--brand-turquoise)" />
+                  <stop offset="100%" stopColor="var(--brand-coral)" />
+                </linearGradient>
+              </defs>
+              {/* Reference Dashed Route */}
+              <path
+                d={MOBILE_PATH}
+                stroke="#1E1E2E"
+                strokeOpacity="0.12"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeDasharray="4 6"
+              />
 
-            return (
-              <div
-                key={step.step}
-                className="relative flex flex-col items-center text-center gap-4 bg-[#FFF8EC]/95 border border-[rgba(15,39,71,0.12)] rounded-[28px] p-6 shadow-sm"
-              >
-                {/* Circle (Above or Below in Mobile Card) */}
-                <div
-                  className={`w-14 h-14 rounded-full bg-[#FFF8EC] border-2 border-accent-orange flex items-center justify-center shrink-0 shadow-sm text-accent-orange ${
-                    isCircleAbove ? "order-1" : "order-2"
-                  }`}
-                >
-                  <IconComponent className="w-6 h-6" />
-                </div>
+              {/* Foreground Progressive Deep Slate Line */}
+              <path
+                ref={mobilePathRef}
+                d={MOBILE_PATH}
+                stroke="url(#mobilePathGradient)"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+              />
 
-                {/* Topic Heading and Description */}
-                <div className={isCircleAbove ? "order-2" : "order-1"}>
-                  <span className="text-xs font-mono font-bold text-accent-orange tracking-wider block mb-1">
-                    PHASE {step.step}
-                  </span>
-                  <h3 className="text-2xl font-heading font-bold uppercase tracking-tight text-editorial-primary leading-tight mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-editorial-secondary font-sans leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              {/* Leading Tip Explorer Dot */}
+              <circle
+                ref={mobileSignalRef}
+                r="6.5"
+                fill="var(--brand-coral)"
+                stroke="#FFFFFF"
+                strokeWidth="2"
+              />
+
+              {/* Six Mobile Milestones & Cards in Shared SVG Coordinate System */}
+              {steps.map((step, idx) => {
+                const IconComponent = STEP_ICONS[idx % STEP_ICONS.length];
+                const waypoint = MOBILE_WAYPOINTS[idx];
+                const isLeft = waypoint.isLeft;
+                const isActive = activeStep === idx;
+                const isCompleted = activeStep >= idx;
+
+                return (
+                  <g key={step.step} className="select-none">
+                    {/* Circle Node */}
+                    <g
+                      transform={`translate(${waypoint.x}, ${waypoint.y})`}
+                      className="cursor-pointer"
+                      onClick={() => handleStepClick(idx)}
+                    >
+                      <circle
+                        r="32"
+                        fill="#FFFFFF"
+                        stroke={isActive ? "var(--brand-coral)" : isCompleted ? "var(--brand-turquoise)" : "rgba(15,39,71,0.25)"}
+                        strokeWidth="3"
+                        filter="drop-shadow(0 0 12px rgba(15,39,71,0.08))"
+                        className="transition-colors duration-300"
+                      />
+                      <foreignObject x="-14" y="-14" width="28" height="28" className="pointer-events-none">
+                        <div className="w-full h-full flex items-center justify-center">
+                          <IconComponent
+                            className={`w-5 h-5 transition-colors duration-300 ${
+                              isActive ? "text-brand-turquoise" : isCompleted ? "text-editorial-primary" : "text-editorial-muted"
+                            }`}
+                          />
+                        </div>
+                      </foreignObject>
+                      <foreignObject x="-20" y="20" width="40" height="22" className="pointer-events-none">
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span
+                            className={`px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold border transition-colors duration-300 ${
+                              isActive
+                                ? "bg-brand-coral text-brand-navy border-brand-coral"
+                                : isCompleted
+                                ? "bg-brand-turquoise text-white border-brand-turquoise"
+                                : "bg-[#FFFFFF] text-editorial-muted border-[rgba(15,39,71,0.20)]"
+                            }`}
+                          >
+                            {step.step}
+                          </span>
+                        </div>
+                      </foreignObject>
+                    </g>
+
+                    {/* Topic Content Card alongside circle */}
+                    <foreignObject
+                      x={isLeft ? 120 : 16}
+                      y={waypoint.y - 60}
+                      width="240"
+                      height="170"
+                      className="pointer-events-none"
+                    >
+                      <div
+                        className={`w-full p-4 rounded-xl bg-white/90 border transition-all duration-300 shadow-xs ${
+                          isActive
+                            ? "border-brand-turquoise/80 opacity-100 scale-[1.02]"
+                            : isCompleted
+                            ? "border-[#1E1E2E]/20 opacity-90"
+                            : "border-[#1E1E2E]/10 opacity-50"
+                        }`}
+                      >
+                        <span
+                          className={`text-[9px] font-mono uppercase tracking-widest font-bold block mb-1 ${
+                            isActive ? "text-brand-coral" : isCompleted ? "text-brand-turquoise" : "text-editorial-muted"
+                          }`}
+                        >
+                          {`PHASE 0${idx + 1}`}
+                        </span>
+                        <h4
+                          className={`text-base font-heading font-bold uppercase tracking-tight leading-snug mb-1.5 ${
+                            isActive || isCompleted ? "text-editorial-primary" : "text-editorial-secondary"
+                          }`}
+                        >
+                          {step.title}
+                        </h4>
+                        <p
+                          className={`text-xs font-sans leading-relaxed ${
+                            isActive || isCompleted ? "text-editorial-secondary font-medium" : "text-editorial-muted"
+                          }`}
+                        >
+                          {step.description}
+                        </p>
+                      </div>
+                    </foreignObject>
+                  </g>
+                );
+              })}
+            </svg>
+          </div>
         </div>
 
         {/* Stationary Bottom HUD Bar */}
-        <div className="relative z-30 max-w-7xl mx-auto w-full px-6 md:px-12 flex items-center justify-between border-t border-border pt-3.5 text-xs font-mono text-editorial-muted">
-          <span className="text-[10px] uppercase tracking-widest text-editorial-secondary font-medium">
+        <div className="relative z-30 max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 flex items-center justify-between border-t border-border pt-3 text-xs font-mono text-editorial-muted">
+          <span className="text-[10px] uppercase tracking-widest text-editorial-secondary font-medium truncate">
             {howWeWork.conclusion}
           </span>
-          <span className="text-[10px] uppercase tracking-widest text-accent-orange font-bold">
-            PROGRESS // PHASE 0{activeStep + 1} OF 06
+          <span className="text-[10px] uppercase tracking-widest text-brand-coral font-bold shrink-0">
+            PHASE 0{activeStep + 1} OF 06
           </span>
         </div>
       </div>

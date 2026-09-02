@@ -95,36 +95,42 @@ void main() {
   float s2 = 0.5 + 0.5 * sin(p2.x * 1.8 - p2.y * 2.2 - t * 0.52 + 1.2);
   float s3 = 0.5 + 0.5 * cos(p1.x * 2.5 + p2.y * 1.4 + t * 0.70 + 2.4);
 
-  // --- CANONICAL BRAND COLORS ---
-  vec3 colSandWhite = vec3(1.0, 0.973, 0.925);      // #FFF8EC
-  vec3 colOrange    = vec3(1.0, 0.541, 0.0);        // #FF8A00 (Sunrise Orange)
-  vec3 colGold      = vec3(0.957, 0.769, 0.188);    // #F4C430 (Warm Amber Gold)
-  vec3 colDeepSlate = vec3(0.059, 0.153, 0.278);    // #0F2747 (Deep Slate Blue)
+  // --- OFFICIAL BRAND COLORS & PURE WHITE BASE ---
+  vec3 colBaseWhite  = vec3(1.0, 1.0, 1.0);          // #FFFFFF (Pure White Base)
+  vec3 colTurquoise  = vec3(0.0, 0.761, 0.780);      // #00C2C7 (10% Turquoise Accent)
+  vec3 colCoral      = vec3(1.0, 0.478, 0.349);      // #FF7A59 (Primary Coral)
+  vec3 colYellow     = vec3(1.0, 0.824, 0.541);      // #FFD28A (Secondary Warm Yellow)
 
-  // --- REFINED COLOR BLENDING (No Mud, Controlled Highlights) ---
-  float wOrange = smoothstep(0.20, 0.80, s1 * 0.70 + s3 * 0.40);
-  float wGold   = smoothstep(0.22, 0.82, s2 * 0.75 + (1.0 - s3) * 0.30) * 0.88; // Controlled gold luminescence
-  float wBlue   = smoothstep(0.20, 0.85, (1.0 - s1) * 0.65 + s3 * 0.35 + 0.10 * sin(t * 0.4 + p2.y));
+  // --- REFINED COLOR BLENDING (Coral Dominant, Yellow Transition, Turquoise Accent) ---
+  float wCoral     = smoothstep(0.05, 0.85, s1 * 0.55 + s2 * 0.45) * 1.2;
+  float wYellow    = smoothstep(0.30, 0.85, (1.0 - s1) * 0.60 + s3 * 0.40) * 0.6;
+  // A narrow independent stream: visible turquoise over roughly 10% of the field.
+  float turquoiseField = s2 * 0.35 + s3 * 0.65;
+  float turquoiseAccent = smoothstep(0.82, 0.94, turquoiseField);
 
-  float totalW = wOrange + wGold + wBlue + 0.0001;
-  vec3 liquidColor = (wOrange * colOrange + wGold * colGold + wBlue * colDeepSlate) / totalW;
+  float totalW = wCoral + wYellow + 0.0001;
+  vec3 warmLiquidColor = (wCoral * colCoral + wYellow * colYellow) / totalW;
+  // The accent is chromatically clear inside its small footprint, rather than
+  // being diluted into coral everywhere and becoming visually imperceptible.
+  vec3 liquidColor = mix(warmLiquidColor, colTurquoise, turquoiseAccent * 0.72);
 
   // --- SUBTLE TONAL DEPTH WITHIN LIQUID FIELD ---
   float streamDepth = smoothstep(0.15, 0.85, s1 * 0.6 + s2 * 0.4);
   liquidColor = mix(liquidColor * 0.94, liquidColor * 1.03, streamDepth);
 
   // --- OVERALL LIQUID FORMATION DENSITY ---
-  float fluidDensity = smoothstep(0.12, 0.78, s1 * 0.50 + s2 * 0.35 + s3 * 0.35);
+  float fluidDensity = smoothstep(0.05, 0.85, s1 * 0.50 + s2 * 0.40 + s3 * 0.30);
 
-  // --- ASYMMETRICAL SPATIAL ENVELOPE (Preserves Left ~50% Sand White Base) ---
-  float spatialEnv = smoothstep(-0.80, 0.50, p.x + 0.30 * sin(p.y * 1.3 + t * 0.40));
+  // --- ASYMMETRICAL SPATIAL ENVELOPE (Positioned across center and major visible area) ---
+  float spatialEnv = smoothstep(-1.20, 0.20, p.x + 0.40 * sin(p.y * 1.2 + t * 0.40));
   float liquidMask = clamp(fluidDensity * spatialEnv, 0.0, 1.0);
 
-  // Preserved approved 20% increased opacity (0.552 intensity)
-  float intensity = 0.552;
+  // --- DYNAMIC OPACITY INTENSITY ---
+  // Preserve the warm field density; only the narrow accent stream changes hue.
+  float dynamicIntensity = (wCoral * 0.42 + wYellow * 0.25) / totalW;
 
-  // Soft frosted blend into solid Sand White base
-  vec3 finalColor = mix(colSandWhite, liquidColor, liquidMask * intensity);
+  // Soft frosted blend into pure white #FFFFFF base
+  vec3 finalColor = mix(colBaseWhite, liquidColor, liquidMask * dynamicIntensity);
 
   gl_FragColor = vec4(finalColor, 1.0);
 }
@@ -187,11 +193,11 @@ export function AnimatedAxonBackground() {
       gl.ARRAY_BUFFER,
       new Float32Array([
         -1.0, -1.0,
-         1.0, -1.0,
-        -1.0,  1.0,
-        -1.0,  1.0,
-         1.0, -1.0,
-         1.0,  1.0,
+        1.0, -1.0,
+        -1.0, 1.0,
+        -1.0, 1.0,
+        1.0, -1.0,
+        1.0, 1.0,
       ]),
       gl.STATIC_DRAW
     );
@@ -209,9 +215,10 @@ export function AnimatedAxonBackground() {
     let startTime = performance.now();
     let isPaused = false;
 
-    // Handle high-DPI resize
+    // Handle high-DPI resize & orientation change
     const handleResize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const isMobile = window.innerWidth < 768;
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.0 : 1.5);
       const displayWidth = Math.floor(window.innerWidth * dpr);
       const displayHeight = Math.floor(window.innerHeight * dpr);
 
@@ -224,6 +231,7 @@ export function AnimatedAxonBackground() {
 
     handleResize();
     window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("orientationchange", handleResize, { passive: true });
 
     // Handle visibility changes to pause rendering in hidden tabs
     const handleVisibilityChange = () => {
@@ -260,6 +268,7 @@ export function AnimatedAxonBackground() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (positionBuffer) gl.deleteBuffer(positionBuffer);
       if (vertShader) gl.deleteShader(vertShader);
@@ -273,10 +282,10 @@ export function AnimatedAxonBackground() {
       ref={containerRef}
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
-      style={{ backgroundColor: "#FFF8EC" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
-      {/* 1. Underlying Base Sand White Surface */}
-      <div className="absolute inset-0 bg-[#FFF8EC]" />
+      {/* 1. Underlying Base Pure White Surface */}
+      <div className="absolute inset-0 bg-[#FFFFFF]" />
 
       {/* 2. Fullscreen Dynamic Procedural Liquid Shader (Frosted Glass Diffusion, Refined Highlights) */}
       <canvas
@@ -294,7 +303,7 @@ export function AnimatedAxonBackground() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(90deg, rgba(255, 248, 236, 0.60) 0%, rgba(255, 248, 236, 0.15) 45%, rgba(255, 248, 236, 0.0) 80%)",
+            "linear-gradient(90deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.15) 45%, rgba(255, 255, 255, 0.0) 80%)",
         }}
       />
     </div>
