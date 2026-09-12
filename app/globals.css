@@ -1,5 +1,6 @@
 @import '../styles/tokens.css';
 @import '../styles/animations.css';
+@import 'lenis/dist/lenis.css';
 
 @tailwind base;
 @tailwind components;
@@ -32,7 +33,7 @@
   h5,
   h6 {
     font-family: var(--font-heading), 'Poppins', sans-serif;
-    font-weight: 700 !important;
+    font-weight: 700;
   }
 
   .font-heading,
@@ -51,17 +52,15 @@
 
   html {
     background-color: #FFFFFF;
-    color: #1E1E2E;
+    color: #090909;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* `hidden` creates a scroll container and breaks descendant sticky layouts. */
-    overflow-x: clip;
   }
 
   body {
     background-color: #FFFFFF;
-    color: #1E1E2E;
+    color: #090909;
     overflow-x: clip;
     min-height: 100vh;
     position: relative;
@@ -69,24 +68,74 @@
   }
 
   ::selection {
-    background: #00C2C7;
+    background: #F23B32;
     color: #FFFFFF;
   }
 
-  /* Thin minimal scrollbar */
+  /* Architectural technical scrollbar */
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #FFFFFF;
+    background: #E9EDF2;
+    border-left: 2px solid #090909;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(30, 30, 46, 0.2);
-    border-radius: 4px;
+    background: #090909;
+    border-radius: 0px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #00C2C7;
+    background: #F23B32;
   }
+}
+
+/* Bauhaus Grid Utilities & Helper Classes */
+.bauhaus-grid-bg {
+  background-image: 
+    linear-gradient(#09090912 1px, transparent 1px),
+    linear-gradient(90deg, #09090912 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bauhaus-dots-bg {
+  background-image: radial-gradient(#09090920 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+.hard-shadow {
+  box-shadow: 4px 4px 0px 0px #090909;
+}
+
+.hard-shadow-sm {
+  box-shadow: 2px 2px 0px 0px #090909;
+}
+
+.hard-shadow-lg {
+  box-shadow: 6px 6px 0px 0px #090909;
+}
+
+.hard-shadow-hover {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.hard-shadow-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #090909;
+}
+
+.hard-shadow-hover:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #090909;
+}
+
+/* Mechanical Button Press */
+.btn-press {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.btn-press:active {
+  transform: translate(2px, 2px);
+  box-shadow: none !important;
 }
 
 /* Lenis CSS integration */

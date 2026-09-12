@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "./Magnetic";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "yellow" | "outline" | "dark" | "ghost";
   size?: "sm" | "md" | "lg";
   withArrow?: boolean;
   magnetic?: boolean;
@@ -26,52 +27,76 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "group relative inline-flex items-center justify-center font-heading font-semibold uppercase tracking-widest text-[11px] select-none rounded-sm transition-all duration-300 overflow-hidden";
+    "group relative inline-flex items-center justify-center font-heading font-bold uppercase tracking-wider select-none rounded-none transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F23B32] focus-visible:ring-offset-2 hover:-translate-x-0.5 hover:-translate-y-0.5";
 
   const sizeStyles = {
-    sm: "px-5 py-2.5 gap-2",
-    md: "px-6 py-3.5 gap-2.5",
-    lg: "px-8 py-4.5 gap-3",
+    sm: "text-xs px-4 py-2 gap-2",
+    md: "text-xs md:text-sm px-6 py-3.5 gap-2.5",
+    lg: "text-sm md:text-base px-8 py-4 gap-3",
   };
 
   const variantStyles = {
     primary:
-      "bg-brand-coral text-brand-navy border border-brand-coral hover:bg-brand-navy hover:border-brand-navy hover:text-white shadow-sm",
+      "bg-[#F23B32] text-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909] hover:bg-[#d92c24] hover:shadow-[6px_6px_0px_0px_#090909] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#090909]",
     secondary:
-      "bg-white/80 backdrop-blur-sm text-brand-navy border border-border hover:border-brand-turquoise hover:bg-white hover:text-brand-turquoise",
+      "bg-[#2F5FA7] text-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909] hover:bg-[#244d87] hover:shadow-[6px_6px_0px_0px_#090909] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#090909]",
+    yellow:
+      "bg-[#FFD447] text-[#090909] border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909] hover:bg-[#f5c633] hover:shadow-[6px_6px_0px_0px_#090909] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#090909]",
     outline:
-      "bg-transparent text-brand-navy border border-brand-navy hover:border-brand-turquoise hover:bg-brand-turquoise hover:text-white",
+      "bg-white text-[#090909] border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909] hover:bg-[#E9EDF2] hover:shadow-[6px_6px_0px_0px_#090909] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#090909]",
+    dark:
+      "bg-[#0F2747] text-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909] hover:bg-[#090909] hover:shadow-[6px_6px_0px_0px_#090909] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#090909]",
     ghost:
-      "text-editorial-secondary hover:text-brand-turquoise border-none p-0 bg-transparent tracking-normal capitalize font-sans text-xs",
+      "bg-transparent text-[#090909] border-b-2 border-[#090909] hover:text-[#F23B32] hover:border-[#F23B32] p-0 tracking-widest hover:translate-x-0.5",
   };
 
   const content = (
-    <span className="relative z-10 flex items-center gap-2">
-      <span>{children}</span>
+    <>
+      <span className="relative z-10">{children}</span>
       {withArrow && (
-        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <ArrowUpRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-focus-visible:translate-x-1 shrink-0" />
       )}
-    </span>
+    </>
   );
 
-  const buttonElement = asLink && href ? (
-    <a
-      href={href}
-      className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
-    >
-      {content}
-    </a>
-  ) : (
-    <button
-      className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
-      {...props}
-    >
-      {content}
-    </button>
-  );
+  let buttonElement: React.ReactNode;
+
+  if (asLink && href) {
+    const isInternal = href.startsWith("/") || href.startsWith("#");
+    if (isInternal) {
+      buttonElement = (
+        <Link
+          href={href}
+          className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
+        >
+          {content}
+        </Link>
+      );
+    } else {
+      buttonElement = (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
+        >
+          {content}
+        </a>
+      );
+    }
+  } else {
+    buttonElement = (
+      <button
+        className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
+        {...props}
+      >
+        {content}
+      </button>
+    );
+  }
 
   if (magnetic) {
-    return <Magnetic strength={0.25}>{buttonElement}</Magnetic>;
+    return <Magnetic strength={0.2}>{buttonElement as React.ReactElement<{ className?: string }>}</Magnetic>;
   }
 
   return buttonElement;

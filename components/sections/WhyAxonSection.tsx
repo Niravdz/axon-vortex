@@ -1,127 +1,126 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
 import { homeContent } from "@/data/content/home";
-import { getGSAP } from "@/lib/gsap";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { getGSAP } from "@/lib/gsap";
 
 export function WhyAxonSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
   const { whyAxon } = homeContent;
 
   useLayoutEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current || !cardsRef.current) return;
+    if (prefersReducedMotion || !containerRef.current) return;
 
     const { gsap } = getGSAP();
-    const cards = cardsRef.current.querySelectorAll(".why-editorial-card");
-
     const ctx = gsap.context(() => {
+      // Manifesto left-side reveal
       gsap.fromTo(
-        cards,
-        { autoAlpha: 0, y: 25 },
+        "[data-manifesto-left]",
+        { opacity: 0, y: 24 },
         {
-          autoAlpha: 1,
+          opacity: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: "power2.out",
+          duration: 0.65,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
           scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
+            trigger: containerRef.current,
+            start: "top 75%",
+            once: true,
           },
         }
       );
-    }, sectionRef);
+
+      // Staggered pillars reveal
+      gsap.fromTo(
+        ".pillar-box",
+        { opacity: 0, y: 24, scale: 0.98 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: ".pillar-box",
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+    }, containerRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   return (
     <section
-      ref={sectionRef}
-      id="why-axon"
-      className="relative z-10 py-16 sm:py-20 lg:py-28 px-4 sm:px-6 md:px-12 bg-transparent text-editorial-primary border-t border-border overflow-clip"
-      style={{ isolation: "isolate" }}
+      ref={containerRef}
+      className="relative w-full bg-white text-[#090909] border-b-4 border-[#090909]"
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12">
-        {/* Section Masthead */}
-        <SectionMasthead
-          badge={whyAxon.badge}
-          descriptor="WHY AXONVORTEX"
-          rightLabel="[CORE OPERATING PRINCIPLES]"
-        />
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+        {/* Left Side: Manifesto Statement (5 cols, Deep Slate) */}
+        <div
+          data-manifesto-left
+          className="lg:col-span-5 bg-[#0F2747] text-white p-8 sm:p-12 lg:p-16 border-b-4 lg:border-b-0 lg:border-r-4 border-[#090909] flex flex-col justify-between gap-10 will-change-[transform,opacity]"
+        >
+          <div>
+            <BauhausBadge variant="yellow" shape="square" size="sm" className="mb-6">
+              {whyAxon.badge}
+            </BauhausBadge>
 
-        {/* Section Heading & Intro */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-2">
-          <div className="flex flex-col gap-2 max-w-2xl">
-            <span className="text-[10px] sm:text-[11px] font-mono text-brand-turquoise uppercase tracking-wider font-semibold">
-              STRATEGIC FOUNDATION
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold uppercase tracking-tight text-editorial-primary leading-tight">
-              {whyAxon.headline}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight uppercase leading-[1.05] text-white">
+              TECHNOLOGY IS EVERYWHERE.<br />
+              <span className="text-[#FFD447]">STRATEGIC THINKING ISN&apos;T.</span>
             </h2>
+
+            <p className="mt-6 font-body text-base text-white/80 leading-relaxed">
+              {whyAxon.subheading}
+            </p>
           </div>
-          <p className="text-xs sm:text-sm font-sans text-editorial-secondary max-w-md leading-relaxed">
-            {whyAxon.subheading}
-          </p>
+
+          <div className="p-6 bg-white/10 border-2 border-white/30 backdrop-blur-xs">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FFD447] block mb-2 font-bold">
+              THE AXONVORTEX PROMISE
+            </span>
+            <p className="font-heading font-bold text-base text-white uppercase leading-snug">
+              Execution without strategy produces noise. Strategy with automation produces compound growth.
+            </p>
+          </div>
         </div>
 
-        {/* 6 Architectural Principle Cards */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
-        >
-          {whyAxon.pillars.map((pillar, idx) => {
-            const isContinuousImprovement = pillar.title.toLowerCase().includes("continuous improvement");
-
-            return (
-              <article
+        {/* Right Side: 6 Core Pillars Grid (7 cols, White) */}
+        <div className="lg:col-span-7 bg-[#E9EDF2] p-6 sm:p-10 lg:p-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {whyAxon.pillars.map((pillar, idx) => (
+              <div
                 key={idx}
-                className="why-editorial-card p-6 sm:p-8 rounded-[16px] sm:rounded-[20px] bg-[#FFFFFF] border border-[#1E1E2E]/15 shadow-sm flex flex-col justify-between min-h-[220px] transition-all hover:border-brand-turquoise/60 group"
+                className="pillar-box bg-white border-2 border-[#090909] p-6 shadow-[4px_4px_0px_0px_#090909] flex flex-col justify-between hover:border-[#F23B32] transition-colors will-change-[transform,opacity]"
               >
                 <div>
-                  <div className="flex items-center justify-between text-editorial-muted mb-4 border-b border-border pb-3">
-                    <span className="font-mono text-xs text-brand-turquoise font-bold">
-                      0{idx + 1}
+                  <div className="flex items-center justify-between mb-3 border-b-2 border-[#090909]/10 pb-2">
+                    <span className="font-mono text-xs font-bold text-[#F23B32]">
+                      PILLAR 0{idx + 1}
                     </span>
-                    <span className="text-[10px] font-mono tracking-widest uppercase text-editorial-secondary">
-                      PRINCIPLE
-                    </span>
+                    <span className="w-2.5 h-2.5 bg-[#090909]" />
                   </div>
 
-                  <div>
-                    <h3 className="text-lg font-heading font-bold text-editorial-primary mb-2">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-xs sm:text-[13.5px] text-editorial-secondary font-sans leading-relaxed">
-                      {pillar.description}
-                    </p>
-                  </div>
+                  <h3 className="font-heading font-black text-lg uppercase tracking-tight text-[#090909]">
+                    {pillar.title}
+                  </h3>
+
+                  <p className="mt-3 font-body text-xs sm:text-sm text-[#090909]/75 leading-relaxed">
+                    {pillar.description}
+                  </p>
                 </div>
-
-                {isContinuousImprovement && (
-                  <div className="mt-4 pt-3 border-t border-[#1E1E2E]/10 flex flex-wrap items-center gap-1 text-[10px] font-mono text-brand-turquoise font-semibold">
-                    <span>Build</span>
-                    <span>→</span>
-                    <span>Launch</span>
-                    <span>→</span>
-                    <span>Measure</span>
-                    <span>→</span>
-                    <span>Learn</span>
-                    <span>→</span>
-                    <span>Improve</span>
-                    <span>→</span>
-                    <span>Scale</span>
-                  </div>
-                )}
-              </article>
-            );
-          })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

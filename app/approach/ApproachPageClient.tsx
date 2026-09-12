@@ -2,17 +2,13 @@
 
 import React, { useRef, useLayoutEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowDown, CheckCircle2, ChevronRight, CornerDownRight, Cpu, User } from "lucide-react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
+import Image from "next/image";
+import { ArrowRight, ArrowDown, CheckCircle2, ChevronRight, Cpu, User, Activity, RefreshCw } from "lucide-react";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { authorityData } from "@/data/content/authorityConversion";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { getGSAP } from "@/lib/gsap";
 
 export default function ApproachPageClient() {
   const {
@@ -28,409 +24,663 @@ export default function ApproachPageClient() {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const problemRef = useRef<HTMLElement>(null);
-  const processCanvasRef = useRef<HTMLDivElement>(null);
   const stagesRef = useRef<HTMLDivElement>(null);
-  
+
   const prefersReducedMotion = useReducedMotion();
   const [activeStage, setActiveStage] = useState<number>(0);
 
   useLayoutEffect(() => {
     if (prefersReducedMotion || !containerRef.current) return;
 
+    const { gsap, ScrollTrigger } = getGSAP();
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 1024px)", () => {
-        // 1. Hero Parallax
-        gsap.to(heroRef.current, {
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-          y: 100,
-          opacity: 0,
-        });
-
-        // 2. Strategic Process Journey (Pinned Canvas)
-        const stagesContainer = stagesRef.current;
-        const canvas = processCanvasRef.current;
-        if (stagesContainer && canvas) {
+      // Stage tracker triggers
+      const stagesContainer = stagesRef.current;
+      if (stagesContainer) {
+        const articles = stagesContainer.querySelectorAll("article");
+        articles.forEach((article, i) => {
           ScrollTrigger.create({
-            trigger: stagesContainer,
-            start: "top top",
-            end: "bottom bottom",
-            pin: canvas,
-            pinSpacing: false,
+            trigger: article,
+            start: "top 60%",
+            end: "bottom 40%",
+            onEnter: () => setActiveStage(i),
+            onEnterBack: () => setActiveStage(i),
           });
-
-          const articles = stagesContainer.querySelectorAll("article");
-          articles.forEach((article, i) => {
-            ScrollTrigger.create({
-              trigger: article,
-              start: "top center",
-              end: "bottom center",
-              onEnter: () => setActiveStage(i),
-              onEnterBack: () => setActiveStage(i),
-            });
-          });
-        }
-      });
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   return (
-    <div ref={containerRef} className="bg-sand text-slate w-full overflow-x-clip selection:bg-brand-coral selection:text-sand">
-      
+    <div
+      ref={containerRef}
+      className="bg-brand-white text-brand-black w-full overflow-x-clip selection:bg-brand-red selection:text-white"
+    >
+      {/* 0. BREADCRUMB / TOP SPEC BAR */}
+      <div className="w-full border-b-2 border-brand-black bg-brand-gray/50 px-6 md:px-12 py-3">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase">
+          <div className="flex items-center gap-2 text-brand-black/70">
+            <Link href="/" className="hover:text-brand-red font-bold transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-brand-red font-black">Methodology &amp; Framework</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
+            <span className="font-bold text-brand-black tracking-wider">SYSTEMATIC EXECUTION ENGINE</span>
+          </div>
+        </div>
+      </div>
+
       {/* 1. HERO - Editorial Opening */}
-      <section ref={heroRef} className="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 max-w-screen-2xl mx-auto border-b border-brand-coral/20 z-10">
-        <div className="inline-block mb-8 px-4 py-1.5 border border-brand-coral/30 rounded-full bg-brand-coral/5 text-brand-coral font-label text-xs uppercase tracking-widest font-semibold self-start">
-          {hero.badge}
-        </div>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-headline font-black uppercase tracking-tighter leading-[0.85] mb-8 max-w-5xl">
-          {hero.headline.split('.').map((part, i, arr) => (
-            <React.Fragment key={i}>
-              {i === arr.length - 1 ? (
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-coral to-gold">
-                  {part}
-                </span>
-              ) : (
-                <>{part}.<br/></>
-              )}
-            </React.Fragment>
-          ))}
-        </h1>
-        <div className="flex flex-col gap-6 mt-8 max-w-3xl border-l-4 border-slate pl-6">
-          {hero.paragraphs.map((p, i) => (
-            <p key={i} className="text-xl md:text-2xl font-body font-light text-slate/80 leading-relaxed">
-              {p}
-            </p>
-          ))}
-        </div>
-        <div className="mt-16">
-          <Link href={hero.cta.href}>
-            <Button size="lg" className="bg-slate text-sand hover:bg-brand-coral transition-colors">
-              {hero.cta.label}
-              <ArrowDown className="ml-2 w-4 h-4" />
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* 2. START WITH THE PROBLEM (Large Editorial) */}
-      <section ref={problemRef} className="py-24 px-6 md:px-12 max-w-screen-2xl mx-auto border-b border-slate/10">
-        <SectionMasthead badge={startWithProblem.badge} descriptor="Core Principle" />
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-16 items-start">
-          <h2 className="text-4xl md:text-6xl font-headline font-bold uppercase tracking-tight text-slate sticky top-32">
-            {startWithProblem.headline}
-          </h2>
-          <div className="flex flex-col gap-12">
-            <div className="flex flex-col gap-6 text-xl md:text-2xl font-body text-slate/70">
-              {startWithProblem.examples.map((ex, i) => (
-                <p key={i}>{ex}</p>
-              ))}
-            </div>
-            <div className="bg-brand-coral/5 p-8 md:p-12 border-l-4 border-brand-coral rounded-r-3xl">
-              <span className="text-brand-coral font-label text-sm uppercase tracking-widest font-bold mb-4 block">
-                {startWithProblem.centralQuestionLabel}
-              </span>
-              <p className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tight text-slate mb-6">
-                {startWithProblem.centralQuestion}
-              </p>
-              <p className="text-lg font-body text-slate/80">
-                {startWithProblem.conclusion}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. STRATEGIC PROCESS JOURNEY (Split Screen: Pinned Canvas Left, Scroll Right) */}
-      <section className="relative w-full bg-slate text-sand border-b border-brand-coral/20">
-        <div className="max-w-screen-2xl mx-auto px-6 md:px-12 pt-16 pb-8 border-b border-white/10">
-          <SectionMasthead badge={framework.badge} descriptor={framework.sequence} />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 w-full max-w-screen-2xl mx-auto">
-          
-          {/* LEFT: Pinned Canvas */}
-          <div ref={processCanvasRef} className="hidden lg:flex lg:col-span-5 flex-col h-screen border-r border-white/10 p-12 bg-slate overflow-hidden justify-center relative">
-            
-            {/* The Path Line */}
-            <div className="absolute left-16 top-0 bottom-0 w-1 bg-white/5">
-               <div 
-                 className="w-full bg-gradient-to-b from-brand-coral to-gold transition-all duration-700 ease-out" 
-                 style={{ height: `${((activeStage + 1) / framework.stages.length) * 100}%` }}
-               />
-            </div>
-
-            <div className="relative z-10 pl-16">
-               <div className="text-[120px] lg:text-[180px] font-headline font-black text-white/5 tracking-tighter leading-none mb-4 transition-all duration-500">
-                 {framework.stages[activeStage]?.number}
-               </div>
-               <h3 className="text-5xl lg:text-6xl font-headline font-bold uppercase text-sand mb-6">
-                 {framework.stages[activeStage]?.name}
-               </h3>
-               <div className="w-12 h-1 bg-brand-coral mb-6" />
-               <p className="text-2xl font-body text-sand/70 max-w-sm">
-                 {framework.stages[activeStage]?.intro}
-               </p>
-            </div>
+      <section
+        ref={heroRef}
+        className="relative pt-16 md:pt-24 pb-20 px-6 md:px-12 border-b-2 border-brand-black bg-brand-white"
+      >
+        <div className="max-w-7xl mx-auto flex flex-col gap-8">
+          <div className="flex flex-wrap items-center gap-3">
+            <BauhausBadge variant="red" shape="square">
+              {hero.badge}
+            </BauhausBadge>
+            <BauhausBadge variant="yellow" shape="pill">
+              STRATEGIC METHODOLOGY
+            </BauhausBadge>
+            <span className="font-mono text-xs text-brand-black/60 font-bold uppercase tracking-widest">
+              HUMAN + AI OPERATING SYSTEM
+            </span>
           </div>
 
-          {/* RIGHT: Scrolling Content */}
-          <div ref={stagesRef} className="flex flex-col lg:col-span-7 w-full relative z-10 bg-slate">
-            {framework.stages.map((stage, i) => (
-              <article 
-                key={i} 
-                className="min-h-screen flex flex-col justify-center p-8 md:p-16 lg:p-24 border-b border-white/5 transition-opacity duration-500"
-                style={{ opacity: activeStage === i ? 1 : 0.5 }}
-              >
-                {/* Mobile Header (Hidden on Desktop) */}
-                <div className="lg:hidden mb-8">
-                  <div className="text-6xl font-headline font-black text-white/10 tracking-tighter leading-none mb-2">
-                    {stage.number}
-                  </div>
-                  <h3 className="text-3xl font-headline font-bold uppercase text-sand mb-4">
-                    {stage.name}
-                  </h3>
-                  <p className="text-xl font-body text-sand/70 border-l-2 border-brand-coral pl-4">
-                    {stage.intro}
-                  </p>
-                </div>
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black uppercase tracking-tighter leading-[0.9] text-brand-black max-w-5xl">
+            AI is powerful. <br />
+            <span className="text-brand-red">Strategy makes it useful.</span>
+          </h1>
 
-                {stage.description && (
-                  <p className="text-xl font-body text-sand/80 mb-8 leading-relaxed">
-                    {stage.description}
-                  </p>
-                )}
-
-                {stage.statements && (
-                  <div className="flex flex-col gap-6 mb-12 border-l-4 border-brand-coral/50 pl-6 bg-white/5 p-8 rounded-r-2xl">
-                    {stage.statements.map((stmt, idx) => (
-                      <p key={idx} className="text-xl lg:text-2xl font-headline font-bold uppercase tracking-tight text-white">
-                        {stmt}
-                      </p>
-                    ))}
-                  </div>
-                )}
-
-                {stage.items && (
-                  <div className="mt-4">
-                    {stage.listLabel && (
-                      <h4 className="text-sm font-label font-bold uppercase tracking-widest text-gold mb-6">
-                        {stage.listLabel}
-                      </h4>
-                    )}
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                      {stage.items.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-brand-coral shrink-0 mt-0.5" />
-                          <span className="text-sand/90 font-body text-lg">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. GROWTH LOOP */}
-      <section className="py-24 px-6 md:px-12 max-w-screen-2xl mx-auto border-b border-slate/10 bg-sand">
-        <SectionMasthead badge={growthLoop.badge} descriptor={growthLoop.sequence} />
-        <div className="flex flex-col items-center text-center mt-16 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-headline font-bold uppercase tracking-tight text-slate mb-8">
-            {growthLoop.title}
-          </h2>
-          <div className="flex flex-col gap-4 text-xl md:text-2xl font-body text-slate/80 mb-12">
-            {growthLoop.paragraphs.map((p, i) => (
+          <div className="flex flex-col gap-4 text-lg md:text-xl font-body text-brand-black/80 max-w-3xl leading-relaxed border-l-4 border-brand-red pl-6 py-2 bg-brand-gray/30">
+            {hero.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
-          
-          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-12">
-            {growthLoop.changeFactors.map((factor, i) => (
-              <React.Fragment key={i}>
-                <span className="text-sm font-label uppercase tracking-widest font-bold text-slate">
-                  {factor}
-                </span>
-                {i < growthLoop.changeFactors.length - 1 && (
-                  <ChevronRight className="hidden md:block w-4 h-4 text-brand-coral" />
-                )}
-              </React.Fragment>
-            ))}
-          </div>
 
-          <div className="bg-brand-coral text-sand font-headline font-bold text-2xl uppercase tracking-wider px-12 py-6 rounded-full shadow-lg">
-            {growthLoop.conclusion}
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            <Button
+              variant="primary"
+              size="lg"
+              className="bg-brand-red text-white hover:bg-brand-black text-base px-8 py-4"
+              asLink
+              href={hero.cta.href}
+            >
+              {hero.cta.label}
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-2 border-brand-black text-brand-black hover:bg-brand-yellow text-base px-6 py-4"
+              asLink
+              href="/growth-audit"
+            >
+              Request Growth Audit
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* 5. HUMAN + AI */}
-      <section className="py-24 px-6 md:px-12 bg-slate text-sand border-b border-brand-coral/20">
-        <SectionMasthead badge={humanAi.badge} descriptor={humanAi.title} />
-        
-        <div className="mt-16 text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-6xl font-headline font-bold uppercase tracking-tight mb-6">
-            {humanAi.headline}
-          </h2>
-          <p className="text-2xl font-body text-sand/70">{humanAi.intro}</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="bg-white/5 rounded-3xl p-12 border border-white/10 relative overflow-hidden group">
-            <Cpu className="absolute -bottom-10 -right-10 w-48 h-48 text-white/5 group-hover:text-gold/10 transition-colors duration-500" />
-            <h3 className="text-2xl font-headline font-bold uppercase text-gold mb-8 flex items-center gap-3">
-              <Cpu className="w-6 h-6" /> AI Capabilities
-            </h3>
-            <ul className="flex flex-col gap-4 relative z-10">
-              {humanAi.aiCapabilities.map((cap, i) => (
-                <li key={i} className="flex items-center gap-3 text-lg font-body text-sand/80">
-                  <span className="w-1.5 h-1.5 bg-gold rounded-full" /> {cap}
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* 2. START WITH THE PROBLEM (CORE PRINCIPLE) */}
+      <section
+        ref={problemRef}
+        className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black"
+      >
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          <div className="bg-brand-coral/10 rounded-3xl p-12 border border-brand-coral/20 relative overflow-hidden group">
-            <User className="absolute -bottom-10 -right-10 w-48 h-48 text-brand-coral/5 group-hover:text-brand-coral/20 transition-colors duration-500" />
-            <h3 className="text-2xl font-headline font-bold uppercase text-brand-coral mb-8 flex items-center gap-3">
-              <User className="w-6 h-6" /> Human Capabilities
-            </h3>
-            <ul className="flex flex-col gap-4 relative z-10">
-              {humanAi.humanCapabilities.map((cap, i) => (
-                <li key={i} className="flex items-center gap-3 text-lg font-body text-sand/80">
-                  <span className="w-1.5 h-1.5 bg-brand-coral rounded-full" /> {cap}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+          <div className="lg:col-span-5 flex flex-col gap-6 sticky top-24">
+            <div className="flex items-center gap-2">
+              <BauhausBadge variant="yellow" shape="square">
+                {startWithProblem.badge}
+              </BauhausBadge>
+              <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                FIRST PRINCIPLES
+              </span>
+            </div>
 
-        <div className="mt-16 text-center max-w-3xl mx-auto">
-          {humanAi.conclusions.map((c, i) => (
-            <p key={i} className="text-2xl md:text-3xl font-headline font-bold uppercase tracking-tight text-white mb-2">
-              {c}
+            <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black leading-tight">
+              {startWithProblem.headline}
+            </h2>
+
+            <p className="text-base text-brand-black/70 font-sans leading-relaxed">
+              We never prescribe solutions before understanding the friction. Technology without business alignment is pure operational overhead.
             </p>
-          ))}
+          </div>
+
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            {/* False Pretexts Grid */}
+            <div className="grid grid-cols-1 gap-4">
+              {startWithProblem.examples.map((ex, i) => (
+                <div
+                  key={i}
+                  className="p-6 bg-brand-white border-2 border-brand-black shadow-hard-sm flex items-center gap-4"
+                >
+                  <span className="font-mono text-xs font-black px-2.5 py-1 bg-brand-black text-white shrink-0">
+                    ERR-0{i + 1}
+                  </span>
+                  <p className="text-base font-sans text-brand-black/90 font-medium">
+                    {ex}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Central Question Callout */}
+            <div className="p-8 bg-brand-yellow border-2 border-brand-black shadow-hard-md flex flex-col gap-4">
+              <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-black">
+                {startWithProblem.centralQuestionLabel}
+              </span>
+              <p className="text-2xl sm:text-3xl font-display font-black uppercase text-brand-black leading-snug">
+                {startWithProblem.centralQuestion}
+              </p>
+              <div className="border-t-2 border-brand-black pt-4 mt-2">
+                <p className="text-sm font-sans text-brand-black/90 font-bold">
+                  {startWithProblem.conclusion}
+                </p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* 6. DATA PHILOSOPHY */}
-      <section className="py-24 px-6 md:px-12 bg-sand border-b border-slate/10">
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionMasthead badge={dataPhilosophy.badge} descriptor="Measurement" />
+      {/* 3. STRATEGIC PROCESS FRAMEWORK (STAGES 01-07) */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mt-16 items-start">
-            <div className="lg:col-span-5 sticky top-32">
-              <h2 className="text-5xl md:text-6xl font-headline font-black uppercase tracking-tighter text-slate mb-8">
-                {dataPhilosophy.headline.split(',').map((part, i) => (
-                  <React.Fragment key={i}>
-                    {part}{i === 0 && ','}<br/>
-                  </React.Fragment>
-                ))}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="red" shape="square">
+                  {framework.badge}
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  EXECUTION LIFECYCLE
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                {framework.sequence}
               </h2>
-              <div className="flex flex-col gap-4 border-l-4 border-brand-coral pl-6 mb-12">
-                {dataPhilosophy.introStatements.map((stmt, i) => (
-                  <p key={i} className="text-2xl font-body text-slate/70">
-                    {stmt}
-                  </p>
+            </div>
+            <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
+              7 Integrated Production Stages
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            {/* Desktop Stage Selector / Index */}
+            <div className="hidden lg:flex lg:col-span-4 flex-col gap-3 sticky top-24">
+              <div className="border-2 border-brand-black bg-brand-gray p-6 shadow-hard-md flex flex-col gap-4">
+                <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-black/60 border-b-2 border-brand-black pb-2">
+                  Active Lifecycle Stage
+                </span>
+                
+                <div className="flex items-baseline gap-3">
+                  <span className="font-display font-black text-6xl text-brand-red">
+                    {framework.stages[activeStage]?.number}
+                  </span>
+                  <span className="font-display font-black text-2xl uppercase text-brand-black">
+                    {framework.stages[activeStage]?.name}
+                  </span>
+                </div>
+
+                <p className="text-xs font-sans text-brand-black/80 leading-relaxed border-t border-brand-black/20 pt-3">
+                  {framework.stages[activeStage]?.intro || framework.stages[activeStage]?.description}
+                </p>
+
+                <div className="w-full bg-brand-white border border-brand-black h-2 overflow-hidden">
+                  <div
+                    className="bg-brand-red h-full transition-all duration-300"
+                    style={{ width: `${((activeStage + 1) / framework.stages.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Stage Quick List */}
+              <div className="flex flex-col border-2 border-brand-black bg-brand-white shadow-hard-sm">
+                {framework.stages.map((st, idx) => (
+                  <button
+                    type="button"
+                    key={idx}
+                    onClick={() => {
+                      setActiveStage(idx);
+                      const articles = stagesRef.current?.querySelectorAll("article");
+                      if (articles && articles[idx]) {
+                        articles[idx].scrollIntoView({ behavior: "smooth", block: "center" });
+                      }
+                    }}
+                    className={`w-full text-left px-4 py-3 border-b last:border-b-0 border-brand-black/20 font-mono text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                      activeStage === idx ? "bg-brand-yellow font-black text-brand-black" : "text-brand-black/60 hover:bg-brand-gray/40"
+                    }`}
+                  >
+                    <span>{st.number} // {st.name}</span>
+                    {activeStage === idx && <span className="w-2 h-2 bg-brand-black" />}
+                  </button>
                 ))}
               </div>
             </div>
-            
-            <div className="lg:col-span-7 flex flex-col gap-16">
-              <div>
-                <h3 className="text-sm font-label uppercase tracking-widest font-bold text-brand-coral mb-6">
-                  {dataPhilosophy.coreQuestionsLabel}
-                </h3>
-                <div className="flex flex-col gap-4">
-                  {dataPhilosophy.coreQuestions.map((q, i) => (
-                    <div key={i} className="bg-white p-6 md:p-8 rounded-2xl border border-slate/10 shadow-sm flex items-center gap-6">
-                      <div className="w-12 h-12 rounded-full bg-brand-coral/10 text-brand-coral flex items-center justify-center font-headline font-bold text-xl shrink-0">
-                        {i + 1}
+
+            {/* Stages Content Stream with Synchronized Prominence */}
+            <div ref={stagesRef} className="lg:col-span-8 flex flex-col gap-8">
+              {framework.stages.map((stage, i) => {
+                const isCurrent = activeStage === i;
+                const isPast = activeStage > i;
+
+                return (
+                  <article
+                    key={i}
+                    className={`p-8 md:p-10 border-2 transition-all duration-300 flex flex-col gap-6 relative will-change-[transform,opacity] ${
+                      isCurrent
+                        ? "border-brand-red bg-brand-white shadow-[6px_6px_0px_0px_#090909] scale-[1.01] opacity-100 z-10 ring-2 ring-brand-red/20"
+                        : isPast
+                          ? "border-brand-black/40 bg-brand-white/90 shadow-hard-sm opacity-80 scale-100 hover:opacity-100"
+                          : "border-brand-black/20 bg-brand-white/70 shadow-none opacity-65 scale-100"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between border-b-2 border-brand-black pb-4">
+                      <div className="flex items-center gap-3">
+                        <span className={`font-mono text-xs font-black px-3 py-1 text-white border border-brand-black transition-colors ${
+                          isCurrent ? "bg-brand-red" : "bg-brand-black/80"
+                        }`}>
+                          STAGE {stage.number}
+                        </span>
+                        <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-brand-black">
+                          {stage.name}
+                        </h3>
                       </div>
-                      <p className="text-2xl md:text-3xl font-headline font-bold uppercase text-slate">
-                        {q}
-                      </p>
+                      <span className={`w-3 h-3 border border-brand-black transition-colors ${
+                        isCurrent ? "bg-brand-red animate-pulse" : "bg-brand-yellow"
+                      }`} />
+                    </div>
+
+                  {stage.intro && (
+                    <p className="text-base sm:text-lg font-display font-bold text-brand-black/90">
+                      {stage.intro}
+                    </p>
+                  )}
+
+                  {stage.description && (
+                    <p className="text-sm sm:text-base font-sans text-brand-black/80 leading-relaxed">
+                      {stage.description}
+                    </p>
+                  )}
+
+                  {stage.statements && (
+                    <div className="p-6 bg-brand-gray border-2 border-brand-black flex flex-col gap-2">
+                      {stage.statements.map((stmt, idx) => (
+                        <p key={idx} className="font-display font-black text-sm uppercase text-brand-black">
+                          {stmt}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  {stage.items && (
+                    <div className="flex flex-col gap-3 pt-2">
+                      {stage.listLabel && (
+                        <span className="font-mono text-xs uppercase font-bold text-brand-black/60 tracking-wider">
+                          {stage.listLabel}
+                        </span>
+                      )}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {stage.items.map((item, idx) => (
+                          <div
+                            key={idx}
+                            className="p-3.5 bg-brand-gray/50 border border-brand-black/30 flex items-center gap-3 text-sm font-sans text-brand-black"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-brand-red shrink-0" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </article>
+              );
+            })}
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 4. THE AXONVORTEX GROWTH LOOP */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-slate text-white border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-white/20 pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="yellow" shape="square">
+                  {growthLoop.badge}
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-gray">
+                  ITERATIVE EVOLUTION
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-white">
+                {growthLoop.title}
+              </h2>
+            </div>
+            <span className="font-mono text-xs uppercase font-bold text-brand-yellow">
+              {growthLoop.sequence}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left: Diagram */}
+            <div className="lg:col-span-6 border-2 border-white/30 p-2 bg-brand-white shadow-hard-lg">
+              <div className="relative aspect-[4/3] w-full overflow-hidden border border-brand-black">
+                <Image
+                  src="/images/bauhaus-diagram-growth-loop.jpg"
+                  alt="AxonVortex Growth Loop Framework"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4 bg-brand-black text-white font-mono text-xs flex items-center justify-between border-t border-brand-black">
+                <span>DIAG-006 // CONTINUOUS GROWTH LOOP</span>
+                <span className="text-brand-yellow">HYPOTHESIS → IMPROVE</span>
+              </div>
+            </div>
+
+            {/* Right: Narrative & Changing Factors */}
+            <div className="lg:col-span-6 flex flex-col gap-6">
+              <div className="flex flex-col gap-3 text-lg font-body text-white/90 leading-relaxed border-l-4 border-brand-yellow pl-6">
+                {growthLoop.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                {growthLoop.changeFactors.map((factor, i) => (
+                  <div
+                    key={i}
+                    className="p-4 border border-white/20 bg-white/5 flex items-center gap-3 font-mono text-xs uppercase font-bold text-white"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5 text-brand-yellow shrink-0" />
+                    <span>{factor}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-6 bg-white/10 border-2 border-white/30 text-center">
+                <p className="font-display font-black text-2xl uppercase tracking-tight text-brand-yellow">
+                  {growthLoop.conclusion}
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. HUMAN + AI SYNTHESIS */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="blue" shape="square">
+                  {humanAi.badge}
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  COLLABORATIVE INTELLIGENCE
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                {humanAi.headline}
+              </h2>
+            </div>
+            <p className="text-sm font-display font-bold uppercase text-brand-black/70">
+              {humanAi.intro}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* AI Capabilities Card */}
+            <div className="p-8 border-2 border-brand-black bg-brand-gray shadow-hard-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between border-b-2 border-brand-black pb-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <Cpu className="w-6 h-6 text-brand-blue" />
+                    <span className="font-display font-black text-2xl uppercase text-brand-black">
+                      What AI Brings
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs font-black px-2 py-1 bg-brand-blue text-white">
+                    SCALE ENGINE
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {humanAi.aiCapabilities.map((cap, i) => (
+                    <div
+                      key={i}
+                      className="p-3 bg-brand-white border border-brand-black font-mono text-xs font-bold uppercase text-brand-black"
+                    >
+                      + {cap}
                     </div>
                   ))}
                 </div>
               </div>
 
+              <p className="text-xs text-brand-black/70 font-sans mt-6 border-t border-brand-black/20 pt-4">
+                Executes high-volume computation, pattern detection, automation, and continuous processing at machine scale.
+              </p>
+            </div>
+
+            {/* Human Capabilities Card */}
+            <div className="p-8 border-2 border-brand-black bg-brand-yellow/30 shadow-hard-md flex flex-col justify-between">
               <div>
-                <h3 className="text-sm font-label uppercase tracking-widest font-bold text-slate mb-6">
-                  The Reality of Metrics:
-                </h3>
-                <ul className="flex flex-col gap-4">
-                  {dataPhilosophy.metricRealities.map((mr, i) => (
-                    <li key={i} className="flex items-start gap-4 p-4 border-l-2 border-slate/20">
-                      <CornerDownRight className="w-5 h-5 text-slate/40 shrink-0 mt-1" />
-                      <span className="text-lg font-body text-slate/80">{mr}</span>
-                    </li>
+                <div className="flex items-center justify-between border-b-2 border-brand-black pb-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <User className="w-6 h-6 text-brand-red" />
+                    <span className="font-display font-black text-2xl uppercase text-brand-black">
+                      What Humans Bring
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs font-black px-2 py-1 bg-brand-yellow text-brand-black border border-brand-black">
+                    DIRECTION
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {humanAi.humanCapabilities.map((cap, i) => (
+                    <div
+                      key={i}
+                      className="p-3 bg-brand-white border border-brand-black font-mono text-xs font-bold uppercase text-brand-black"
+                    >
+                      + {cap}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
 
-              <div className="bg-slate text-sand p-8 md:p-12 rounded-3xl">
-                <p className="text-2xl font-headline font-bold uppercase tracking-wider text-brand-coral">
-                  {dataPhilosophy.closing}
-                </p>
-              </div>
+              <p className="text-xs text-brand-black/70 font-sans mt-6 border-t border-brand-black/20 pt-4">
+                Establishes contextual judgment, emotional resonance, strategic nuance, ethical grounding, and business purpose.
+              </p>
             </div>
+
           </div>
+
+          {/* Conclusion Banner */}
+          <div className="p-8 border-2 border-brand-black bg-brand-black text-white shadow-hard-md text-center flex flex-col items-center gap-2">
+            <span className="font-mono text-xs uppercase font-bold text-brand-yellow tracking-widest">
+              THE CORE SYNTHESIS
+            </span>
+            <p className="text-xl sm:text-2xl font-display font-black uppercase text-white">
+              {humanAi.conclusions[0]} {humanAi.conclusions[1]}
+            </p>
+          </div>
+
         </div>
       </section>
 
-      {/* 7. OPERATING PRINCIPLES (Large Typographic Statements, NO CARDS) */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-slate text-sand">
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionMasthead badge={principles.badge} descriptor={principles.title} />
+      {/* 6. DATA PHILOSOPHY */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
           
-          <div className="mt-20 flex flex-col gap-0 border-y border-white/10">
-            {principles.items.map((item, i) => (
-              <div key={i} className="grid grid-cols-1 lg:grid-cols-12 gap-8 py-12 md:py-16 border-b border-white/10 last:border-b-0 items-center group hover:bg-white/5 transition-colors px-4 -mx-4 rounded-xl">
-                <div className="lg:col-span-1 text-gold font-mono text-lg font-bold opacity-50 group-hover:opacity-100 transition-opacity">
-                  0{i + 1}
-                </div>
-                <div className="lg:col-span-5">
-                  <h3 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tight text-white group-hover:text-brand-coral transition-colors">
-                    {item.title}
-                  </h3>
-                </div>
-                <div className="lg:col-span-6">
-                  <p className="text-xl md:text-2xl font-body text-sand/70 group-hover:text-sand transition-colors">
-                    {item.description}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="red" shape="square">
+                  {dataPhilosophy.badge}
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  SIGNAL DISCIPLINE
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                {dataPhilosophy.headline}
+              </h2>
+            </div>
+            <div className="font-mono text-xs uppercase font-bold text-brand-black/60">
+              {dataPhilosophy.introStatements.join(" ")}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Core Questions */}
+            <div className="lg:col-span-5 p-8 border-2 border-brand-black bg-brand-white shadow-hard-md flex flex-col gap-6">
+              <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-red">
+                {dataPhilosophy.coreQuestionsLabel}
+              </span>
+              <div className="flex flex-col gap-3">
+                {dataPhilosophy.coreQuestions.map((q, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 bg-brand-gray border-2 border-brand-black font-display font-black text-lg uppercase text-brand-black"
+                  >
+                    {q}
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs font-sans text-brand-black/70 leading-relaxed border-t border-brand-black/20 pt-4">
+                {dataPhilosophy.closing}
+              </p>
+            </div>
+
+            {/* Metric Realities */}
+            <div className="lg:col-span-7 flex flex-col gap-4">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-brand-black/60">
+                Vanity Metrics vs Commercial Reality
+              </span>
+              {dataPhilosophy.metricRealities.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 bg-brand-white border-2 border-brand-black shadow-hard-sm flex items-start gap-4"
+                >
+                  <span className="w-3 h-3 bg-brand-red border border-brand-black mt-1.5 shrink-0" />
+                  <p className="text-base font-sans text-brand-black/90 font-bold">
+                    {item}
                   </p>
                 </div>
+              ))}
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 7. OPERATING PRINCIPLES */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="yellow" shape="square">
+                  {principles.badge}
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  STANDARD OPERATING CODE
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                {principles.title}
+              </h2>
+            </div>
+            <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
+              6 Foundational Pillars
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {principles.items.map((principle, idx) => (
+              <div
+                key={idx}
+                className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md hover:shadow-hard-lg hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex flex-col justify-between min-h-[220px]"
+              >
+                <div>
+                  <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
+                    <span className="font-mono text-xs font-black text-brand-red">
+                      PILLAR 0{idx + 1}
+                    </span>
+                    <span className="w-2.5 h-2.5 bg-brand-black" />
+                  </div>
+                  <h3 className="text-xl font-display font-black uppercase text-brand-black mb-3">
+                    {principle.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-brand-black/80 font-sans leading-relaxed">
+                  {principle.description}
+                </p>
               </div>
             ))}
           </div>
 
-          <div className="mt-32 text-center flex flex-col items-center">
-            <h2 className="text-4xl md:text-6xl font-headline font-bold uppercase tracking-tight text-white mb-12">
-              {principles.closingHeadline}
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-6">
-              <Link href={principles.primaryCta.href}>
-                <Button size="lg" className="bg-brand-navy text-white hover:bg-brand-coral hover:text-brand-navy w-full sm:w-auto">
-                  {principles.primaryCta.label}
-                </Button>
-              </Link>
-              <Link href={principles.secondaryCta.href}>
-                <Button size="lg" variant="outline" className="border-sand text-sand hover:bg-white hover:text-slate w-full sm:w-auto">
-                  {principles.secondaryCta.label}
-                </Button>
-              </Link>
-            </div>
+        </div>
+      </section>
+
+      {/* 8. FINAL HIGH-IMPACT CTA */}
+      <section className="py-24 px-6 md:px-12 bg-brand-red text-white border-b-2 border-brand-black">
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+          <div className="inline-block px-4 py-1.5 bg-brand-white text-brand-black border-2 border-brand-black font-mono text-xs font-black uppercase mb-8 shadow-hard-sm">
+            INTENTIONAL GROWTH
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black uppercase tracking-tighter text-white mb-8 max-w-3xl leading-[0.95]">
+            {principles.closingHeadline}
+          </h2>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Button
+              variant="primary"
+              size="lg"
+              className="bg-brand-black text-white hover:bg-brand-white hover:text-brand-black text-lg px-10 py-5 border-2 border-brand-black shadow-hard-md"
+              asLink
+              href={principles.primaryCta.href}
+            >
+              {principles.primaryCta.label}
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+
+            <Button
+              variant="outline"
+              size="lg"
+              className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-brand-black text-lg px-8 py-5"
+              asLink
+              href={principles.secondaryCta.href}
+            >
+              {principles.secondaryCta.label}
+            </Button>
           </div>
         </div>
       </section>

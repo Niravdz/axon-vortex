@@ -1,18 +1,14 @@
 "use client";
 
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
+import Image from "next/image";
+import { ArrowUpRight, CheckSquare } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { useScrollAnimation } from "@/lib/hooks/useScrollAnimation";
-import {
-  fadeInUp,
-  staggerCards,
-  slideIn,
-  scaleReveal,
-  EASE,
-} from "@/lib/animations/presets";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { getGSAP } from "@/lib/gsap";
 
 interface ServiceItem {
   title: string;
@@ -76,464 +72,355 @@ export interface CategoryPageData {
 
 interface AnimatedCategoryPageProps {
   data: CategoryPageData;
-  /** Unique scroll narrative label for each page */
   narrativeStyle?: "funnel" | "neural" | "blueprint" | "pipeline" | "integration";
 }
 
-/**
- * Animated Category Page shell.
- * Wraps any category-level page (Digital Marketing, AI, Websites, Lead Gen, Tech)
- * with scroll-driven GSAP animations while preserving all content structure.
- *
- * Each narrativeStyle subtly varies the animation direction & timing
- * so pages feel connected but visually distinct.
- */
-export function AnimatedCategoryPage({ data, narrativeStyle = "funnel" }: AnimatedCategoryPageProps) {
+const DOMAIN_DIAGRAMS: Record<string, string> = {
+  funnel: "/images/bauhaus-diagram-marketing.png",
+  neural: "/images/bauhaus-diagram-ai.png",
+  blueprint: "/images/bauhaus-diagram-ecommerce.jpg",
+  pipeline: "/images/bauhaus-diagram-leadgen.jpg",
+  integration: "/images/bauhaus-diagram-technology.jpg",
+};
+
+export function AnimatedCategoryPage({
+  data,
+  narrativeStyle = "funnel",
+}: AnimatedCategoryPageProps) {
   const { hero, problem, services, approach, whoThisIsFor, finalCta } = data;
-
+  const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const problemRef = useRef<HTMLElement>(null);
-  const servicesRef = useRef<HTMLElement>(null);
-  const approachRef = useRef<HTMLElement>(null);
-  const audienceRef = useRef<HTMLElement>(null);
-  const ctaRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
-  // Animation direction map per narrative style
-  const getDirection = useCallback((idx: number): "left" | "right" => {
-    switch (narrativeStyle) {
-      case "neural": return idx % 2 === 0 ? "right" : "left";
-      case "blueprint": return "left";
-      case "pipeline": return idx % 3 === 0 ? "left" : "right";
-      case "integration": return idx % 2 === 0 ? "left" : "right";
-      default: return idx % 2 === 0 ? "left" : "right";
-    }
-  }, [narrativeStyle]);
+  const isDarkHero = narrativeStyle === "neural" || narrativeStyle === "integration";
+  const diagramSrc = DOMAIN_DIAGRAMS[narrativeStyle] || "/images/bauhaus-tech-hero.png";
 
-  const getCardDelay = useCallback((): number => {
-    switch (narrativeStyle) {
-      case "neural": return 0.06;
-      case "blueprint": return 0.1;
-      case "pipeline": return 0.08;
-      case "integration": return 0.07;
-      default: return 0.08;
-    }
-  }, [narrativeStyle]);
+  useLayoutEffect(() => {
+    if (prefersReducedMotion || !containerRef.current) return;
 
-  const animationSetup = useCallback(
-    ({
-      gsap,
-      mm,
-      prefersReducedMotion,
-    }: {
-      gsap: typeof import("gsap").default;
-      ScrollTrigger: typeof import("gsap/ScrollTrigger").ScrollTrigger;
-      container: HTMLElement;
-      mm: gsap.MatchMedia;
-      prefersReducedMotion: boolean;
-    }) => {
-      if (prefersReducedMotion) return;
-
-      // ═══════════════════════════════════════════
-      // HERO: Dramatic headline reveal
-      // ═══════════════════════════════════════════
-      mm.add("(min-width: 768px)", () => {
-        const heroSection = heroRef.current;
-        if (!heroSection) return;
-
-        const heroTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        });
-
-        const elems = heroSection.querySelectorAll("[data-anim]");
-        elems.forEach((el, i) => {
-          heroTl.add(fadeInUp(gsap, el, { y: 40 - i * 5, duration: 0.7 + i * 0.05 }), i * 0.12);
-        });
-
-        // Parallax fade on scroll
-        gsap.to(heroSection, {
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "bottom 80%",
-            end: "bottom 20%",
-            scrub: 1,
-          },
-          opacity: 0.3,
-          y: -25,
-          ease: "none",
-        });
-      });
-
-      mm.add("(max-width: 767px)", () => {
-        const heroSection = heroRef.current;
-        if (!heroSection) return;
-
+    const { gsap } = getGSAP();
+    const ctx = gsap.context(() => {
+      if (heroRef.current) {
         gsap.fromTo(
-          heroSection.querySelectorAll("[data-anim]"),
-          { y: 25, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: EASE.reveal,
-            scrollTrigger: { trigger: heroSection, start: "top 92%", toggleActions: "play none none none" } }
+          heroRef.current.querySelectorAll("[data-anim='cat-hero']"),
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.08,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+          }
         );
-      });
-
-      // ═══════════════════════════════════════════
-      // PROBLEM DIAGNOSIS
-      // ═══════════════════════════════════════════
-      const problemSection = problemRef.current;
-      if (problemSection) {
-        mm.add("(min-width: 1024px)", () => {
-          const leftCol = problemSection.querySelector("[data-anim='problem-left']");
-          const cards = problemSection.querySelectorAll("[data-anim='problem-card']");
-          const sequence = problemSection.querySelector("[data-anim='problem-sequence']");
-
-          const pTl = gsap.timeline({
-            scrollTrigger: { trigger: problemSection, start: "top 78%", toggleActions: "play none none none" },
-          });
-
-          if (leftCol) pTl.add(slideIn(gsap, leftCol, { from: "left", x: 50, duration: 0.7 }), 0);
-          if (cards.length) pTl.add(staggerCards(gsap, cards, { y: 35, stagger: getCardDelay() }), 0.15);
-          if (sequence) pTl.add(scaleReveal(gsap, sequence, { scale: 0.94, duration: 0.6 }), 0.5);
-        });
-
-        mm.add("(max-width: 1023px)", () => {
-          gsap.fromTo(
-            problemSection.querySelectorAll("[data-anim]"),
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: EASE.reveal,
-              scrollTrigger: { trigger: problemSection, start: "top 85%", toggleActions: "play none none none" } }
-          );
-        });
       }
+    }, containerRef);
 
-      // ═══════════════════════════════════════════
-      // SERVICES GRID
-      // ═══════════════════════════════════════════
-      const servicesSection = servicesRef.current;
-      if (servicesSection) {
-        const sMasthead = servicesSection.querySelector("[data-anim='services-masthead']");
-        const sCards = servicesSection.querySelectorAll("[data-anim='service-card']");
-
-        const sTl = gsap.timeline({
-          scrollTrigger: { trigger: servicesSection, start: "top 78%", toggleActions: "play none none none" },
-        });
-
-        if (sMasthead) sTl.add(fadeInUp(gsap, sMasthead, { y: 25, duration: 0.5 }), 0);
-
-        if (sCards.length) {
-          // Each card fades in with scale + subtle rotation based on narrative style
-          sCards.forEach((card, idx) => {
-            const rotateZ = narrativeStyle === "neural" ? (idx % 2 === 0 ? 1.5 : -1.5) : 0;
-            sTl.add(
-              gsap.fromTo(
-                card,
-                { y: 40, opacity: 0, scale: 0.96, rotateZ, willChange: "transform, opacity" },
-                { y: 0, opacity: 1, scale: 1, rotateZ: 0, duration: 0.65, ease: EASE.snappy, clearProps: "willChange" }
-              ),
-              0.15 + idx * getCardDelay()
-            );
-          });
-        }
-      }
-
-      // ═══════════════════════════════════════════
-      // APPROACH STEPS
-      // ═══════════════════════════════════════════
-      const approachSection = approachRef.current;
-      if (approachSection) {
-        const aMasthead = approachSection.querySelector("[data-anim='approach-masthead']");
-        const aSteps = approachSection.querySelectorAll("[data-anim='approach-step']");
-
-        const aTl = gsap.timeline({
-          scrollTrigger: { trigger: approachSection, start: "top 78%", toggleActions: "play none none none" },
-        });
-
-        if (aMasthead) aTl.add(fadeInUp(gsap, aMasthead, { y: 25, duration: 0.5 }), 0);
-
-        // Progressive timeline reveal
-        if (aSteps.length) {
-          aSteps.forEach((step, idx) => {
-            const direction = getDirection(idx);
-            aTl.add(
-              slideIn(gsap, step, { from: direction, x: 50, duration: 0.6, stagger: 0 }),
-              0.2 + idx * 0.1
-            );
-          });
-        }
-      }
-
-      // ═══════════════════════════════════════════
-      // WHO THIS IS FOR
-      // ═══════════════════════════════════════════
-      const audienceSection = audienceRef.current;
-      if (audienceSection) {
-        const audCard = audienceSection.querySelector("[data-anim='audience-card']");
-        const audChips = audienceSection.querySelectorAll("[data-anim='audience-chip']");
-
-        const audTl = gsap.timeline({
-          scrollTrigger: { trigger: audienceSection, start: "top 80%", toggleActions: "play none none none" },
-        });
-
-        if (audCard) audTl.add(scaleReveal(gsap, audCard, { scale: 0.94, duration: 0.8 }), 0);
-        if (audChips.length) audTl.add(staggerCards(gsap, audChips, { y: 25, stagger: 0.05, duration: 0.5 }), 0.3);
-      }
-
-      // ═══════════════════════════════════════════
-      // FINAL CTA
-      // ═══════════════════════════════════════════
-      const ctaSection = ctaRef.current;
-      if (ctaSection) {
-        const ctaCard = ctaSection.querySelector("[data-anim='cta-card']");
-        if (ctaCard) {
-          gsap.fromTo(
-            ctaCard,
-            { scale: 0.9, opacity: 0, y: 30 },
-            {
-              scale: 1, opacity: 1, y: 0, duration: 0.9, ease: EASE.smooth,
-              scrollTrigger: { trigger: ctaSection, start: "top 82%", toggleActions: "play none none none" },
-            }
-          );
-        }
-      }
-    },
-    [getCardDelay, getDirection, narrativeStyle]
-  );
-
-  const containerRef = useScrollAnimation(animationSetup);
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
 
   return (
-    <div
-      ref={containerRef}
-      className="pt-6 sm:pt-10 pb-28 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto flex flex-col gap-20 sm:gap-28 text-editorial-primary overflow-x-clip"
-    >
-      {/* 1. HERO */}
-      <section ref={heroRef} id="hero" className="flex flex-col gap-6 max-w-5xl">
-        <div data-anim="hero-masthead">
-          <SectionMasthead
-            badge={hero.badge}
-            descriptor="STRATEGIC ACQUISITION"
-            rightLabel="[CATEGORY OVERVIEW]"
-          />
-        </div>
+    <div ref={containerRef} className="w-full bg-white text-[#090909] overflow-x-clip">
+      {/* 1. HERO - Split Editorial Section */}
+      <section
+        ref={heroRef}
+        className={`relative w-full border-b-4 border-[#090909] py-16 sm:py-24 px-6 sm:px-12 lg:px-16 ${
+          isDarkHero ? "bg-[#0F2747] text-white" : "bg-white text-[#090909]"
+        }`}
+      >
+        <div className="max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Hero Content (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-between gap-8">
+            <div>
+              <div data-anim="cat-hero" className="flex items-center gap-3 mb-6">
+                <BauhausBadge
+                  variant={isDarkHero ? "yellow" : "red"}
+                  shape="square"
+                  size="sm"
+                >
+                  {hero.badge}
+                </BauhausBadge>
+                <span
+                  className={`font-mono text-xs uppercase tracking-widest ${
+                    isDarkHero ? "text-white/60" : "text-[#090909]/60"
+                  } font-bold`}
+                >
+                  CAPABILITY DOMAIN
+                </span>
+              </div>
 
-        <div className="flex flex-col gap-5 pt-2">
-          <h1
-            data-anim="hero-headline"
-            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold uppercase tracking-tight text-editorial-primary leading-[1.02] break-words"
-          >
-            {hero.headline}
-          </h1>
+              <h1 data-anim="cat-hero" className="text-4xl sm:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.98]">
+                {hero.headline}
+              </h1>
 
-          <div data-anim="hero-copy" className="flex flex-col gap-2 text-sm sm:text-base md:text-lg text-editorial-secondary font-sans leading-relaxed max-w-3xl">
-            {hero.paragraphs.map((p, idx) => (
-              <p key={idx}>{p}</p>
-            ))}
+              <div
+                data-anim="cat-hero"
+                className={`mt-6 flex flex-col gap-4 font-body text-base sm:text-lg leading-relaxed border-l-4 ${
+                  isDarkHero ? "border-[#FFD447] text-white/80" : "border-[#F23B32] text-[#090909]/80"
+                } pl-6 max-w-2xl`}
+              >
+                {hero.paragraphs.map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
+              </div>
+            </div>
+
+            <div data-anim="cat-hero" className="pt-2">
+              <Button
+                variant={isDarkHero ? "yellow" : "primary"}
+                size="lg"
+                withArrow
+                asLink
+                href={hero.cta.href}
+                className="min-h-[52px]"
+              >
+                {hero.cta.label}
+              </Button>
+            </div>
           </div>
 
-          <div data-anim="hero-cta" className="pt-4">
-            <Button variant="primary" size="lg" withArrow asLink href={hero.cta.href}>
-              {hero.cta.label}
-            </Button>
+          {/* Right Hero Diagram (5 cols) */}
+          <div data-anim="cat-hero" className="lg:col-span-5 bg-[#E9EDF2] border-4 border-[#090909] p-4 sm:p-6 shadow-[8px_8px_0px_0px_#090909] bauhaus-grid-bg">
+            <div className="relative w-full aspect-[16/10] bg-white border-2 border-[#090909] overflow-hidden">
+              <Image
+                src={diagramSrc}
+                alt={`${hero.headline} architecture schematic`}
+                fill
+                priority
+                className="object-contain p-2"
+                sizes="(max-width: 1024px) 100vw, 45vw"
+              />
+            </div>
+            <div className="mt-3 flex items-center justify-between font-mono text-[11px] font-bold text-[#090909]">
+              <span>[SCHEMATIC SPECIFICATION]</span>
+              <span className="text-[#F23B32]">AXONVORTEX ARCHITECTURE</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. THE PROBLEM */}
-      <section ref={problemRef} id="problem" className="flex flex-col gap-8 pt-6 border-t border-border">
-        <div data-anim="problem-masthead">
-          <SectionMasthead
-            badge={problem.badge || "THE PROBLEM"}
-            descriptor="MARKETING DIAGNOSIS"
-            rightLabel="[SYSTEM ALIGNMENT]"
-          />
-        </div>
+      {/* 2. THE PROBLEM DIAGNOSIS */}
+      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 border-b-4 border-[#090909] bg-[#E9EDF2]">
+        <ScrollReveal variant="fade-up" className="max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <div className="lg:col-span-5 flex flex-col justify-between gap-6">
+            <div>
+              <BauhausBadge variant="red" shape="square" size="sm" className="mb-4">
+                {problem.badge || "THE PROBLEM"}
+              </BauhausBadge>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight uppercase leading-tight text-[#090909]">
+                {problem.headline}
+              </h2>
+            </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          <div data-anim="problem-left" className="lg:col-span-5 flex flex-col gap-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold uppercase tracking-tight text-editorial-primary leading-tight">
-              {problem.headline}
-            </h2>
-            <p className="text-xs sm:text-sm text-editorial-secondary font-sans pt-2">
-              {problem.conclusion}
-            </p>
+            {problem.conclusion && (
+              <div className="p-6 bg-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909]">
+                <span className="font-mono text-xs font-bold text-[#F23B32] uppercase block mb-1">
+                  IMPACT STATEMENT
+                </span>
+                <p className="font-heading font-bold text-base text-[#090909] uppercase">
+                  {problem.conclusion}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="lg:col-span-7 flex flex-col gap-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {problem.points?.map((pt, idx) => (
                 <div
                   key={idx}
-                  data-anim="problem-card"
-                  className="p-4 sm:p-5 rounded-[14px] bg-white border border-[#1E1E2E]/12 text-xs sm:text-[13.5px] font-sans text-editorial-secondary flex items-start gap-2.5"
+                  className="p-6 bg-white border-2 border-[#090909] shadow-[3px_3px_0px_0px_#090909] flex flex-col justify-between hover:border-[#F23B32] transition-colors"
                 >
-                  <span className="font-mono text-xs text-brand-turquoise font-bold mt-0.5">
-                    0{idx + 1}
+                  <span className="font-mono text-xs font-bold text-[#F23B32] mb-3">
+                    FRICTION 0{idx + 1}
                   </span>
-                  <span>{pt}</span>
+                  <p className="font-body text-sm text-[#090909]/80 leading-relaxed font-medium">
+                    {pt}
+                  </p>
                 </div>
               ))}
             </div>
 
             {problem.sequence && (
-              <div
-                data-anim="problem-sequence"
-                className="p-4 sm:p-5 rounded-[14px] bg-[#F4F7FA] border border-brand-turquoise/30 text-xs sm:text-sm font-heading font-bold uppercase text-editorial-primary tracking-wide text-center"
-              >
+              <div className="p-4 bg-[#FFD447] border-2 border-[#090909] text-center font-heading font-black text-sm uppercase tracking-wider text-[#090909]">
                 {problem.sequence}
               </div>
             )}
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
-      {/* 3. OUR SERVICES */}
-      <section ref={servicesRef} id="services" className="flex flex-col gap-8 pt-6 border-t border-border">
-        <div data-anim="services-masthead">
-          <SectionMasthead
-            badge="CAPABILITIES"
-            descriptor={`OUR ${hero.badge.split("//")[1]?.trim() || ""} SERVICES`}
-            rightLabel={`[${services.length} DOMAINS]`}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((svc, idx) => (
-            <article
-              key={idx}
-              data-anim="service-card"
-              className="p-6 sm:p-8 rounded-[20px] bg-white border border-[#1E1E2E]/15 shadow-sm flex flex-col justify-between min-h-[260px] hover:border-brand-turquoise/60 transition-colors"
-            >
-              <div>
-                <div className="flex items-center justify-between text-editorial-muted border-b border-border pb-3 mb-3">
-                  <span className="font-mono text-xs text-brand-turquoise font-bold">
-                    0{idx + 1}
-                  </span>
-                  {svc.slug && (
-                    <Link
-                      href={`/services/${svc.slug}`}
-                      className="text-xs font-heading font-semibold text-brand-turquoise hover:underline flex items-center gap-1"
-                    >
-                      <span>Explore</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </Link>
-                  )}
-                </div>
-
-                <h3 className="text-lg font-heading font-bold uppercase text-editorial-primary mb-2">
-                  {svc.title}
-                </h3>
-                <p className="text-xs sm:text-[13px] text-editorial-secondary font-sans leading-relaxed mb-4">
-                  {svc.description}
-                </p>
-
-                <div className="pt-3 border-t border-border">
-                  <span className="text-[10px] font-mono text-editorial-muted uppercase tracking-wider block mb-2 font-semibold">
-                    Includes:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {svc.includes?.map((inc) => (
-                      <span
-                        key={inc}
-                        className="px-2.5 py-1 rounded-sm bg-[#F4F7FA] border border-brand-turquoise/20 text-[11px] font-sans text-editorial-primary"
-                      >
-                        {inc}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. OUR APPROACH */}
-      <section ref={approachRef} id="approach" className="flex flex-col gap-8 pt-6 border-t border-border">
-        <div data-anim="approach-masthead">
-          <SectionMasthead
-            badge={approach.badge || "OUR APPROACH"}
-            descriptor="EXECUTION METHODOLOGY"
-            rightLabel={`[${approach.steps.length} STEPS]`}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {approach.steps.map((st) => (
-            <div
-              key={st.number}
-              data-anim="approach-step"
-              className="p-6 rounded-[18px] bg-white border border-[#1E1E2E]/15 shadow-sm flex flex-col justify-between min-h-[160px]"
-            >
-              <div>
-                <span className="font-mono text-xs text-brand-turquoise font-bold block mb-2">
-                  STAGE {st.number}
-                </span>
-                <h3 className="text-base font-heading font-bold uppercase text-editorial-primary mb-1">
-                  {st.number} — {st.title}
-                </h3>
-              </div>
-              <p className="text-xs text-editorial-secondary font-sans leading-relaxed">
-                {st.description}
-              </p>
+      {/* 3. CAPABILITIES / SERVICES GRID */}
+      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 border-b-4 border-[#090909] bg-white">
+        <div className="max-w-[1560px] mx-auto">
+          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b-4 border-[#090909]">
+            <div>
+              <BauhausBadge variant="blue" shape="square" size="sm" className="mb-4">
+                CAPABILITIES
+              </BauhausBadge>
+              <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight uppercase text-[#090909]">
+                WHAT WE BUILD
+              </h2>
             </div>
-          ))}
+            <span className="font-mono text-xs font-bold uppercase text-[#090909]/60">
+              [{services.length} CORE MODULES]
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            {services.map((svc, idx) => (
+              <article
+                key={idx}
+                data-stagger-item
+                className="bg-[#E9EDF2] border-4 border-[#090909] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#090909] flex flex-col justify-between min-h-[280px] hover:bg-white transition-colors group"
+              >
+                <div>
+                  <div className="flex items-center justify-between pb-3 border-b-2 border-[#090909] mb-4">
+                    <span className="font-mono text-sm font-black text-[#F23B32]">
+                      0{idx + 1}
+                    </span>
+                    {svc.slug && (
+                      <Link
+                        href={`/services/${svc.slug}`}
+                        className="font-mono text-xs font-bold text-[#2F5FA7] hover:text-[#F23B32] inline-flex items-center gap-1 group-hover:underline"
+                      >
+                        <span>Details</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </Link>
+                    )}
+                  </div>
+
+                  <h3 className="text-xl font-heading font-black uppercase tracking-tight text-[#090909] mb-2 group-hover:text-[#F23B32] transition-colors">
+                    {svc.title}
+                  </h3>
+
+                  <p className="font-body text-xs sm:text-sm text-[#090909]/75 leading-relaxed mb-4">
+                    {svc.description}
+                  </p>
+                </div>
+
+                {svc.includes && svc.includes.length > 0 && (
+                  <div className="pt-4 border-t-2 border-[#090909]/15">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#090909]/60 block mb-2">
+                      MODULE DELIVERABLES:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {svc.includes.map((inc, i) => (
+                        <span
+                          key={i}
+                          className="px-2 py-0.5 bg-white border border-[#090909] font-mono text-[11px] font-semibold text-[#090909]"
+                        >
+                          {inc}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </article>
+            ))}
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* 4. EXECUTION METHODOLOGY / APPROACH STEPS */}
+      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 border-b-4 border-[#090909] bg-[#0F2747] text-white">
+        <div className="max-w-[1560px] mx-auto">
+          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b-2 border-white/20">
+            <div>
+              <BauhausBadge variant="yellow" shape="square" size="sm" className="mb-4">
+                {approach.badge || "METHODOLOGY"}
+              </BauhausBadge>
+              <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight uppercase text-white">
+                HOW THIS SYSTEM WORKS
+              </h2>
+            </div>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FFD447] font-bold">
+              [{approach.steps.length} EXECUTION STAGES]
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal variant="stagger" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            {approach.steps.map((st, i) => (
+              <div
+                key={i}
+                data-stagger-item
+                className="p-6 sm:p-8 bg-[#173359] border-2 border-white/20 shadow-[4px_4px_0px_0px_#090909] flex flex-col justify-between min-h-[200px]"
+              >
+                <div>
+                  <div className="flex items-center justify-between pb-3 border-b border-white/15 mb-3">
+                    <span className="font-mono text-lg font-black text-[#FFD447]">
+                      {st.number || `0${i + 1}`}
+                    </span>
+                    <span className="font-mono text-[10px] tracking-widest uppercase text-white/50">
+                      STEP
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-heading font-black uppercase text-white mb-2">
+                    {st.title || st.name}
+                  </h3>
+                </div>
+                <p className="font-body text-xs sm:text-sm text-white/75 leading-relaxed">
+                  {st.description}
+                </p>
+              </div>
+            ))}
+          </ScrollReveal>
         </div>
       </section>
 
       {/* 5. WHO THIS IS FOR */}
-      <section ref={audienceRef} id="audience" className="flex flex-col gap-8 pt-6 border-t border-border">
-        <SectionMasthead
-          badge={whoThisIsFor.badge || "WHO THIS IS FOR"}
-          descriptor="TARGET PROFILE"
-          rightLabel="[QUALIFYING AUDIENCE]"
-        />
+      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 border-b-4 border-[#090909] bg-white">
+        <div className="max-w-[1560px] mx-auto">
+          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b-4 border-[#090909]">
+            <div>
+              <BauhausBadge variant="red" shape="square" size="sm" className="mb-4">
+                {whoThisIsFor.badge || "QUALIFICATION"}
+              </BauhausBadge>
+              <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight uppercase text-[#090909]">
+                {whoThisIsFor.headline}
+              </h2>
+            </div>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#090909]/60 font-bold">
+              PROFILE MATRIX
+            </span>
+          </ScrollReveal>
 
-        <div
-          data-anim="audience-card"
-          className="p-8 sm:p-12 rounded-[24px] bg-white border border-[#1E1E2E]/15 shadow-sm flex flex-col gap-6"
-        >
-          <h2 className="text-xl sm:text-2xl font-heading font-bold uppercase tracking-tight text-editorial-primary">
-            {whoThisIsFor.headline}
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <ScrollReveal variant="fade-up" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-4 border-[#090909] mt-12 bg-[#090909] gap-[2px]">
             {whoThisIsFor.points.map((pt, idx) => (
               <div
                 key={idx}
-                data-anim="audience-chip"
-                className="p-4 rounded-[12px] bg-[#F4F7FA] border border-brand-turquoise/20 flex items-start gap-2.5 text-xs font-sans text-editorial-secondary"
+                className="bg-white p-6 sm:p-8 flex items-start gap-3 hover:bg-[#FFD447]/20 transition-colors"
               >
-                <CheckCircle2 className="w-4 h-4 text-brand-turquoise shrink-0 mt-0.5" />
-                <span>{pt}</span>
+                <CheckSquare className="w-5 h-5 text-[#F23B32] shrink-0 mt-0.5" />
+                <span className="font-body text-sm font-semibold text-[#090909] leading-relaxed">
+                  {pt}
+                </span>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* 6. FINAL CTA */}
-      <section ref={ctaRef} id="cta" className="flex flex-col gap-8 pt-6 border-t border-border">
-        <div
-          data-anim="cta-card"
-          className="p-8 sm:p-12 lg:p-16 rounded-[24px] bg-[#F4F7FA] border border-brand-turquoise/30 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold uppercase tracking-tight text-editorial-primary max-w-xl leading-tight">
+      {/* 6. FINAL DOMAIN CTA */}
+      <section className="py-20 sm:py-28 px-6 sm:px-12 text-center bg-[#F23B32] text-white border-b-4 border-[#090909]">
+        <ScrollReveal variant="fade-up" className="max-w-3xl mx-auto flex flex-col items-center">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-black uppercase tracking-tight text-white leading-tight">
             {finalCta.headline}
           </h2>
 
-          <Button
-            variant="primary"
-            size="lg"
-            withArrow
-            asLink
-            href={finalCta.cta.href}
-            className="w-full sm:w-auto text-center justify-center min-h-[48px]"
-          >
-            {finalCta.cta.label}
-          </Button>
-        </div>
+          <div className="mt-8">
+            <Button
+              variant="yellow"
+              size="lg"
+              withArrow
+              asLink
+              href={finalCta.cta.href}
+              className="min-h-[52px] text-base"
+            >
+              {finalCta.cta.label}
+            </Button>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   );

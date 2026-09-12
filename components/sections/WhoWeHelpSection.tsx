@@ -1,114 +1,92 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
 import { homeContent } from "@/data/content/home";
-import { getGSAP } from "@/lib/gsap";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import { Users, Building2, Globe2, AlertCircle, TrendingDown, Cpu } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const AUDIENCE_ICONS = [
-  Users,
-  Building2,
-  Globe2,
-  AlertCircle,
-  TrendingDown,
-  Cpu,
-];
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function WhoWeHelpSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
   const { whoWeHelp } = homeContent;
 
   useLayoutEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current || !cardsRef.current) return;
-
-    const { gsap } = getGSAP();
-    const cards = cardsRef.current.querySelectorAll(".audience-card");
+    if (prefersReducedMotion || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        cards,
-        { autoAlpha: 0, y: 25 },
+        ".matrix-cell",
+        { opacity: 0, scale: 0.96 },
         {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.6,
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
           stagger: 0.08,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
+            trigger: containerRef.current,
+            start: "top 75%",
           },
         }
       );
-    }, sectionRef);
+    }, containerRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   return (
     <section
-      ref={sectionRef}
-      id="who-we-help"
-      className="relative z-10 py-16 sm:py-20 lg:py-28 px-4 sm:px-6 md:px-12 bg-transparent text-editorial-primary border-t border-border overflow-clip"
-      style={{ isolation: "isolate" }}
+      ref={containerRef}
+      className="relative w-full bg-white text-[#090909] border-b-4 border-[#090909] py-16 sm:py-24 px-6 sm:px-12 lg:px-16"
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12">
-        {/* Section Masthead */}
-        <SectionMasthead
-          badge={whoWeHelp.badge}
-          descriptor="CLIENT TYPOLOGY"
-          rightLabel="[STRATEGIC CLIENT PROFILES]"
-        />
+      <div className="max-w-[1560px] mx-auto">
+        {/* Masthead */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b-4 border-[#090909]">
+          <div>
+            <BauhausBadge variant="blue" shape="square" size="sm" className="mb-4">
+              {whoWeHelp.badge}
+            </BauhausBadge>
+            <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight uppercase leading-[1.0] text-[#090909]">
+              {whoWeHelp.headline}
+            </h2>
+          </div>
 
-        {/* Section Heading */}
-        <div className="flex flex-col gap-2 max-w-3xl pb-2">
-          <span className="text-[10px] sm:text-[11px] font-mono text-brand-coral uppercase tracking-wider font-semibold">
-            ALIGNMENT MATRIX
+          <span className="font-mono text-xs uppercase tracking-widest text-[#090909]/60 font-bold">
+            STAGE & SITUATION MATRIX
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold uppercase tracking-tight text-editorial-primary leading-tight">
-            {whoWeHelp.headline}
-          </h2>
         </div>
 
-        {/* 6 Audience Profile Cards */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
-        >
-          {whoWeHelp.audiences.map((aud, idx) => {
-            const Icon = AUDIENCE_ICONS[idx % AUDIENCE_ICONS.length];
-
-            return (
-              <article
-                key={idx}
-                className="audience-card p-6 sm:p-8 rounded-[16px] sm:rounded-[20px] bg-[#FFFFFF] border border-[#1E1E2E]/15 shadow-sm flex flex-col justify-between min-h-[200px] transition-all hover:border-brand-coral/60 group"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-editorial-muted mb-4 border-b border-border pb-3">
-                    <span className="font-mono text-xs text-brand-coral font-bold">
-                      0{idx + 1}
-                    </span>
-                    <Icon className="w-4 h-4 text-editorial-secondary group-hover:text-brand-coral transition-colors" />
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-heading font-bold text-editorial-primary mb-2">
-                      {aud.title}
-                    </h3>
-                    <p className="text-xs sm:text-[13.5px] text-editorial-secondary font-sans leading-relaxed">
-                      {aud.description}
-                    </p>
-                  </div>
+        {/* Structured 3x2 Matrix with Thick Grid Lines */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-4 border-[#090909] mt-12 bg-[#090909] gap-[2px]">
+          {whoWeHelp.audiences.map((aud, idx) => (
+            <div
+              key={idx}
+              className="matrix-cell bg-white p-8 sm:p-10 flex flex-col justify-between min-h-[240px] hover:bg-[#FFD447]/20 transition-colors group"
+            >
+              <div>
+                <div className="flex items-center justify-between pb-3 border-b-2 border-[#090909]/10">
+                  <span className="font-mono text-sm font-bold text-[#F23B32]">
+                    CASE 0{idx + 1}
+                  </span>
+                  <div className="w-3 h-3 border border-[#090909] bg-white group-hover:bg-[#F23B32] transition-colors" />
                 </div>
-              </article>
-            );
-          })}
+
+                <h3 className="mt-4 font-heading font-black text-xl uppercase tracking-tight text-[#090909] group-hover:text-[#F23B32] transition-colors">
+                  {aud.title}
+                </h3>
+              </div>
+
+              <p className="mt-4 font-body text-sm text-[#090909]/75 leading-relaxed">
+                {aud.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

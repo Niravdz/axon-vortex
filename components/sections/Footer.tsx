@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowUp } from "lucide-react";
+import { ArrowUpRight, ArrowUp, Phone, Mail, MapPin } from "lucide-react";
 import { BrandLogo } from "@/components/navigation/BrandLogo";
 import { siteConfig } from "@/data/siteConfig";
 
@@ -13,346 +13,250 @@ export function Footer() {
     }
   };
 
+  const handleOpenCookieSettings = () => {
+    if (typeof window !== "undefined") {
+      const win = window as unknown as { openCookiePreferences?: () => void };
+      if (win.openCookiePreferences) {
+        win.openCookiePreferences();
+      }
+    }
+  };
+
   return (
     <footer
       id="site-footer"
-      className="relative z-content w-full bg-[#FFFFFF]/80 backdrop-blur-sm text-editorial-primary border-t border-brand-navy/20 [&_a]:min-h-11 [&_a]:inline-flex [&_a]:items-center"
+      className="relative z-content w-full bg-[#0F2747] text-white border-t-4 border-[#090909]"
     >
-      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
-        {/* ========================================================================= */}
-        {/* DESKTOP 4-COLUMN RULED GRID (≥1024px)                                     */}
-        {/* ========================================================================= */}
-        <div className="hidden lg:grid grid-cols-[38%_20.666%_20.666%_20.668%] border-x border-brand-navy/20">
-          {/* ----------------------------------------------------------------------- */}
-          {/* ROW 1: HEADER / COLUMN LABELS (~15% larger typography)                  */}
-          {/* ----------------------------------------------------------------------- */}
-          <div className="p-8 xl:p-10 border-b border-r border-brand-navy/20 flex items-center">
-            <BrandLogo />
-          </div>
-
-          <div className="p-8 xl:p-10 border-b border-r border-brand-navy/20 flex items-center">
-            <span className="font-heading text-sm xl:text-[15px] font-bold uppercase tracking-wider text-editorial-primary">
-              ARCHITECTURES
-            </span>
-          </div>
-
-          <div className="p-8 xl:p-10 border-b border-r border-brand-navy/20 flex items-center">
-            <span className="font-heading text-sm xl:text-[15px] font-bold uppercase tracking-wider text-editorial-primary">
-              SYSTEM
-            </span>
-          </div>
-
-          <div className="p-8 xl:p-10 border-b border-brand-navy/20 flex items-center">
-            <span className="font-heading text-sm xl:text-[15px] font-bold uppercase tracking-wider text-editorial-primary">
-              STANDARDS
-            </span>
-          </div>
-
-          {/* ----------------------------------------------------------------------- */}
-          {/* ROW 2: MAIN CONTENT & CONTACT CTA                                       */}
-          {/* ----------------------------------------------------------------------- */}
-          {/* Column 1: Contact Info + Dominant "LET'S TALK! ↗" CTA */}
-          <div className="p-8 xl:p-10 border-b border-r border-brand-navy/20 flex flex-col justify-between min-h-[460px] xl:min-h-[520px]">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-1.5">
-                <span className="text-xs xl:text-[13px] font-mono font-semibold uppercase tracking-wider text-editorial-secondary">
-                  Get in touch
-                </span>
-                <a
-                  href={`mailto:${siteConfig.contact.email}`}
-                  className="text-xl xl:text-2xl font-heading font-semibold text-editorial-primary hover:text-brand-turquoise transition-colors duration-200 underline decoration-brand-navy/30 hover:decoration-brand-turquoise underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  {siteConfig.contact.email}
-                </a>
+      <div className="w-full max-w-[1720px] mx-auto">
+        {/* Top Split Section: Giant Callout & Brand Coordinates */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 border-b-2 border-white/20">
+          {/* Left Hero Anchor (7 cols) */}
+          <div className="lg:col-span-7 p-8 md:p-12 lg:p-16 border-b-2 lg:border-b-0 lg:border-r-2 border-white/20 flex flex-col justify-between gap-10">
+            <div>
+              <div className="inline-block px-3 py-1 bg-[#FFD447] text-[#090909] font-mono text-xs font-bold uppercase tracking-widest border border-[#090909] mb-6">
+                GROWTH SYSTEM READY
               </div>
-
-              <p className="text-[13.5px] xl:text-[15px] text-editorial-secondary font-sans leading-relaxed max-w-md">
-                {siteConfig.description}
-              </p>
-
-              <div className="text-xs xl:text-[13px] font-mono text-editorial-muted">
-                {siteConfig.contact.address}
-              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tight uppercase leading-[0.95] text-white">
+                BUILD SMARTER.<br />
+                MARKET BETTER.<br />
+                <span className="text-[#F23B32]">GROW FASTER.</span>
+              </h2>
             </div>
 
-            {/* Dominant Primary Visual Anchor CTA */}
-            <div className="pt-8">
+            <div className="pt-4">
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-3 text-5xl sm:text-6xl xl:text-[76px] font-heading font-black tracking-tight leading-none text-editorial-primary hover:text-brand-coral transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise rounded-sm"
-                aria-label="Let's Talk - Initialize Commission"
+                className="group inline-flex items-center gap-4 bg-[#F23B32] text-white text-lg sm:text-xl font-heading font-bold uppercase tracking-wider px-8 py-5 border-2 border-white shadow-[4px_4px_0px_0px_#FFFFFF] hover:bg-[#d92c24] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
               >
-                <span>LET&apos;S TALK!</span>
-                <ArrowUpRight className="w-10 h-10 xl:w-14 xl:h-14 stroke-[2.5] transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300 text-brand-coral" />
+                <span>START A PROJECT</span>
+                <ArrowUpRight className="w-6 h-6 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
             </div>
           </div>
 
-          {/* Column 2: Architectures Navigation (~10-15% larger typography) */}
-          <div className="p-8 xl:p-10 border-b border-r border-brand-navy/20 flex flex-col min-h-[460px] xl:min-h-[520px]">
-            <ul className="flex flex-col gap-4 xl:gap-4.5 text-[13.5px] xl:text-[14.5px] font-mono" role="list">
-              <li>
-                <Link
-                  href="/digital-marketing"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Digital Marketing</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/ai-automation"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">AI & Automation</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/websites-ecommerce"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Websites & E-Commerce</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/lead-generation"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Lead Generation</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/technology-digital-transformation"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Digital Transformation</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Right Direct Contact & Coordinates (5 cols) */}
+          <div className="lg:col-span-5 p-8 md:p-12 lg:p-16 flex flex-col justify-between gap-8 bg-[#091a30]">
+            <div>
+              <BrandLogo tone="dark" />
+              <p className="font-body text-sm text-white/80 mt-6 leading-relaxed max-w-sm">
+                AxonVortex is an AI-driven digital growth agency that helps businesses build, market and scale smarter through strategy, creativity, automation and data.
+              </p>
+            </div>
 
-          {/* Column 3: System Navigation */}
-          <div className="p-8 xl:p-10 border-b border-r border-brand-navy/20 flex flex-col min-h-[460px] xl:min-h-[520px]">
-            <ul className="flex flex-col gap-4 xl:gap-4.5 text-[13.5px] xl:text-[14.5px] font-mono" role="list">
-              <li>
-                <Link
-                  href="/approach"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
+            <div className="flex flex-col gap-4 border-t-2 border-white/20 pt-6">
+              <div className="flex items-center gap-3 text-sm font-mono">
+                <Mail className="w-4 h-4 text-[#FFD447]" />
+                <a
+                  href="mailto:info@axonvortex.com"
+                  className="text-white hover:text-[#FFD447] underline underline-offset-4 transition-colors"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Our Approach</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/authority-conversion"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
+                  info@axonvortex.com
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-sm font-mono">
+                <Phone className="w-4 h-4 text-[#FFD447]" />
+                <a
+                  href="tel:+919933112213"
+                  className="text-white hover:text-[#FFD447] transition-colors"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Authority & Growth</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Service Directory</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="group flex items-center gap-3 text-editorial-secondary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise/70 group-hover:bg-brand-turquoise transition-colors shrink-0" />
-                  <span className="group-hover:underline underline-offset-4">Initialize Commission</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 4: Standards (Plain Text) */}
-          <div className="p-8 xl:p-10 border-b border-brand-navy/20 flex flex-col min-h-[460px] xl:min-h-[520px]">
-            <ul className="flex flex-col gap-4 xl:gap-4.5 text-[13.5px] xl:text-[14.5px] font-mono text-editorial-muted" role="list">
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-navy/30 shrink-0" />
-                <span>Strategy-first AI</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-navy/30 shrink-0" />
-                <span>Measurable ROI</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-navy/30 shrink-0" />
-                <span>Connected Pipelines</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* ----------------------------------------------------------------------- */}
-          {/* ROW 3: BOTTOM UTILITY ROW (13-14px font-mono)                           */}
-          {/* ----------------------------------------------------------------------- */}
-          <div className="p-6 xl:p-7 border-r border-brand-navy/20 flex items-center text-[13px] xl:text-[14px] font-mono text-editorial-secondary">
-            <span>© {new Date().getFullYear()} {siteConfig.legalName}.</span>
-          </div>
-
-          <div className="p-6 xl:p-7 border-r border-brand-navy/20 flex items-center text-[13px] xl:text-[14px] font-mono text-editorial-muted">
-            <span className="tracking-wider uppercase">ALL SYSTEMS ACTIVE</span>
-          </div>
-
-          <div className="p-6 xl:p-7 border-r border-brand-navy/20 flex items-center text-[13px] xl:text-[14px] font-mono text-editorial-muted">
-            <span className="tracking-wider uppercase">SCALING SMARTER</span>
-          </div>
-
-          <div className="p-6 xl:p-7 flex items-center justify-between">
-            <button
-              onClick={scrollToTop}
-              className="group flex items-center gap-2 text-[13px] xl:text-[14px] font-mono font-bold uppercase tracking-wider text-editorial-primary hover:text-brand-turquoise transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise min-h-[44px]"
-              aria-label="Scroll back to top of page"
-            >
-              <span>BACK TO TOP</span>
-              <ArrowUp className="w-3.5 h-3.5 transform group-hover:-translate-y-0.5 transition-transform text-brand-turquoise" />
-            </button>
+                  +91 9933112213
+                </a>
+              </div>
+              <div className="flex items-start gap-3 text-xs font-mono text-white/60">
+                <MapPin className="w-4 h-4 text-[#FFD447] shrink-0 mt-0.5" />
+                <span>India · Serving ambitious clients worldwide</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* ========================================================================= */}
-        {/* TABLET / MOBILE RESPONSIVE LAYOUT (<1024px)                               */}
-        {/* ========================================================================= */}
-        <div className="lg:hidden border-x border-brand-navy/20 divide-y divide-brand-navy/20">
-          {/* Logo & Headline Row */}
-          <div className="p-6 sm:p-8 flex items-center justify-between">
-            <BrandLogo />
-          </div>
-
-          {/* Contact Information & Big CTA */}
-          <div className="p-6 sm:p-8 flex flex-col gap-6">
-            <div className="flex flex-col gap-1.5">
-              <span className="text-xs sm:text-[13px] font-mono font-semibold uppercase tracking-wider text-editorial-secondary">
-                Get in touch
-              </span>
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="text-lg sm:text-xl font-heading font-semibold text-editorial-primary hover:text-brand-turquoise transition-colors underline decoration-brand-navy/30 hover:decoration-brand-turquoise underline-offset-4 min-h-[44px] flex items-center"
-              >
-                {siteConfig.contact.email}
-              </a>
-            </div>
-
-            <p className="text-[13.5px] sm:text-[14.5px] text-editorial-secondary font-sans leading-relaxed">
-              {siteConfig.description}
-            </p>
-
-            <div className="pt-2">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 text-3xl sm:text-5xl font-heading font-black tracking-tight leading-none text-editorial-primary hover:text-brand-coral transition-colors min-h-[48px]"
-              >
-                <span>LET&apos;S TALK!</span>
-                <ArrowUpRight className="w-7 h-7 sm:w-10 sm:h-10 text-brand-coral" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Tablet 2-Col / Mobile Stacked Link Columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-brand-navy/20">
-            {/* Architectures */}
-            <div className="p-6 sm:p-8 flex flex-col gap-4">
-              <span className="font-heading text-sm font-bold uppercase tracking-wider text-editorial-primary">
-                ARCHITECTURES
-              </span>
-              <ul className="flex flex-col gap-1 text-[13.5px] font-mono" role="list">
-                <li>
-                  <Link href="/digital-marketing" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Digital Marketing
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/ai-automation" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    AI & Automation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/websites-ecommerce" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Websites & E-Commerce
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/lead-generation" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Lead Generation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/technology-digital-transformation" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Digital Transformation
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* System */}
-            <div className="p-6 sm:p-8 flex flex-col gap-4">
-              <span className="font-heading text-sm font-bold uppercase tracking-wider text-editorial-primary">
-                SYSTEM
-              </span>
-              <ul className="flex flex-col gap-1 text-[13.5px] font-mono" role="list">
-                <li>
-                  <Link href="/approach" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Our Approach
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/authority-conversion" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Authority & Growth
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Service Directory
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="text-editorial-secondary hover:text-brand-turquoise min-h-[40px] flex items-center">
-                    Initialize Commission
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Standards (Full width below) */}
-          <div className="p-6 sm:p-8 flex flex-col gap-3 bg-white/40">
-            <span className="font-heading text-xs sm:text-[13px] font-bold uppercase tracking-widest text-editorial-muted">
-              STANDARDS
+        {/* Middle Navigation Grid: 4 Columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-b-2 border-white/20 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-white/20">
+          {/* Col 1: Solutions Domains */}
+          <div className="p-8 flex flex-col gap-4">
+            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
+              01 / DOMAINS
             </span>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] sm:text-[13.5px] font-mono text-editorial-muted" role="list">
-              <li>• Strategy-first AI</li>
-              <li>• Measurable ROI</li>
-              <li>• Connected Pipelines</li>
+            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
+              <li>
+                <Link href="/digital-marketing" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#F23B32] shrink-0" />
+                  <span>Digital Marketing</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/ai-automation" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#2F5FA7] shrink-0" />
+                  <span>AI & Automation</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/websites-ecommerce" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#FFD447] shrink-0" />
+                  <span>Websites & E-Commerce</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/lead-generation" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#F23B32] shrink-0" />
+                  <span>Lead Generation</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/technology-digital-transformation" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#2F5FA7] shrink-0" />
+                  <span>Technology & Transformation</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Bottom Utility Bar */}
-          <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] font-mono text-editorial-secondary">
-            <span>© {new Date().getFullYear()} {siteConfig.legalName}.</span>
-            <button
-              onClick={scrollToTop}
-              className="flex items-center gap-2 font-bold text-editorial-primary hover:text-brand-turquoise transition-colors min-h-[44px]"
-            >
-              <span>BACK TO TOP</span>
-              <ArrowUp className="w-3.5 h-3.5 text-brand-turquoise" />
-            </button>
+          {/* Col 2: Services Directory */}
+          <div className="p-8 flex flex-col gap-4">
+            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
+              02 / SERVICES
+            </span>
+            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
+              <li>
+                <Link href="/services/social-media-marketing" className="hover:text-[#FFD447] transition-colors">
+                  Social Media Marketing
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/meta-ads" className="hover:text-[#FFD447] transition-colors">
+                  Meta Ads
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/google-ads" className="hover:text-[#FFD447] transition-colors">
+                  Google Ads & SEO
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/ai-chatbots" className="hover:text-[#FFD447] transition-colors">
+                  AI Chatbots & Agents
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/website-development" className="hover:text-[#FFD447] transition-colors">
+                  Website & E-Commerce Development
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="font-bold text-[#FFD447] hover:underline pt-1 inline-flex items-center gap-1">
+                  <span>View All 12 Services →</span>
+                </Link>
+              </li>
+            </ul>
           </div>
+
+          {/* Col 3: Company & Approach */}
+          <div className="p-8 flex flex-col gap-4">
+            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
+              03 / COMPANY
+            </span>
+            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
+              <li>
+                <Link href="/solutions" className="hover:text-[#FFD447] transition-colors">
+                  Solutions Capability Map
+                </Link>
+              </li>
+              <li>
+                <Link href="/approach" className="hover:text-[#FFD447] transition-colors">
+                  Our Growth Framework
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-[#FFD447] transition-colors">
+                  About AxonVortex
+                </Link>
+              </li>
+              <li>
+                <Link href="/growth-audit" className="hover:text-[#FFD447] transition-colors">
+                  Digital Growth Audit
+                </Link>
+              </li>
+              <li>
+                <Link href="/insights" className="hover:text-[#FFD447] transition-colors">
+                  Insights & Research
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-[#FFD447] transition-colors">
+                  Contact Consultation
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Governance & Legal */}
+          <div className="p-8 flex flex-col gap-4">
+            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
+              04 / LEGAL & COMPLIANCE
+            </span>
+            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
+              <li>
+                <Link href="/privacy" className="hover:text-[#FFD447] transition-colors">
+                  Privacy Policy (DPDP / GDPR)
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-[#FFD447] transition-colors">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={handleOpenCookieSettings}
+                  className="text-left hover:text-[#FFD447] transition-colors underline underline-offset-4 cursor-pointer"
+                >
+                  Cookie Preferences
+                </button>
+              </li>
+              <li className="pt-2 text-xs font-mono text-white/50 leading-relaxed">
+                Registered under India DPDP Act 2023. Governed by Indian arbitration law.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Utility Bar */}
+        <div className="p-6 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/60 bg-[#090909]">
+          <div className="flex flex-wrap items-center gap-4">
+            <span>© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</span>
+            <span className="hidden md:inline">·</span>
+            <span className="text-white/40">Concept 9: Bauhaus Tech / Swiss Modernism</span>
+          </div>
+
+          <button
+            onClick={scrollToTop}
+            className="group flex items-center gap-2 text-white hover:text-[#FFD447] font-bold uppercase tracking-widest transition-colors py-2 px-3 border border-white/20 hover:border-[#FFD447]"
+            aria-label="Scroll to top of page"
+          >
+            <span>BACK TO TOP</span>
+            <ArrowUp className="w-3.5 h-3.5 transform group-hover:-translate-y-0.5 transition-transform text-[#FFD447]" />
+          </button>
         </div>
       </div>
     </footer>

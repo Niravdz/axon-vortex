@@ -1,65 +1,76 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
-import Image from "next/image";
-import { Button } from "@/components/ui/Button";
 import { homeContent } from "@/data/content/home";
-import { siteConfig } from "@/data/siteConfig";
-import { getGSAP } from "@/lib/gsap";
+import { Button } from "@/components/ui/Button";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { getGSAP } from "@/lib/gsap";
 
 export function FinalCTASection() {
   const containerRef = useRef<HTMLElement>(null);
-  const glowBeamRef = useRef<HTMLDivElement>(null);
-  const ctaButtonsRef = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
+  const squareRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
   const { finalCta } = homeContent;
 
   useLayoutEffect(() => {
     if (prefersReducedMotion || !containerRef.current) return;
 
     const { gsap } = getGSAP();
-    const container = containerRef.current;
-    const beam = glowBeamRef.current;
-    const buttons = ctaButtonsRef.current;
-
     const ctx = gsap.context(() => {
-      if (beam) {
-        gsap.fromTo(
-          beam,
-          { scaleX: 0 },
-          {
-            scaleX: 1,
-            duration: 1.1,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: container,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
+      // Content reveal
+      gsap.fromTo(
+        ".cta-content",
+        { opacity: 0, y: 32, scale: 0.98 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+
+      // Slow independent geometric motion
+      if (circleRef.current) {
+        gsap.to(circleRef.current, {
+          y: -18,
+          x: 10,
+          rotation: 8,
+          duration: 6,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
       }
 
-      if (buttons) {
-        gsap.fromTo(
-          buttons,
-          { autoAlpha: 0, y: 20 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.7,
-            delay: 0.15,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: container,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
+      if (squareRef.current) {
+        gsap.to(squareRef.current, {
+          y: 16,
+          x: -12,
+          rotation: -10,
+          duration: 7,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
       }
+
+      const handleVisibility = () => {
+        if (document.hidden) {
+          gsap.ticker.sleep();
+        } else {
+          gsap.ticker.wake();
+        }
+      };
+      document.addEventListener("visibilitychange", handleVisibility);
+      return () => document.removeEventListener("visibilitychange", handleVisibility);
     }, containerRef);
 
     return () => ctx.revert();
@@ -68,81 +79,66 @@ export function FinalCTASection() {
   return (
     <section
       ref={containerRef}
-      id="contact"
-      className="relative z-10 py-20 sm:py-28 lg:py-32 px-4 sm:px-6 md:px-12 bg-transparent text-editorial-primary overflow-clip border-t border-border"
-      style={{ isolation: "isolate" }}
+      className="relative w-full bg-[#F23B32] text-white border-b-4 border-[#090909] py-20 sm:py-28 px-6 sm:px-12 lg:px-16 overflow-hidden"
     >
-      {/* Thin Horizontal Accent Beam */}
+      {/* Bauhaus Decorative Geometric Shapes in Background with gentle float */}
       <div
-        ref={glowBeamRef}
-        className="absolute top-0 left-0 right-0 h-[1px] bg-brand-turquoise origin-center will-change-transform"
+        ref={circleRef}
+        aria-hidden="true"
+        className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-[#FFD447] border-4 border-[#090909] opacity-40 pointer-events-none will-change-transform"
+      />
+      <div
+        ref={squareRef}
+        aria-hidden="true"
+        className="absolute -bottom-16 -left-16 w-56 h-56 bg-[#0F2747] border-4 border-[#090909] opacity-30 pointer-events-none will-change-transform"
       />
 
-      <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-6 sm:gap-8 relative z-10">
-        <div className="relative w-12 h-12 rounded-sm overflow-hidden bg-charcoal border border-border p-1 mb-1 sm:mb-2">
-          <Image
-            src="/assets/axon-vortex-logo.jpeg"
-            alt="AxonVortex Logo"
-            fill
-            sizes="48px"
-            className="object-contain"
-          />
+      <div className="max-w-4xl mx-auto text-center relative z-10 cta-content will-change-[transform,opacity]">
+        <div className="inline-block px-4 py-1.5 bg-[#090909] text-white font-mono text-xs font-bold uppercase tracking-widest border border-white mb-6 shadow-hard-sm">
+          COMMISSION SCOPING
         </div>
 
-        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-[#1E1E2E]/15 shadow-2xs">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-turquoise animate-pulse" />
-          <span className="text-[11px] font-heading font-semibold text-editorial-primary uppercase tracking-wider">
-            {siteConfig.tagline}
-          </span>
-        </div>
-
-        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold uppercase tracking-tight text-editorial-primary max-w-4xl leading-[1.0] break-words">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tight uppercase leading-[0.98] text-white">
           {finalCta.headline}
         </h2>
 
-        <p className="text-sm sm:text-base lg:text-lg text-brand-turquoise font-heading font-semibold max-w-2xl">
+        <p className="mt-6 text-lg sm:text-xl font-heading font-semibold text-[#FFD447] leading-relaxed max-w-2xl mx-auto">
           {finalCta.subheading}
         </p>
 
-        <div className="flex flex-col gap-2.5 text-xs sm:text-sm text-editorial-secondary font-sans max-w-xl leading-relaxed">
-          <p>
-            Tell us about your business, your challenge and your goal.
-          </p>
-          <p>
-            We&apos;ll help identify where digital strategy, marketing, technology or AI can make the biggest difference.
-          </p>
-        </div>
+        <p className="mt-4 font-body text-sm sm:text-base text-white/90 leading-relaxed max-w-2xl mx-auto">
+          {finalCta.body}
+        </p>
 
-        <div className="flex flex-col items-center gap-1 font-heading font-bold text-sm sm:text-base text-editorial-primary uppercase tracking-wide pt-2">
-          <span>Your vision deserves more than a digital presence.</span>
-          <span className="text-brand-turquoise">It deserves a growth system.</span>
-        </div>
-
-        <div
-          ref={ctaButtonsRef}
-          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full sm:w-auto will-change-transform"
-        >
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
-            variant="primary"
+            variant="yellow"
             size="lg"
             withArrow
-            magnetic
             asLink
             href={finalCta.primaryCta.href}
-            className="w-full sm:w-auto text-center justify-center min-h-[48px]"
+            className="w-full sm:w-auto min-h-[54px] text-base"
           >
             {finalCta.primaryCta.label}
           </Button>
 
           <Button
-            variant="secondary"
+            variant="outline"
             size="lg"
             asLink
-            href={finalCta.secondaryCta.href}
-            className="w-full sm:w-auto text-center justify-center min-h-[48px]"
+            href="/growth-audit"
+            className="w-full sm:w-auto min-h-[54px] text-base bg-white text-[#090909]"
           >
             {finalCta.secondaryCta.label}
           </Button>
+        </div>
+
+        <div className="mt-12 pt-8 border-t-2 border-white/20 flex flex-wrap items-center justify-center gap-6 font-mono text-xs text-white/80">
+          <span>NO OBLIGATION</span>
+          <span>·</span>
+          <span>STRATEGIC ALIGNMENT</span>
+          <span>·</span>
+          <span>DIRECT EXPERT REVIEW</span>
         </div>
       </div>
     </section>

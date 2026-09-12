@@ -1,20 +1,25 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
-import { CheckCircle2, ArrowRight } from "lucide-react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, CheckCircle2, ShieldCheck, Layers, CornerDownRight, Cpu, Compass } from "lucide-react";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
-import { individualServicesData } from "@/data/content/individualServices";
+import { individualServicesData, IndividualServiceData } from "@/data/content/individualServices";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { getGSAP } from "@/lib/gsap";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// Helper to map category to domain route
+const CATEGORY_TO_DOMAIN: Record<string, { href: string; name: string }> = {
+  "DIGITAL MARKETING": { href: "/digital-marketing", name: "Domain 01: Digital Marketing" },
+  "AI & AUTOMATION": { href: "/ai-automation", name: "Domain 02: AI & Automation" },
+  "WEBSITES & E-COMMERCE": { href: "/websites-ecommerce", name: "Domain 03: Websites & E-Commerce" },
+  "LEAD GENERATION": { href: "/lead-generation", name: "Domain 04: Lead Generation" },
+  "TECHNOLOGY & DIGITAL TRANSFORMATION": { href: "/technology-digital-transformation", name: "Domain 05: Tech Transformation" },
+};
 
 export default function ServicePageClient({ slug }: { slug: string }) {
-  const data = individualServicesData[slug];
+  const data: IndividualServiceData | undefined = individualServicesData[slug];
 
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
@@ -29,75 +34,127 @@ export default function ServicePageClient({ slug }: { slug: string }) {
   useLayoutEffect(() => {
     if (prefersReducedMotion || !containerRef.current) return;
 
+    const { gsap } = getGSAP();
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+      // Hero entrance
+      if (heroRef.current) {
+        gsap.fromTo(
+          heroRef.current.querySelectorAll("[data-anim='hero']"),
+          { y: 24, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+          }
+        );
+      }
 
-      mm.add("(min-width: 768px)", () => {
-        // Hero
-        if (heroRef.current) {
-          gsap.fromTo(heroRef.current.querySelectorAll("[data-anim]"),
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power3.out" }
-          );
-        }
+      // Problem section
+      if (problemRef.current) {
+        gsap.fromTo(
+          problemRef.current.querySelectorAll("[data-anim='prob-item']"),
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: problemRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
+      }
 
-        // Problem
-        if (problemRef.current) {
-          const m = problemRef.current.querySelector("[data-anim='p-masthead']");
-          const l = problemRef.current.querySelector("[data-anim='p-left']");
-          const points = problemRef.current.querySelectorAll("[data-anim='p-point']");
-          const flow = problemRef.current.querySelector("[data-anim='p-flow']");
+      // Capabilities grid
+      if (capabilitiesRef.current) {
+        gsap.fromTo(
+          capabilitiesRef.current.querySelectorAll("[data-anim='cap-card']"),
+          { y: 24, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: capabilitiesRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
+      }
 
-          const pTl = gsap.timeline({ scrollTrigger: { trigger: problemRef.current, start: "top 80%" } });
-          if (m) pTl.fromTo(m, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          if (l) pTl.fromTo(l, { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7 }, 0.1);
-          if (points.length) pTl.fromTo(points, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 }, 0.3);
-          if (flow) pTl.fromTo(flow, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7 }, 0.6);
-        }
+      // Approach steps
+      if (approachRef.current) {
+        gsap.fromTo(
+          approachRef.current.querySelectorAll("[data-anim='app-step']"),
+          { x: -16, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: approachRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
+      }
 
-        // Capabilities
-        if (capabilitiesRef.current) {
-          const cTl = gsap.timeline({ scrollTrigger: { trigger: capabilitiesRef.current, start: "top 80%" } });
-          const m = capabilitiesRef.current.querySelector("[data-anim='c-masthead']");
-          const cards = capabilitiesRef.current.querySelectorAll("[data-anim='c-card']");
-          if (m) cTl.fromTo(m, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          if (cards.length) cTl.fromTo(cards, { y: 35, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 }, 0.2);
-        }
+      // Audience items
+      if (audienceRef.current) {
+        gsap.fromTo(
+          audienceRef.current.querySelectorAll("[data-anim='aud-item']"),
+          { y: 16, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.06,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: audienceRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
+      }
 
-        // Approach
-        if (approachRef.current) {
-          const aTl = gsap.timeline({ scrollTrigger: { trigger: approachRef.current, start: "top 80%" } });
-          const m = approachRef.current.querySelector("[data-anim='a-masthead']");
-          const nodes = approachRef.current.querySelectorAll("[data-anim='a-node']");
-          if (m) aTl.fromTo(m, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          if (nodes.length) aTl.fromTo(nodes, { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, stagger: 0.1 }, 0.2);
-        }
-
-        // Audience
-        if (audienceRef.current) {
-          const wTl = gsap.timeline({ scrollTrigger: { trigger: audienceRef.current, start: "top 80%" } });
-          const m = audienceRef.current.querySelector("[data-anim='w-masthead']");
-          const block = audienceRef.current.querySelector("[data-anim='w-block']");
-          const points = audienceRef.current.querySelectorAll("[data-anim='w-point']");
-          if (m) wTl.fromTo(m, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          if (block) wTl.fromTo(block, { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8 }, 0.2);
-          if (points.length) wTl.fromTo(points, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 }, 0.6);
-        }
-
-        // CTA
-        if (ctaRef.current) {
-          gsap.fromTo(ctaRef.current, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, scrollTrigger: { trigger: ctaRef.current, start: "top 85%" } });
-        }
-      });
-
-      mm.add("(max-width: 767px)", () => {
-        // Fallback mobile triggers
-        if (heroRef.current) gsap.fromTo(heroRef.current.querySelectorAll("[data-anim]"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 });
-        if (problemRef.current) gsap.fromTo(problemRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, scrollTrigger: { trigger: problemRef.current, start: "top 90%" } });
-        if (capabilitiesRef.current) gsap.fromTo(capabilitiesRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, scrollTrigger: { trigger: capabilitiesRef.current, start: "top 90%" } });
-        if (approachRef.current) gsap.fromTo(approachRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, scrollTrigger: { trigger: approachRef.current, start: "top 90%" } });
-        if (audienceRef.current) gsap.fromTo(audienceRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, scrollTrigger: { trigger: audienceRef.current, start: "top 90%" } });
-      });
+      // Final CTA
+      if (ctaRef.current) {
+        gsap.fromTo(
+          ctaRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: ctaRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -105,180 +162,493 @@ export default function ServicePageClient({ slug }: { slug: string }) {
 
   if (!data) return null;
 
+  // Domain info
+  const domainInfo = CATEGORY_TO_DOMAIN[data.category] || { href: "/solutions", name: data.category };
+
+  // Find other services in the same domain
+  const relatedServices = Object.values(individualServicesData)
+    .filter((s) => s.category === data.category && s.slug !== slug)
+    .slice(0, 3);
+
   return (
-    <div ref={containerRef} className="w-full bg-slate text-sand selection:bg-brand-coral selection:text-sand overflow-x-clip min-h-screen">
-
-      {/* 1. HERO */}
-      <section ref={heroRef} className="relative min-h-[70vh] flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 border-b border-brand-coral/20 overflow-hidden">
-        {/* Dynamic Background Variant based on category */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none flex items-center justify-center overflow-hidden">
-          <div className={`absolute w-[150vw] h-[150vw] md:w-[80vw] md:h-[80vw] rounded-full blur-[100px] 
-            ${data.category === 'Digital Marketing' ? 'bg-brand-coral/20' :
-              data.category === 'AI & Automation' ? 'bg-gold/20' :
-                data.category === 'Websites & E-Commerce' ? 'bg-white/10' : 'bg-brand-coral/10'}`}
-            style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+    <div ref={containerRef} className="w-full bg-brand-white text-brand-black selection:bg-brand-red selection:text-white overflow-x-clip">
+      
+      {/* 0. BREADCRUMB / DOMAIN BAR */}
+      <div className="w-full border-b-2 border-brand-black bg-brand-gray/50 px-6 md:px-12 py-3">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase">
+          <div className="flex items-center gap-2 text-brand-black/70">
+            <Link href="/services" className="hover:text-brand-red font-bold transition-colors">
+              Services Directory
+            </Link>
+            <span>/</span>
+            <Link href={domainInfo.href} className="hover:text-brand-red font-bold transition-colors">
+              {data.category}
+            </Link>
+            <span>/</span>
+            <span className="text-brand-red font-black">SVC-{data.number}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
+            <span className="font-bold text-brand-black tracking-wider">PRODUCTION SPECIFICATION</span>
+          </div>
         </div>
+      </div>
 
-        <div className="max-w-screen-xl mx-auto w-full relative z-10">
-          <div data-anim="h-masthead" className="inline-block mb-8 px-4 py-1.5 border border-white/20 rounded-full bg-white/5 text-sand font-label text-xs uppercase tracking-widest font-semibold">
-            {data.number}{" // "}{data.category}
+      {/* 1. HERO SECTION */}
+      <section ref={heroRef} className="relative px-6 md:px-12 pt-16 md:pt-24 pb-20 border-b-2 border-brand-black bg-brand-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Left Column: Core Definition */}
+          <div className="lg:col-span-8 flex flex-col gap-6">
+            <div data-anim="hero" className="flex flex-wrap items-center gap-3">
+              <BauhausBadge variant="red" shape="square">
+                SVC-{data.number}
+              </BauhausBadge>
+              <BauhausBadge variant="yellow" shape="pill">
+                {data.category}
+              </BauhausBadge>
+              <span className="font-mono text-xs text-brand-black/60 font-bold uppercase tracking-widest">
+                ARCHITECTURAL CAPABILITY
+              </span>
+            </div>
+
+            <h1 data-anim="hero" className="text-4xl sm:text-6xl md:text-7xl font-display font-black uppercase tracking-tighter leading-[0.92] text-brand-black">
+              {data.hero.headline}
+            </h1>
+
+            <div data-anim="hero" className="flex flex-col gap-4 text-lg md:text-xl font-body text-brand-black/80 max-w-3xl leading-relaxed border-l-4 border-brand-red pl-6 py-1 bg-brand-gray/30">
+              {data.hero.paragraphs.map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
+            </div>
+
+            <div data-anim="hero" className="flex flex-wrap items-center gap-4 pt-4">
+              <Button
+                variant="primary"
+                size="lg"
+                asLink
+                href="/contact"
+                className="bg-brand-red text-white hover:bg-brand-black text-base px-8 py-4"
+              >
+                {data.hero.cta.label}
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                asLink
+                href="/growth-audit"
+                className="border-2 border-brand-black text-brand-black hover:bg-brand-yellow hover:text-brand-black text-base px-6 py-4"
+              >
+                Request Growth Audit
+              </Button>
+            </div>
           </div>
-          <h1 data-anim="h-head" className="text-4xl sm:text-6xl md:text-7xl lg:text-[6rem] font-headline font-black uppercase tracking-tighter leading-[0.9] mb-8 text-white max-w-5xl">
-            {data.hero.headline}
-          </h1>
-          <div data-anim="h-copy" className="flex flex-col gap-4 text-xl md:text-2xl font-body text-sand/70 max-w-3xl leading-relaxed mb-10 border-l-4 border-brand-coral pl-6">
-            {data.hero.paragraphs.map((p, idx) => <p key={idx}>{p}</p>)}
+
+          {/* Right Column: Bauhaus Technical Spec Box */}
+          <div data-anim="hero" className="lg:col-span-4 flex flex-col">
+            <div className="border-2 border-brand-black bg-brand-gray p-6 sm:p-8 shadow-hard-lg flex flex-col gap-6 relative">
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-8 h-8 bg-brand-yellow border-b-2 border-l-2 border-brand-black flex items-center justify-center font-mono text-xs font-bold">
+                ✓
+              </div>
+
+              <div className="border-b-2 border-brand-black pb-4">
+                <span className="font-mono text-xs font-bold tracking-widest text-brand-black/60 block mb-1 uppercase">
+                  Service Identifier
+                </span>
+                <span className="font-display font-black text-2xl uppercase text-brand-black block">
+                  {data.title}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 border-b-2 border-brand-black pb-4 text-xs font-mono">
+                <div>
+                  <span className="text-brand-black/60 block mb-1">DOMAIN:</span>
+                  <span className="font-bold text-brand-black uppercase">{data.category}</span>
+                </div>
+                <div>
+                  <span className="text-brand-black/60 block mb-1">INDEX NO:</span>
+                  <span className="font-bold text-brand-red">MODULE #{data.number}</span>
+                </div>
+                <div>
+                  <span className="text-brand-black/60 block mb-1">SCOPE:</span>
+                  <span className="font-bold text-brand-black">{data.whatWeDo.items.length} Workstreams</span>
+                </div>
+                <div>
+                  <span className="text-brand-black/60 block mb-1">DELIVERY:</span>
+                  <span className="font-bold text-brand-black">Dedicated Pod</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-xs font-bold tracking-widest text-brand-black/60 uppercase">
+                  System Linkage
+                </span>
+                <p className="text-xs text-brand-black/80 font-sans leading-relaxed">
+                  Integrates directly into your broader growth loop. Can be contracted standalone or as part of a multi-domain digital transformation.
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href={domainInfo.href}
+                  className="flex items-center justify-between w-full p-3 bg-brand-white border-2 border-brand-black font-mono text-xs uppercase font-bold text-brand-black hover:bg-brand-blue hover:text-white transition-colors"
+                >
+                  <span>View Full Domain</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
           </div>
-          <div data-anim="h-cta">
-            <Button variant="primary" size="lg" className="bg-brand-navy text-white hover:bg-brand-coral hover:text-brand-navy text-lg px-8" asLink href={data.hero.cta.href}>
-              {data.hero.cta.label}
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
+
         </div>
       </section>
 
-      {/* 2. THE PROBLEM */}
-      <section ref={problemRef} className="py-24 md:py-32 px-6 md:px-12 bg-white text-slate border-b border-slate/10 relative">
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <div data-anim="p-masthead" className="lg:col-span-12">
-            <SectionMasthead badge="DIAGNOSIS" descriptor="THE PROBLEM" />
-          </div>
+      {/* 2. THE PROBLEM (SYSTEM FRICTION) */}
+      <section ref={problemRef} className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Problem Lede */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="flex items-center gap-2">
+              <BauhausBadge variant="red" shape="square">
+                DIAGNOSIS
+              </BauhausBadge>
+              <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                SYSTEM FRICTION
+              </span>
+            </div>
 
-          <div data-anim="p-left" className="lg:col-span-5 flex flex-col gap-6">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-bold uppercase tracking-tight text-slate leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black uppercase tracking-tight text-brand-black leading-tight">
               {data.problem.headline}
             </h2>
+
             {data.problem.purposeLead && (
-              <p className="text-xl font-headline font-bold text-slate/80">
+              <p className="text-lg font-display font-bold text-brand-black/90 bg-brand-yellow/30 p-4 border-l-4 border-brand-yellow">
                 {data.problem.purposeLead}
               </p>
             )}
+
             {data.problem.paragraphs && (
-              <div className="flex flex-col gap-4 text-lg text-slate/70 font-body leading-relaxed">
-                {data.problem.paragraphs.map((p, idx) => <p key={idx}>{p}</p>)}
+              <div className="flex flex-col gap-4 text-base text-brand-black/80 font-body leading-relaxed">
+                {data.problem.paragraphs.map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
               </div>
             )}
+
             {data.problem.conclusion && (
-              <p className="text-lg font-headline font-bold text-brand-coral pt-4">
-                {data.problem.conclusion}
-              </p>
+              <div className="p-4 bg-brand-white border-2 border-brand-black shadow-hard-sm">
+                <p className="font-mono text-xs uppercase font-bold text-brand-red">
+                  Architectural Principle
+                </p>
+                <p className="text-sm font-display font-bold text-brand-black mt-1">
+                  {data.problem.conclusion}
+                </p>
+              </div>
             )}
           </div>
 
+          {/* Problem Friction Points & Flow */}
           <div className="lg:col-span-7 flex flex-col gap-8">
             {data.problem.points && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {data.problem.points.map((pt, idx) => (
-                  <div key={idx} data-anim="p-point" className="p-6 rounded-2xl bg-surface-muted border border-[#1E1E2E]/10 text-base font-body text-slate/80 flex items-start gap-4">
-                    <span className="font-mono text-sm text-brand-coral font-bold mt-1">0{idx + 1}</span>
-                    <span>{pt}</span>
+                  <div
+                    key={idx}
+                    data-anim="prob-item"
+                    className="p-6 bg-brand-white border-2 border-brand-black shadow-hard-md flex flex-col justify-between"
+                  >
+                    <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-3">
+                      <span className="font-mono text-xs font-black text-brand-red">
+                        FRICTION 0{idx + 1}
+                      </span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-brand-black" />
+                    </div>
+                    <p className="text-sm text-brand-black/90 font-sans leading-relaxed">
+                      {pt}
+                    </p>
                   </div>
                 ))}
               </div>
             )}
-            {data.problem.flow && (
-              <div data-anim="p-flow" className="p-8 rounded-3xl bg-[#F4F7FA] border border-brand-coral/20 flex flex-wrap items-center gap-4 text-sm font-headline font-bold uppercase text-slate mt-4">
-                {data.problem.flow.map((item, idx) => (
-                  <React.Fragment key={idx}>
-                    <span className="px-4 py-2 rounded-lg bg-white border border-brand-coral/10 shadow-sm">{item}</span>
-                    {idx < data.problem.flow!.length - 1 && <ArrowRight className="text-brand-coral w-5 h-5" />}
-                  </React.Fragment>
+
+            {/* Extra points if present */}
+            {data.problem.extraPoints && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {data.problem.extraPoints.map((pt, idx) => (
+                  <div
+                    key={idx}
+                    data-anim="prob-item"
+                    className="p-5 bg-brand-white border-2 border-brand-black shadow-hard-sm text-xs font-sans text-brand-black/80"
+                  >
+                    <span className="font-mono font-bold text-brand-blue block mb-1">NOTE {idx + 1}:</span>
+                    {pt}
+                  </div>
                 ))}
               </div>
             )}
+
+            {/* Problem Flow Diagram */}
+            {data.problem.flow && (
+              <div className="p-6 sm:p-8 bg-brand-white border-2 border-brand-black shadow-hard-md flex flex-col gap-4">
+                <div className="flex items-center justify-between border-b-2 border-brand-black pb-2">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-black">
+                    Connected Failure Pipeline
+                  </span>
+                  <span className="font-mono text-xs text-brand-red font-bold">DISCONNECTED SEQUENCE</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  {data.problem.flow.map((item, idx) => (
+                    <React.Fragment key={idx}>
+                      <span className="px-4 py-2 bg-brand-gray border-2 border-brand-black font-display font-black text-xs uppercase text-brand-black">
+                        {item}
+                      </span>
+                      {idx < data.problem.flow!.length - 1 && (
+                        <ArrowRight className="text-brand-red w-4 h-4 shrink-0" />
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
+
         </div>
       </section>
 
-      {/* 3. CAPABILITIES */}
-      <section ref={capabilitiesRef} className="py-24 md:py-32 px-6 md:px-12 bg-slate text-sand border-b border-white/10">
-        <div className="max-w-screen-xl mx-auto flex flex-col gap-12">
-          <div data-anim="c-masthead">
-            <SectionMasthead badge="CAPABILITIES" descriptor={data.whatWeDo.title} />
+      {/* 3. CAPABILITIES / WHAT WE DO */}
+      <section ref={capabilitiesRef} className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="yellow" shape="square">
+                  WHAT WE DO
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  SPECIFICATION
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                {data.whatWeDo.title}
+              </h2>
+            </div>
+            <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
+              {data.whatWeDo.items.length} Production Deliverables
+            </span>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.whatWeDo.items.map((item, idx) => (
-              <div key={idx} data-anim="c-card" className="p-8 md:p-10 rounded-3xl bg-white/5 border border-white/10 flex flex-col justify-between min-h-[200px] hover:bg-white/10 transition-colors group">
+              <div
+                key={idx}
+                data-anim="cap-card"
+                className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md hover:shadow-hard-lg hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex flex-col justify-between min-h-[240px] group"
+              >
                 <div>
-                  <span className="font-mono text-sm text-brand-coral font-bold block mb-4 border-b border-white/10 pb-4">
-                    0{idx + 1}
-                  </span>
-                  <h3 className="text-2xl font-headline font-bold uppercase text-white mb-4 group-hover:text-brand-coral transition-colors">
+                  <div className="flex items-center justify-between border-b-2 border-brand-black pb-4 mb-4">
+                    <span className="font-mono text-xs font-black text-brand-black px-2 py-1 bg-brand-yellow border border-brand-black">
+                      DELIVERABLE 0{idx + 1}
+                    </span>
+                    <span className="w-3 h-3 bg-brand-blue group-hover:bg-brand-red transition-colors" />
+                  </div>
+                  <h3 className="text-xl font-display font-black uppercase text-brand-black mb-3 group-hover:text-brand-red transition-colors">
                     {item.title}
                   </h3>
                 </div>
-                <p className="text-base text-sand/70 font-body leading-relaxed">
+                <p className="text-sm text-brand-black/80 font-sans leading-relaxed pt-2">
                   {item.description}
                 </p>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
-      {/* 4. APPROACH */}
+      {/* 4. EXECUTION METHODOLOGY (APPROACH) */}
       {data.approach && (
-        <section ref={approachRef} className="py-24 px-6 md:px-12 bg-white text-slate border-b border-slate/10">
-          <div className="max-w-screen-xl mx-auto flex flex-col gap-16">
-            <div data-anim="a-masthead">
-              <SectionMasthead badge="METHODOLOGY" descriptor={data.approach.title} />
+        <section ref={approachRef} className="py-20 md:py-28 px-6 md:px-12 bg-brand-slate text-white border-b-2 border-brand-black">
+          <div className="max-w-7xl mx-auto flex flex-col gap-12">
+            
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-white/20 pb-8">
+              <div className="flex flex-col gap-3 max-w-2xl">
+                <div className="flex items-center gap-2">
+                  <BauhausBadge variant="red" shape="square">
+                    METHODOLOGY
+                  </BauhausBadge>
+                  <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-gray">
+                    EXECUTION FRAMEWORK
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-white">
+                  {data.approach.title}
+                </h2>
+              </div>
+              <span className="font-mono text-xs uppercase font-bold text-brand-gray">
+                6-Phase Production Lifecycle
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 relative">
-              <div className="hidden xl:block absolute top-12 left-0 right-0 h-0.5 bg-slate/10 z-0" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.approach.steps.map((st) => (
-                <div key={st.number} data-anim="a-node" className="relative z-10 flex flex-col gap-4">
-                  <div className="w-10 h-10 rounded-full bg-brand-coral text-white flex items-center justify-center font-mono text-sm font-bold shadow-lg">
-                    {st.number}
+                <div
+                  key={st.number}
+                  data-anim="app-step"
+                  className="p-8 border-2 border-white/30 bg-white/5 flex flex-col justify-between min-h-[220px] relative hover:border-brand-yellow transition-colors"
+                >
+                  <div>
+                    <div className="flex items-center justify-between border-b border-white/20 pb-4 mb-4">
+                      <span className="font-mono text-xs font-black px-2.5 py-1 bg-brand-red text-white border border-white">
+                        PHASE {st.number}
+                      </span>
+                      <CornerDownRight className="w-4 h-4 text-brand-yellow" />
+                    </div>
+                    <h3 className="text-xl font-display font-black uppercase text-white mb-2">
+                      {st.title}
+                    </h3>
                   </div>
-                  <h3 className="text-lg font-headline font-bold uppercase text-slate mt-2">
-                    {st.title}
-                  </h3>
-                  <p className="text-sm text-slate/70 font-body leading-relaxed pr-4 border-l-2 border-slate/10 pl-3">
+                  <p className="text-xs sm:text-sm text-brand-gray font-sans leading-relaxed pt-3">
                     {st.description}
                   </p>
                 </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      )}
+
+      {/* 5. AUDIENCE FIT (WHO IT IS FOR) */}
+      <section ref={audienceRef} className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="blue" shape="square">
+                  AUDIENCE FIT
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  QUALIFICATION CRITERIA
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                {data.whoItIsFor.headline}
+              </h2>
+            </div>
+            <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
+              Operational Criteria
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.whoItIsFor.points.map((pt, idx) => (
+              <div
+                key={idx}
+                data-anim="aud-item"
+                className="p-8 bg-brand-white border-2 border-brand-black shadow-hard-md flex items-start gap-4"
+              >
+                <div className="w-8 h-8 rounded-none bg-brand-yellow border-2 border-brand-black flex items-center justify-center font-mono font-black text-xs text-brand-black shrink-0 mt-0.5">
+                  0{idx + 1}
+                </div>
+                <p className="text-sm font-sans text-brand-black/90 leading-relaxed">
+                  {pt}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. RELATED SERVICES MATRIX */}
+      {relatedServices.length > 0 && (
+        <section className="py-16 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
+          <div className="max-w-7xl mx-auto flex flex-col gap-8">
+            <div className="flex items-center justify-between border-b-2 border-brand-black pb-4">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-black">
+                  Connected Capabilities in {data.category}
+                </span>
+              </div>
+              <Link
+                href={domainInfo.href}
+                className="font-mono text-xs uppercase font-bold text-brand-red hover:underline flex items-center gap-1"
+              >
+                <span>View All In Domain</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedServices.map((rel) => (
+                <Link
+                  key={rel.slug}
+                  href={`/services/${rel.slug}`}
+                  className="p-6 border-2 border-brand-black bg-brand-gray/40 hover:bg-brand-yellow/20 shadow-hard-sm hover:shadow-hard-md transition-all flex flex-col justify-between group"
+                >
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold text-brand-black/60">
+                        MODULE #{rel.number}
+                      </span>
+                      <ArrowUpRight className="w-4 h-4 text-brand-black group-hover:text-brand-red transition-colors" />
+                    </div>
+                    <h3 className="font-display font-black text-lg uppercase text-brand-black group-hover:text-brand-red transition-colors">
+                      {rel.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-brand-black/70 line-clamp-2 mt-4">
+                    {rel.hero.paragraphs[0]}
+                  </p>
+                </Link>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* 5. AUDIENCE */}
-      <section ref={audienceRef} className="py-24 px-6 md:px-12 bg-slate text-sand">
-        <div className="max-w-screen-xl mx-auto flex flex-col gap-12">
-          <div data-anim="w-masthead">
-            <SectionMasthead badge="AUDIENCE FIT" descriptor="WHO IT'S FOR" />
+      {/* 7. FINAL HIGH-IMPACT CTA */}
+      <section ref={ctaRef} className="py-24 px-6 md:px-12 bg-brand-red text-white border-b-2 border-brand-black">
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+          <div className="inline-block px-4 py-1.5 bg-brand-white text-brand-black border-2 border-brand-black font-mono text-xs font-black uppercase mb-8 shadow-hard-sm">
+            PRODUCTION READY ARCHITECTURE
           </div>
-          <div data-anim="w-block" className="p-10 sm:p-16 rounded-3xl bg-white/5 border border-white/10 flex flex-col gap-10">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tight text-white max-w-2xl">
-              {data.whoItIsFor.headline}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {data.whoItIsFor.points.map((pt, idx) => (
-                <div key={idx} data-anim="w-point" className="p-6 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-4 text-base font-body text-sand/80">
-                  <CheckCircle2 className="w-6 h-6 text-brand-coral shrink-0 mt-0.5" />
-                  <span>{pt}</span>
-                </div>
-              ))}
-            </div>
+          
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black uppercase tracking-tighter text-white mb-8 max-w-3xl leading-[0.95]">
+            {data.finalCta.headline}
+          </h2>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Button
+              variant="primary"
+              size="lg"
+              className="bg-brand-black text-white hover:bg-brand-white hover:text-brand-black text-lg px-10 py-5 border-2 border-brand-black shadow-hard-md"
+              asLink
+              href={data.finalCta.cta.href}
+            >
+              {data.finalCta.cta.label}
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+
+            <Button
+              variant="outline"
+              size="lg"
+              className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-brand-black text-lg px-8 py-5"
+              asLink
+              href="/services"
+            >
+              Explore Full Service Index
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* 6. FINAL CTA */}
-      <section ref={ctaRef} className="py-24 px-6 md:px-12 bg-sand text-slate border-t border-slate/10">
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-headline font-black uppercase tracking-tighter text-slate mb-8 max-w-3xl leading-tight">
-            {data.finalCta.headline}
-          </h2>
-          <Button variant="primary" size="lg" className="bg-brand-navy text-white hover:bg-brand-coral hover:text-brand-navy text-xl px-12 py-6 h-auto" asLink href={data.finalCta.cta.href}>
-            {data.finalCta.cta.label}
-            <ArrowRight className="ml-2 w-6 h-6" />
-          </Button>
-        </div>
-      </section>
     </div>
   );
 }

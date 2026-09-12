@@ -1,160 +1,96 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
-import { Button } from "@/components/ui/Button";
 import { homeContent } from "@/data/content/home";
-import { getGSAP } from "@/lib/gsap";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import { Sparkles, Code2, FlaskConical, BarChart3, BookOpen } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const ACTIVITY_ICONS = [
-  Sparkles,
-  Code2,
-  FlaskConical,
-  BarChart3,
-  BookOpen,
-];
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function BuildingAxonSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
   const { buildingAxon } = homeContent;
 
   useLayoutEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current || !cardsRef.current) return;
-
-    const { gsap } = getGSAP();
-    const cards = cardsRef.current.querySelectorAll(".building-item-card");
+    if (prefersReducedMotion || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        cards,
-        { autoAlpha: 0, y: 25 },
+        ".building-row",
+        { opacity: 0, x: -20 },
         {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.08,
+          opacity: 1,
+          x: 0,
+          duration: 0.5,
+          stagger: 0.1,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
+            trigger: containerRef.current,
+            start: "top 75%",
           },
         }
       );
-    }, sectionRef);
+    }, containerRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   return (
     <section
-      ref={sectionRef}
-      id="building-axon"
-      className="relative z-10 py-16 sm:py-20 lg:py-28 px-4 sm:px-6 md:px-12 bg-transparent text-editorial-primary border-t border-border overflow-clip"
-      style={{ isolation: "isolate" }}
+      ref={containerRef}
+      className="relative w-full bg-white text-[#090909] border-b-4 border-[#090909]"
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12">
-        {/* Section Masthead */}
-        <SectionMasthead
-          badge={buildingAxon.badge}
-          descriptor="BUILDING AXONVORTEX"
-          rightLabel="[RADICAL TRANSPARENCY]"
-        />
-
-        {/* Section Heading & Multi-paragraph Narrative */}
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-2">
-          <div className="flex flex-col gap-2 max-w-2xl">
-            <span className="text-[10px] sm:text-[11px] font-mono text-brand-turquoise uppercase tracking-wider font-semibold">
-              TRANSPARENT EVOLUTION
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold uppercase tracking-tight text-editorial-primary leading-tight">
+      <div className="grid grid-cols-1 lg:grid-cols-12">
+        {/* Left Editorial Manifesto (5 cols, Soft Gray) */}
+        <div className="lg:col-span-5 bg-[#E9EDF2] p-8 sm:p-12 lg:p-16 border-b-4 lg:border-b-0 lg:border-r-4 border-[#090909] flex flex-col justify-between gap-8">
+          <div>
+            <BauhausBadge variant="red" shape="square" size="sm" className="mb-6">
+              {buildingAxon.badge}
+            </BauhausBadge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight uppercase leading-[1.02] text-[#090909]">
               {buildingAxon.headline}
             </h2>
+            <p className="mt-6 font-body text-base text-[#090909]/80 leading-relaxed">
+              {buildingAxon.intro}
+            </p>
           </div>
 
-          <div className="flex flex-col gap-2.5 max-w-xl text-xs sm:text-sm font-sans text-editorial-secondary leading-relaxed">
-            <p>
-              AxonVortex is a new AI-driven digital growth agency. We&apos;re not here to pretend we&apos;ve already built something huge. We&apos;re here to build something valuable.
-            </p>
-            <p>
-              That means testing ideas, experimenting with AI, developing systems, studying what works, learning from what doesn&apos;t and continuously improving.
-            </p>
-            <p className="font-heading font-semibold text-editorial-primary uppercase tracking-wider text-xs pt-0.5">
-              We&apos;re building in public.
+          <div className="p-6 bg-[#F23B32] text-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909]">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FFD447] block mb-2 font-bold">
+              TRANSPARENCY STANDARD
+            </span>
+            <p className="font-heading font-bold text-base uppercase leading-snug">
+              &ldquo;{buildingAxon.closing}&rdquo;
             </p>
           </div>
         </div>
 
-        {/* 5 In-Public Activity Cards */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
-        >
-          {buildingAxon.points.map((pt, idx) => {
-            const Icon = ACTIVITY_ICONS[idx % ACTIVITY_ICONS.length];
-
-            return (
-              <article
-                key={idx}
-                className="building-item-card p-6 sm:p-8 rounded-[16px] sm:rounded-[20px] bg-[#FFFFFF] border border-[#1E1E2E]/15 shadow-sm flex flex-col justify-between min-h-[200px] transition-all hover:border-brand-turquoise/60 group"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-editorial-muted mb-4 border-b border-border pb-3">
-                    <span className="font-mono text-xs text-brand-turquoise font-bold">
-                      0{idx + 1}
-                    </span>
-                    <Icon className="w-4 h-4 text-editorial-secondary group-hover:text-brand-turquoise transition-colors" />
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-heading font-bold text-editorial-primary mb-2">
-                      {pt.title}
-                    </h3>
-                    <p className="text-xs sm:text-[13.5px] text-editorial-secondary font-sans leading-relaxed">
-                      {pt.description}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-
-          {/* 6th Tile: Radical Transparency Statement */}
-          <article className="building-item-card p-6 sm:p-8 rounded-[16px] sm:rounded-[20px] bg-[#F4F7FA] border border-brand-turquoise/30 shadow-sm flex flex-col justify-between min-h-[200px]">
-            <div>
-              <span className="font-mono text-xs text-brand-turquoise font-bold block mb-4 border-b border-brand-turquoise/20 pb-3">
-                TRANSPARENCY // ETHOS
+        {/* Right 5-Point Roadmap List (7 cols, White) */}
+        <div className="lg:col-span-7 bg-white divide-y-2 divide-[#090909]">
+          {buildingAxon.points.map((pt, idx) => (
+            <div
+              key={idx}
+              className="building-row p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 hover:bg-[#E9EDF2]/40 transition-colors group"
+            >
+              <span className="font-mono text-xl font-bold text-[#F23B32] w-12 shrink-0">
+                0{idx + 1}
               </span>
-              <div className="flex flex-col gap-1.5 text-xs sm:text-[13.5px] font-heading font-bold uppercase text-editorial-primary tracking-tight leading-snug">
-                <span>No manufactured success stories.</span>
-                <span>No inflated promises.</span>
-                <span className="text-brand-turquoise">Just the process of building something that works.</span>
+              <div className="flex-1">
+                <h3 className="font-heading font-bold text-lg uppercase tracking-tight text-[#090909] group-hover:text-[#F23B32] transition-colors">
+                  {pt.title}
+                </h3>
+                <p className="mt-1 font-body text-sm text-[#090909]/70 leading-relaxed">
+                  {pt.description}
+                </p>
               </div>
+              <div className="w-2.5 h-2.5 bg-[#090909] group-hover:bg-[#F23B32] transition-colors shrink-0 hidden sm:block" />
             </div>
-          </article>
-        </div>
-
-        {/* Bottom CTA Row */}
-        <div className="flex items-center justify-between border-t border-border pt-6 sm:pt-8">
-          <span className="text-xs font-mono text-editorial-muted uppercase tracking-widest hidden sm:inline">
-            RADICAL TRANSPARENCY
-          </span>
-
-          <Button
-            variant="primary"
-            size="md"
-            withArrow
-            asLink
-            href="/contact"
-            className="w-full sm:w-auto text-center justify-center min-h-[46px]"
-          >
-            Follow Our Journey
-          </Button>
+          ))}
         </div>
       </div>
     </section>

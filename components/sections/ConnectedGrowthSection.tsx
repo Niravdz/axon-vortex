@@ -1,216 +1,200 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, useState } from "react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
-import { getGSAP } from "@/lib/gsap";
+import React, { useRef, useLayoutEffect } from "react";
 import { homeContent } from "@/data/content/home";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { getGSAP } from "@/lib/gsap";
 
 export function ConnectedGrowthSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
-  const [activeStage, setActiveStage] = useState(0);
-  const activeStageRef = useRef(0);
+  const containerRef = useRef<HTMLElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
   const { connectedGrowth } = homeContent;
-  const steps = connectedGrowth.steps;
 
   useLayoutEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current || !pinRef.current) return;
+    if (prefersReducedMotion || !containerRef.current) return;
 
     const { gsap } = getGSAP();
-    const section = sectionRef.current;
-    const pinContainer = pinRef.current;
-    const panels = pinContainer.querySelectorAll<HTMLDivElement>(".growth-stage-panel");
-
-    if (!section || !pinContainer || panels.length === 0) return;
-
-    const mm = gsap.matchMedia();
-
-    // Universal Pinned Stage Progression (Desktop & Mobile)
-    mm.add("(min-width: 320px)", () => {
-      // Initialize: Stage 0 is visible at resting position (x:0, opacity:1), stages 1..5 hidden offscreen right (x:40, opacity:0)
-      panels.forEach((panel, idx) => {
-        if (idx === 0) {
-          gsap.set(panel, { autoAlpha: 1, x: 0 });
-        } else {
-          gsap.set(panel, { autoAlpha: 0, x: 40 });
+    const ctx = gsap.context(() => {
+      // Header block entrance
+      gsap.fromTo(
+        "[data-growth-header]",
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 75%",
+            once: true,
+          },
         }
-      });
+      );
 
-      const stageCount = steps.length;
-      const transitionDuration = 0.45;
-      const dwellDuration = 0.65;
-      const finalHold = 0.4;
-      const scrollPerStep = window.innerWidth < 768 ? 420 : 520;
-      const totalScrollDistance = (stageCount - 1) * scrollPerStep + 300;
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${totalScrollDistance}`,
-          pin: pinContainer,
-          pinSpacing: true,
-          scrub: 0.25, // Snappy response without lagging drift
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const rawStep = self.progress * (stageCount - 1);
-            const settledIdx = Math.min(Math.round(rawStep), stageCount - 1);
-            if (settledIdx !== activeStageRef.current) {
-              activeStageRef.current = settledIdx;
-              setActiveStage(settledIdx);
-            }
-          },
-        },
-      });
-
-      // Sequential mutually exclusive step progression (Zero overlapping text collisions)
-      for (let i = 0; i < stageCount - 1; i++) {
-        // 1. Dwell at current Stage i
-        tl.to({}, { duration: dwellDuration });
-
-        // 2. Outgoing Stage i exits left
-        tl.to(
-          panels[i],
+      // Connecting conduit line draw
+      if (lineRef.current) {
+        gsap.fromTo(
+          lineRef.current,
+          { scaleX: 0, transformOrigin: "left center" },
           {
-            autoAlpha: 0,
-            x: -30,
-            ease: "power2.in",
-            duration: transitionDuration,
-          }
-        );
-
-        // 3. Incoming Stage i+1 enters from right to resting position
-        tl.fromTo(
-          panels[i + 1],
-          { autoAlpha: 0, x: 35 },
-          {
-            autoAlpha: 1,
-            x: 0,
+            scaleX: 1,
+            duration: 0.9,
             ease: "power2.out",
-            duration: transitionDuration,
-          },
-          `<+0.08` // Smooth slight overlap between outgoing and incoming
+            scrollTrigger: {
+              trigger: lineRef.current,
+              start: "top 80%",
+              once: true,
+            },
+          }
         );
       }
 
-      // Final reading hold for Stage 06 before unpinning cleanly into Our Solutions
-      tl.to({}, { duration: finalHold });
+      // Sequential activation of the 6 framework nodes
+      gsap.fromTo(
+        ".pipeline-node",
+        { opacity: 0, y: 32, scale: 0.97 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: ".pipeline-node",
+            start: "top 82%",
+            once: true,
+          },
+        }
+      );
 
-      return () => {
-        tl.kill();
-      };
-    });
+      // Feedback loop conduit bar
+      gsap.fromTo(
+        "[data-conduit-bar]",
+        { opacity: 0, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          delay: 0.6,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: ".pipeline-node",
+            start: "top 82%",
+            once: true,
+          },
+        }
+      );
+    }, containerRef);
 
-    return () => mm.revert();
-  }, [prefersReducedMotion, steps.length]);
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
 
   return (
     <section
-      ref={sectionRef}
-      id="growth-system"
-      className="relative w-full bg-transparent text-editorial-primary overflow-clip border-t border-border"
-      style={{ isolation: "isolate" }}
+      ref={containerRef}
+      className="relative w-full bg-[#0F2747] text-white border-b-4 border-[#090909] py-16 sm:py-24 px-6 sm:px-12 lg:px-16 overflow-hidden"
     >
-      <div
-        ref={pinRef}
-        className="relative w-full min-h-[100dvh] lg:h-screen max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col justify-between py-6 sm:py-10 lg:py-16"
-      >
-        <div className="absolute inset-0 editorial-grid opacity-15 pointer-events-none" />
+      <div className="max-w-[1560px] mx-auto">
+        {/* Header Block */}
+        <div
+          data-growth-header
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b-2 border-white/20 will-change-[transform,opacity]"
+        >
+          <div className="max-w-3xl">
+            <BauhausBadge variant="yellow" shape="square" size="sm" className="mb-4">
+              {connectedGrowth.badge}
+            </BauhausBadge>
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-black tracking-tight uppercase leading-[0.98] text-white">
+              {connectedGrowth.headline}
+            </h2>
+            <p className="mt-4 font-body text-base sm:text-lg text-white/80">
+              {connectedGrowth.subheading}
+            </p>
+          </div>
 
-        {/* Section Masthead */}
-        <SectionMasthead
-          badge={connectedGrowth.badge}
-          descriptor={`SYSTEM PIPELINE // STAGE 0${activeStage + 1} OF 06`}
-          rightLabel="[ONE CONNECTED ARCHITECTURE]"
-          className="mb-3 lg:mb-4"
-        />
-
-        {/* Section Headline & Intro Narrative */}
-        <div className="relative z-10 flex flex-col md:flex-row md:items-baseline justify-between gap-2 md:gap-6 mb-3 lg:mb-4">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-heading font-bold uppercase tracking-tight text-editorial-primary">
-            {connectedGrowth.headline}
-          </h2>
-          <p className="text-xs sm:text-[13.5px] font-sans text-editorial-secondary max-w-xl">
-            {connectedGrowth.subheading}
-          </p>
+          <div className="border-2 border-white p-4 bg-white/5 backdrop-blur-xs max-w-sm">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FFD447] block mb-1">
+              SYSTEM MANDATE
+            </span>
+            <p className="font-body text-xs text-white/90 leading-relaxed">
+              {connectedGrowth.objective}
+            </p>
+          </div>
         </div>
 
-        {/* Center Spatial Narrative Grid */}
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center my-auto py-4">
-          {/* Left Column: Architectural Pipeline Rail */}
-          <div className="lg:col-span-4 flex flex-col gap-1.5 sm:gap-2">
-            <span className="font-mono text-[9px] sm:text-[10px] text-editorial-muted tracking-widest uppercase mb-1 sm:mb-2">
-              PIPELINE SEQUENCE
-            </span>
-            <div className="grid grid-cols-3 lg:grid-cols-1 gap-1.5 sm:gap-2">
-              {steps.map((st, i) => {
-                const isActive = activeStage === i;
-                return (
-                  <div
-                    key={st.step}
-                    className={`flex items-center justify-between p-2 sm:p-3 rounded-md border transition-all duration-300 ${
-                      isActive
-                        ? "bg-white border-brand-turquoise/80 text-editorial-primary shadow-xs"
-                        : "bg-white/40 border-border text-editorial-muted hover:text-editorial-primary"
-                    }`}
-                  >
-                    <div className="flex items-center gap-1.5 sm:gap-3">
-                      <span className="font-mono text-[10px] sm:text-xs font-bold text-brand-turquoise">{st.step}</span>
-                      <span className="font-heading font-semibold text-[10px] sm:text-xs uppercase tracking-wider truncate">
-                        {st.name}
+        {/* Connected Growth System Diagram with Conduit Line */}
+        <div className="mt-12 pt-4 relative">
+          {/* Subtle architectural conduit connector line */}
+          <div
+            ref={lineRef}
+            aria-hidden="true"
+            className="hidden xl:block absolute top-0 left-4 right-4 h-1 bg-gradient-to-r from-[#F23B32] via-[#FFD447] to-[#2F5FA7] z-0 will-change-transform"
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 relative z-10">
+            {connectedGrowth.steps.map((step, idx) => {
+              const nodeColors = [
+                "border-t-4 border-t-[#F23B32]",
+                "border-t-4 border-t-[#FFD447]",
+                "border-t-4 border-t-[#2F5FA7]",
+                "border-t-4 border-t-white",
+                "border-t-4 border-t-[#F23B32]",
+                "border-t-4 border-t-[#FFD447]",
+              ][idx];
+
+              return (
+                <div
+                  key={idx}
+                  className={`pipeline-node relative bg-[#173359] border-2 border-white/20 p-5 flex flex-col justify-between min-h-[220px] shadow-[4px_4px_0px_0px_#090909] ${nodeColors} group hover:border-white transition-all hover:-translate-y-1 will-change-[transform,opacity]`}
+                >
+                  <div>
+                    {/* Top Row: Step number and indicator */}
+                    <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                      <span className="font-mono text-xl font-black text-[#FFD447]">
+                        {step.step}
+                      </span>
+                      <span className="font-mono text-[10px] tracking-widest uppercase text-white/50">
+                        STAGE
                       </span>
                     </div>
-                    <span className="font-mono text-[8px] sm:text-[9px] text-editorial-secondary hidden sm:inline">
-                      {st.category}
+
+                    {/* Step Name & Category */}
+                    <h3 className="mt-4 font-heading font-black text-xl tracking-tight text-white uppercase group-hover:text-[#FFD447] transition-colors">
+                      {step.name}
+                    </h3>
+                    <span className="inline-block mt-1 font-mono text-xs uppercase tracking-wider text-[#FFD447]/90">
+                      {step.category}
                     </span>
                   </div>
-                );
-              })}
-            </div>
+
+                  {/* Description */}
+                  <p className="mt-4 pt-3 border-t border-white/10 font-body text-xs text-white/75 leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Right Column: Active Stage Presentation with Clean Mutually Exclusive Stage Isolation */}
-          <div className="lg:col-span-8 relative min-h-[220px] sm:min-h-[260px] lg:min-h-[320px] flex items-center overflow-hidden">
-            {steps.map((step, idx) => (
-              <div
-                key={step.step}
-                className="growth-stage-panel w-full absolute inset-0 flex flex-col justify-center gap-3 sm:gap-6 will-change-transform"
-              >
-                <div className="flex items-center gap-2.5 sm:gap-3">
-                  <span className="font-mono text-xs text-brand-turquoise font-bold">
-                    STAGE 0{idx + 1}
-                  </span>
-                  <span className="text-[10px] font-mono text-editorial-muted tracking-widest uppercase">
-                    DOMAIN: {step.category}
-                  </span>
-                </div>
-
-                <h3 className="text-3xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-tight text-editorial-primary leading-none break-words">
-                  {step.name}
-                </h3>
-
-                <p className="text-sm sm:text-lg text-editorial-secondary font-sans max-w-xl leading-relaxed">
-                  {step.description}
-                </p>
-
-                <div className="pt-2 sm:pt-4 border-t border-border flex items-center gap-4 text-[10px] sm:text-xs font-mono text-editorial-muted">
-                  <span>DISCIPLINE: {step.category.toUpperCase()}</span>
-                </div>
-              </div>
-            ))}
+          {/* Connected Conduit Indicator Bar */}
+          <div
+            data-conduit-bar
+            className="hidden xl:flex items-center justify-between mt-6 px-4 py-3 bg-[#091a30] border-2 border-white/20 font-mono text-xs text-white/70 will-change-[transform,opacity]"
+          >
+            <span className="text-[#FFD447] font-bold">PIPELINE SYNCHRONIZATION:</span>
+            <span>ATTRACT → ENGAGE → CONVERT → MANAGE → AUTOMATE → OPTIMIZE</span>
+            <span className="text-[#F23B32] font-bold flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#F23B32] animate-ping" />
+              CONTINUOUS FEEDBACK LOOP ↻
+            </span>
           </div>
-        </div>
-
-        {/* Bottom Rail */}
-        <div className="relative z-10 flex items-center justify-between border-t border-border pt-3 text-xs font-mono text-editorial-muted">
-          <span className="text-[10px] uppercase tracking-widest text-editorial-primary font-semibold truncate">
-            {connectedGrowth.objective}
-          </span>
-          <span className="text-brand-turquoise font-mono font-bold shrink-0">0{activeStage + 1} / 06</span>
         </div>
       </div>
     </section>

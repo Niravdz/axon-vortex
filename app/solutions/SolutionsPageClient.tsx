@@ -1,424 +1,532 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Network } from "lucide-react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight, CheckSquare, Network } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
 import { solutionsData } from "@/data/content/solutions";
+import { getGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Sphere, Line, OrbitControls, Html } from "@react-three/drei";
-import * as THREE from "three";
-
-// ═══════════════════════════════════════════════
-// 3D INTERACTIVE ECOSYSTEM (Replaces Card Grid)
-// ═══════════════════════════════════════════════
-const EcosystemNodes = ({ activeNode, onNodeClick }: { activeNode: number | null, onNodeClick: (i: number) => void }) => {
-  const groupRef = useRef<THREE.Group>(null);
-  
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
-      groupRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.1) * 0.05;
-    }
-  });
-
-  const nodes = solutionsData.solutions.map((_, i) => {
-    const angle = (i / solutionsData.solutions.length) * Math.PI * 2;
-    const radius = 3.5;
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-    return new THREE.Vector3(x, y, 0);
-  });
-
-  return (
-    <group ref={groupRef}>
-      {/* Central Hub */}
-      <Sphere args={[0.8, 32, 32]}>
-        <meshStandardMaterial color="#00C2C7" emissive="#00C2C7" emissiveIntensity={0.5} wireframe />
-      </Sphere>
-      <Sphere args={[0.4, 32, 32]}>
-        <meshStandardMaterial color="#00C2C7" />
-      </Sphere>
-
-      {/* Nodes & Connections */}
-      {nodes.map((pos, i) => {
-        const isActive = activeNode === i || activeNode === null;
-        const color = i % 2 === 0 ? "#00C2C7" : "#FFD28A";
-        
-        return (
-          <group key={i}>
-            <Line
-              points={[[0, 0, 0], [pos.x, pos.y, pos.z]]}
-              color={color}
-              lineWidth={isActive ? 2 : 1}
-              transparent
-              opacity={isActive ? 0.6 : 0.1}
-            />
-            <mesh position={pos} onClick={() => onNodeClick(i)}>
-              <sphereGeometry args={[0.3, 32, 32]} />
-              <meshStandardMaterial 
-                color={color} 
-                transparent 
-                opacity={isActive ? 0.9 : 0.3} 
-              />
-              {isActive && (
-                <Html position={[0, -0.6, 0]} center style={{ pointerEvents: 'none' }}>
-                  <div className="bg-slate/90 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full whitespace-nowrap">
-                    <span className="text-sand font-headline text-[10px] tracking-wider uppercase font-bold">
-                      {solutionsData.solutions[i].title}
-                    </span>
-                  </div>
-                </Html>
-              )}
-            </mesh>
-          </group>
-        );
-      })}
-    </group>
-  );
+const DOMAIN_VISUALS: Record<string, string> = {
+  "digital-marketing": "/images/bauhaus-diagram-marketing.png",
+  "ai-automation": "/images/bauhaus-diagram-ai.png",
+  "websites-ecommerce": "/images/bauhaus-diagram-ecommerce.jpg",
+  "lead-generation": "/images/bauhaus-diagram-leadgen.jpg",
+  "technology-digital-transformation": "/images/bauhaus-diagram-technology.jpg",
 };
 
 export default function SolutionsPageClient() {
   const { hero, growthSystem, solutions, problemMatcher, connectedGrowth, finalCta } = solutionsData;
+  const [activeDomainIndex, setActiveDomainIndex] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const ecosystemRef = useRef<HTMLDivElement>(null);
-  const domainsRef = useRef<HTMLDivElement>(null);
-  
+  const connectedNodesRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const [activeDomain, setActiveDomain] = useState<number | null>(0);
 
+  // Hero entrance animation
   useLayoutEffect(() => {
     if (prefersReducedMotion || !containerRef.current) return;
+    const { gsap } = getGSAP();
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 1024px)", () => {
-        // 1. Hero Parallax
-        gsap.to(heroRef.current, {
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-          y: 100,
-          opacity: 0,
-        });
-
-        // 2. Ecosystem Pinning
-        const domainsContainer = domainsRef.current;
-        if (domainsContainer && ecosystemRef.current) {
-          // Pin the 3D ecosystem on the left while domains scroll on the right
-          ScrollTrigger.create({
-            trigger: domainsContainer,
-            start: "top top",
-            end: "bottom bottom",
-            pin: ecosystemRef.current,
-            pinSpacing: false,
-          });
-
-          // Trigger active domains as they scroll past
-          const articles = domainsContainer.querySelectorAll("article");
-          articles.forEach((article, i) => {
-            ScrollTrigger.create({
-              trigger: article,
-              start: "top center",
-              end: "bottom center",
-              onEnter: () => setActiveDomain(i),
-              onEnterBack: () => setActiveDomain(i),
-              onLeave: () => { if (i === articles.length - 1) setActiveDomain(articles.length - 1); },
-              onLeaveBack: () => { if (i === 0) setActiveDomain(0); }
-            });
-          });
-        }
-      });
+      if (heroRef.current) {
+        gsap.fromTo(
+          heroRef.current.querySelectorAll("[data-anim='solutions-hero']"),
+          { y: 24, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
+  // Center-outward capability node stagger in Connected Growth architecture
+  useEffect(() => {
+    if (prefersReducedMotion || !connectedNodesRef.current) return;
+    const { gsap } = getGSAP();
+    const cards = connectedNodesRef.current.querySelectorAll<HTMLElement>("[data-node-card]");
+    if (cards.length >= 6) {
+      // 3-column grid center: index 1 and 4, then outer nodes 0, 2, 3, 5
+      const centerNodes = [cards[1], cards[4]];
+      const outerNodes = [cards[0], cards[2], cards[3], cards[5]];
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: connectedNodesRef.current,
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      tl.fromTo(
+        centerNodes,
+        { opacity: 0, scale: 0.94, y: 20 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
+        }
+      ).fromTo(
+        outerNodes,
+        { opacity: 0, scale: 0.94, y: 20 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
+        },
+        "-=0.25"
+      );
+    }
+  }, [prefersReducedMotion]);
+
+  // IntersectionObserver to synchronize the sticky domain index with the active capability section
+  useEffect(() => {
+    const domainElements = solutions.map((d) => document.getElementById(`domain-${d.id}`));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = domainElements.findIndex((el) => el === entry.target);
+            if (index !== -1) {
+              setActiveDomainIndex(index);
+            }
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" }
+    );
+
+    domainElements.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [solutions]);
+
+  const scrollToDomain = (id: string, idx: number) => {
+    setActiveDomainIndex(idx);
+    const element = document.getElementById(`domain-${id}`);
+    if (element) {
+      const yOffset = -100;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
   return (
-    <div ref={containerRef} className="bg-sand text-slate w-full overflow-x-clip selection:bg-brand-coral selection:text-sand">
-      
-      {/* 1. HERO - Editorial Opening */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 max-w-screen-2xl mx-auto border-b border-brand-coral/20 z-10">
-        <div className="inline-block mb-8 px-4 py-1.5 border border-brand-coral/30 rounded-full bg-brand-coral/5 text-brand-coral font-label text-xs uppercase tracking-widest font-semibold self-start">
-          {hero.badge}
-        </div>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-headline font-black uppercase tracking-tighter leading-[0.85] mb-8 max-w-6xl">
-          {hero.headline.replace(/\.$/, '').split('.').map((part, i, arr) => (
-            <React.Fragment key={i}>
-              {i === arr.length - 1 ? (
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-coral to-gold">
-                  {part}.
-                </span>
-              ) : (
-                <>{part}.<br/></>
-              )}
-            </React.Fragment>
-          ))}
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-          <p className="text-xl md:text-2xl font-body font-light text-slate/80 leading-relaxed max-w-xl">
-            {hero.intro}
-          </p>
-          <div className="flex flex-col gap-4 border-l-2 border-brand-coral pl-6 justify-center">
-            <span className="text-sm font-label font-bold uppercase tracking-widest text-slate">{hero.statementPrimary}</span>
-            <span className="text-sm font-label font-bold uppercase tracking-widest text-brand-coral">{hero.statementSecondary}</span>
+    <div ref={containerRef} className="w-full bg-white text-[#090909] overflow-x-clip">
+      {/* 1. HERO - Editorial Bauhaus Opening */}
+      <section ref={heroRef} className="relative w-full bg-[#E9EDF2] border-b-4 border-[#090909] py-16 sm:py-24 px-6 sm:px-12 lg:px-16">
+        <div className="max-w-[1560px] mx-auto flex flex-col justify-between gap-10">
+          <div data-anim="solutions-hero" className="flex flex-wrap items-center gap-3">
+            <BauhausBadge variant="red" shape="square" size="sm">
+              {hero.badge}
+            </BauhausBadge>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#090909]/60 font-bold">
+              CONNECTED ARCHITECTURE
+            </span>
+          </div>
+
+          <div data-anim="solutions-hero" className="max-w-4xl">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-heading font-black tracking-tighter uppercase leading-[0.95] text-[#090909]">
+              DIGITAL SOLUTIONS BUILT AROUND YOUR GROWTH.
+            </h1>
+            <p className="mt-6 text-xl sm:text-2xl font-heading font-bold text-[#2F5FA7] leading-snug">
+              {hero.intro}
+            </p>
+          </div>
+
+          <div data-anim="solutions-hero" className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t-4 border-[#090909] max-w-4xl">
+            <div className="p-4 bg-white border-2 border-[#090909] shadow-[3px_3px_0px_0px_#090909]">
+              <span className="font-mono text-xs font-bold text-[#090909]/60 uppercase tracking-wider block mb-1">
+                FIRST PRINCIPLE
+              </span>
+              <p className="font-heading font-bold text-sm uppercase text-[#090909]">
+                {hero.statementPrimary}
+              </p>
+            </div>
+            <div className="p-4 bg-[#FFD447] border-2 border-[#090909] shadow-[3px_3px_0px_0px_#090909]">
+              <span className="font-mono text-xs font-bold text-[#090909]/60 uppercase tracking-wider block mb-1">
+                STRATEGIC FOCUS
+              </span>
+              <p className="font-heading font-bold text-sm uppercase text-[#090909]">
+                {hero.statementSecondary}
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. THE GROWTH SYSTEM (Replacing the 6 white cards) */}
-      <section className="py-24 px-6 md:px-12 max-w-screen-2xl mx-auto border-b border-slate/10">
-        <SectionMasthead badge={growthSystem.badge} descriptor={growthSystem.title} />
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-16 items-center">
-          <div className="flex flex-col gap-8">
-            <h2 className="text-3xl md:text-5xl font-headline font-bold uppercase tracking-tight text-slate">
+      {/* 2. THE GROWTH SYSTEM PHILOSOPHY */}
+      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-16 border-b-4 border-[#090909] bg-white">
+        <ScrollReveal variant="fade-up" className="max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 flex flex-col gap-6">
+            <BauhausBadge variant="yellow" shape="square" size="sm">
+              {growthSystem.badge}
+            </BauhausBadge>
+            <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight uppercase leading-[1.0] text-[#090909]">
               {growthSystem.subtitle}
             </h2>
-            <div className="flex flex-col gap-4 pl-6 border-l-2 border-brand-coral/30">
+            <div className="flex flex-col gap-3 pl-6 border-l-4 border-[#F23B32] my-2">
               {growthSystem.needStatements.map((statement, idx) => (
-                <p key={idx} className="text-lg font-body text-slate/70">
+                <p key={idx} className="text-base sm:text-lg font-body text-[#090909]/80">
                   {statement}
                 </p>
               ))}
             </div>
-            <p className="text-xl font-body font-medium text-slate bg-brand-coral/5 p-6 rounded-r-2xl border-l-4 border-brand-coral">
-              {growthSystem.conclusion}
-            </p>
-          </div>
-          
-          <div className="relative h-[500px] bg-slate rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center group">
-             {/* Simple static network visualization for mobile / fallback */}
-             <div className="absolute inset-0 z-0">
-               <Canvas camera={{ position: [0, 0, 8] }}>
-                 <ambientLight intensity={0.5} />
-                 <pointLight position={[10, 10, 10]} intensity={1} color="#00C2C7" />
-                 <EcosystemNodes activeNode={null} onNodeClick={() => {}} />
-                 <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
-               </Canvas>
-             </div>
-             <div className="absolute top-6 left-6 z-10 pointer-events-none">
-               <span className="text-sand/50 font-label text-[10px] uppercase tracking-widest">
-                 Live Architecture View
-               </span>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. CAPABILITY EXPLORER (Split Screen: 3D left, Scroll right) */}
-      <section className="relative w-full bg-slate text-sand">
-        <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
-          
-          {/* LEFT: Pinned 3D View */}
-          <div ref={ecosystemRef} className="hidden lg:flex flex-col h-screen border-r border-white/10 p-12 bg-slate overflow-hidden">
-            <div className="mb-8">
-              <span className="text-brand-coral font-mono text-sm uppercase tracking-widest mb-2 block">System Map</span>
-              <h3 className="text-3xl font-headline font-bold uppercase">Interconnected Capabilities</h3>
-            </div>
-            <div className="flex-1 relative -mx-12">
-               <Canvas camera={{ position: [0, 0, 8] }}>
-                 <ambientLight intensity={0.5} />
-                 <pointLight position={[10, 10, 10]} intensity={1} color="#00C2C7" />
-                 <EcosystemNodes activeNode={activeDomain} onNodeClick={setActiveDomain} />
-               </Canvas>
-            </div>
-          </div>
-
-          {/* RIGHT: Scrolling Content */}
-          <div ref={domainsRef} className="flex flex-col w-full relative z-10 bg-slate">
-            {solutions.map((domain, i) => (
-              <article 
-                key={domain.id} 
-                className="min-h-screen flex flex-col justify-center p-8 md:p-16 lg:p-24 border-b border-white/5 transition-opacity duration-500"
-                style={{ opacity: activeDomain === null || activeDomain === i ? 1 : 0.5 }}
-              >
-                <div className="text-brand-coral font-mono text-sm font-bold tracking-widest mb-4">
-                  {domain.number}{" // CAPABILITY"}
-                </div>
-                <h2 className="text-4xl md:text-6xl font-headline font-bold uppercase tracking-tight mb-6">
-                  {domain.title}
-                </h2>
-                <h3 className="text-xl md:text-2xl text-gold font-body mb-8">
-                  {domain.tagline}
-                </h3>
-                
-                <div className="flex flex-col gap-6 mb-12 border-l-2 border-white/10 pl-6">
-                  {domain.descriptions.map((desc, idx) => (
-                    <p key={idx} className="text-lg font-body text-sand/80 leading-relaxed">
-                      {desc}
-                    </p>
-                  ))}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-                  <div>
-                    <h4 className="text-sm font-label font-bold uppercase tracking-widest text-white/50 mb-6">
-                      What We Build
-                    </h4>
-                    <ul className="flex flex-col gap-4">
-                      {domain.helpWith.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-brand-coral shrink-0" />
-                          <span className="text-sand/90 font-body">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-label font-bold uppercase tracking-widest text-white/50 mb-6">
-                      Best For Businesses That...
-                    </h4>
-                    <ul className="flex flex-col gap-4">
-                      {domain.bestFor.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sand/70 font-body">
-                          <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0 mt-2" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-auto pt-8">
-                  <Button
-                    variant="outline"
-                    asLink
-                    href={domain.cta.href}
-                    className="border-brand-coral text-brand-coral hover:bg-brand-coral hover:border-brand-coral hover:text-brand-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise focus-visible:ring-offset-2 focus-visible:ring-offset-slate group w-full sm:w-auto"
-                  >
-                    {domain.cta.label}
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. DIAGNOSTIC MATCHER */}
-      <section className="py-24 md:py-32 px-6 md:px-12 max-w-screen-xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-20">
-          <div className="inline-block mb-6 px-4 py-1.5 border border-slate/20 rounded-full bg-slate/5 text-slate font-label text-xs uppercase tracking-widest font-semibold">
-            {problemMatcher.badge}
-          </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-headline font-bold uppercase tracking-tight text-slate mb-6">
-            {problemMatcher.title}
-          </h2>
-          <p className="text-xl text-slate/70 font-body max-w-2xl">
-            {problemMatcher.subtitle}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 w-full max-w-4xl mx-auto">
-          {problemMatcher.items.map((item, i) => (
-            <Link key={i} href={item.href} className="group flex flex-col md:flex-row md:items-center justify-between p-6 md:p-8 bg-white rounded-2xl border border-slate/10 hover:border-brand-coral transition-all duration-300 shadow-sm hover:shadow-md">
-              <span className="text-lg font-body font-medium text-slate mb-4 md:mb-0">
-                {item.problem}
-              </span>
-              <div className="flex items-center gap-4 text-brand-coral">
-                <span className="font-headline font-bold uppercase tracking-wider text-sm opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                  {item.recommendation}
-                </span>
-                <div className="w-10 h-10 rounded-full bg-brand-coral/10 flex items-center justify-center group-hover:bg-brand-coral group-hover:text-white transition-colors">
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-        
-        <div className="mt-16 flex justify-center">
-          <Link href={problemMatcher.cta.href}>
-            <Button className="bg-slate text-sand hover:bg-brand-coral transition-colors">
-              {problemMatcher.cta.label}
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* 5. CONNECTED GROWTH PHILOSOPHY */}
-      <section className="py-24 px-6 md:px-12 bg-slate text-sand text-center border-t border-white/10">
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <Network className="w-12 h-12 text-gold mb-8" />
-          <h2 className="text-4xl md:text-5xl font-headline font-bold uppercase tracking-tight mb-8">
-            {connectedGrowth.title}
-          </h2>
-          <p className="text-2xl text-sand/80 font-body mb-16">
-            {connectedGrowth.subtitle}
-          </p>
-          
-          <div className="bg-white/5 rounded-3xl p-8 md:p-12 border border-white/10 w-full text-left">
-            <p className="text-lg font-label uppercase tracking-widest text-brand-coral mb-8">
-              {connectedGrowth.lead}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
-              {connectedGrowth.nodes.map((node, i) => (
-                <div key={i} className="flex gap-4 items-start">
-                  <span className="w-6 h-6 rounded-full bg-gold/20 text-gold flex items-center justify-center shrink-0 font-mono text-xs mt-1">
-                    {i + 1}
-                  </span>
-                  <p className="text-sand font-body text-lg">
-                    <strong className="font-headline text-white">{node.name}</strong> {node.purpose}
-                  </p>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-2">
-              <strong className="text-xl font-headline text-brand-coral uppercase tracking-wide">
-                {connectedGrowth.approachPrimary}
-              </strong>
-              <p className="text-lg text-sand/70 font-body">
-                {connectedGrowth.approachSecondary}
+            <div className="p-6 bg-[#0F2747] text-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909]">
+              <p className="font-heading font-bold text-base sm:text-lg uppercase">
+                {growthSystem.conclusion}
               </p>
             </div>
           </div>
+
+          <div className="lg:col-span-6 bg-[#E9EDF2] border-4 border-[#090909] p-6 sm:p-10 shadow-[8px_8px_0px_0px_#090909] bauhaus-grid-bg">
+            <div className="relative w-full aspect-[16/10] bg-white border-2 border-[#090909] overflow-hidden">
+              <Image
+                src="/images/bauhaus-diagram-growth-loop.jpg"
+                alt="AxonVortex Growth Loop & Continuous Framework"
+                fill
+                className="object-contain p-2"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+            <span className="block mt-4 text-center font-mono text-xs uppercase tracking-widest text-[#090909]/70 font-bold">
+              CONTINUOUS GROWTH LOOP SYSTEM
+            </span>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* 3. CONNECTED CAPABILITY MAP (Sticky Index + Synchronized Content) */}
+      <section className="relative w-full bg-[#E9EDF2] border-b-4 border-[#090909]">
+        <div className="max-w-[1720px] mx-auto grid grid-cols-1 lg:grid-cols-12">
+          {/* Left Sticky Index (4 cols on desktop) */}
+          <aside className="lg:col-span-4 bg-white border-b-4 lg:border-b-0 lg:border-r-4 border-[#090909] p-6 sm:p-10 lg:sticky lg:top-20 lg:h-[calc(100vh-80px)] lg:overflow-y-auto flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b-2 border-[#090909]">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#F23B32]">
+                  CAPABILITY DIRECTORY
+                </span>
+                <span className="font-mono text-xs text-[#090909]/50">5 DOMAINS</span>
+              </div>
+
+              <nav className="flex flex-col gap-2 mt-6" aria-label="Solutions Domain Index">
+                {solutions.map((dom, idx) => {
+                  const isActive = activeDomainIndex === idx;
+                  return (
+                    <button
+                      key={dom.id}
+                      onClick={() => scrollToDomain(dom.id, idx)}
+                      className={`text-left p-4 border-2 transition-all flex items-center justify-between group cursor-pointer ${
+                        isActive
+                          ? "bg-[#0F2747] text-white border-[#090909] shadow-[4px_4px_0px_0px_#090909]"
+                          : "bg-white text-[#090909] border-[#090909]/20 hover:border-[#090909] hover:bg-[#E9EDF2]"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`font-mono text-sm font-bold ${
+                            isActive ? "text-[#FFD447]" : "text-[#F23B32]"
+                          }`}
+                        >
+                          {dom.number}
+                        </span>
+                        <span className="font-heading font-black text-sm uppercase tracking-tight">
+                          {dom.title}
+                        </span>
+                      </div>
+                      <ArrowRight
+                        className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${
+                          isActive ? "text-[#FFD447]" : "text-[#090909]/40"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+
+            <div className="hidden lg:block pt-8 border-t-2 border-[#090909] mt-8">
+              <span className="font-mono text-xs uppercase tracking-wider text-[#090909]/60 block mb-3 font-bold">
+                READY TO SCOPE?
+              </span>
+              <Button
+                variant="primary"
+                size="md"
+                withArrow
+                asLink
+                href="/contact"
+                className="w-full justify-center"
+              >
+                Start Your Project
+              </Button>
+            </div>
+          </aside>
+
+          {/* Right Scrolling Content (8 cols on desktop) */}
+          <div className="lg:col-span-8 divide-y-4 divide-[#090909] bg-white">
+            {solutions.map((domain, i) => {
+              const imgSrc = DOMAIN_VISUALS[domain.id] || "/images/bauhaus-tech-hero.png";
+
+              return (
+                <article
+                  id={`domain-${domain.id}`}
+                  key={domain.id}
+                  className="p-8 sm:p-12 lg:p-16 flex flex-col gap-10 bg-white"
+                >
+                  {/* Domain Header */}
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between pb-3 border-b-2 border-[#090909]/15">
+                      <span className="font-mono text-3xl sm:text-4xl font-black text-[#F23B32]">
+                        {domain.number}
+                      </span>
+                      <BauhausBadge variant="slate" shape="pill" size="sm">
+                        DOMAIN {domain.number}
+                      </BauhausBadge>
+                    </div>
+
+                    <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight text-[#090909] uppercase">
+                      {domain.title}
+                    </h2>
+                    <p className="text-lg sm:text-xl font-heading font-bold text-[#2F5FA7]">
+                      {domain.tagline}
+                    </p>
+                  </div>
+
+                  {/* Visual Diagram */}
+                  <div className="relative w-full aspect-[16/9] border-4 border-[#090909] bg-[#E9EDF2] p-2 shadow-[6px_6px_0px_0px_#090909] overflow-hidden">
+                    <Image
+                      src={imgSrc}
+                      alt={`${domain.title} technical diagram`}
+                      fill
+                      className="object-contain p-2"
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                    />
+                  </div>
+
+                  {/* Description Paragraphs */}
+                  <div className="flex flex-col gap-4 border-l-4 border-[#090909] pl-6">
+                    {domain.descriptions.map((desc, idx) => (
+                      <p key={idx} className="font-body text-base text-[#090909]/80 leading-relaxed">
+                        {desc}
+                      </p>
+                    ))}
+                  </div>
+
+                  {/* 2-Column Split: What We Build vs Best For */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t-2 border-[#090909]/15 pt-8">
+                    <div className="p-6 bg-[#E9EDF2] border-2 border-[#090909]">
+                      <h3 className="font-heading font-black text-sm uppercase tracking-wider text-[#090909] mb-4 flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 bg-[#F23B32]" />
+                        <span>What We Build</span>
+                      </h3>
+                      <ul className="flex flex-col gap-3 font-body text-sm text-[#090909]">
+                        {domain.helpWith.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-2.5">
+                            <CheckSquare className="w-4 h-4 text-[#F23B32] shrink-0 mt-0.5" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="p-6 bg-white border-2 border-[#090909] shadow-[3px_3px_0px_0px_#090909]">
+                      <h3 className="font-heading font-black text-sm uppercase tracking-wider text-[#090909] mb-4 flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 bg-[#2F5FA7]" />
+                        <span>Best For Businesses That...</span>
+                      </h3>
+                      <ul className="flex flex-col gap-3 font-body text-sm text-[#090909]/80">
+                        {domain.bestFor.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-2.5">
+                            <span className="font-mono text-xs font-bold text-[#2F5FA7] mt-0.5">
+                              0{idx + 1}.
+                            </span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Action Bar with Links to Domain Page and Individual Services */}
+                  <div className="pt-6 border-t-2 border-[#090909] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                    <Button
+                      variant="primary"
+                      size="md"
+                      withArrow
+                      asLink
+                      href={domain.cta.href}
+                    >
+                      {domain.cta.label}
+                    </Button>
+
+                    <Link
+                      href={`/${domain.id}`}
+                      className="font-mono text-xs font-bold uppercase text-[#090909] hover:text-[#F23B32] inline-flex items-center gap-1.5"
+                    >
+                      <span>Deep Dive into {domain.title}</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* 6. FINAL CTA */}
-      <section className="py-32 px-6 md:px-12 text-center bg-sand">
-        <div className="max-w-3xl mx-auto flex flex-col items-center">
-          <h2 className="text-5xl md:text-7xl font-headline font-black uppercase tracking-tighter text-slate mb-8">
+      {/* 4. DIAGNOSTIC PROBLEM MATCHER */}
+      <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-16 max-w-[1560px] mx-auto">
+        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+          <BauhausBadge variant="slate" shape="square" size="sm" className="mb-4">
+            {problemMatcher.badge}
+          </BauhausBadge>
+          <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight uppercase leading-tight text-[#090909]">
+            {problemMatcher.title}
+          </h2>
+          <p className="mt-4 font-body text-base text-[#090909]/75">
+            {problemMatcher.subtitle}
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {problemMatcher.items.map((item, i) => (
+            <Link
+              key={i}
+              data-stagger-item
+              href={item.href}
+              className="group p-6 bg-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909] hover:bg-[#FFD447] hover:border-[#090909] transition-all flex items-center justify-between gap-4"
+            >
+              <div>
+                <span className="font-mono text-xs font-bold text-[#F23B32] uppercase block mb-1">
+                  BARRIER 0{i + 1}
+                </span>
+                <h3 className="font-heading font-bold text-base sm:text-lg uppercase text-[#090909]">
+                  {item.problem}
+                </h3>
+                <span className="font-mono text-xs text-[#090909]/70 group-hover:text-[#090909] block mt-2">
+                  → Recommendation: <strong className="uppercase">{item.recommendation}</strong>
+                </span>
+              </div>
+              <ArrowRight className="w-5 h-5 text-[#090909] group-hover:translate-x-1 transition-transform shrink-0" />
+            </Link>
+          ))}
+        </ScrollReveal>
+
+        <div className="mt-12 text-center">
+          <Button
+            variant="outline"
+            size="lg"
+            asLink
+            href={problemMatcher.cta.href}
+          >
+            {problemMatcher.cta.label}
+          </Button>
+        </div>
+      </section>
+
+      {/* 5. CONNECTED GROWTH ARCHITECTURE */}
+      <section className="py-20 px-6 sm:px-12 lg:px-16 bg-[#0F2747] text-white border-y-4 border-[#090909]">
+        <div className="max-w-[1560px] mx-auto text-center flex flex-col items-center">
+          <Network className="w-12 h-12 text-[#FFD447] mb-6" />
+          <h2 className="text-3xl sm:text-5xl font-heading font-black tracking-tight uppercase text-white">
+            {connectedGrowth.title}
+          </h2>
+          <p className="mt-4 text-lg sm:text-xl text-white/80 font-heading max-w-2xl">
+            {connectedGrowth.subtitle}
+          </p>
+
+          <div
+            ref={connectedNodesRef}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 w-full text-left"
+          >
+            {connectedGrowth.nodes.map((node, i) => (
+              <div
+                key={i}
+                data-node-card
+                className="p-6 bg-[#173359] border-2 border-white/20 shadow-[4px_4px_0px_0px_#090909] flex flex-col justify-between transition-shadow hover:shadow-[6px_6px_0px_0px_#FFD447]"
+              >
+                <div>
+                  <span className="font-mono text-xs font-bold text-[#FFD447] block mb-2">
+                    NODE 0{i + 1}
+                  </span>
+                  <h3 className="font-heading font-bold text-lg uppercase text-white">
+                    {node.name}
+                  </h3>
+                </div>
+                <p className="mt-4 font-body text-xs sm:text-sm text-white/75 leading-relaxed">
+                  {node.purpose}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 p-6 bg-white/10 border-2 border-white/30 max-w-2xl w-full text-center">
+            <h3 className="font-heading font-bold text-lg uppercase text-[#FFD447]">
+              {connectedGrowth.approachPrimary}
+            </h3>
+            <p className="mt-2 font-body text-sm text-white/80">
+              {connectedGrowth.approachSecondary}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FINAL SOLUTIONS CTA */}
+      <section className="py-24 px-6 sm:px-12 text-center bg-white border-b-4 border-[#090909]">
+        <ScrollReveal variant="fade-up" className="max-w-3xl mx-auto flex flex-col items-center">
+          <h2 className="text-4xl sm:text-6xl font-heading font-black uppercase tracking-tight text-[#090909]">
             {finalCta.headline}
           </h2>
-          <div className="flex flex-col gap-4 mb-12">
+          <div className="flex flex-col gap-4 my-8">
             {finalCta.paragraphs.map((p, i) => (
-              <p key={i} className="text-xl font-body text-slate/70">
+              <p key={i} className="text-base sm:text-lg font-body text-[#090909]/80 leading-relaxed">
                 {p}
               </p>
             ))}
           </div>
-          <div className="flex flex-col sm:flex-row gap-6">
-            <Link href={finalCta.primaryCta.href}>
-              <Button size="lg" className="bg-brand-navy text-white hover:bg-brand-coral hover:text-brand-navy w-full sm:w-auto">
-                {finalCta.primaryCta.label}
-              </Button>
-            </Link>
-            <Link href={finalCta.secondaryCta.href}>
-              <Button size="lg" variant="outline" className="border-slate text-slate hover:bg-slate hover:text-sand w-full sm:w-auto">
-                {finalCta.secondaryCta.label}
-              </Button>
-            </Link>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              variant="primary"
+              size="lg"
+              withArrow
+              asLink
+              href={finalCta.primaryCta.href}
+            >
+              {finalCta.primaryCta.label}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              asLink
+              href={finalCta.secondaryCta.href}
+            >
+              {finalCta.secondaryCta.label}
+            </Button>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </div>
   );

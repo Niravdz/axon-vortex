@@ -2,17 +2,13 @@
 
 import React, { useRef, useLayoutEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, CornerDownRight, X, Check } from "lucide-react";
-import { SectionMasthead } from "@/components/ui/SectionMasthead";
+import { ArrowRight, CornerDownRight, X, Check, Eye, Target, Compass, Sparkles, Layers } from "lucide-react";
+import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
 import { authorityData } from "@/data/content/authorityConversion";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { getGSAP } from "@/lib/gsap";
 
 export default function AboutPageClient() {
   const {
@@ -28,7 +24,6 @@ export default function AboutPageClient() {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const originsRef = useRef<HTMLElement>(null);
-  const ambitionRef = useRef<HTMLElement>(null);
   const beliefsRef = useRef<HTMLElement>(null);
   const publicRef = useRef<HTMLElement>(null);
 
@@ -37,220 +32,294 @@ export default function AboutPageClient() {
   useLayoutEffect(() => {
     if (prefersReducedMotion || !containerRef.current) return;
 
+    const { gsap } = getGSAP();
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 1024px)", () => {
-        // Hero Parallax
-        gsap.to(heroRef.current, {
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-          y: 100,
-          opacity: 0,
-        });
-
-        // Fragmentation to Connection Animation (Ambition Section)
-        const fragments = document.querySelectorAll('.ambition-fragment');
-        const centerTarget = document.querySelector('.ambition-center');
-
-        if (fragments.length && centerTarget) {
-          gsap.fromTo(fragments,
-            { x: () => (Math.random() - 0.5) * 800, y: () => (Math.random() - 0.5) * 800, opacity: 0, rotation: () => Math.random() * 90 },
-            {
-              x: 0, y: 0, opacity: 1, rotation: 0,
-              duration: 1.5,
-              stagger: 0.1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: ambitionRef.current,
-                start: "top 60%",
-              }
-            }
-          );
-        }
-
-        // Drawing the line in Building in Public
-        const line = document.querySelector('.public-timeline-line');
-        if (line) {
-          gsap.fromTo(line,
-            { height: "0%" },
-            {
-              height: "100%",
-              ease: "none",
-              scrollTrigger: {
-                trigger: publicRef.current,
-                start: "top 50%",
-                end: "bottom 80%",
-                scrub: true,
-              }
-            }
-          );
-        }
-      });
+      // Subtle entrance animations
+      if (heroRef.current) {
+        gsap.fromTo(
+          heroRef.current.querySelectorAll("[data-anim='about-hero']"),
+          { y: 24, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   return (
-    <div ref={containerRef} className="w-full overflow-x-clip selection:bg-brand-coral selection:text-sand">
-
-      {/* 1. HERO - Editorial Manifesto */}
-      <section ref={heroRef} className="relative min-h-[95vh] flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 bg-slate text-sand border-b border-brand-coral/20 z-10">
-        <div className="max-w-screen-2xl mx-auto w-full">
-          <div className="inline-block mb-12 px-4 py-1.5 border border-white/20 rounded-full bg-white/5 text-sand font-label text-xs uppercase tracking-widest font-semibold self-start">
-            {about.badge}
+    <div
+      ref={containerRef}
+      className="w-full bg-brand-white text-brand-black selection:bg-brand-red selection:text-white overflow-x-clip"
+    >
+      {/* 0. TOP SPEC BAR */}
+      <div className="w-full border-b-2 border-brand-black bg-brand-gray/50 px-6 md:px-12 py-3">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase">
+          <div className="flex items-center gap-2 text-brand-black/70">
+            <Link href="/" className="hover:text-brand-red font-bold transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-brand-red font-black">About &amp; Manifesto</span>
           </div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-9xl font-headline font-black uppercase tracking-tighter leading-[0.85] mb-8 max-w-7xl">
-            {about.headlinePrimary} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-coral to-gold">
-              {about.headlineSecondary}
-            </span>
-          </h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mt-20 border-t border-white/10 pt-12">
-            <div className="md:col-span-5">
-              <p className="text-2xl lg:text-3xl font-headline font-bold uppercase tracking-tight text-white mb-6">
-                {about.beliefParagraph1}
-              </p>
-              <p className="text-xl lg:text-2xl font-body font-light text-sand/70">
-                {about.beliefParagraph2}
-              </p>
-            </div>
-            <div className="md:col-span-7 flex flex-col justify-end">
-              <span className="text-sm font-label uppercase tracking-widest text-brand-coral mb-6 block">
-                {about.intersectionLabel}
-              </span>
-              <div className="flex flex-wrap gap-4">
-                {about.intersections.map((item, i) => (
-                  <div key={i} className="px-6 py-3 rounded-full border border-white/10 bg-white/5 text-sand font-headline uppercase tracking-wider text-sm">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="flex items-center gap-3">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
+            <span className="font-bold text-brand-black tracking-wider">AGENCY FROM ZERO // MANIFESTO</span>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* 2. ORIGIN STORY */}
-      <section ref={originsRef} className="py-32 px-6 md:px-12 bg-sand text-slate border-b border-slate/10">
-        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-32">
-          <div className="lg:w-1/3">
-            <SectionMasthead badge={whyExists.badge} descriptor={whyExists.title} />
-          </div>
-          <div className="lg:w-2/3 flex flex-col gap-12">
-            <h2 className="text-4xl md:text-5xl font-headline font-bold uppercase tracking-tight text-slate">
-              {whyExists.contrastStatement}
-            </h2>
-
-            <div className="flex flex-col gap-6 text-xl md:text-2xl font-body text-slate/70">
-              {whyExists.moreStatements.map((stmt, i) => (
-                <p key={i}>{stmt}</p>
-              ))}
+      {/* 1. HERO - Editorial Opening */}
+      <section
+        ref={heroRef}
+        className="relative pt-16 md:pt-24 pb-20 px-6 md:px-12 border-b-2 border-brand-black bg-brand-white"
+      >
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          <div className="lg:col-span-8 flex flex-col gap-6">
+            <div data-anim="about-hero" className="flex flex-wrap items-center gap-3">
+              <BauhausBadge variant="red" shape="square">
+                {about.badge}
+              </BauhausBadge>
+              <BauhausBadge variant="yellow" shape="pill">
+                {about.title}
+              </BauhausBadge>
+              <span className="font-mono text-xs text-brand-black/60 font-bold uppercase tracking-widest">
+                ZERO BULLSHIT // REAL SYSTEMS
+              </span>
             </div>
 
-            <div className="bg-white p-12 rounded-3xl shadow-sm border border-slate/10 mt-8">
-              <span className="text-brand-coral font-label text-sm uppercase tracking-widest font-bold mb-6 block">
-                {whyExists.challengeIntro}
-              </span>
-              <ul className="flex flex-col gap-6">
-                {whyExists.questions.map((q, i) => (
-                  <li key={i} className="text-2xl md:text-3xl font-headline font-bold uppercase tracking-tight text-slate flex items-center gap-6">
-                    <span className="text-slate/20 font-mono text-xl">0{i + 1}</span>
-                    {q}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-12 pt-8 border-t border-slate/10">
-                <p className="text-2xl font-body font-medium text-brand-coral">
-                  {whyExists.conclusion}
+            <h1 data-anim="about-hero" className="text-4xl sm:text-6xl md:text-7xl font-display font-black uppercase tracking-tighter leading-[0.92] text-brand-black">
+              {about.headlinePrimary} <br />
+              <span className="text-brand-red">{about.headlineSecondary}</span>
+            </h1>
+
+            <div data-anim="about-hero" className="flex flex-col gap-4 text-lg md:text-xl font-body text-brand-black/80 max-w-3xl leading-relaxed border-l-4 border-brand-red pl-6 py-2 bg-brand-gray/30">
+              <p>{about.beliefParagraph1}</p>
+              <p className="font-display font-black text-brand-black text-xl md:text-2xl">
+                &ldquo;{about.beliefParagraph2}&rdquo;
+              </p>
+            </div>
+
+            <div data-anim="about-hero" className="flex flex-wrap items-center gap-4 pt-4">
+              <Button
+                variant="primary"
+                size="lg"
+                className="bg-brand-red text-white hover:bg-brand-black text-base px-8 py-4"
+                asLink
+                href="/contact"
+              >
+                Start Your Growth Journey
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-2 border-brand-black text-brand-black hover:bg-brand-yellow text-base px-6 py-4"
+                asLink
+                href="/growth-audit"
+              >
+                Request Growth Audit
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Column: Bauhaus Intersection Plate */}
+          <div data-anim="about-hero" className="lg:col-span-4 flex flex-col">
+            <div className="border-2 border-brand-black bg-brand-gray p-6 sm:p-8 shadow-hard-lg flex flex-col gap-6">
+              <div className="border-b-2 border-brand-black pb-4">
+                <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-black/60 block mb-1">
+                  CORE INTERSECTION
+                </span>
+                <p className="text-xs font-sans text-brand-black/80 leading-relaxed">
+                  {about.intersectionLabel}
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* 3. SYSTEM AMBITION (Fragmentation to Connection) */}
-      <section ref={ambitionRef} className="py-40 px-6 md:px-12 bg-slate text-sand border-y border-brand-coral/20 overflow-hidden">
-        <div className="max-w-screen-2xl mx-auto text-center relative z-10">
-          <SectionMasthead badge={whatWeAreBuilding.badge} descriptor={whatWeAreBuilding.title} />
-
-          <h2 className="text-3xl md:text-5xl font-headline font-bold uppercase tracking-tight text-white max-w-4xl mx-auto mt-12 mb-24 leading-tight">
-            {whatWeAreBuilding.ambition}
-          </h2>
-
-          <div className="relative h-96 flex items-center justify-center mb-24 ambition-center">
-            <div className="absolute inset-0 bg-brand-coral/5 blur-3xl rounded-full" />
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 relative z-10">
-              {whatWeAreBuilding.connectors.map((c, i) => (
-                <div key={i} className="ambition-fragment bg-white/10 backdrop-blur-md border border-white/20 px-8 py-6 rounded-2xl flex items-center justify-center">
-                  <span className="text-xl font-headline font-bold uppercase tracking-wider text-sand">
-                    {c}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <p className="text-4xl md:text-7xl font-headline font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-brand-coral to-gold">
-            {whatWeAreBuilding.conclusion}
-          </p>
-        </div>
-      </section>
-
-      {/* 4. CORE CONVICTIONS (Alternating Typography) */}
-      <section ref={beliefsRef} className="w-full flex flex-col">
-        {beliefs.groups.map((group, i) => {
-          const isDark = i % 2 === 0;
-          return (
-            <article
-              key={i}
-              className={`py-32 px-6 md:px-12 ${isDark ? 'bg-slate text-sand border-b border-white/10' : 'bg-sand text-slate border-b border-slate/10'}`}
-            >
-              <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
-                <div className="lg:col-span-5 flex flex-col">
-                  <div className="text-[120px] font-headline font-black leading-none tracking-tighter opacity-10 mb-8">
-                    0{i + 1}
+              <div className="grid grid-cols-2 gap-3">
+                {about.intersections.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 bg-brand-white border-2 border-brand-black font-mono text-xs font-black uppercase text-brand-black flex items-center justify-between shadow-hard-sm"
+                  >
+                    <span>{item}</span>
+                    <span className="w-2 h-2 bg-brand-red" />
                   </div>
-                  <h2 className="text-4xl md:text-5xl font-headline font-bold uppercase tracking-tight mb-4">
-                    {group.title}
-                  </h2>
-                  {group.subtitle && (
-                    <h3 className={`text-xl font-body ${isDark ? 'text-gold' : 'text-brand-coral'}`}>
-                      {group.subtitle}
-                    </h3>
-                  )}
-                </div>
+                ))}
+              </div>
 
-                <div className="lg:col-span-7 flex flex-col justify-center">
+              <div className="pt-2 border-t-2 border-brand-black">
+                <span className="font-mono text-[11px] text-brand-black/70 block leading-tight">
+                  A multi-domain engineering discipline designed to eliminate disconnected digital friction.
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 2. WHY AXONVORTEX EXISTS (ORIGIN & PURPOSE) */}
+      <section
+        ref={originsRef}
+        className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black"
+      >
+        <ScrollReveal variant="fade-up" className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          <div className="lg:col-span-5 flex flex-col gap-6 sticky top-24">
+            <div className="flex items-center gap-2">
+              <BauhausBadge variant="yellow" shape="square">
+                {whyExists.badge}
+              </BauhausBadge>
+              <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                THE DIGITAL TOOL DILEMMA
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black leading-tight">
+              {whyExists.title}
+            </h2>
+
+            <div className="p-6 bg-brand-white border-2 border-brand-black shadow-hard-md">
+              <p className="text-lg font-display font-black text-brand-red uppercase">
+                {whyExists.contrastStatement}
+              </p>
+              <p className="text-sm font-sans text-brand-black/80 mt-3">
+                {whyExists.conclusion}
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 flex flex-col gap-8">
+            {/* The "More" Inventory */}
+            <div className="flex flex-col gap-3">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-brand-black/60">
+                The Reality of Modern Business
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {whyExists.moreStatements.map((stmt, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 bg-brand-white border-2 border-brand-black font-display font-bold text-xs uppercase text-brand-black shadow-hard-sm"
+                  >
+                    + {stmt.replace("Businesses have ", "")}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* The 5 Critical Questions */}
+            <div className="p-8 bg-brand-white border-2 border-brand-black shadow-hard-md flex flex-col gap-6">
+              <div className="flex items-center justify-between border-b-2 border-brand-black pb-3">
+                <span className="font-mono text-xs font-black uppercase text-brand-black">
+                  {whyExists.challengeIntro}
+                </span>
+                <span className="font-mono text-xs text-brand-red font-black">5 ESSENTIAL CHECKS</span>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {whyExists.questions.map((q, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 bg-brand-gray border border-brand-black flex items-center justify-between font-display font-black text-sm uppercase text-brand-black"
+                  >
+                    <span>{q}</span>
+                    <span className="font-mono text-xs text-brand-red">0{idx + 1}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </ScrollReveal>
+      </section>
+
+      {/* 3. WHAT WE BELIEVE (CORE CONVICTIONS) */}
+      <section
+        ref={beliefsRef}
+        className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black"
+      >
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="yellow" shape="square">
+                  {beliefs.badge}
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  PHILOSOPHICAL FOUNDATIONS
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                {beliefs.title}
+              </h2>
+            </div>
+            <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
+              4 Structural Pillars
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {beliefs.groups.map((group, idx) => (
+              <div
+                key={idx}
+                data-stagger-item
+                className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md flex flex-col justify-between"
+              >
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center justify-between border-b-2 border-brand-black pb-3">
+                    <span className="font-mono text-xs font-black px-2 py-1 bg-brand-yellow text-brand-black border border-brand-black">
+                      BELIEF 0{idx + 1}
+                    </span>
+                    <span className="w-2.5 h-2.5 bg-brand-black" />
+                  </div>
+
+                  <h3 className="text-2xl font-display font-black uppercase text-brand-black">
+                    {group.title}
+                  </h3>
+
+                  {group.subtitle && (
+                    <p className="text-sm font-display font-bold uppercase text-brand-red">
+                      {group.subtitle}
+                    </p>
+                  )}
+
                   {group.intro && (
-                    <p className={`text-2xl font-body mb-8 ${isDark ? 'text-sand/80' : 'text-slate/80'}`}>
+                    <p className="text-xs font-mono uppercase text-brand-black/60 font-bold">
                       {group.intro}
                     </p>
                   )}
 
                   {group.items && (
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
-                      {group.items.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-4">
-                          <CornerDownRight className={`w-6 h-6 shrink-0 mt-1 ${isDark ? 'text-brand-coral' : 'text-slate/40'}`} />
-                          <span className="text-xl font-body">{item}</span>
-                        </li>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                      {group.items.map((item, i) => (
+                        <div
+                          key={i}
+                          className="p-2.5 bg-brand-gray/60 border border-brand-black/20 text-xs font-sans text-brand-black font-medium flex items-center gap-2"
+                        >
+                          <Check className="w-3.5 h-3.5 text-brand-red shrink-0" />
+                          <span>{item}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   )}
 
                   {group.statements && (
-                    <div className="flex flex-col gap-6">
-                      {group.statements.map((stmt, idx) => (
-                        <p key={idx} className={`text-2xl lg:text-3xl font-headline font-bold uppercase tracking-tight ${isDark ? 'text-white' : 'text-slate'} border-l-4 ${isDark ? 'border-brand-coral' : 'border-slate'} pl-6`}>
+                    <div className="flex flex-col gap-2 pt-2">
+                      {group.statements.map((stmt, i) => (
+                        <p
+                          key={i}
+                          className="text-xs sm:text-sm font-sans text-brand-black/80 font-medium border-l-2 border-brand-red pl-3"
+                        >
                           {stmt}
                         </p>
                       ))}
@@ -258,124 +327,195 @@ export default function AboutPageClient() {
                   )}
                 </div>
               </div>
-            </article>
-          );
-        })}
+            ))}
+          </ScrollReveal>
+
+        </div>
       </section>
 
-      {/* 5. BUILDING IN PUBLIC (Living Timeline) */}
-      <section ref={publicRef} className="py-40 px-6 md:px-12 bg-sand border-b border-slate/10 relative overflow-hidden">
-        <div className="max-w-screen-lg mx-auto relative z-10">
-          <SectionMasthead badge={buildingInPublic.badge} descriptor={buildingInPublic.title} />
-
-          <div className="mt-20 relative">
-            {/* The line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-slate/10 -ml-px">
-              <div className="public-timeline-line w-full bg-brand-coral origin-top" />
+      {/* 4. BUILDING IN PUBLIC (RADICAL TRANSPARENCY) */}
+      <section
+        ref={publicRef}
+        className="py-20 md:py-28 px-6 md:px-12 bg-brand-slate text-white border-b-2 border-brand-black"
+      >
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-white/20 pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BauhausBadge variant="red" shape="square">
+                  {buildingInPublic.badge}
+                </BauhausBadge>
+                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-gray">
+                  HONEST ENGINEERING
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-white">
+                {buildingInPublic.title}
+              </h2>
             </div>
-
-            <div className="flex flex-col gap-24">
-              <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-16">
-                <div className="md:w-1/2 text-left md:text-right">
-                  <h3 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tight text-slate">
-                    {buildingInPublic.opening}
-                  </h3>
-                </div>
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-sand border-2 border-brand-coral -ml-2 z-10" />
-                <div className="md:w-1/2" />
-              </div>
-
-              <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-16">
-                <div className="md:w-1/2 hidden md:block" />
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-sand border-2 border-brand-coral -ml-2 z-10" />
-                <div className="md:w-1/2 pl-16 md:pl-0">
-                  <div className="bg-slate text-sand p-8 rounded-3xl shadow-xl">
-                    <p className="text-3xl font-headline font-bold uppercase text-brand-coral mb-6">
-                      {buildingInPublic.statement}
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      {buildingInPublic.verbs.map((v, i) => (
-                        <span key={i} className="text-lg font-body text-sand/80">{v}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative flex flex-col md:flex-row items-start gap-8 md:gap-16">
-                <div className="md:w-1/2 text-left md:text-right pl-16 md:pl-0">
-                  <span className="text-sm font-label uppercase tracking-widest font-bold text-slate/50 mb-6 block">
-                    {buildingInPublic.shareLabel}
-                  </span>
-                  <ul className="flex flex-col gap-4 items-start md:items-end">
-                    {buildingInPublic.shareItems.map((item, i) => (
-                      <li key={i} className="text-xl font-body text-slate flex items-center gap-4">
-                        <span className="md:hidden w-1.5 h-1.5 bg-brand-coral rounded-full" />
-                        {item}
-                        <span className="hidden md:block w-1.5 h-1.5 bg-brand-coral rounded-full" />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-sand border-2 border-brand-coral -ml-2 z-10 mt-2" />
-                <div className="md:w-1/2" />
-              </div>
+            <div className="font-mono text-xs text-brand-yellow font-bold uppercase">
+              {buildingInPublic.statement}
             </div>
+          </ScrollReveal>
 
-            <div className="text-center mt-32 relative z-10">
-              <p className="text-4xl font-headline font-black uppercase tracking-tight text-slate bg-sand inline-block px-8 py-4 border-2 border-slate rounded-full">
-                {buildingInPublic.closing}
+          <ScrollReveal variant="fade-up" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            {/* Left Narrative */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              <p className="text-xl sm:text-2xl font-display font-black text-white uppercase leading-snug">
+                {buildingInPublic.opening}
               </p>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                {buildingInPublic.verbs.map((verb, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1.5 bg-white/10 border border-white/20 font-mono text-xs uppercase font-bold text-brand-yellow"
+                  >
+                    {verb}
+                  </span>
+                ))}
+              </div>
+
+              <div className="p-6 bg-white/5 border border-white/20 mt-4">
+                <p className="font-display font-black text-lg uppercase text-white">
+                  &ldquo;{buildingInPublic.closing}&rdquo;
+                </p>
+              </div>
             </div>
-          </div>
+
+            {/* Right: What We Share */}
+            <div className="lg:col-span-7 border-2 border-white/30 bg-white/5 p-8 flex flex-col gap-6">
+              <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-yellow">
+                {buildingInPublic.shareLabel}
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {buildingInPublic.shareItems.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 bg-white/10 border border-white/10 font-mono text-xs uppercase text-white flex items-center gap-3"
+                  >
+                    <span className="w-2 h-2 bg-brand-red shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </ScrollReveal>
+
         </div>
       </section>
 
-      {/* 6. REJECT & EMBRACE */}
-      <section className="py-32 px-6 md:px-12 bg-slate text-sand">
-        <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div className="border border-white/10 rounded-3xl p-12 bg-white/5 relative overflow-hidden">
-            <SectionMasthead badge={whatWeDontBelieveIn.badge} descriptor="Reject" />
-            <h2 className="text-3xl font-headline font-bold uppercase tracking-tight text-white mt-12 mb-8">
-              {whatWeDontBelieveIn.title}
+      {/* 5. WHAT WE REJECT VS WHAT WE EMBRACE */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          
+          <ScrollReveal variant="fade-up" className="flex flex-col gap-3 max-w-2xl border-b-2 border-brand-black pb-8">
+            <div className="flex items-center gap-2">
+              <BauhausBadge variant="blue" shape="square">
+                CODE OF INTEGRITY
+              </BauhausBadge>
+              <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                DISCRIMINATION MATRIX
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+              Convictions Over Compromise
             </h2>
-            <ul className="flex flex-col gap-6">
-              {whatWeDontBelieveIn.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-4 text-xl font-body text-sand/80">
-                  <X className="w-6 h-6 text-white/50 shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+          </ScrollReveal>
 
-          <div className="border border-brand-coral/30 rounded-3xl p-12 bg-brand-coral/5 relative overflow-hidden">
-            <SectionMasthead badge={whatWeDoBelieveIn.badge} descriptor="Embrace" />
-            <h2 className="text-3xl font-headline font-bold uppercase tracking-tight text-brand-coral mt-12 mb-8">
-              {whatWeDoBelieveIn.title}
-            </h2>
-            <ul className="flex flex-col gap-6">
-              {whatWeDoBelieveIn.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-4 text-xl font-body text-sand">
-                  <Check className="w-6 h-6 text-brand-coral shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* What We Don't Believe In */}
+            <div data-stagger-item className="p-8 border-2 border-brand-black bg-brand-gray shadow-hard-md flex flex-col gap-6">
+              <div className="flex items-center justify-between border-b-2 border-brand-black pb-4">
+                <span className="font-display font-black text-2xl uppercase text-brand-black">
+                  {whatWeDontBelieveIn.title}
+                </span>
+                <span className="font-mono text-xs font-black px-2 py-1 bg-brand-red text-white">
+                  REJECTED
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {whatWeDontBelieveIn.items.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 bg-brand-white border border-brand-black flex items-center gap-3 font-sans text-sm text-brand-black/90 font-medium"
+                  >
+                    <X className="w-4 h-4 text-brand-red shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* What We Do Believe In */}
+            <div data-stagger-item className="p-8 border-2 border-brand-black bg-brand-yellow/20 shadow-hard-md flex flex-col gap-6">
+              <div className="flex items-center justify-between border-b-2 border-brand-black pb-4">
+                <span className="font-display font-black text-2xl uppercase text-brand-black">
+                  {whatWeDoBelieveIn.title}
+                </span>
+                <span className="font-mono text-xs font-black px-2 py-1 bg-brand-yellow text-brand-black border border-brand-black">
+                  EMBRACED
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {whatWeDoBelieveIn.items.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 bg-brand-white border border-brand-black flex items-center gap-3 font-sans text-sm text-brand-black font-bold"
+                  >
+                    <Check className="w-4 h-4 text-brand-blue shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </ScrollReveal>
+
         </div>
+      </section>
 
-        <div className="mt-32 text-center flex flex-col items-center">
-          <h2 className="text-5xl md:text-7xl font-headline font-black uppercase tracking-tighter text-white mb-12">
+      {/* 6. FINAL HIGH-IMPACT CTA */}
+      <section className="py-24 px-6 md:px-12 bg-brand-red text-white border-b-2 border-brand-black">
+        <ScrollReveal variant="fade-up" className="max-w-4xl mx-auto text-center flex flex-col items-center">
+          <div className="inline-block px-4 py-1.5 bg-brand-white text-brand-black border-2 border-brand-black font-mono text-xs font-black uppercase mb-8 shadow-hard-sm">
+            BUILD SMARTER
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black uppercase tracking-tighter text-white mb-8 max-w-3xl leading-[0.95]">
             {whatWeDoBelieveIn.ctaHeadline}
           </h2>
-          <Link href={whatWeDoBelieveIn.cta.href}>
-            <Button size="lg" className="bg-brand-navy text-white hover:bg-brand-coral hover:text-brand-navy">
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Button
+              variant="primary"
+              size="lg"
+              className="bg-brand-black text-white hover:bg-brand-white hover:text-brand-black text-lg px-10 py-5 border-2 border-brand-black shadow-hard-md"
+              asLink
+              href={whatWeDoBelieveIn.cta.href}
+            >
               {whatWeDoBelieveIn.cta.label}
-              <ArrowRight className="ml-2 w-4 h-4" />
+              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-          </Link>
-        </div>
+
+            <Button
+              variant="outline"
+              size="lg"
+              className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-brand-black text-lg px-8 py-5"
+              asLink
+              href="/growth-audit"
+            >
+              Request Growth Audit
+            </Button>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   );
