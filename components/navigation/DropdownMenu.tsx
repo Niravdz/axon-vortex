@@ -11,7 +11,7 @@ interface DropdownMenuProps {
   isOpen: boolean;
   type: "solutions" | "company";
   title: string;
-  number: string;
+  number?: string;
   tagline: string;
   description: string;
   items: NavLinkItem[];
@@ -27,9 +27,7 @@ export function DropdownMenu({
   isOpen,
   type,
   title,
-  number,
   tagline,
-  description,
   items,
   viewAll,
   currentPath,
@@ -61,9 +59,6 @@ export function DropdownMenu({
           {/* Header Strip */}
           <div className="bg-brand-gray border-b-2 border-brand-black p-4 px-6 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs font-black px-2 py-0.5 bg-brand-red text-white border border-brand-black">
-                {number}
-              </span>
               <span className="font-heading font-black text-xs uppercase tracking-widest text-brand-black">
                 {tagline}
               </span>
@@ -84,7 +79,6 @@ export function DropdownMenu({
                   key={item.href}
                   href={item.href}
                   label={item.label}
-                  badge={item.badge}
                   description={item.description}
                   isActive={isActive}
                   onClick={onLinkClick}
@@ -117,9 +111,6 @@ export function DropdownMenu({
           {/* Header Strip */}
           <div className="bg-brand-gray border-b-2 border-brand-black p-4 px-5 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs font-black px-2 py-0.5 bg-brand-yellow text-brand-black border border-brand-black">
-                {number}
-              </span>
               <span className="font-heading font-black text-xs uppercase tracking-widest text-brand-black">
                 {tagline}
               </span>
@@ -138,7 +129,6 @@ export function DropdownMenu({
                   key={item.href}
                   href={item.href}
                   label={item.label}
-                  badge={item.badge}
                   description={item.description}
                   isActive={isActive}
                   onClick={onLinkClick}

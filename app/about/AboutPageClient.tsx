@@ -2,7 +2,7 @@
 
 import React, { useRef, useLayoutEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, CornerDownRight, X, Check, Eye, Target, Compass, Sparkles, Layers } from "lucide-react";
+import { ArrowRight, X, Check } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/animation/ScrollReveal";
@@ -16,7 +16,6 @@ export default function AboutPageClient() {
     whyExists,
     beliefs,
     buildingInPublic,
-    whatWeAreBuilding,
     whatWeDontBelieveIn,
     whatWeDoBelieveIn,
   } = authorityData;
@@ -96,7 +95,7 @@ export default function AboutPageClient() {
               </span>
             </div>
 
-            <h1 data-anim="about-hero" className="text-4xl sm:text-6xl md:text-7xl font-display font-black uppercase tracking-tighter leading-[0.92] text-brand-black">
+            <h1 data-anim="about-hero" className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
               {about.headlinePrimary} <br />
               <span className="text-brand-red">{about.headlineSecondary}</span>
             </h1>
@@ -232,7 +231,7 @@ export default function AboutPageClient() {
                     className="p-4 bg-brand-gray border border-brand-black flex items-center justify-between font-display font-black text-sm uppercase text-brand-black"
                   >
                     <span>{q}</span>
-                    <span className="font-mono text-xs text-brand-red">0{idx + 1}</span>
+                    <span className="w-1.5 h-1.5 bg-brand-red shrink-0" />
                   </div>
                 ))}
               </div>
@@ -278,7 +277,7 @@ export default function AboutPageClient() {
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between border-b-2 border-brand-black pb-3">
                     <span className="font-mono text-xs font-black px-2 py-1 bg-brand-yellow text-brand-black border border-brand-black">
-                      BELIEF 0{idx + 1}
+                      BELIEF
                     </span>
                     <span className="w-2.5 h-2.5 bg-brand-black" />
                   </div>

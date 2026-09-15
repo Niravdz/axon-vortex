@@ -95,7 +95,7 @@ export function Footer() {
           {/* Col 1: Solutions Domains */}
           <div className="p-8 flex flex-col gap-4">
             <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              01 / DOMAINS
+              DOMAINS
             </span>
             <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
               <li>
@@ -134,7 +134,7 @@ export function Footer() {
           {/* Col 2: Services Directory */}
           <div className="p-8 flex flex-col gap-4">
             <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              02 / SERVICES
+              SERVICES
             </span>
             <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
               <li>
@@ -164,7 +164,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services" className="font-bold text-[#FFD447] hover:underline pt-1 inline-flex items-center gap-1">
-                  <span>View All 12 Services →</span>
+                  <span>View All Services →</span>
                 </Link>
               </li>
             </ul>
@@ -173,7 +173,7 @@ export function Footer() {
           {/* Col 3: Company & Approach */}
           <div className="p-8 flex flex-col gap-4">
             <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              03 / COMPANY
+              COMPANY
             </span>
             <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
               <li>
@@ -212,7 +212,7 @@ export function Footer() {
           {/* Col 4: Governance & Legal */}
           <div className="p-8 flex flex-col gap-4">
             <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              04 / LEGAL & COMPLIANCE
+              LEGAL & COMPLIANCE
             </span>
             <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
               <li>

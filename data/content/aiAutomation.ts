@@ -1,6 +1,6 @@
 export const aiAutomationData = {
   hero: {
-    badge: "04 // AI & AUTOMATION",
+    badge: "AI & AUTOMATION",
     headline: "AI That Works for Your Business.",
     paragraphs: [
       "AI shouldn't be about chasing the latest tool.",

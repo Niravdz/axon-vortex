@@ -2,9 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { AlertTriangle, ArrowLeft, Shield, FileText } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
-import { Button } from "@/components/ui/Button";
 
 interface LegalSection {
   id: string;

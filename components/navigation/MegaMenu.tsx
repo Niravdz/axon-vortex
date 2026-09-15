@@ -2,14 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Cpu, Activity, LayoutTemplate, Layers } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { NavigationLink } from "./NavigationLink";
 import { ServiceDomainColumn, NavLinkItem } from "./navigationConfig";
 
 interface MegaMenuProps {
   id: string;
   isOpen: boolean;
-  number: string;
+  number?: string;
   tagline: string;
   description: string;
   columns: ServiceDomainColumn[];
@@ -24,7 +24,6 @@ interface MegaMenuProps {
 export function MegaMenu({
   id,
   isOpen,
-  number,
   tagline,
   description,
   columns,
@@ -55,9 +54,6 @@ export function MegaMenu({
         {/* Top Header Bar */}
         <div className="bg-brand-gray border-b-2 border-brand-black p-3.5 px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs font-black px-2.5 py-0.5 bg-brand-red text-white border border-brand-black">
-              {number}
-            </span>
             <span className="font-heading font-black text-xs uppercase tracking-widest text-brand-black">
               {tagline}
             </span>
@@ -109,13 +105,13 @@ export function MegaMenu({
           {/* Main Area: 4 Columns */}
           <div className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x-2 divide-brand-black bg-white">
             {columns.map((col) => (
-              <div key={col.number} className="p-5 flex flex-col justify-between">
+              <div key={col.domain} className="p-5 flex flex-col justify-between">
                 <div>
                   {/* Column Header */}
                   <div className="border-b-2 border-brand-black pb-3 mb-3">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-mono text-[10px] font-black text-brand-red">
-                        DOM-{col.number}
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-brand-red">
+                        DOMAIN
                       </span>
                       <span className="w-2 h-2 bg-brand-black" aria-hidden="true" />
                     </div>

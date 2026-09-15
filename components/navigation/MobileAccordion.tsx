@@ -7,7 +7,7 @@ import { NavLinkItem, ServiceDomainColumn } from "./navigationConfig";
 
 interface AccordionSectionProps {
   id: string;
-  number: string;
+  number?: string;
   title: string;
   isOpen: boolean;
   onToggle: () => void;
@@ -16,7 +16,6 @@ interface AccordionSectionProps {
 
 export function AccordionSection({
   id,
-  number,
   title,
   isOpen,
   onToggle,
@@ -35,9 +34,6 @@ export function AccordionSection({
         }`}
       >
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs font-black px-2 py-0.5 bg-brand-red text-white border border-brand-black">
-            {number}
-          </span>
           <span className="font-heading font-black text-sm uppercase tracking-wider text-brand-black">
             {title}
           </span>
@@ -96,11 +92,6 @@ export function MobileSolutionsList({
               }`}
             >
               <div className="flex items-center gap-2.5">
-                {item.badge && (
-                  <span className="font-mono text-[10px] font-black text-brand-red">
-                    {item.badge}
-                  </span>
-                )}
                 <span className="font-heading font-bold text-xs uppercase tracking-tight">
                   {item.label}
                 </span>
@@ -134,14 +125,13 @@ interface ServicesListProps {
 export function MobileServicesList({
   columns,
   viewAll,
-  cta,
   currentPath,
   onItemClick,
 }: ServicesListProps) {
-  const [openDomain, setOpenDomain] = React.useState<string | null>("01");
+  const [openDomain, setOpenDomain] = React.useState<string | null>(columns[0]?.domain || null);
 
-  const toggleDomain = (num: string) => {
-    setOpenDomain((prev) => (prev === num ? null : num));
+  const toggleDomain = (domain: string) => {
+    setOpenDomain((prev) => (prev === domain ? null : domain));
   };
 
   return (
@@ -149,20 +139,17 @@ export function MobileServicesList({
       {/* 4 Domain Accordions */}
       <div className="flex flex-col gap-2">
         {columns.map((col) => {
-          const isDomainOpen = openDomain === col.number;
+          const isDomainOpen = openDomain === col.domain;
           return (
-            <div key={col.number} className="border border-brand-black bg-white">
+            <div key={col.domain} className="border border-brand-black bg-white">
               <button
                 type="button"
-                onClick={() => toggleDomain(col.number)}
+                onClick={() => toggleDomain(col.domain)}
                 className={`w-full min-h-[44px] px-3 py-2 flex items-center justify-between text-left transition-colors ${
                   isDomainOpen ? "bg-brand-gray border-b border-brand-black font-black" : "hover:bg-brand-gray/40"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] font-black text-brand-red">
-                    {col.number}
-                  </span>
                   <span className="font-heading font-bold text-xs uppercase tracking-tight text-brand-black">
                     {col.domain}
                   </span>
@@ -184,7 +171,7 @@ export function MobileServicesList({
                         key={item.href}
                         href={item.href}
                         onClick={onItemClick}
-                        className={`min-h-[44px] px-2 py-2.5 flex items-center justify-between text-xs transition-colors ${
+                        className={`min-h-[48px] px-2 py-2.5 flex items-center justify-between text-xs transition-colors ${
                           isActive
                             ? "font-black text-brand-red bg-brand-yellow/30"
                             : "text-brand-black hover:text-brand-red"
@@ -246,11 +233,6 @@ export function MobileCompanyList({
             }`}
           >
             <div className="flex items-center gap-2.5">
-              {item.badge && (
-                <span className="font-mono text-[10px] font-black text-brand-red">
-                  {item.badge}
-                </span>
-              )}
               <span className="font-heading font-bold text-xs uppercase tracking-tight">
                 {item.label}
               </span>

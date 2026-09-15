@@ -105,7 +105,7 @@ export function WhyAxonSection() {
                 <div>
                   <div className="flex items-center justify-between mb-3 border-b-2 border-[#090909]/10 pb-2">
                     <span className="font-mono text-xs font-bold text-[#F23B32]">
-                      PILLAR 0{idx + 1}
+                      PILLAR
                     </span>
                     <span className="w-2.5 h-2.5 bg-[#090909]" />
                   </div>

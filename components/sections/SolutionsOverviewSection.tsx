@@ -117,13 +117,11 @@ export function SolutionsOverviewSection() {
                 {/* Content Side (7 cols) */}
                 <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between gap-6 border-b-4 lg:border-b-0 lg:border-r-4 border-[#090909]">
                   <div>
-                    <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="font-heading font-black text-4xl sm:text-5xl text-[#F23B32]">
-                        0{idx + 1}
-                      </span>
-                      <span className="font-mono text-xs uppercase tracking-widest text-[#090909]/50 font-bold">
+                    <div className="flex items-center justify-between gap-4 mb-4 pb-3 border-b-2 border-[#090909]/10">
+                      <span className="font-mono text-xs uppercase tracking-widest text-[#090909]/60 font-bold">
                         CAPABILITY DOMAIN
                       </span>
+                      <span className="w-2.5 h-2.5 bg-[#F23B32]" aria-hidden="true" />
                     </div>
 
                     <h3 className="text-2xl sm:text-4xl font-heading font-black tracking-tight text-[#090909] uppercase">

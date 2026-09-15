@@ -1,6 +1,6 @@
 export const technologyTransformationData = {
   hero: {
-    badge: "07 // TECHNOLOGY & DIGITAL TRANSFORMATION",
+    badge: "TECHNOLOGY & DIGITAL TRANSFORMATION",
     headline: "Connect Your Business. Simplify the Work. Build for What's Next.",
     paragraphs: [
       "As businesses grow, disconnected tools, manual processes and outdated systems can become barriers to growth.",

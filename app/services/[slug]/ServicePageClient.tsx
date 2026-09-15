@@ -2,20 +2,19 @@
 
 import React, { useRef, useLayoutEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CheckCircle2, ShieldCheck, Layers, CornerDownRight, Cpu, Compass } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CornerDownRight } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { individualServicesData, IndividualServiceData } from "@/data/content/individualServices";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { getGSAP } from "@/lib/gsap";
 
-// Helper to map category to domain route
 const CATEGORY_TO_DOMAIN: Record<string, { href: string; name: string }> = {
-  "DIGITAL MARKETING": { href: "/digital-marketing", name: "Domain 01: Digital Marketing" },
-  "AI & AUTOMATION": { href: "/ai-automation", name: "Domain 02: AI & Automation" },
-  "WEBSITES & E-COMMERCE": { href: "/websites-ecommerce", name: "Domain 03: Websites & E-Commerce" },
-  "LEAD GENERATION": { href: "/lead-generation", name: "Domain 04: Lead Generation" },
-  "TECHNOLOGY & DIGITAL TRANSFORMATION": { href: "/technology-digital-transformation", name: "Domain 05: Tech Transformation" },
+  "DIGITAL MARKETING": { href: "/digital-marketing", name: "Digital Marketing" },
+  "AI & AUTOMATION": { href: "/ai-automation", name: "AI & Automation" },
+  "WEBSITES & E-COMMERCE": { href: "/websites-ecommerce", name: "Websites & E-Commerce" },
+  "LEAD GENERATION": { href: "/lead-generation", name: "Lead Generation" },
+  "TECHNOLOGY & DIGITAL TRANSFORMATION": { href: "/technology-digital-transformation", name: "Tech Transformation" },
 };
 
 export default function ServicePageClient({ slug }: { slug: string }) {
@@ -185,7 +184,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               {data.category}
             </Link>
             <span>/</span>
-            <span className="text-brand-red font-black">SVC-{data.number}</span>
+            <span className="text-brand-red font-black">{data.title}</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
@@ -202,7 +201,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
           <div className="lg:col-span-8 flex flex-col gap-6">
             <div data-anim="hero" className="flex flex-wrap items-center gap-3">
               <BauhausBadge variant="red" shape="square">
-                SVC-{data.number}
+                CAPABILITY
               </BauhausBadge>
               <BauhausBadge variant="yellow" shape="pill">
                 {data.category}
@@ -212,7 +211,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               </span>
             </div>
 
-            <h1 data-anim="hero" className="text-4xl sm:text-6xl md:text-7xl font-display font-black uppercase tracking-tighter leading-[0.92] text-brand-black">
+            <h1 data-anim="hero" className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
               {data.hero.headline}
             </h1>
 
@@ -269,8 +268,8 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   <span className="font-bold text-brand-black uppercase">{data.category}</span>
                 </div>
                 <div>
-                  <span className="text-brand-black/60 block mb-1">INDEX NO:</span>
-                  <span className="font-bold text-brand-red">MODULE #{data.number}</span>
+                  <span className="text-brand-black/60 block mb-1">TYPE:</span>
+                  <span className="font-bold text-brand-red">CORE MODULE</span>
                 </div>
                 <div>
                   <span className="text-brand-black/60 block mb-1">SCOPE:</span>
@@ -363,7 +362,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   >
                     <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-3">
                       <span className="font-mono text-xs font-black text-brand-red">
-                        FRICTION 0{idx + 1}
+                        FRICTION
                       </span>
                       <span className="w-2.5 h-2.5 rounded-full bg-brand-black" />
                     </div>
@@ -384,7 +383,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                     data-anim="prob-item"
                     className="p-5 bg-brand-white border-2 border-brand-black shadow-hard-sm text-xs font-sans text-brand-black/80"
                   >
-                    <span className="font-mono font-bold text-brand-blue block mb-1">NOTE {idx + 1}:</span>
+                    <span className="font-mono font-bold text-brand-blue block mb-1">NOTE:</span>
                     {pt}
                   </div>
                 ))}
@@ -452,7 +451,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 <div>
                   <div className="flex items-center justify-between border-b-2 border-brand-black pb-4 mb-4">
                     <span className="font-mono text-xs font-black text-brand-black px-2 py-1 bg-brand-yellow border border-brand-black">
-                      DELIVERABLE 0{idx + 1}
+                      DELIVERABLE
                     </span>
                     <span className="w-3 h-3 bg-brand-blue group-hover:bg-brand-red transition-colors" />
                   </div>
@@ -490,7 +489,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 </h2>
               </div>
               <span className="font-mono text-xs uppercase font-bold text-brand-gray">
-                6-Phase Production Lifecycle
+                Production Lifecycle
               </span>
             </div>
 
@@ -503,9 +502,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 >
                   <div>
                     <div className="flex items-center justify-between border-b border-white/20 pb-4 mb-4">
-                      <span className="font-mono text-xs font-black px-2.5 py-1 bg-brand-red text-white border border-white">
-                        PHASE {st.number}
-                      </span>
+                      <span className="w-2.5 h-2.5 bg-brand-red" />
                       <CornerDownRight className="w-4 h-4 text-brand-yellow" />
                     </div>
                     <h3 className="text-xl font-display font-black uppercase text-white mb-2">
@@ -554,7 +551,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 className="p-8 bg-brand-white border-2 border-brand-black shadow-hard-md flex items-start gap-4"
               >
                 <div className="w-8 h-8 rounded-none bg-brand-yellow border-2 border-brand-black flex items-center justify-center font-mono font-black text-xs text-brand-black shrink-0 mt-0.5">
-                  0{idx + 1}
+                  ✓
                 </div>
                 <p className="text-sm font-sans text-brand-black/90 leading-relaxed">
                   {pt}
@@ -595,7 +592,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-xs font-bold text-brand-black/60">
-                        MODULE #{rel.number}
+                        MODULE
                       </span>
                       <ArrowUpRight className="w-4 h-4 text-brand-black group-hover:text-brand-red transition-colors" />
                     </div>

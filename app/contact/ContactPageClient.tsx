@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Clock, ArrowUpRight, Check } from "lucide-react";
+import { ArrowRight, ChevronDown, AlertCircle, Phone, Mail, Clock, ArrowUpRight, Check } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/animation/ScrollReveal";
@@ -114,7 +114,7 @@ export default function ContactPageClient() {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-black uppercase tracking-tighter leading-[0.92] text-brand-black">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
               Let&apos;s talk about your <br />
               <span className="text-brand-red">next stage of growth.</span>
             </h1>
@@ -134,7 +134,7 @@ export default function ContactPageClient() {
                     key={idx}
                     className="p-3 bg-brand-white border border-brand-black flex items-center gap-2 font-display font-black text-sm uppercase text-brand-black"
                   >
-                    <span className="font-mono text-xs text-brand-red">0{idx + 1}</span>
+                    <span className="w-1.5 h-1.5 bg-brand-red shrink-0" />
                     <span>{pt}</span>
                   </div>
                 ))}
@@ -213,7 +213,7 @@ export default function ContactPageClient() {
             <div className="border-b-2 border-brand-black pb-6 mb-8 flex items-center justify-between">
               <div>
                 <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-red block mb-1">
-                  STAGE 01 // DISCOVERY
+                  DISCOVERY BRIEF
                 </span>
                 <h2 className="text-2xl sm:text-4xl font-display font-black uppercase text-brand-black">
                   {formSection.title}
@@ -473,7 +473,7 @@ export default function ContactPageClient() {
                 <div>
                   <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
                     <span className="font-mono text-xs font-black text-brand-red">
-                      ROUTE 0{idx + 1}
+                      ROUTE
                     </span>
                     <ArrowUpRight className="w-4 h-4 text-brand-black group-hover:text-brand-red transition-colors" />
                   </div>
@@ -518,8 +518,8 @@ export default function ContactPageClient() {
                     onClick={() => toggleFaq(idx)}
                     className="w-full p-6 text-left flex items-center justify-between gap-4 font-display font-black text-base sm:text-lg uppercase text-brand-black hover:bg-brand-yellow/20 transition-colors"
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="font-mono text-xs text-brand-red">0{idx + 1}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 bg-brand-red shrink-0" />
                       <span>{item.q}</span>
                     </div>
                     <ChevronDown

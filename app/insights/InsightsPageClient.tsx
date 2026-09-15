@@ -2,7 +2,7 @@
 
 import React, { useRef, useLayoutEffect, useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CheckCircle2, CornerDownRight, Hash, BookOpen, Layers, Search, Sparkles, Filter, FileText } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/animation/ScrollReveal";
@@ -108,7 +108,7 @@ export default function InsightsPageClient() {
               </span>
             </div>
 
-            <h1 data-anim="insights-hero" className="text-4xl sm:text-6xl md:text-7xl font-display font-black uppercase tracking-tighter leading-[0.92] text-brand-black">
+            <h1 data-anim="insights-hero" className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
               Ideas for businesses <br />
               <span className="text-brand-red">growing in a digital world.</span>
             </h1>
@@ -154,7 +154,7 @@ export default function InsightsPageClient() {
                         : "bg-brand-white text-brand-black border-brand-black/30 hover:border-brand-black"
                     }`}
                   >
-                    <span>0{idx + 1} // {top.category}</span>
+                    <span>{top.category}</span>
                     <ArrowRight className={`w-3.5 h-3.5 ${activeTopic === idx ? "text-white" : "opacity-40"}`} />
                   </button>
                 ))}
@@ -179,7 +179,7 @@ export default function InsightsPageClient() {
             <div className="flex flex-col gap-3 max-w-2xl">
               <div className="flex items-center gap-2">
                 <BauhausBadge variant="yellow" shape="square">
-                  TOPIC 0{activeTopic + 1}
+                  TOPIC
                 </BauhausBadge>
                 <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
                   DEEP DIVE
@@ -200,10 +200,8 @@ export default function InsightsPageClient() {
                 key={idx}
                 className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md flex items-center justify-between group hover:shadow-hard-lg hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
               >
-                <div className="flex items-center gap-4">
-                  <span className="font-mono text-xs font-black text-brand-red">
-                    0{idx + 1}
-                  </span>
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-brand-red shrink-0" />
                   <span className="font-display font-black text-lg uppercase text-brand-black group-hover:text-brand-red transition-colors">
                     {item}
                   </span>
@@ -249,7 +247,7 @@ export default function InsightsPageClient() {
                 <div>
                   <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
                     <span className="font-mono text-xs font-black text-brand-black px-2 py-0.5 bg-brand-yellow border border-brand-black">
-                      TYPE 0{idx + 1}
+                      TYPE
                     </span>
                     <span className="w-2.5 h-2.5 bg-brand-red" />
                   </div>
@@ -300,7 +298,7 @@ export default function InsightsPageClient() {
                 <div>
                   <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4">
                     <span className="font-mono text-xs font-black px-2 py-1 bg-brand-red text-white">
-                      STEP 0{idx + 1}
+                      STEP
                     </span>
                     <span className="font-mono text-xs text-brand-yellow font-bold">→</span>
                   </div>
@@ -343,7 +341,7 @@ export default function InsightsPageClient() {
             </ScrollReveal>
 
             <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {leadMagnets.items.map((lm, idx) => (
+              {leadMagnets.items.map((lm) => (
                 <div
                   key={lm.id}
                   data-stagger-item
@@ -352,7 +350,7 @@ export default function InsightsPageClient() {
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center justify-between border-b-2 border-brand-black pb-3">
                       <span className="font-mono text-xs font-black text-brand-red">
-                        RESOURCE 0{idx + 1}
+                        RESOURCE
                       </span>
                       <span className="w-2.5 h-2.5 bg-brand-black" />
                     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { navigationConfig } from "./navigationConfig";
@@ -17,11 +17,18 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
   const [activeMenu, setActiveMenu] = useState<MenuKey>(null);
   const pathname = usePathname();
   const navContainerRef = useRef<HTMLDivElement>(null);
-  const triggerRefs = {
-    solutions: useRef<HTMLButtonElement>(null),
-    services: useRef<HTMLButtonElement>(null),
-    company: useRef<HTMLButtonElement>(null),
-  };
+  const solutionsRef = useRef<HTMLButtonElement>(null);
+  const servicesRef = useRef<HTMLButtonElement>(null);
+  const companyRef = useRef<HTMLButtonElement>(null);
+
+  const triggerRefs = useMemo(
+    () => ({
+      solutions: solutionsRef,
+      services: servicesRef,
+      company: companyRef,
+    }),
+    []
+  );
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Clear pending close timeout
@@ -89,7 +96,7 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeMenu, clearCloseTimeout]);
+  }, [activeMenu, clearCloseTimeout, triggerRefs]);
 
   // Active section detection
   const isSolutionsActive =
@@ -112,7 +119,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     pathname === "/contact";
 
   // Visual styling variables based on hero tone
-  const textColor = isDarkPage ? "text-white" : "text-[#090909]";
   const textMutedColor = isDarkPage
     ? "text-white/75 hover:text-white"
     : "text-[#090909]/75 hover:text-[#090909]";
@@ -150,9 +156,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
               : textMutedColor
           }`}
         >
-          <span className="font-mono text-[10px] font-black opacity-60 group-hover:opacity-100 transition-opacity">
-            01
-          </span>
           <span>{navigationConfig.solutions.label}</span>
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -173,7 +176,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
           type="solutions"
           isOpen={activeMenu === "solutions"}
           title={navigationConfig.solutions.label}
-          number={navigationConfig.solutions.number}
           tagline={navigationConfig.solutions.tagline}
           description={navigationConfig.solutions.description}
           items={navigationConfig.solutions.items}
@@ -206,9 +208,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
               : textMutedColor
           }`}
         >
-          <span className="font-mono text-[10px] font-black opacity-60 group-hover:opacity-100 transition-opacity">
-            02
-          </span>
           <span>{navigationConfig.services.label}</span>
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -227,7 +226,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
         <MegaMenu
           id="nav-megamenu-services"
           isOpen={activeMenu === "services"}
-          number={navigationConfig.services.number}
           tagline={navigationConfig.services.tagline}
           description={navigationConfig.services.description}
           columns={navigationConfig.services.columns}
@@ -261,9 +259,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
               : textMutedColor
           }`}
         >
-          <span className="font-mono text-[10px] font-black opacity-60 group-hover:opacity-100 transition-opacity">
-            03
-          </span>
           <span>{navigationConfig.company.label}</span>
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -284,7 +279,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
           type="company"
           isOpen={activeMenu === "company"}
           title={navigationConfig.company.label}
-          number={navigationConfig.company.number}
           tagline={navigationConfig.company.tagline}
           description={navigationConfig.company.description}
           items={navigationConfig.company.items}

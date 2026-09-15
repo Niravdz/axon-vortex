@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { ArrowRight, Plus } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
@@ -73,7 +72,7 @@ export function ServicePageShell({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {problemPoints.map((pt, i) => (
             <div key={i} className="p-6 bg-brand-white border-2 border-brand-black flex flex-col gap-2 shadow-hard-sm">
-              <span className="font-mono text-xs text-brand-red font-black">FRICTION 0{i + 1}</span>
+              <span className="font-mono text-xs text-brand-red font-black">FRICTION</span>
               <p className="text-xs sm:text-sm text-brand-black/80 font-sans leading-relaxed">{pt}</p>
             </div>
           ))}
@@ -95,7 +94,7 @@ export function ServicePageShell({
             <div key={i} className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md flex flex-col justify-between min-h-[220px]">
               <div>
                 <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
-                  <span className="font-mono text-xs font-black text-brand-black">0{i + 1} — WORKSTREAM</span>
+                  <span className="font-mono text-xs font-black text-brand-black">WORKSTREAM</span>
                   <Plus className="w-4 h-4 text-brand-black" />
                 </div>
                 <h3 className="text-lg font-display font-black uppercase text-brand-black mb-2">{cap.title}</h3>
@@ -119,7 +118,6 @@ export function ServicePageShell({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {processSteps.map((st, i) => (
             <div key={i} className="p-6 border-2 border-brand-black bg-brand-gray/40 flex flex-col gap-2 shadow-hard-sm">
-              <span className="font-mono text-xs text-brand-red font-black">PHASE {st.step || `0${i + 1}`}</span>
               <h3 className="text-base font-display font-black uppercase text-brand-black">{st.title}</h3>
               <p className="text-xs text-brand-black/70 font-sans leading-relaxed">{st.desc}</p>
             </div>

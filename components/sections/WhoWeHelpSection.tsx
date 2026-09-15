@@ -72,7 +72,7 @@ export function WhoWeHelpSection() {
               <div>
                 <div className="flex items-center justify-between pb-3 border-b-2 border-[#090909]/10">
                   <span className="font-mono text-sm font-bold text-[#F23B32]">
-                    CASE 0{idx + 1}
+                    CASE
                   </span>
                   <div className="w-3 h-3 border border-[#090909] bg-white group-hover:bg-[#F23B32] transition-colors" />
                 </div>

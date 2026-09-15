@@ -96,7 +96,6 @@ export function MobileNavigation({
         {/* Section 1: Solutions */}
         <AccordionSection
           id="solutions"
-          number={navigationConfig.solutions.number}
           title={navigationConfig.solutions.label}
           isOpen={openSection === "solutions"}
           onToggle={() => toggleSection("solutions")}
@@ -112,7 +111,6 @@ export function MobileNavigation({
         {/* Section 2: Services */}
         <AccordionSection
           id="services"
-          number={navigationConfig.services.number}
           title={navigationConfig.services.label}
           isOpen={openSection === "services"}
           onToggle={() => toggleSection("services")}
@@ -129,7 +127,6 @@ export function MobileNavigation({
         {/* Section 3: Company */}
         <AccordionSection
           id="company"
-          number={navigationConfig.company.number}
           title={navigationConfig.company.label}
           isOpen={openSection === "company"}
           onToggle={() => toggleSection("company")}

@@ -1,7 +1,7 @@
 export interface IndividualServiceData {
   slug: string;
   category: string;
-  number: string;
+  number?: string;
   title: string;
   hero: {
     headline: string;
@@ -30,7 +30,7 @@ export interface IndividualServiceData {
   approach?: {
     title: string;
     steps: {
-      number: string;
+      number?: string;
       title: string;
       description: string;
     }[];

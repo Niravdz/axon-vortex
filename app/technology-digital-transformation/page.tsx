@@ -15,8 +15,7 @@ export default function TechnologyTransformationPage() {
     services: technologyTransformationData.services,
     approach: {
       badge: technologyTransformationData.approach.badge,
-      steps: technologyTransformationData.approach.steps.map((st, idx) => ({
-        number: `0${idx + 1}`,
+      steps: technologyTransformationData.approach.steps.map((st) => ({
         title: st.title,
         description: st.description,
       })),

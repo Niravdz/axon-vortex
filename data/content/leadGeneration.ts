@@ -1,6 +1,6 @@
 export const leadGenerationData = {
   hero: {
-    badge: "06 // LEAD GENERATION",
+    badge: "LEAD GENERATION",
     headline: "Turn Attention Into Opportunity.",
     paragraphs: [
       "Traffic is not the same as leads.",

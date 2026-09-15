@@ -75,11 +75,8 @@ export function BuildingAxonSection() {
           {buildingAxon.points.map((pt, idx) => (
             <div
               key={idx}
-              className="building-row p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 hover:bg-[#E9EDF2]/40 transition-colors group"
+              className="building-row p-6 sm:p-8 flex items-start sm:items-center justify-between gap-4 sm:gap-6 hover:bg-[#E9EDF2]/40 transition-colors group"
             >
-              <span className="font-mono text-xl font-bold text-[#F23B32] w-12 shrink-0">
-                0{idx + 1}
-              </span>
               <div className="flex-1">
                 <h3 className="font-heading font-bold text-lg uppercase tracking-tight text-[#090909] group-hover:text-[#F23B32] transition-colors">
                   {pt.title}

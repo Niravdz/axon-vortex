@@ -1,6 +1,6 @@
 export const websiteEcommerceData = {
   hero: {
-    badge: "05 // WEBSITES & E-COMMERCE",
+    badge: "WEBSITES & E-COMMERCE",
     headline: "Your Website Should Do More Than Exist.",
     paragraphs: [
       "Your website is not just an online brochure.",

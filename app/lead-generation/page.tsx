@@ -16,7 +16,6 @@ export default function LeadGenerationPage() {
     approach: {
       badge: leadGenerationData.leadJourney.badge,
       steps: leadGenerationData.leadJourney.stages.map((st) => ({
-        number: st.step,
         title: st.name,
         description: st.description,
       })),

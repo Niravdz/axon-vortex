@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { ReactLenis, useLenis } from "lenis/react";
@@ -36,8 +36,7 @@ function LenisScrollTriggerBridge({
   onInstanceReady: (instance: Lenis) => void;
 }) {
   const pathname = usePathname();
-  const prefersReducedMotion = useReducedMotion();
-  const lenis = useLenis((lenisInstance) => {
+  const lenis = useLenis(() => {
     // Keep GSAP ScrollTrigger in lockstep with Lenis on every frame
     const { ScrollTrigger } = getGSAP();
     ScrollTrigger.update();

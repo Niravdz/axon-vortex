@@ -149,7 +149,7 @@ export default function SolutionsPageClient() {
           </div>
 
           <div data-anim="solutions-hero" className="max-w-4xl">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-heading font-black tracking-tighter uppercase leading-[0.95] text-[#090909]">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-heading font-bold tracking-[0.015em] uppercase leading-[0.95] text-[#090909]">
               DIGITAL SOLUTIONS BUILT AROUND YOUR GROWTH.
             </h1>
             <p className="mt-6 text-xl sm:text-2xl font-heading font-bold text-[#2F5FA7] leading-snug">
@@ -245,14 +245,12 @@ export default function SolutionsPageClient() {
                           : "bg-white text-[#090909] border-[#090909]/20 hover:border-[#090909] hover:bg-[#E9EDF2]"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2.5">
                         <span
-                          className={`font-mono text-sm font-bold ${
-                            isActive ? "text-[#FFD447]" : "text-[#F23B32]"
+                          className={`w-2 h-2 shrink-0 transition-colors ${
+                            isActive ? "bg-[#FFD447]" : "bg-[#F23B32]"
                           }`}
-                        >
-                          {dom.number}
-                        </span>
+                        />
                         <span className="font-heading font-black text-sm uppercase tracking-tight">
                           {dom.title}
                         </span>
@@ -287,7 +285,7 @@ export default function SolutionsPageClient() {
 
           {/* Right Scrolling Content (8 cols on desktop) */}
           <div className="lg:col-span-8 divide-y-4 divide-[#090909] bg-white">
-            {solutions.map((domain, i) => {
+            {solutions.map((domain) => {
               const imgSrc = DOMAIN_VISUALS[domain.id] || "/images/bauhaus-tech-hero.png";
 
               return (
@@ -299,11 +297,8 @@ export default function SolutionsPageClient() {
                   {/* Domain Header */}
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between pb-3 border-b-2 border-[#090909]/15">
-                      <span className="font-mono text-3xl sm:text-4xl font-black text-[#F23B32]">
-                        {domain.number}
-                      </span>
                       <BauhausBadge variant="slate" shape="pill" size="sm">
-                        DOMAIN {domain.number}
+                        DOMAIN
                       </BauhausBadge>
                     </div>
 
@@ -360,9 +355,7 @@ export default function SolutionsPageClient() {
                       <ul className="flex flex-col gap-3 font-body text-sm text-[#090909]/80">
                         {domain.bestFor.map((item, idx) => (
                           <li key={idx} className="flex items-start gap-2.5">
-                            <span className="font-mono text-xs font-bold text-[#2F5FA7] mt-0.5">
-                              0{idx + 1}.
-                            </span>
+                            <span className="w-1.5 h-1.5 bg-[#2F5FA7] shrink-0 mt-1.5" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -421,7 +414,7 @@ export default function SolutionsPageClient() {
             >
               <div>
                 <span className="font-mono text-xs font-bold text-[#F23B32] uppercase block mb-1">
-                  BARRIER 0{i + 1}
+                  BARRIER
                 </span>
                 <h3 className="font-heading font-bold text-base sm:text-lg uppercase text-[#090909]">
                   {item.problem}
@@ -470,7 +463,7 @@ export default function SolutionsPageClient() {
               >
                 <div>
                   <span className="font-mono text-xs font-bold text-[#FFD447] block mb-2">
-                    NODE 0{i + 1}
+                    NODE
                   </span>
                   <h3 className="font-heading font-bold text-lg uppercase text-white">
                     {node.name}

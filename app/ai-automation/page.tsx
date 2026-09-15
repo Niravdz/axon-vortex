@@ -15,8 +15,7 @@ export default function AiAutomationPage() {
     services: aiAutomationData.services,
     approach: {
       badge: aiAutomationData.approach.badge,
-      steps: aiAutomationData.approach.steps.map((st, idx) => ({
-        number: `0${idx + 1}`,
+      steps: aiAutomationData.approach.steps.map((st) => ({
         title: st.name,
         description: st.question,
       })),

@@ -53,7 +53,7 @@ export const homeContent = {
   },
 
   businessProblem: {
-    badge: "01 // SYSTEM DIAGNOSIS",
+    badge: "SYSTEM DIAGNOSIS",
     headline: "YOUR BUSINESS IS GROWING. IS YOUR DIGITAL PRESENCE KEEPING UP?",
     intro:
       "You may have a great product or service. But if your website isn't converting, your social media isn't creating opportunities, your ads aren't performing, or your business still depends on repetitive manual work, growth becomes harder than it needs to be.",
@@ -87,43 +87,37 @@ export const homeContent = {
   },
 
   connectedGrowth: {
-    badge: "02 // CONNECTED ARCHITECTURE",
+    badge: "CONNECTED ARCHITECTURE",
     headline: "ONE GROWTH SYSTEM. CONNECTED AROUND YOUR BUSINESS.",
     subheading: "Marketing, technology and AI shouldn't operate in separate boxes.",
     objective: "AxonVortex connects the right capabilities around one objective: Business Growth.",
     steps: [
       {
-        step: "01",
         name: "ATTRACT",
         category: "Digital Marketing",
         description: "Build visibility and reach the right audience.",
       },
       {
-        step: "02",
         name: "ENGAGE",
         category: "Content + Website",
         description: "Create interest, communicate value and build trust.",
       },
       {
-        step: "03",
         name: "CONVERT",
         category: "Lead Generation",
         description: "Turn attention into enquiries and opportunities.",
       },
       {
-        step: "04",
         name: "MANAGE",
         category: "CRM + Technology",
         description: "Organize customer and business processes.",
       },
       {
-        step: "05",
         name: "AUTOMATE",
         category: "AI + Automation",
         description: "Reduce repetitive work and improve response.",
       },
       {
-        step: "06",
         name: "OPTIMIZE",
         category: "Data + Strategy",
         description: "Measure, learn and improve.",
@@ -132,7 +126,7 @@ export const homeContent = {
   },
 
   solutionsOverview: {
-    badge: "03 // OUR SOLUTIONS",
+    badge: "OUR SOLUTIONS",
     headline: "One Growth Partner. Multiple Digital Solutions.",
     philosophy:
       "We don't start with a service. We start with your problem. Then we identify the right combination of strategy, marketing, technology and automation to solve it.",
@@ -181,7 +175,7 @@ export const homeContent = {
   },
 
   whyAxon: {
-    badge: "04 // STRATEGIC PHILOSOPHY",
+    badge: "STRATEGIC PHILOSOPHY",
     headline: "Technology Is Everywhere. Strategic Thinking Isn't.",
     subheading: "We don't believe adding more tools automatically creates growth.",
     pillars: [
@@ -213,7 +207,7 @@ export const homeContent = {
   },
 
   whoWeHelp: {
-    badge: "05 // WHO WE HELP",
+    badge: "WHO WE HELP",
     headline: "Built for Businesses Ready to Grow Smarter.",
     audiences: [
       {
@@ -244,37 +238,31 @@ export const homeContent = {
   },
 
   howWeWork: {
-    badge: "06 // HOW WE WORK",
+    badge: "HOW WE WORK",
     headline: "From Business Challenge to Growth System.",
     conclusion: "Growth isn't a campaign. It's a continuous process of learning and improvement.",
     steps: [
       {
-        step: "01",
         title: "UNDERSTAND",
         description: "We learn about your business, customers, goals and current digital presence.",
       },
       {
-        step: "02",
         title: "DIAGNOSE",
         description: "We identify gaps, opportunities and the biggest barriers to growth.",
       },
       {
-        step: "03",
         title: "STRATEGIZE",
         description: "We create a practical roadmap based on your priorities and resources.",
       },
       {
-        step: "04",
         title: "CREATE",
         description: "We develop the content, campaigns, websites, systems and experiences required.",
       },
       {
-        step: "05",
         title: "AUTOMATE",
         description: "Where AI and automation can improve efficiency or customer experience, we integrate them into the workflow.",
       },
       {
-        step: "06",
         title: "MEASURE & IMPROVE",
         description: "We study performance, identify what worked and continuously improve the system.",
       },
@@ -282,7 +270,7 @@ export const homeContent = {
   },
 
   growthJourney: {
-    badge: "07 // THE GROWTH JOURNEY",
+    badge: "THE GROWTH JOURNEY",
     headline: "Start Where You Are. Build Toward Where You Want to Go.",
     subtext: "Every business starts somewhere. Your next stage starts with understanding where to begin.",
     stages: [
@@ -296,7 +284,7 @@ export const homeContent = {
   },
 
   buildingAxon: {
-    badge: "08 // BUILDING IN PUBLIC",
+    badge: "BUILDING IN PUBLIC",
     headline: "We're Building AxonVortex From Zero — And We're Building It Differently.",
     intro:
       "AxonVortex is a new AI-driven digital growth agency. We're not here to pretend we've already built something huge. We're here to build something valuable. That means testing ideas, experimenting with AI, developing systems, studying what works, learning from what doesn't and continuously improving.",

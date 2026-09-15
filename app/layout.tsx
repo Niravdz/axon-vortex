@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { AnimationProvider } from "@/components/providers/AnimationProvider";
@@ -12,19 +12,19 @@ import { Footer } from "@/components/sections/Footer";
 import { CookieConsent } from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/data/siteConfig";
 
-// Heading typography: Poppins Semibold (600) & Bold (700)
-const poppins = Poppins({
+// Primary typography: Space Grotesk (Regular 400, Medium 500, Semibold 600, Bold 700)
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["600", "700", "800", "900"],
-  variable: "--font-heading",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
-// Body typography: Inter Regular (400), Medium (500), Semibold (600), Bold (700)
-const inter = Inter({
+// Technical accent typography: Space Mono (Regular 400, Bold 700)
+const spaceMono = Space_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
   display: "swap",
 });
 
@@ -69,9 +69,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${inter.variable}`}
+      className={`${spaceGrotesk.variable} ${spaceMono.variable}`}
     >
-      <body className="bg-brand-white text-brand-black min-h-screen selection:bg-brand-red selection:text-white antialiased font-sans relative">
+      <body className="bg-brand-white text-brand-black min-h-screen selection:bg-brand-red selection:text-white antialiased font-body relative">
         <SmoothScrollProvider>
           <AnimationProvider>
             <PageLoader />

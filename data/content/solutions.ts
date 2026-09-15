@@ -1,5 +1,5 @@
 export interface SolutionDomainDetail {
-  number: string;
+  number?: string;
   id: string;
   title: string;
   tagline: string;
@@ -25,7 +25,7 @@ export interface ConnectedGrowthNode {
 
 export const solutionsData = {
   hero: {
-    badge: "02 // SOLUTIONS",
+    badge: "SOLUTIONS",
     headline: "Digital Solutions Built Around Your Growth.",
     intro:
       "From marketing and websites to AI, automation and business technology, AxonVortex connects the right solutions around your business goals.",

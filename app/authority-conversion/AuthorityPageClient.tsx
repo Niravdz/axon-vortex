@@ -241,7 +241,7 @@ export default function AuthorityPageClient() {
                   <div className={`absolute -left-[30px] top-2 w-4 h-4 rounded-full border-2 transition-colors duration-300 ${activePrinciple === i ? 'bg-brand-coral border-white shadow-[0_0_10px_rgba(255,138,0,0.8)]' : 'bg-slate border-white/20'}`} />
                   
                   <span className="font-mono text-brand-coral text-sm uppercase tracking-widest mb-2 block">
-                    0{i + 1} — PRINCIPLE
+                    PRINCIPLE
                   </span>
                   <h3 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tight text-white mb-4">
                     {pr.title}

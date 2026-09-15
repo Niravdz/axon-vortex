@@ -119,7 +119,7 @@ export function HomeHero() {
 
           {/* Headline & Paragraph */}
           <div className="my-auto max-w-2xl py-4">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] xl:text-[84px] font-heading font-black tracking-tighter uppercase leading-[0.95] text-[#090909]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] xl:text-[84px] font-heading font-bold tracking-[0.015em] uppercase leading-[0.95] text-[#090909]">
               <span className="block overflow-hidden pb-1">
                 <span className="hero-headline-line block will-change-transform">BUILD SMARTER.</span>
               </span>
@@ -228,41 +228,36 @@ export function HomeHero() {
               />
             </div>
 
-            {/* Numbered domain tags grid at bottom of frame */}
+            {/* Domain tags grid at bottom of frame */}
             <div className="mt-4 pt-3 border-t-2 border-[#090909] grid grid-cols-3 sm:grid-cols-5 gap-2 text-center">
               <Link
                 href="/digital-marketing"
-                className="group p-2 bg-[#E9EDF2] hover:bg-[#F23B32] hover:text-white border border-[#090909] transition-colors"
+                className="group py-2.5 px-2 bg-[#E9EDF2] hover:bg-[#F23B32] hover:text-white border border-[#090909] transition-colors flex items-center justify-center"
               >
-                <span className="block font-mono text-[10px] font-bold text-[#090909]/60 group-hover:text-white">01</span>
                 <span className="font-heading text-[11px] font-bold uppercase leading-tight">Marketing</span>
               </Link>
               <Link
                 href="/ai-automation"
-                className="group p-2 bg-[#E9EDF2] hover:bg-[#2F5FA7] hover:text-white border border-[#090909] transition-colors"
+                className="group py-2.5 px-2 bg-[#E9EDF2] hover:bg-[#2F5FA7] hover:text-white border border-[#090909] transition-colors flex items-center justify-center"
               >
-                <span className="block font-mono text-[10px] font-bold text-[#090909]/60 group-hover:text-white">02</span>
                 <span className="font-heading text-[11px] font-bold uppercase leading-tight">AI & Auto</span>
               </Link>
               <Link
                 href="/websites-ecommerce"
-                className="group p-2 bg-[#E9EDF2] hover:bg-[#FFD447] hover:text-[#090909] border border-[#090909] transition-colors"
+                className="group py-2.5 px-2 bg-[#E9EDF2] hover:bg-[#FFD447] hover:text-[#090909] border border-[#090909] transition-colors flex items-center justify-center"
               >
-                <span className="block font-mono text-[10px] font-bold text-[#090909]/60 group-hover:text-[#090909]">03</span>
                 <span className="font-heading text-[11px] font-bold uppercase leading-tight">Web & Shop</span>
               </Link>
               <Link
                 href="/lead-generation"
-                className="group p-2 bg-[#E9EDF2] hover:bg-[#F23B32] hover:text-white border border-[#090909] transition-colors"
+                className="group py-2.5 px-2 bg-[#E9EDF2] hover:bg-[#F23B32] hover:text-white border border-[#090909] transition-colors flex items-center justify-center"
               >
-                <span className="block font-mono text-[10px] font-bold text-[#090909]/60 group-hover:text-white">04</span>
                 <span className="font-heading text-[11px] font-bold uppercase leading-tight">Lead Gen</span>
               </Link>
               <Link
                 href="/technology-digital-transformation"
-                className="group p-2 bg-[#E9EDF2] hover:bg-[#0F2747] hover:text-white border border-[#090909] transition-colors col-span-2 sm:col-span-1"
+                className="group py-2.5 px-2 bg-[#E9EDF2] hover:bg-[#0F2747] hover:text-white border border-[#090909] transition-colors col-span-2 sm:col-span-1 flex items-center justify-center"
               >
-                <span className="block font-mono text-[10px] font-bold text-[#090909]/60 group-hover:text-white">05</span>
                 <span className="font-heading text-[11px] font-bold uppercase leading-tight">Tech Trans</span>
               </Link>
             </div>

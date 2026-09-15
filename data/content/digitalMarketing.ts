@@ -1,6 +1,6 @@
 export const digitalMarketingData = {
   hero: {
-    badge: "03 // DIGITAL MARKETING",
+    badge: "DIGITAL MARKETING",
     headline: "Get Seen. Get Remembered. Get Chosen.",
     paragraphs: [
       "Digital marketing should do more than keep your business active online.",

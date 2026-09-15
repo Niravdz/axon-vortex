@@ -1,6 +1,6 @@
 export const authorityData = {
   hero: {
-    badge: "09 // OUR APPROACH",
+    badge: "OUR APPROACH",
     headline: "AI Is Powerful. Strategy Makes It Useful.",
     paragraphs: [
       "Technology can accelerate execution.",

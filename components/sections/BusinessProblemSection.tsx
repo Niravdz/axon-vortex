@@ -107,13 +107,8 @@ export function BusinessProblemSection() {
           {businessProblem.problems.map((item, index) => (
             <div
               key={index}
-              className="problem-index-row p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 hover:bg-[#E9EDF2]/40 transition-colors group will-change-[transform,opacity]"
+              className="problem-index-row p-6 sm:p-8 flex items-start sm:items-center justify-between gap-4 sm:gap-8 hover:bg-[#E9EDF2]/40 transition-colors group will-change-[transform,opacity]"
             >
-              {/* Large Number Stamp */}
-              <div className="font-heading font-black text-3xl sm:text-4xl text-[#090909]/30 group-hover:text-[#F23B32] transition-colors w-14 shrink-0">
-                {String(index + 1).padStart(2, "0")}
-              </div>
-
               {/* Problem Content */}
               <div className="flex-1">
                 <h3 className="font-heading font-bold text-xl uppercase tracking-tight text-[#090909] group-hover:text-[#F23B32] transition-colors">

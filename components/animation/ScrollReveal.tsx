@@ -44,7 +44,7 @@ export function ScrollReveal({
     // Keep 100% visible immediately if reduced motion is active or on SSR
     if (prefersReducedMotion || !elementRef.current) return;
 
-    const { gsap, ScrollTrigger } = getGSAP();
+    const { gsap } = getGSAP();
     const el = elementRef.current;
 
     const ctx = gsap.context(() => {

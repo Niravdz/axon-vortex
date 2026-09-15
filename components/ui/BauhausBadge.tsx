@@ -31,14 +31,14 @@ export function BauhausBadge({
   }[shape];
 
   const sizeStyles = {
-    sm: "text-[11px] px-2 py-0.5 font-bold tracking-widest uppercase",
-    md: "text-xs px-3 py-1 font-bold tracking-widest uppercase",
-    lg: "text-sm px-4 py-1.5 font-bold tracking-widest uppercase",
+    sm: "text-[11px] px-2.5 py-0.5 tracking-[0.06em] uppercase",
+    md: "text-xs px-3 py-1 tracking-[0.06em] uppercase",
+    lg: "text-sm px-4 py-1.5 tracking-[0.06em] uppercase",
   }[size];
 
   return (
     <span
-      className={`inline-flex items-center justify-center font-mono select-none ${variantStyles} ${shapeStyles} ${sizeStyles} ${className}`}
+      className={`inline-flex items-center justify-center font-heading font-bold select-none ${variantStyles} ${shapeStyles} ${sizeStyles} ${className}`}
     >
       {children}
     </span>

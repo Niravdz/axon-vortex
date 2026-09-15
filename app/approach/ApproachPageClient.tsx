@@ -3,7 +3,7 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ArrowDown, CheckCircle2, ChevronRight, Cpu, User, Activity, RefreshCw } from "lucide-react";
+import { ArrowRight, CheckCircle2, Cpu, User, RefreshCw } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { authorityData } from "@/data/content/authorityConversion";
@@ -93,7 +93,7 @@ export default function ApproachPageClient() {
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black uppercase tracking-tighter leading-[0.9] text-brand-black max-w-5xl">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black max-w-5xl">
             AI is powerful. <br />
             <span className="text-brand-red">Strategy makes it useful.</span>
           </h1>
@@ -164,7 +164,7 @@ export default function ApproachPageClient() {
                   className="p-6 bg-brand-white border-2 border-brand-black shadow-hard-sm flex items-center gap-4"
                 >
                   <span className="font-mono text-xs font-black px-2.5 py-1 bg-brand-black text-white shrink-0">
-                    ERR-0{i + 1}
+                    SYMPTOM
                   </span>
                   <p className="text-base font-sans text-brand-black/90 font-medium">
                     {ex}
@@ -224,10 +224,8 @@ export default function ApproachPageClient() {
                   Active Lifecycle Stage
                 </span>
                 
-                <div className="flex items-baseline gap-3">
-                  <span className="font-display font-black text-6xl text-brand-red">
-                    {framework.stages[activeStage]?.number}
-                  </span>
+                <div className="flex items-center gap-3">
+                  <span className="w-3 h-3 bg-brand-red shrink-0" />
                   <span className="font-display font-black text-2xl uppercase text-brand-black">
                     {framework.stages[activeStage]?.name}
                   </span>
@@ -262,7 +260,7 @@ export default function ApproachPageClient() {
                       activeStage === idx ? "bg-brand-yellow font-black text-brand-black" : "text-brand-black/60 hover:bg-brand-gray/40"
                     }`}
                   >
-                    <span>{st.number} // {st.name}</span>
+                    <span>{st.name}</span>
                     {activeStage === idx && <span className="w-2 h-2 bg-brand-black" />}
                   </button>
                 ))}
@@ -291,7 +289,7 @@ export default function ApproachPageClient() {
                         <span className={`font-mono text-xs font-black px-3 py-1 text-white border border-brand-black transition-colors ${
                           isCurrent ? "bg-brand-red" : "bg-brand-black/80"
                         }`}>
-                          STAGE {stage.number}
+                          STAGE
                         </span>
                         <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-brand-black">
                           {stage.name}
@@ -631,7 +629,7 @@ export default function ApproachPageClient() {
                 <div>
                   <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
                     <span className="font-mono text-xs font-black text-brand-red">
-                      PILLAR 0{idx + 1}
+                      PILLAR
                     </span>
                     <span className="w-2.5 h-2.5 bg-brand-black" />
                   </div>

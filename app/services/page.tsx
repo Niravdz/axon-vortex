@@ -2,7 +2,7 @@
 
 import React, { useRef, useLayoutEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Activity, Cpu, LayoutTemplate, Filter, Network, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronRight } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { individualServicesData } from "@/data/content/individualServices";
@@ -16,7 +16,6 @@ if (typeof window !== "undefined") {
 
 interface DomainMeta {
   id: string;
-  num: string;
   name: string;
   href: string;
   services: string[];
@@ -28,7 +27,6 @@ interface DomainMeta {
 const DOMAINS: DomainMeta[] = [
   {
     id: "domain-01",
-    num: "01",
     name: "DIGITAL MARKETING",
     href: "/digital-marketing",
     services: ["social-media-marketing", "meta-ads", "google-ads", "seo"],
@@ -38,7 +36,6 @@ const DOMAINS: DomainMeta[] = [
   },
   {
     id: "domain-02",
-    num: "02",
     name: "AI & AUTOMATION",
     href: "/ai-automation",
     services: ["ai-chatbots", "ai-agents", "ai-automation", "voice-ai"],
@@ -48,7 +45,6 @@ const DOMAINS: DomainMeta[] = [
   },
   {
     id: "domain-03",
-    num: "03",
     name: "WEBSITES & E-COMMERCE",
     href: "/websites-ecommerce",
     services: ["website-development", "ecommerce-development", "shopify"],
@@ -58,7 +54,6 @@ const DOMAINS: DomainMeta[] = [
   },
   {
     id: "domain-04",
-    num: "04",
     name: "LEAD GENERATION",
     href: "/lead-generation",
     services: ["lead-generation"],
@@ -68,7 +63,6 @@ const DOMAINS: DomainMeta[] = [
   },
   {
     id: "domain-05",
-    num: "05",
     name: "TECH & DIGITAL TRANSFORMATION",
     href: "/technology-digital-transformation",
     services: ["crm", "custom-software"],
@@ -91,16 +85,12 @@ const ServiceRow = ({ slug, isDark }: { slug: string; isDark: boolean }) => {
           : "border-brand-black hover:bg-brand-yellow/20 text-brand-black"
       }`}
     >
-      <div className="flex flex-col md:flex-row md:items-center gap-4 lg:gap-8 w-full lg:w-auto">
+      <div className="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 w-full lg:w-auto">
         <span
-          className={`font-mono text-xs font-black px-2.5 py-1 border ${
-            isDark
-              ? "bg-brand-yellow text-brand-black border-brand-yellow"
-              : "bg-brand-red text-white border-brand-black"
+          className={`w-2 h-2 shrink-0 ${
+            isDark ? "bg-brand-yellow" : "bg-brand-red"
           }`}
-        >
-          SVC-{svc.number}
-        </span>
+        />
         <h3 className="text-xl md:text-2xl font-display font-black uppercase tracking-tight group-hover:text-brand-red transition-colors">
           {svc.title}
         </h3>
@@ -172,7 +162,7 @@ export default function ServicesDirectoryPage() {
           <div className="flex flex-col gap-6 max-w-4xl">
             <div className="flex flex-wrap items-center gap-3">
               <BauhausBadge variant="red" shape="square">
-                INDEX 08
+                INDEX
               </BauhausBadge>
               <BauhausBadge variant="yellow" shape="pill">
                 SERVICES DIRECTORY
@@ -182,7 +172,7 @@ export default function ServicesDirectoryPage() {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black uppercase tracking-tighter leading-[0.9] text-brand-black">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
               All Services &amp; <br />
               <span className="text-brand-red">Capabilities.</span>
             </h1>
@@ -233,8 +223,8 @@ export default function ServicesDirectoryPage() {
                         : "bg-brand-white text-brand-black border-brand-black/30 hover:border-brand-black hover:bg-brand-yellow/30"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] opacity-75">{domain.num}</span>
+                    <div className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 bg-current shrink-0 opacity-60" />
                       <span className="truncate">{domain.name}</span>
                     </div>
                     <ChevronRight
@@ -278,7 +268,7 @@ export default function ServicesDirectoryPage() {
                     <div className="flex flex-col gap-3 max-w-2xl">
                       <div className="flex items-center gap-2">
                         <BauhausBadge variant={domain.badgeColor} shape="square">
-                          DOMAIN {domain.num}
+                          DOMAIN
                         </BauhausBadge>
                         <span
                           className={`font-mono text-xs uppercase font-bold tracking-widest ${

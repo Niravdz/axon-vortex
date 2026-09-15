@@ -15,8 +15,7 @@ export default function WebsitesEcommercePage() {
     services: websiteEcommerceData.services,
     approach: {
       badge: websiteEcommerceData.approach.badge,
-      steps: websiteEcommerceData.approach.steps.map((st, idx) => ({
-        number: `0${idx + 1}`,
+      steps: websiteEcommerceData.approach.steps.map((st) => ({
         title: st.title,
         description: st.description,
       })),

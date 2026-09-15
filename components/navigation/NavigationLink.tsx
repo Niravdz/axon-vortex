@@ -18,7 +18,6 @@ interface NavigationLinkProps {
 export function NavigationLink({
   href,
   label,
-  badge,
   description,
   isActive = false,
   onClick,
@@ -37,11 +36,7 @@ export function NavigationLink({
         } ${className}`}
       >
         <div className="flex items-center justify-between gap-2 border-b border-brand-black/10 pb-2 mb-2">
-          {badge && (
-            <span className="font-mono text-[10px] font-black uppercase tracking-wider text-brand-red">
-              {badge}
-            </span>
-          )}
+          <span className="w-2 h-2 bg-brand-black/30 group-hover:bg-brand-red transition-colors" aria-hidden="true" />
           <ArrowUpRight
             className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
               isActive ? "text-brand-red" : "text-brand-black/40 group-hover:text-brand-black"
@@ -72,12 +67,8 @@ export function NavigationLink({
           isActive ? "bg-brand-yellow/30 text-brand-red" : "text-brand-black"
         } ${className}`}
       >
-        <div className="flex items-center gap-2.5 min-w-0">
-          {badge && (
-            <span className="font-mono text-[10px] font-bold text-brand-black/50 shrink-0">
-              {badge}
-            </span>
-          )}
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="w-1.5 h-1.5 bg-brand-black/30 group-hover:bg-brand-red shrink-0 transition-colors" aria-hidden="true" />
           <span className="font-heading font-bold text-xs uppercase tracking-tight truncate group-hover:text-brand-red transition-colors">
             {label}
           </span>
@@ -99,11 +90,6 @@ export function NavigationLink({
         isActive ? "bg-white border-brand-black shadow-[2px_2px_0px_0px_#090909]" : ""
       } ${className}`}
     >
-      {badge && (
-        <span className="font-mono text-[10px] font-black px-1.5 py-0.5 bg-brand-gray border border-brand-black shrink-0 mt-0.5 text-brand-black">
-          {badge}
-        </span>
-      )}
       <div className="flex flex-col min-w-0">
         <span className="font-heading font-black text-xs uppercase tracking-tight text-brand-black group-hover:text-brand-red transition-colors flex items-center gap-1.5">
           <span>{label}</span>

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { LegalDocumentLayout, LegalPlaceholder } from "./LegalDocumentLayout";
 
 const SECTIONS = [

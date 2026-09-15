@@ -149,7 +149,7 @@ export function AnimatedCategoryPage({
                 </span>
               </div>
 
-              <h1 data-anim="cat-hero" className="text-4xl sm:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.98]">
+              <h1 data-anim="cat-hero" className="text-4xl sm:text-6xl lg:text-7xl font-heading font-bold tracking-[0.015em] uppercase leading-[0.98]">
                 {hero.headline}
               </h1>
 
@@ -232,7 +232,7 @@ export function AnimatedCategoryPage({
                   className="p-6 bg-white border-2 border-[#090909] shadow-[3px_3px_0px_0px_#090909] flex flex-col justify-between hover:border-[#F23B32] transition-colors"
                 >
                   <span className="font-mono text-xs font-bold text-[#F23B32] mb-3">
-                    FRICTION 0{idx + 1}
+                    FRICTION
                   </span>
                   <p className="font-body text-sm text-[#090909]/80 leading-relaxed font-medium">
                     {pt}
@@ -276,9 +276,7 @@ export function AnimatedCategoryPage({
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b-2 border-[#090909] mb-4">
-                    <span className="font-mono text-sm font-black text-[#F23B32]">
-                      0{idx + 1}
-                    </span>
+                    <span className="w-2 h-2 bg-[#F23B32]" />
                     {svc.slug && (
                       <Link
                         href={`/services/${svc.slug}`}
@@ -347,11 +345,9 @@ export function AnimatedCategoryPage({
                 className="p-6 sm:p-8 bg-[#173359] border-2 border-white/20 shadow-[4px_4px_0px_0px_#090909] flex flex-col justify-between min-h-[200px]"
               >
                 <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-white/15 mb-3">
-                    <span className="font-mono text-lg font-black text-[#FFD447]">
-                      {st.number || `0${i + 1}`}
-                    </span>
-                    <span className="font-mono text-[10px] tracking-widest uppercase text-white/50">
+                  <div className="flex items-center gap-2 pb-3 border-b border-white/15 mb-3">
+                    <span className="w-2 h-2 bg-[#FFD447]" />
+                    <span className="font-mono text-[10px] tracking-widest uppercase text-[#FFD447]">
                       STEP
                     </span>
                   </div>

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, CornerDownRight, Check, Activity, Search, ShieldCheck, FileText } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/animation/ScrollReveal";
@@ -91,7 +91,7 @@ export default function GrowthAuditPageClient() {
               </span>
             </div>
 
-            <h1 data-anim="audit-hero" className="text-4xl sm:text-6xl md:text-7xl font-display font-black uppercase tracking-tighter leading-[0.92] text-brand-black">
+            <h1 data-anim="audit-hero" className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
               Find what&apos;s holding your <br />
               <span className="text-brand-red">digital growth back.</span>
             </h1>
@@ -219,7 +219,7 @@ export default function GrowthAuditPageClient() {
                 <div>
                   <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
                     <span className="font-mono text-xs font-black text-brand-red">
-                      DOMAIN 0{idx + 1}
+                      DOMAIN
                     </span>
                     <span className="w-2.5 h-2.5 bg-brand-black" />
                   </div>
@@ -286,7 +286,7 @@ export default function GrowthAuditPageClient() {
               >
                 <div>
                   <div className="font-mono text-xs font-black text-brand-blue mb-4 border-b-2 border-brand-black pb-2">
-                    OUTPUT 0{idx + 1}
+                    OUTPUT
                   </div>
                   <h3 className="text-xl font-display font-black uppercase text-brand-black mb-3">
                     {item.title}
@@ -334,9 +334,7 @@ export default function GrowthAuditPageClient() {
               >
                 <div>
                   <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4">
-                    <span className="font-mono text-xs font-black px-2 py-1 bg-brand-yellow text-brand-black">
-                      PHASE 0{idx + 1}
-                    </span>
+                    <span className="w-2.5 h-2.5 bg-brand-yellow" />
                     <span className="w-2 h-2 bg-brand-red" />
                   </div>
                   <h3 className="text-xl font-display font-black uppercase text-white mb-2">
@@ -383,8 +381,8 @@ export default function GrowthAuditPageClient() {
                 data-stagger-item
                 className="p-6 bg-brand-white border-2 border-brand-black shadow-hard-sm flex items-start gap-3"
               >
-                <span className="w-6 h-6 bg-brand-yellow border border-brand-black flex items-center justify-center font-mono text-xs font-black text-brand-black shrink-0 mt-0.5">
-                  0{idx + 1}
+                <span className="w-6 h-6 bg-brand-yellow border border-brand-black flex items-center justify-center font-bold text-xs text-brand-black shrink-0 mt-0.5">
+                  ✓
                 </span>
                 <p className="text-sm font-sans text-brand-black/90 font-medium leading-relaxed">
                   {sit}

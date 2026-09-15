@@ -73,7 +73,7 @@ export function GrowthJourneySection() {
           ref={cardsRef}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {growthJourney.stages.map((stage, idx) => (
+          {growthJourney.stages.map((stage) => (
             <article
               key={stage.name}
               className="journey-stage-card p-6 sm:p-8 rounded-none bg-[#E9EDF2] border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909] flex flex-col justify-between min-h-[220px] hover:bg-white hover:border-[#F23B32] transition-colors group"
@@ -81,7 +81,7 @@ export function GrowthJourneySection() {
               <div>
                 <div className="flex items-center justify-between text-[#090909]/60 mb-4 border-b-2 border-[#090909]/10 pb-3">
                   <span className="font-mono text-sm text-[#F23B32] font-black">
-                    STAGE 0{idx + 1}
+                    STAGE
                   </span>
                   <ArrowRight className="w-4 h-4 text-[#090909] group-hover:translate-x-1 transition-transform" />
                 </div>

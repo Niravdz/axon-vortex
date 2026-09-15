@@ -155,23 +155,18 @@ export function ConnectedGrowthSection() {
                   className={`pipeline-node relative bg-[#173359] border-2 border-white/20 p-5 flex flex-col justify-between min-h-[220px] shadow-[4px_4px_0px_0px_#090909] ${nodeColors} group hover:border-white transition-all hover:-translate-y-1 will-change-[transform,opacity]`}
                 >
                   <div>
-                    {/* Top Row: Step number and indicator */}
-                    <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                      <span className="font-mono text-xl font-black text-[#FFD447]">
-                        {step.step}
+                    {/* Top Row: Category and indicator */}
+                    <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#FFD447]/90 font-bold truncate">
+                        {step.category}
                       </span>
-                      <span className="font-mono text-[10px] tracking-widest uppercase text-white/50">
-                        STAGE
-                      </span>
+                      <span className="w-2 h-2 rounded-full bg-[#FFD447]/60 group-hover:bg-[#FFD447] shrink-0 transition-colors" aria-hidden="true" />
                     </div>
 
-                    {/* Step Name & Category */}
-                    <h3 className="mt-4 font-heading font-black text-xl tracking-tight text-white uppercase group-hover:text-[#FFD447] transition-colors">
+                    {/* Step Name */}
+                    <h3 className="font-heading font-black text-xl tracking-tight text-white uppercase group-hover:text-[#FFD447] transition-colors">
                       {step.name}
                     </h3>
-                    <span className="inline-block mt-1 font-mono text-xs uppercase tracking-wider text-[#FFD447]/90">
-                      {step.category}
-                    </span>
                   </div>
 
                   {/* Description */}

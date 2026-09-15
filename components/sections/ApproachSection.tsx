@@ -75,13 +75,11 @@ export function ApproachSection() {
               className="timeline-step bg-white border-4 border-[#090909] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#090909] flex flex-col justify-between hover:-translate-y-1 transition-transform"
             >
               <div>
-                <div className="flex items-center justify-between pb-4 border-b-2 border-[#090909]">
-                  <span className="font-mono text-2xl font-black text-[#F23B32]">
-                    {item.step}
+                <div className="flex items-center justify-between pb-3 mb-4 border-b-2 border-[#090909]">
+                  <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#F23B32]">
+                    STAGE
                   </span>
-                  <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#090909]/50">
-                    STAGE {idx + 1}
-                  </span>
+                  <div className="w-2.5 h-2.5 bg-[#090909]" aria-hidden="true" />
                 </div>
 
                 <h3 className="mt-4 font-heading font-black text-xl uppercase tracking-tight text-[#090909]">
