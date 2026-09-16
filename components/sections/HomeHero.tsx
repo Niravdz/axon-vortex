@@ -127,7 +127,7 @@ export function HomeHero() {
                 <span className="hero-headline-line block will-change-transform">MARKET BETTER.</span>
               </span>
               <span className="block overflow-hidden pb-1">
-                <span className="hero-headline-line block text-[#F23B32] will-change-transform">GROW FASTER.</span>
+                <span className="hero-headline-line block text-[#F23B32] will-change-transform">GROW  FASTER.</span>
               </span>
             </h1>
 
