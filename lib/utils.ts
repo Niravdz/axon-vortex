@@ -7,5 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatUtcTime(): string {
   const now = new Date();
-  return now.toUTCString().replace("GMT", "UTC");
+  return now.toUTCString().replace("GMT", "UTC"); 
+  
 }

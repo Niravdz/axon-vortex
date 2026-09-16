@@ -121,7 +121,7 @@ export function HomeHero() {
           <div className="my-auto max-w-2xl py-4">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[76px] xl:text-[84px] font-heading font-bold tracking-[0.015em] uppercase leading-[0.95] text-[#090909]">
               <span className="block overflow-hidden pb-1">
-                <span className="hero-headline-line block will-change-transform">BUILD SMARTER.</span>
+                <span className="hero-headline-line block will-change-transform">nirav zalavadiya.</span>
               </span>
               <span className="block overflow-hidden pb-1">
                 <span className="hero-headline-line block will-change-transform">MARKET BETTER.</span>
