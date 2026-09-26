@@ -4,7 +4,6 @@ import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { AnimationProvider } from "@/components/providers/AnimationProvider";
 import { PageLoader } from "@/components/layout/PageLoader";
-import { AnimatedAxonBackground } from "@/components/layout/AnimatedAxonBackground";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { PageTransition } from "@/components/animation/PageTransition";
 import { Navbar } from "@/components/navigation/Navbar";
@@ -71,11 +70,10 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${spaceMono.variable} dark`}
     >
-      <body className="bg-void text-soft-white min-h-screen selection:bg-electricBlue selection:text-white antialiased font-body relative overflow-x-hidden">
+      <body className="bg-[#141619] text-[#EFECE4] min-h-screen selection:bg-[#3B82F6] selection:text-white antialiased font-body relative overflow-x-hidden">
         <SmoothScrollProvider>
           <AnimationProvider>
             <PageLoader />
-            <AnimatedAxonBackground />
             <CustomCursor />
             <Navbar />
             <main className="relative z-base flex flex-col min-h-screen">

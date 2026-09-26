@@ -304,7 +304,8 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-/* Home Page Flat Dark-Charcoal Background with Procedural Monochromatic Grain */
+/* Global Site & Home Page Flat Dark-Charcoal Background with Procedural Monochromatic Grain */
+.site-grain-theme,
 .home-grain-theme {
   position: relative;
   isolation: isolate;
@@ -313,6 +314,7 @@ html.lenis, html.lenis body {
   color: var(--color-soft-white);
 }
 
+.site-grain-theme::before,
 .home-grain-theme::before {
   content: "";
   position: absolute;
@@ -326,19 +328,28 @@ html.lenis, html.lenis body {
   filter: grayscale(1) contrast(1.38);
 }
 
-/* Ensure Home page sections let the flat grain background show through */
+/* Ensure all page sections let the flat grain background show through */
+.site-grain-theme > section,
+.site-grain-theme section,
 .home-grain-theme > section,
 .home-grain-theme section {
   background-color: transparent !important;
 }
 
-/* Suppress ambient glow spotlights and blurred gradients on Home page */
+/* Suppress ambient glow spotlights and blurred gradients across all routes */
+.site-grain-theme [class*="blur-"][class*="rounded-full"],
+.site-grain-theme [class*="blur-[140px]"],
+.site-grain-theme [class*="blur-[130px]"],
+.site-grain-theme [class*="blur-[150px]"],
 .home-grain-theme [class*="blur-"][class*="rounded-full"],
-.home-grain-theme [class*="blur-[140px]"] {
+.home-grain-theme [class*="blur-[140px]"],
+.home-grain-theme [class*="blur-[130px]"],
+.home-grain-theme [class*="blur-[150px]"] {
   display: none !important;
 }
 
-/* Home Header Procedural Flat Charcoal Grain */
+/* Header Procedural Flat Charcoal Grain (Applied across all routes) */
+.site-header-tactile,
 .home-header-tactile {
   position: relative;
   isolation: isolate;
@@ -346,6 +357,7 @@ html.lenis, html.lenis body {
   border-bottom: 1px solid rgba(239, 236, 228, 0.08);
 }
 
+.site-header-tactile::before,
 .home-header-tactile::before {
   content: "";
   position: absolute;
@@ -359,11 +371,13 @@ html.lenis, html.lenis body {
   filter: grayscale(1) contrast(1.38);
 }
 
+.site-header-tactile [class*="via-[#3B82F6]"],
 .home-header-tactile [class*="via-[#3B82F6]"] {
   display: none !important;
 }
 
-/* Home Footer Procedural Flat Charcoal Grain */
+/* Footer Procedural Flat Charcoal Grain (Applied across all routes) */
+.site-footer-tactile,
 .home-footer-tactile {
   position: relative;
   isolation: isolate;
@@ -371,6 +385,7 @@ html.lenis, html.lenis body {
   border-top: 1px solid rgba(239, 236, 228, 0.08);
 }
 
+.site-footer-tactile::before,
 .home-footer-tactile::before {
   content: "";
   position: absolute;

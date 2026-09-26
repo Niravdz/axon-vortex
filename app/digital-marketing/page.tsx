@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { digitalMarketingData } from "@/data/content/digitalMarketing";
-import { AnimatedCategoryPage } from "@/components/sections/AnimatedCategoryPage";
+import { DigitalMarketingClient } from "./DigitalMarketingClient";
 
 export const metadata: Metadata = {
   title: "Digital Marketing — AxonVortex Growth Systems",
@@ -9,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function DigitalMarketingPage() {
-  return <AnimatedCategoryPage data={digitalMarketingData} narrativeStyle="funnel" />;
+  return <DigitalMarketingClient />;
 }

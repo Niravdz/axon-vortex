@@ -1,28 +1,12 @@
 import type { Metadata } from "next";
-import { technologyTransformationData } from "@/data/content/technologyTransformation";
-import { AnimatedCategoryPage } from "@/components/sections/AnimatedCategoryPage";
+import { TechnologyTransformationClient } from "./TechnologyTransformationClient";
 
 export const metadata: Metadata = {
-  title: "Technology & Digital Transformation — AxonVortex Architecture",
+  title: "Technology & Digital Transformation — AxonVortex Systems",
   description:
-    "We help businesses identify where technology can simplify operations, connect systems and support future growth.",
+    "Connect your business, simplify operations and build for what's next. Strategic CRM, custom software and digital transformation architecture.",
 };
 
-export default function TechnologyTransformationPage() {
-  const unifiedData = {
-    hero: technologyTransformationData.hero,
-    problem: technologyTransformationData.problem,
-    services: technologyTransformationData.services,
-    approach: {
-      badge: technologyTransformationData.approach.badge,
-      steps: technologyTransformationData.approach.steps.map((st) => ({
-        title: st.title,
-        description: st.description,
-      })),
-    },
-    whoThisIsFor: technologyTransformationData.whoThisIsFor,
-    finalCta: technologyTransformationData.finalCta,
-  };
-
-  return <AnimatedCategoryPage data={unifiedData} narrativeStyle="integration" />;
+export default function TechnologyDigitalTransformationPage() {
+  return <TechnologyTransformationClient />;
 }

@@ -2,15 +2,11 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ArrowUp, Mail, MapPin } from "lucide-react";
 import { BrandLogo } from "@/components/navigation/BrandLogo";
 import { TactileButton } from "@/components/ui/TactileButton";
 
 export function Footer() {
-  const pathname = usePathname();
-  const isHomePage = pathname === "/";
-
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -29,11 +25,7 @@ export function Footer() {
   return (
     <footer
       id="site-footer"
-      className={`relative z-content w-full text-[#EFECE4] border-t border-[#EFECE4]/[0.08] ${
-        isHomePage
-          ? "home-footer-tactile"
-          : "bg-[#0D1014]"
-      }`}
+      className="relative z-content w-full text-[#EFECE4] border-t border-[#EFECE4]/[0.08] site-footer-tactile"
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
         {/* Top Callout Strip */}

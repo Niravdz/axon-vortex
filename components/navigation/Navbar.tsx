@@ -50,23 +50,15 @@ export function Navbar() {
     setIsMobileOpen(false);
   }, []);
 
-  const isHomePage = pathname === "/";
-
   return (
     <>
       <header
         ref={headerRef}
         role="banner"
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-          isHomePage
-            ? `home-header-tactile ${
-                isScrolled
-                  ? "shadow-[0_12px_36px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(239,236,228,0.1)] h-18 sm:h-20"
-                  : "shadow-[0_4px_20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(239,236,228,0.06)] h-20"
-              }`
-            : isScrolled
-            ? "bg-[#141619]/95 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_12px_32px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)] h-18 sm:h-20"
-            : "bg-[#141619]/85 backdrop-blur-md border-b border-white/[0.08] h-20"
+        className={`sticky top-0 z-50 w-full transition-all duration-300 site-header-tactile ${
+          isScrolled
+            ? "shadow-[0_12px_36px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(239,236,228,0.1)] h-18 sm:h-20"
+            : "shadow-[0_4px_20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(239,236,228,0.06)] h-20"
         }`}
       >
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-full flex items-center justify-between gap-4 xl:gap-8">
