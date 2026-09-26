@@ -3,12 +3,11 @@
 import React, { useRef, useLayoutEffect, useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { BauhausBadge } from "@/components/ui/BauhausBadge";
-import { Button } from "@/components/ui/Button";
-import { ScrollReveal } from "@/components/animation/ScrollReveal";
 import { authorityData } from "@/data/content/authorityConversion";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { getGSAP } from "@/lib/gsap";
+import { DimensionalButton } from "@/components/ui/DimensionalButton";
+import { DimensionalCard } from "@/components/ui/DimensionalCard";
 
 export default function InsightsPageClient() {
   const {
@@ -49,17 +48,17 @@ export default function InsightsPageClient() {
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
-  // Smooth architectural crossfade when switching active topic
+  // Smooth crossfade when switching active topic
   useEffect(() => {
     if (prefersReducedMotion || !topicContentRef.current) return;
     const { gsap } = getGSAP();
     gsap.fromTo(
       topicContentRef.current,
-      { opacity: 0.2, y: 10 },
+      { opacity: 0.3, y: 8 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.22,
+        duration: 0.25,
         ease: "power2.out",
         clearProps: "transform,opacity",
       }
@@ -69,51 +68,56 @@ export default function InsightsPageClient() {
   return (
     <div
       ref={containerRef}
-      className="w-full bg-brand-white text-brand-black selection:bg-brand-red selection:text-white overflow-x-clip"
+      className="w-full bg-[#141619] text-[#EFECE4] selection:bg-[#3B82F6] selection:text-white overflow-x-clip"
     >
       {/* 0. TOP SPEC BAR */}
-      <div className="w-full border-b-2 border-brand-black bg-brand-gray/50 px-6 md:px-12 py-3">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase">
-          <div className="flex items-center gap-2 text-brand-black/70">
-            <Link href="/" className="hover:text-brand-red font-bold transition-colors">
+      <div className="w-full border-b border-white/[0.08] bg-[#141619]/90 backdrop-blur-md px-6 md:px-12 py-3">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
               Home
             </Link>
-            <span>/</span>
-            <span className="text-brand-red font-black">Insights &amp; Knowledge</span>
+            <span className="text-white/30">/</span>
+            <span className="text-[#3B82F6] font-semibold">Insights &amp; Knowledge</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
-            <span className="font-bold text-brand-black tracking-wider">PRACTICAL THINKING HUB</span>
+            <span className="inline-block w-2 h-2 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] animate-pulse" />
+            <span className="font-semibold text-[#EFECE4] tracking-widest text-[11px]">
+              PRACTICAL THINKING HUB
+            </span>
           </div>
         </div>
       </div>
 
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO SECTION & 3D TAXONOMY MATRIX */}
       <section
         ref={heroRef}
-        className="relative pt-16 md:pt-24 pb-20 px-6 md:px-12 border-b-2 border-brand-black bg-brand-white"
+        className="relative pt-20 md:pt-28 pb-20 px-6 md:px-12 border-b border-white/[0.08] bg-[#141619]"
       >
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          <div className="lg:col-span-8 flex flex-col gap-6">
+        <div className="absolute top-1/4 right-1/4 w-[500px] h-[300px] bg-[#3B82F6]/10 blur-[130px] pointer-events-none rounded-full" />
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative z-10">
+          <div className="lg:col-span-7 flex flex-col gap-6">
             <div data-anim="insights-hero" className="flex flex-wrap items-center gap-3">
-              <BauhausBadge variant="red" shape="square">
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#93C5FD]">
                 {insights.badge}
-              </BauhausBadge>
-              <BauhausBadge variant="yellow" shape="pill">
+              </span>
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-[#F4BA00]/15 border border-[#F4BA00]/30 text-[#FDE68A]">
                 {insights.title}
-              </BauhausBadge>
-              <span className="font-mono text-xs text-brand-black/60 font-bold uppercase tracking-widest">
+              </span>
+              <span className="font-mono text-xs text-[#9AA3B2] uppercase tracking-widest">
                 ZERO HYPE // USEFUL MODELS
               </span>
             </div>
 
-            <h1 data-anim="insights-hero" className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
+            <h1 data-anim="insights-hero" className="text-4xl sm:text-6xl md:text-7xl font-heading font-semibold tracking-tight leading-[1.05] text-[#EFECE4]">
               Ideas for businesses <br />
-              <span className="text-brand-red">growing in a digital world.</span>
+              <span className="text-[#3B82F6] drop-shadow-[0_0_24px_rgba(59,130,246,0.3)]">
+                growing in a digital world.
+              </span>
             </h1>
 
-            <p data-anim="insights-hero" className="text-lg md:text-xl font-body text-brand-black/80 max-w-2xl leading-relaxed border-l-4 border-brand-red pl-6 py-2 bg-brand-gray/30">
+            <p data-anim="insights-hero" className="text-base md:text-lg font-body text-[#9AA3B2] max-w-2xl leading-relaxed border-l-2 border-[#3B82F6] pl-6 py-3 bg-[#101215] border border-white/[0.04] rounded-r-xl shadow-[inset_0_2px_5px_rgba(0,0,0,0.7)]">
               {insights.subWelcome}
             </p>
 
@@ -122,23 +126,23 @@ export default function InsightsPageClient() {
               {insights.principles.map((pr, idx) => (
                 <div
                   key={idx}
-                  className="p-4 bg-brand-white border-2 border-brand-black shadow-hard-sm flex items-center gap-3 text-xs font-mono uppercase font-bold text-brand-black"
+                  className="p-4 rounded-xl bg-[#171a1e] border border-white/[0.08] shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)] flex items-center gap-3 text-xs font-mono font-medium text-[#EFECE4]"
                 >
-                  <span className="w-2.5 h-2.5 bg-brand-red shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-[#3B82F6] shadow-[0_0_6px_#3B82F6] shrink-0" />
                   <span>{pr}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right: Topic Directory Plate */}
-          <div data-anim="insights-hero" className="lg:col-span-4 flex flex-col">
-            <div className="border-2 border-brand-black bg-brand-gray p-6 sm:p-8 shadow-hard-lg flex flex-col gap-6">
-              <div className="border-b-2 border-brand-black pb-4">
-                <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-black/60 block mb-1">
+          {/* Right: 3D Taxonomy Directory Plate (Raised Shell with Recessed Buttons) */}
+          <div data-anim="insights-hero" className="lg:col-span-5 flex flex-col">
+            <div className="rounded-2xl border border-white/[0.08] bg-[#1b1e22] p-6 sm:p-8 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),0_6px_14px_-3px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6">
+              <div className="border-b border-white/10 pb-4">
+                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9AA3B2] block mb-1">
                   TAXONOMY INDEX
                 </span>
-                <span className="font-display font-black text-2xl uppercase text-brand-black">
+                <span className="font-heading font-semibold text-2xl text-[#EFECE4]">
                   Core Topic Matrix
                 </span>
               </div>
@@ -147,11 +151,12 @@ export default function InsightsPageClient() {
                 {insights.topics.map((top, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     onClick={() => setActiveTopic(idx)}
-                    className={`p-3 border-2 font-black uppercase text-left flex items-center justify-between transition-all ${
+                    className={`p-3.5 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
                       activeTopic === idx
-                        ? "bg-brand-red text-white border-brand-black shadow-hard-sm"
-                        : "bg-brand-white text-brand-black border-brand-black/30 hover:border-brand-black"
+                        ? "bg-[#3B82F6] text-white border-[#3B82F6] shadow-[0_4px_20px_rgba(59,130,246,0.35)] font-semibold"
+                        : "bg-[#101215] text-[#9AA3B2] border-white/[0.04] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] hover:border-white/20 hover:text-[#EFECE4]"
                     }`}
                   >
                     <span>{top.category}</span>
@@ -160,217 +165,211 @@ export default function InsightsPageClient() {
                 ))}
               </div>
 
-              <div className="pt-2 border-t-2 border-brand-black">
-                <span className="font-mono text-[11px] text-brand-black/70 block">
+              <div className="pt-2 border-t border-white/10">
+                <span className="font-mono text-[11px] text-[#9AA3B2] block">
                   Select a category above to inspect focus areas below.
                 </span>
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
       {/* 2. ACTIVE TOPIC INSPECTOR */}
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black">
-        <div ref={topicContentRef} className="max-w-7xl mx-auto flex flex-col gap-12">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-[#141619] border-b border-white/[0.08] relative">
+        <div ref={topicContentRef} className="max-w-7xl mx-auto flex flex-col gap-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
             <div className="flex flex-col gap-3 max-w-2xl">
               <div className="flex items-center gap-2">
-                <BauhausBadge variant="yellow" shape="square">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#F4BA00]/15 border border-[#F4BA00]/30 text-[#FDE68A]">
                   TOPIC
-                </BauhausBadge>
-                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                </span>
+                <span className="font-mono text-xs uppercase font-medium tracking-widest text-[#9AA3B2]">
                   DEEP DIVE
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-semibold tracking-tight text-[#EFECE4]">
                 {insights.topics[activeTopic].category}
               </h2>
             </div>
-            <p className="font-mono text-xs uppercase font-bold text-brand-black/60">
+            <p className="font-mono text-xs uppercase font-medium text-[#9AA3B2]">
               {insights.topics[activeTopic].intro}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {insights.topics[activeTopic].items.map((item, idx) => (
-              <div
+              <DimensionalCard
                 key={idx}
-                className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md flex items-center justify-between group hover:shadow-hard-lg hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                elevation="level2"
+                glowColor={idx % 2 === 0 ? "blue" : "amber"}
+                className="p-6 flex items-center justify-between group cursor-pointer"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-brand-red shrink-0" />
-                  <span className="font-display font-black text-lg uppercase text-brand-black group-hover:text-brand-red transition-colors">
+                  <span className="w-2 h-2 rounded-full bg-[#3B82F6] shadow-[0_0_6px_#3B82F6] shrink-0" />
+                  <span className="font-heading font-semibold text-base sm:text-lg text-[#EFECE4] group-hover:text-[#93C5FD] transition-colors">
                     {item}
                   </span>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-brand-black/40 group-hover:text-brand-red transition-colors" />
-              </div>
+                <ArrowUpRight className="w-4 h-4 text-[#9AA3B2] group-hover:text-[#93C5FD] transition-colors" />
+              </DimensionalCard>
             ))}
           </div>
-
         </div>
       </section>
 
       {/* 3. EDITORIAL TAXONOMY (CONTENT TYPES) */}
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-[#141619] border-b border-white/[0.08] relative">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          
-          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
             <div className="flex flex-col gap-3 max-w-2xl">
               <div className="flex items-center gap-2">
-                <BauhausBadge variant="blue" shape="square">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#93C5FD]">
                   {contentTypes.badge}
-                </BauhausBadge>
-                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                </span>
+                <span className="font-mono text-xs uppercase font-medium tracking-widest text-[#9AA3B2]">
                   FORMAT CLASSIFICATION
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-semibold tracking-tight text-[#EFECE4]">
                 {contentTypes.title}
               </h2>
             </div>
-            <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
+            <span className="font-mono text-xs uppercase font-medium text-[#9AA3B2]">
               7 Distinct Knowledge Formats
             </span>
-          </ScrollReveal>
+          </div>
 
-          <ScrollReveal variant="stagger" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
             {contentTypes.items.map((type, idx) => (
-              <div
+              <DimensionalCard
                 key={idx}
-                data-stagger-item
-                className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md flex flex-col justify-between min-h-[220px]"
+                elevation="level2"
+                glowColor={idx % 2 === 0 ? "blue" : "amber"}
+                className="p-6 flex flex-col justify-between min-h-[220px]"
               >
                 <div>
-                  <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
-                    <span className="font-mono text-xs font-black text-brand-black px-2 py-0.5 bg-brand-yellow border border-brand-black">
-                      TYPE
+                  <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded-md bg-[#101215] text-[#FDE68A] border border-[#F4BA00]/30 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]">
+                      {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <span className="w-2.5 h-2.5 bg-brand-red" />
+                    <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
                   </div>
-                  <h3 className="text-xl font-display font-black uppercase text-brand-black mb-2">
+                  <h3 className="text-lg font-heading font-semibold text-[#EFECE4] mb-2">
                     {type.type}
                   </h3>
                 </div>
-                <p className="text-xs sm:text-sm text-brand-black/80 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#9AA3B2] font-body leading-relaxed">
                   {type.description}
                 </p>
-              </div>
+              </DimensionalCard>
             ))}
-          </ScrollReveal>
-
+          </div>
         </div>
       </section>
 
       {/* 4. THE AXONVORTEX CONTENT LOOP */}
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-slate text-white border-b-2 border-brand-black">
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-[#141619] border-b border-white/[0.08] relative">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          
-          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-white/20 pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
             <div className="flex flex-col gap-3 max-w-2xl">
               <div className="flex items-center gap-2">
-                <BauhausBadge variant="red" shape="square">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#F4BA00]/15 border border-[#F4BA00]/30 text-[#FDE68A]">
                   {contentLoop.badge}
-                </BauhausBadge>
-                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-gray">
+                </span>
+                <span className="font-mono text-xs uppercase font-medium tracking-widest text-[#9AA3B2]">
                   KNOWLEDGE GENERATION
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-white">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-semibold tracking-tight text-[#EFECE4]">
                 {contentLoop.title}
               </h2>
             </div>
-            <span className="font-mono text-xs uppercase font-bold text-brand-yellow">
+            <span className="font-mono text-xs uppercase font-semibold text-[#F4BA00]">
               Problem → Research → Insight → Action → Solution
             </span>
-          </ScrollReveal>
+          </div>
 
-          <ScrollReveal variant="stagger" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-start">
             {contentLoop.steps.map((step, idx) => (
               <div
                 key={idx}
-                data-stagger-item
-                className="p-8 border-2 border-white/30 bg-white/5 flex flex-col justify-between min-h-[220px]"
+                className="p-6 rounded-2xl border border-white/[0.08] bg-[#171a1e] shadow-[0_8px_20px_-4px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.06)] flex flex-col justify-between hover:border-white/20 transition-all min-h-[190px]"
               >
                 <div>
-                  <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4">
-                    <span className="font-mono text-xs font-black px-2 py-1 bg-brand-red text-white">
-                      STEP
+                  <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded-md bg-[#101215] text-[#93C5FD] border border-white/[0.04] shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]">
+                      {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-mono text-xs text-brand-yellow font-bold">→</span>
+                    <span className="font-mono text-xs text-[#F4BA00] font-semibold">→</span>
                   </div>
-                  <h3 className="text-xl font-display font-black uppercase text-white mb-2">
+                  <h3 className="text-base font-heading font-semibold text-[#EFECE4] mb-2">
                     {step.stage}
                   </h3>
                 </div>
-                <p className="text-xs sm:text-sm text-brand-gray font-sans leading-relaxed">
+                <p className="text-xs text-[#9AA3B2] font-body leading-relaxed">
                   {step.description}
                 </p>
               </div>
             ))}
-          </ScrollReveal>
-
+          </div>
         </div>
       </section>
 
       {/* 5. DIAGNOSTIC RESOURCES / LEAD MAGNETS */}
       {leadMagnets && (
-        <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black">
+        <section className="py-20 md:py-28 px-6 md:px-12 bg-[#141619] border-b border-white/[0.08] relative">
           <div className="max-w-7xl mx-auto flex flex-col gap-12">
-            
-            <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
               <div className="flex flex-col gap-3 max-w-2xl">
                 <div className="flex items-center gap-2">
-                  <BauhausBadge variant="yellow" shape="square">
+                  <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#F4BA00]/15 border border-[#F4BA00]/30 text-[#FDE68A]">
                     {leadMagnets.badge}
-                  </BauhausBadge>
-                  <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
+                  </span>
+                  <span className="font-mono text-xs uppercase font-medium tracking-widest text-[#9AA3B2]">
                     DIAGNOSTIC FRAMEWORKS
                   </span>
                 </div>
-                <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-semibold tracking-tight text-[#EFECE4]">
                   {leadMagnets.title}
                 </h2>
               </div>
-              <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
+              <span className="font-mono text-xs uppercase font-medium text-[#9AA3B2]">
                 5 Practical Self-Assessments
               </span>
-            </ScrollReveal>
+            </div>
 
-            <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {leadMagnets.items.map((lm) => (
                 <div
                   key={lm.id}
-                  data-stagger-item
-                  className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md flex flex-col justify-between"
+                  className="p-7 rounded-2xl border border-white/[0.08] bg-[#171a1e] shadow-[0_12px_28px_-6px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col justify-between"
                 >
                   <div className="flex flex-col gap-4">
-                    <div className="flex items-center justify-between border-b-2 border-brand-black pb-3">
-                      <span className="font-mono text-xs font-black text-brand-red">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <span className="font-mono text-xs font-semibold text-[#3B82F6]">
                         RESOURCE
                       </span>
-                      <span className="w-2.5 h-2.5 bg-brand-black" />
+                      <span className="w-2 h-2 rounded-full bg-[#F4BA00]" />
                     </div>
 
-                    <h3 className="text-2xl font-display font-black uppercase text-brand-black">
+                    <h3 className="text-xl font-heading font-semibold text-[#EFECE4]">
                       {lm.title}
                     </h3>
 
-                    <p className="text-sm font-display font-bold uppercase text-brand-black/80">
+                    <p className="text-xs sm:text-sm font-heading font-medium text-[#9AA3B2]">
                       {lm.question}
                     </p>
 
+                    {/* Nested Recessed Evaluation Areas Tray */}
                     <div className="pt-2">
-                      <span className="font-mono text-[11px] uppercase font-bold text-brand-black/50 block mb-2">
+                      <span className="font-mono text-[11px] uppercase font-medium text-[#9AA3B2]/70 block mb-2">
                         {lm.evaluationLabel}
                       </span>
-                      <div className="grid grid-cols-2 gap-1.5">
+                      <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] grid grid-cols-2 gap-2">
                         {lm.areas.map((area, i) => (
-                          <div key={i} className="text-xs font-sans text-brand-black/80 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 bg-brand-red" />
+                          <div key={i} className="text-xs font-body text-[#EFECE4]/90 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
                             <span>{area}</span>
                           </div>
                         ))}
@@ -378,64 +377,65 @@ export default function InsightsPageClient() {
                     </div>
                   </div>
 
-                  <div className="pt-6 border-t-2 border-brand-black mt-6">
-                    <Button
-                      variant="primary"
+                  <div className="pt-6 border-t border-white/10 mt-6">
+                    <DimensionalButton
+                      variant="amber"
                       size="sm"
-                      className="w-full bg-brand-black text-white hover:bg-brand-red text-xs py-3"
+                      className="w-full justify-center"
                       asLink
                       href={lm.cta.href}
                     >
                       {lm.cta.label}
                       <ArrowRight className="ml-2 w-3.5 h-3.5" />
-                    </Button>
+                    </DimensionalButton>
                   </div>
                 </div>
               ))}
-            </ScrollReveal>
-
+            </div>
           </div>
         </section>
       )}
 
       {/* 6. FINAL HIGH-IMPACT CTA */}
-      <section className="py-24 px-6 md:px-12 bg-brand-red text-white border-b-2 border-brand-black">
-        <ScrollReveal variant="fade-up" className="max-w-4xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-block px-4 py-1.5 bg-brand-white text-brand-black border-2 border-brand-black font-mono text-xs font-black uppercase mb-8 shadow-hard-sm">
+      <section className="py-24 px-6 md:px-12 bg-[#141619] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+          <div className="w-[600px] h-[350px] bg-[#3B82F6]/10 blur-[140px] rounded-full" />
+        </div>
+
+        <div className="max-w-4xl mx-auto rounded-3xl border border-white/[0.08] bg-[#1b1e22] shadow-[0_24px_50px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] p-10 md:p-14 text-center flex flex-col items-center relative z-10">
+          <div className="inline-block px-3.5 py-1 rounded-full bg-[#3B82F6]/15 border border-[#3B82F6]/30 font-mono text-xs font-semibold uppercase text-[#93C5FD] mb-8">
             HAVE A QUESTION?
           </div>
 
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black uppercase tracking-tighter text-white mb-6 max-w-3xl leading-[0.95]">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-semibold tracking-tight text-[#EFECE4] mb-6 max-w-3xl leading-[1.05]">
             {contentLoop.questionCallout}
           </h2>
 
-          <p className="text-2xl sm:text-3xl font-display font-black uppercase text-brand-yellow mb-8">
+          <p className="text-xl sm:text-2xl font-heading font-medium text-[#F4BA00] mb-8">
             {contentLoop.startWithProblem} {contentLoop.helpThinkThrough}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button
-              variant="primary"
+            <DimensionalButton
+              variant="amber"
               size="lg"
-              className="bg-brand-black text-white hover:bg-brand-white hover:text-brand-black text-lg px-10 py-5 border-2 border-brand-black shadow-hard-md"
               asLink
               href={contentLoop.cta.href}
             >
               {contentLoop.cta.label}
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </DimensionalButton>
 
-            <Button
+            <DimensionalButton
               variant="outline"
               size="lg"
-              className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-brand-black text-lg px-8 py-5"
               asLink
               href="/growth-audit"
             >
               Request Growth Audit
-            </Button>
+            </DimensionalButton>
           </div>
-        </ScrollReveal>
+        </div>
       </section>
     </div>
   );

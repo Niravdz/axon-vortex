@@ -2,11 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, AlertCircle, Phone, Mail, Clock, ArrowUpRight, Check } from "lucide-react";
-import { BauhausBadge } from "@/components/ui/BauhausBadge";
-import { Button } from "@/components/ui/Button";
-import { ScrollReveal } from "@/components/animation/ScrollReveal";
+import { ArrowRight, ChevronDown, AlertCircle, Mail, Clock, ArrowUpRight, Check } from "lucide-react";
 import { authorityData } from "@/data/content/authorityConversion";
+import { DimensionalButton } from "@/components/ui/DimensionalButton";
 
 export default function ContactPageClient() {
   const { contactSection, formSection, notReadyToTalk, faq } = authorityData;
@@ -78,181 +76,170 @@ export default function ContactPageClient() {
   };
 
   return (
-    <div className="w-full bg-brand-white text-brand-black selection:bg-brand-red selection:text-white overflow-x-clip">
-      
+    <div className="w-full bg-[#141619] text-[#EFECE4] selection:bg-[#3B82F6] selection:text-white overflow-x-clip">
       {/* 0. TOP SPEC BAR */}
-      <div className="w-full border-b-2 border-brand-black bg-brand-gray/50 px-6 md:px-12 py-3">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase">
-          <div className="flex items-center gap-2 text-brand-black/70">
-            <Link href="/" className="hover:text-brand-red font-bold transition-colors">
+      <div className="w-full border-b border-white/[0.08] bg-[#101215] px-6 md:px-12 py-3">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
               Home
             </Link>
-            <span>/</span>
-            <span className="text-brand-red font-black">Contact &amp; Commission</span>
+            <span className="text-white/30">/</span>
+            <span className="text-[#3B82F6] font-semibold">Contact &amp; Commission</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
-            <span className="font-bold text-brand-black tracking-wider">INTAKE PIPELINE OPEN</span>
+            <span className="inline-block w-2 h-2 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] animate-pulse" />
+            <span className="font-semibold text-[#EFECE4] tracking-widest text-[11px]">
+              INTAKE PIPELINE OPEN
+            </span>
           </div>
         </div>
       </div>
 
       {/* 1. HERO SECTION */}
-      <section className="relative pt-16 md:pt-24 pb-16 px-6 md:px-12 border-b-2 border-brand-black bg-brand-white">
-        <ScrollReveal variant="fade-up" className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
+      <section className="relative pt-20 md:pt-28 pb-16 px-6 md:px-12 border-b border-white/[0.08] bg-[#141619]">
+        <div className="absolute top-1/4 right-1/3 w-[500px] h-[300px] bg-[#3B82F6]/10 blur-[130px] pointer-events-none rounded-full" />
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative z-10">
           <div className="lg:col-span-8 flex flex-col gap-6">
             <div className="flex flex-wrap items-center gap-3">
-              <BauhausBadge variant="red" shape="square">
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#93C5FD]">
                 {contactSection.badge}
-              </BauhausBadge>
-              <BauhausBadge variant="yellow" shape="pill">
+              </span>
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-[#F4BA00]/15 border border-[#F4BA00]/30 text-[#FDE68A]">
                 DIRECT INTAKE
-              </BauhausBadge>
-              <span className="font-mono text-xs text-brand-black/60 font-bold uppercase tracking-widest">
+              </span>
+              <span className="font-mono text-xs text-[#9AA3B2] uppercase tracking-widest">
                 NO SALES FLUFF // PURE STRATEGY
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold uppercase tracking-[0.015em] leading-[0.95] text-brand-black">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-semibold tracking-tight leading-[1.05] text-[#EFECE4]">
               Let&apos;s talk about your <br />
-              <span className="text-brand-red">next stage of growth.</span>
+              <span className="text-[#3B82F6] drop-shadow-[0_0_24px_rgba(59,130,246,0.3)]">
+                next stage of growth.
+              </span>
             </h1>
 
-            <p className="text-lg md:text-xl font-body text-brand-black/80 max-w-2xl leading-relaxed border-l-4 border-brand-red pl-6 py-2 bg-brand-gray/30">
+            <p className="text-base md:text-lg font-body text-[#9AA3B2] max-w-2xl leading-relaxed border-l-2 border-[#3B82F6] pl-6 py-2 bg-[#1b1e22] rounded-r-xl">
               {contactSection.subheading}
             </p>
 
-            {/* Need to Know List */}
-            <div className="p-6 bg-brand-gray border-2 border-brand-black shadow-hard-md flex flex-col gap-3">
-              <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-black/60">
+            {/* Need to Know List: Outer Raised Container with Inner Recessed Boxes */}
+            <div className="p-6 rounded-2xl bg-[#1b1e22] border border-white/[0.08] shadow-[0_16px_36px_-6px_rgba(0,0,0,0.72),0_6px_14px_-3px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-3">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9AA3B2]">
                 {contactSection.needToKnowLabel}
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {contactSection.needToKnowPoints.map((pt, idx) => (
                   <div
                     key={idx}
-                    className="p-3 bg-brand-white border border-brand-black flex items-center gap-2 font-display font-black text-sm uppercase text-brand-black"
+                    className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_4px_rgba(0,0,0,0.78),0_1px_0_rgba(255,255,255,0.035)] flex items-center gap-2.5 font-heading font-medium text-xs text-[#EFECE4]"
                   >
-                    <span className="w-1.5 h-1.5 bg-brand-red shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shrink-0" />
                     <span>{pt}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <p className="text-sm font-sans text-brand-black/80">
+            <p className="text-sm font-body text-[#9AA3B2]">
               {contactSection.closingParagraph}
             </p>
           </div>
 
-          {/* Right Column: Direct Contact Details Plate */}
+          {/* Right Column: Direct Contact Details Plate (Outer Raised with Inner Recessed Boxes) */}
           <div className="lg:col-span-4 flex flex-col">
-            <div className="border-2 border-brand-black bg-brand-gray p-6 sm:p-8 shadow-hard-lg flex flex-col gap-6">
-              <div className="border-b-2 border-brand-black pb-4">
-                <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-black/60 block mb-1">
+            <div className="rounded-2xl border border-white/[0.08] bg-[#1b1e22] p-6 sm:p-8 shadow-[0_16px_36px_-6px_rgba(0,0,0,0.72),0_6px_14px_-3px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6">
+              <div className="border-b border-white/[0.06] pb-4">
+                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9AA3B2] block mb-1">
                   COMMUNICATION CHANNELS
                 </span>
-                <span className="font-display font-black text-2xl uppercase text-brand-black">
+                <span className="font-heading font-semibold text-2xl text-[#EFECE4]">
                   Direct Line
                 </span>
               </div>
 
               <div className="flex flex-col gap-4 font-mono text-xs">
-                <div className="p-4 bg-brand-white border-2 border-brand-black flex items-start gap-3 shadow-hard-sm">
-                  <Phone className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
+                <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_4px_rgba(0,0,0,0.78),0_1px_0_rgba(255,255,255,0.035)] flex items-start gap-3">
+                  <Mail className="w-4 h-4 text-[#3B82F6] shrink-0 mt-0.5" />
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-brand-black/50 font-bold uppercase">Phone / WhatsApp</span>
-                    <a href="tel:+919933112213" className="font-bold text-brand-black hover:text-brand-red text-sm">
-                      +91 9933112213
-                    </a>
-                  </div>
-                </div>
-
-                <div className="p-4 bg-brand-white border-2 border-brand-black flex items-start gap-3 shadow-hard-sm">
-                  <Mail className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-brand-black/50 font-bold uppercase">Direct Email</span>
-                    <a href="mailto:info@axonvortex.com" className="font-bold text-brand-black hover:text-brand-blue text-sm">
+                    <span className="text-[10px] text-[#9AA3B2] font-semibold uppercase">Direct Email</span>
+                    <a href="mailto:info@axonvortex.com" className="font-semibold text-[#EFECE4] hover:text-[#3B82F6] text-sm transition-colors">
                       info@axonvortex.com
                     </a>
                   </div>
                 </div>
 
-                <div className="p-4 bg-brand-white border-2 border-brand-black flex items-start gap-3 shadow-hard-sm">
-                  <Clock className="w-4 h-4 text-brand-yellow shrink-0 mt-0.5" />
+                <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_4px_rgba(0,0,0,0.78),0_1px_0_rgba(255,255,255,0.035)] flex items-start gap-3">
+                  <Clock className="w-4 h-4 text-[#F4BA00] shrink-0 mt-0.5" />
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-brand-black/50 font-bold uppercase">Operating Hours</span>
-                    <span className="font-bold text-brand-black text-xs">
+                    <span className="text-[10px] text-[#9AA3B2] font-semibold uppercase">Operating Hours</span>
+                    <span className="font-semibold text-[#EFECE4] text-xs">
                       Mon – Fri, 09:00 – 18:00 IST
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 bg-brand-yellow/30 border-2 border-brand-black">
-                <span className="font-mono text-xs font-black uppercase text-brand-black block mb-1">
+              <div className="p-4 rounded-xl bg-[#171a1e] border border-[#F4BA00]/30 shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]">
+                <span className="font-mono text-xs font-semibold uppercase text-[#F4BA00] block mb-1">
                   Response SLA
                 </span>
-                <p className="text-xs text-brand-black/80 font-sans leading-relaxed">
+                <p className="text-xs text-[#9AA3B2] font-body leading-relaxed">
                   All submitted briefs are reviewed by a lead strategist. You will receive an architectural response within 24 business hours.
                 </p>
               </div>
             </div>
           </div>
-
-        </ScrollReveal>
+        </div>
       </section>
 
-      {/* 2. INTAKE FORM */}
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black">
-        <ScrollReveal variant="fade-up" className="max-w-4xl mx-auto">
-          
-          <div className="border-2 border-brand-black bg-brand-white p-8 sm:p-12 shadow-hard-lg">
-            
-            <div className="border-b-2 border-brand-black pb-6 mb-8 flex items-center justify-between">
+      {/* 2. MINIMAL INTAKE FORM PANEL */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-[#121519] border-b border-white/[0.08] relative">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-3xl border border-white/[0.08] bg-[#1b1e22] p-8 sm:p-12 shadow-[0_24px_50px_-8px_rgba(0,0,0,0.85),0_8px_18px_-4px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.1)]">
+            <div className="border-b border-white/[0.06] pb-6 mb-8 flex items-center justify-between">
               <div>
-                <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-red block mb-1">
+                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#3B82F6] block mb-1">
                   DISCOVERY BRIEF
                 </span>
-                <h2 className="text-2xl sm:text-4xl font-display font-black uppercase text-brand-black">
+                <h2 className="text-2xl sm:text-3xl font-heading font-semibold text-[#EFECE4]">
                   {formSection.title}
                 </h2>
               </div>
-              <span className="w-3 h-3 bg-brand-yellow border border-brand-black hidden sm:block" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#F4BA00] shadow-[0_0_8px_#F4BA00] hidden sm:block" />
             </div>
 
             {/* Success State */}
             {formSuccess ? (
-              <div className="p-8 bg-brand-gray border-2 border-brand-black flex flex-col gap-6 text-center items-center transition-all duration-300">
-                <div className="w-16 h-16 bg-brand-yellow border-2 border-brand-black flex items-center justify-center shadow-hard-sm">
-                  <Check className="w-8 h-8 text-brand-black" />
+              <div className="p-8 rounded-2xl bg-[#171a1e] border border-[#3B82F6]/40 flex flex-col gap-6 text-center items-center transition-all duration-300 shadow-[0_12px_36px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)]">
+                <div className="w-16 h-16 rounded-full bg-[#3B82F6]/20 border border-[#3B82F6]/40 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                  <Check className="w-8 h-8 text-[#93C5FD]" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="font-mono text-xs font-black uppercase text-brand-red">
+                  <span className="font-mono text-xs font-semibold uppercase text-[#F4BA00]">
                     REFERENCE ID: {formSuccess}
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-brand-black">
+                  <h3 className="text-2xl sm:text-3xl font-heading font-semibold text-[#EFECE4]">
                     Brief Logged Successfully
                   </h3>
-                  <p className="text-sm font-sans text-brand-black/80 max-w-lg leading-relaxed mt-2">
+                  <p className="text-sm font-body text-[#9AA3B2] max-w-lg leading-relaxed mt-2">
                     Thank you. Your details have been transmitted to our strategic pod. We will examine your business parameters and contact you within 1 business day.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-4 pt-4">
-                  <Button
-                    variant="primary"
+                  <DimensionalButton
+                    variant="amber"
                     size="md"
-                    className="bg-brand-black text-white hover:bg-brand-red"
                     asLink
                     href="/solutions"
                   >
                     Explore Solutions
-                  </Button>
-                  <Button
+                  </DimensionalButton>
+                  <DimensionalButton
                     variant="outline"
                     size="md"
-                    className="border-2 border-brand-black"
                     onClick={() => {
                       setFormSuccess(null);
                       setFormData({ name: "", businessName: "", email: "", phone: "", website: "", tellUsMore: "" });
@@ -260,26 +247,24 @@ export default function ContactPageClient() {
                     }}
                   >
                     Submit Another Inquiry
-                  </Button>
+                  </DimensionalButton>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-                
+              <form onSubmit={handleSubmit} className="flex flex-col gap-7">
                 {formError && (
-                  <div className="p-4 bg-brand-red text-white border-2 border-brand-black flex items-center gap-3 font-mono text-xs uppercase font-bold transition-all duration-200">
-                    <AlertCircle className="w-5 h-5 shrink-0" />
+                  <div className="p-4 rounded-xl bg-red-500/20 text-red-200 border border-red-500/30 flex items-center gap-3 font-mono text-xs uppercase font-medium">
+                    <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
                     <span>{formError}</span>
                   </div>
                 )}
 
-                {/* Text Inputs Grid */}
+                {/* Text Inputs Grid (Carved Inset Neumorphic Inputs) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  
                   {/* Name */}
                   <div className="flex flex-col gap-2">
-                    <label className="font-mono text-xs font-black uppercase tracking-wider text-brand-black">
-                      {formSection.fields.name.label} <span className="text-brand-red">*</span>
+                    <label className="font-mono text-xs font-semibold uppercase tracking-wider text-[#EFECE4]">
+                      {formSection.fields.name.label} <span className="text-[#F4BA00]">*</span>
                     </label>
                     <input
                       type="text"
@@ -287,14 +272,14 @@ export default function ContactPageClient() {
                       placeholder={formSection.fields.name.placeholder}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="p-3.5 border-2 border-brand-black bg-brand-gray/30 focus:bg-brand-white focus:outline-none focus:border-brand-red font-sans text-sm text-brand-black transition-colors"
+                      className="p-3.5 rounded-xl border border-white/[0.06] bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 font-body text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-2 focus:ring-[#3B82F6]/30 transition-all shadow-[inset_0_2px_5px_rgba(0,0,0,0.82),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]"
                     />
                   </div>
 
                   {/* Business Name */}
                   <div className="flex flex-col gap-2">
-                    <label className="font-mono text-xs font-black uppercase tracking-wider text-brand-black">
-                      {formSection.fields.businessName.label} <span className="text-brand-red">*</span>
+                    <label className="font-mono text-xs font-semibold uppercase tracking-wider text-[#EFECE4]">
+                      {formSection.fields.businessName.label} <span className="text-[#F4BA00]">*</span>
                     </label>
                     <input
                       type="text"
@@ -302,14 +287,14 @@ export default function ContactPageClient() {
                       placeholder={formSection.fields.businessName.placeholder}
                       value={formData.businessName}
                       onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                      className="p-3.5 border-2 border-brand-black bg-brand-gray/30 focus:bg-brand-white focus:outline-none focus:border-brand-red font-sans text-sm text-brand-black transition-colors"
+                      className="p-3.5 rounded-xl border border-white/[0.06] bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 font-body text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-2 focus:ring-[#3B82F6]/30 transition-all shadow-[inset_0_2px_5px_rgba(0,0,0,0.82),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]"
                     />
                   </div>
 
                   {/* Email */}
                   <div className="flex flex-col gap-2">
-                    <label className="font-mono text-xs font-black uppercase tracking-wider text-brand-black">
-                      {formSection.fields.email.label} <span className="text-brand-red">*</span>
+                    <label className="font-mono text-xs font-semibold uppercase tracking-wider text-[#EFECE4]">
+                      {formSection.fields.email.label} <span className="text-[#F4BA00]">*</span>
                     </label>
                     <input
                       type="email"
@@ -317,14 +302,14 @@ export default function ContactPageClient() {
                       placeholder={formSection.fields.email.placeholder}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="p-3.5 border-2 border-brand-black bg-brand-gray/30 focus:bg-brand-white focus:outline-none focus:border-brand-red font-sans text-sm text-brand-black transition-colors"
+                      className="p-3.5 rounded-xl border border-white/[0.06] bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 font-body text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-2 focus:ring-[#3B82F6]/30 transition-all shadow-[inset_0_2px_5px_rgba(0,0,0,0.82),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]"
                     />
                   </div>
 
                   {/* Phone */}
                   <div className="flex flex-col gap-2">
-                    <label className="font-mono text-xs font-black uppercase tracking-wider text-brand-black">
-                      {formSection.fields.phone.label} <span className="text-brand-red">*</span>
+                    <label className="font-mono text-xs font-semibold uppercase tracking-wider text-[#EFECE4]">
+                      {formSection.fields.phone.label} <span className="text-[#F4BA00]">*</span>
                     </label>
                     <input
                       type="tel"
@@ -332,29 +317,28 @@ export default function ContactPageClient() {
                       placeholder={formSection.fields.phone.placeholder}
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="p-3.5 border-2 border-brand-black bg-brand-gray/30 focus:bg-brand-white focus:outline-none focus:border-brand-red font-sans text-sm text-brand-black transition-colors"
+                      className="p-3.5 rounded-xl border border-white/[0.06] bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 font-body text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-2 focus:ring-[#3B82F6]/30 transition-all shadow-[inset_0_2px_5px_rgba(0,0,0,0.82),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]"
                     />
                   </div>
 
                   {/* Website (Full Span) */}
                   <div className="flex flex-col gap-2 sm:col-span-2">
-                    <label className="font-mono text-xs font-black uppercase tracking-wider text-brand-black">
-                      {formSection.fields.website.label} <span className="text-brand-black/50 text-[10px]">(Optional)</span>
+                    <label className="font-mono text-xs font-semibold uppercase tracking-wider text-[#EFECE4]">
+                      {formSection.fields.website.label} <span className="text-[#9AA3B2]/60 text-[10px]">(Optional)</span>
                     </label>
                     <input
                       type="url"
                       placeholder={formSection.fields.website.placeholder}
                       value={formData.website}
                       onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                      className="p-3.5 border-2 border-brand-black bg-brand-gray/30 focus:bg-brand-white focus:outline-none focus:border-brand-red font-sans text-sm text-brand-black transition-colors"
+                      className="p-3.5 rounded-xl border border-white/[0.06] bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 font-body text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-2 focus:ring-[#3B82F6]/30 transition-all shadow-[inset_0_2px_5px_rgba(0,0,0,0.82),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]"
                     />
                   </div>
-
                 </div>
 
                 {/* Interest Checkboxes */}
                 <div className="flex flex-col gap-3 pt-2">
-                  <label className="font-mono text-xs font-black uppercase tracking-wider text-brand-black">
+                  <label className="font-mono text-xs font-semibold uppercase tracking-wider text-[#EFECE4]">
                     {formSection.fields.interestLabel}
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -365,13 +349,13 @@ export default function ContactPageClient() {
                           key={interest}
                           type="button"
                           onClick={() => toggleInterest(interest)}
-                          className={`px-3.5 py-2 border-2 font-mono text-xs uppercase font-bold transition-all flex items-center gap-2 ${
+                          className={`px-3.5 py-2 rounded-xl border font-mono text-xs uppercase font-medium transition-all flex items-center gap-2 cursor-pointer ${
                             isSelected
-                              ? "bg-brand-red text-white border-brand-black shadow-hard-sm"
-                              : "bg-brand-white text-brand-black border-brand-black/40 hover:border-brand-black"
+                              ? "bg-[#3B82F6] text-white border-[#3B82F6] shadow-[0_0_12px_rgba(59,130,246,0.35),inset_0_1px_0_rgba(255,255,255,0.2)]"
+                              : "bg-[#101215] text-[#9AA3B2] border-white/[0.06] shadow-[inset_0_1px_3px_rgba(0,0,0,0.7)] hover:border-white/20 hover:text-[#EFECE4]"
                           }`}
                         >
-                          <span className={`w-2 h-2 ${isSelected ? "bg-white" : "bg-transparent border border-brand-black"}`} />
+                          <span className={`w-2 h-2 rounded-full ${isSelected ? "bg-white" : "bg-transparent border border-white/30"}`} />
                           <span>{interest}</span>
                         </button>
                       );
@@ -381,10 +365,10 @@ export default function ContactPageClient() {
 
                 {/* Tell Us More Textarea */}
                 <div className="flex flex-col gap-2">
-                  <label className="font-mono text-xs font-black uppercase tracking-wider text-brand-black">
+                  <label className="font-mono text-xs font-semibold uppercase tracking-wider text-[#EFECE4]">
                     {formSection.fields.tellUsMoreLabel}
                   </label>
-                  <p className="text-xs text-brand-black/60 font-sans mb-1">
+                  <p className="text-xs text-[#9AA3B2] font-body mb-1">
                     {formSection.fields.tellUsMoreQuestions.join(" ")}
                   </p>
                   <textarea
@@ -392,162 +376,154 @@ export default function ContactPageClient() {
                     placeholder="Describe your current bottleneck, targets, or questions..."
                     value={formData.tellUsMore}
                     onChange={(e) => setFormData({ ...formData, tellUsMore: e.target.value })}
-                    className="p-3.5 border-2 border-brand-black bg-brand-gray/30 focus:bg-brand-white focus:outline-none focus:border-brand-red font-sans text-sm text-brand-black transition-colors resize-y"
+                    className="p-3.5 rounded-xl border border-white/[0.06] bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 font-body text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-2 focus:ring-[#3B82F6]/30 transition-all resize-y shadow-[inset_0_2px_5px_rgba(0,0,0,0.82),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]"
                   />
                 </div>
 
                 {/* Privacy Consent Checkbox */}
-                <div className="flex items-start gap-3 pt-2 border-t-2 border-brand-black/20">
+                <div className="flex items-start gap-3 pt-2 border-t border-white/[0.06]">
                   <input
                     type="checkbox"
                     id="privacy-consent"
                     checked={privacyConsent}
                     onChange={(e) => setPrivacyConsent(e.target.checked)}
-                    className="w-4 h-4 mt-1 accent-brand-red border-2 border-brand-black cursor-pointer"
+                    className="w-4 h-4 mt-0.5 accent-[#3B82F6] rounded border border-white/20 bg-[#101215] cursor-pointer"
                   />
-                  <label htmlFor="privacy-consent" className="text-xs font-sans text-brand-black/80 leading-relaxed cursor-pointer">
+                  <label htmlFor="privacy-consent" className="text-xs font-body text-[#9AA3B2] leading-relaxed cursor-pointer">
                     I acknowledge that the information provided will be used by AxonVortex to evaluate our inquiry in accordance with the{" "}
-                    <Link href="/privacy" className="text-brand-red font-bold underline hover:text-brand-black">
+                    <Link href="/privacy" className="text-[#3B82F6] font-medium underline hover:text-[#93C5FD]">
                       Privacy Policy
                     </Link>{" "}
                     and{" "}
-                    <Link href="/terms" className="text-brand-red font-bold underline hover:text-brand-black">
+                    <Link href="/terms" className="text-[#3B82F6] font-medium underline hover:text-[#93C5FD]">
                       Terms of Service
                     </Link>.
                   </label>
                 </div>
 
                 {/* Submit Button */}
-                <div className="pt-4">
-                  <Button
+                <div className="pt-2">
+                  <DimensionalButton
                     type="submit"
-                    variant="primary"
+                    variant="amber"
                     size="lg"
                     disabled={isSubmitting}
-                    className="w-full bg-brand-red text-white hover:bg-brand-black text-base py-4 border-2 border-brand-black shadow-hard-md"
+                    className="w-full justify-center"
                   >
                     {isSubmitting ? "Transmitting Brief..." : formSection.cta.label}
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </DimensionalButton>
                 </div>
-
               </form>
             )}
-
           </div>
-
-        </ScrollReveal>
-      </section>
-
-      {/* 3. NOT READY TO TALK? (ALTERNATIVE EXPLORATION) */}
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-white border-b-2 border-brand-black">
-        <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          
-          <ScrollReveal variant="fade-up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-brand-black pb-8">
-            <div className="flex flex-col gap-3 max-w-2xl">
-              <div className="flex items-center gap-2">
-                <BauhausBadge variant="blue" shape="square">
-                  {notReadyToTalk.badge}
-                </BauhausBadge>
-                <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
-                  SELF-DIRECTED DISCOVERY
-                </span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
-                {notReadyToTalk.headline}
-              </h2>
-            </div>
-            <span className="font-mono text-xs uppercase font-bold text-brand-black/60">
-              {notReadyToTalk.tagline}
-            </span>
-          </ScrollReveal>
-
-          <ScrollReveal variant="stagger" className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {notReadyToTalk.options.map((opt, idx) => (
-              <Link
-                key={idx}
-                data-stagger-item
-                href={opt.href}
-                className="p-8 border-2 border-brand-black bg-brand-white shadow-hard-md hover:shadow-hard-lg hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex flex-col justify-between min-h-[220px] group"
-              >
-                <div>
-                  <div className="flex items-center justify-between border-b-2 border-brand-black pb-3 mb-4">
-                    <span className="font-mono text-xs font-black text-brand-red">
-                      ROUTE
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 text-brand-black group-hover:text-brand-red transition-colors" />
-                  </div>
-                  <h3 className="text-xl font-display font-black uppercase text-brand-black group-hover:text-brand-red transition-colors mb-2">
-                    {opt.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-brand-black/80 font-sans leading-relaxed">
-                  {opt.description}
-                </p>
-              </Link>
-            ))}
-          </ScrollReveal>
-
         </div>
       </section>
 
-      {/* 4. FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION) */}
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-brand-gray border-b-2 border-brand-black">
-        <ScrollReveal variant="fade-up" className="max-w-4xl mx-auto flex flex-col gap-10">
-          
-          <div className="flex flex-col gap-3 border-b-2 border-brand-black pb-6">
-            <div className="flex items-center gap-2">
-              <BauhausBadge variant="yellow" shape="square">
-                {faq.badge}
-              </BauhausBadge>
-              <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-black/60">
-                TRANSPARENCY ACCORD
-              </span>
+      {/* 3. NOT READY TO TALK? (ALTERNATIVE EXPLORATION) */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-[#141619] border-b border-white/[0.08] relative">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/[0.08] pb-8">
+            <div className="flex flex-col gap-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#93C5FD]">
+                  {notReadyToTalk.badge}
+                </span>
+                <span className="font-mono text-xs uppercase font-medium tracking-widest text-[#9AA3B2]">
+                  SELF-DIRECTED DISCOVERY
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-semibold tracking-tight text-[#EFECE4]">
+                {notReadyToTalk.headline}
+              </h2>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-display font-black uppercase tracking-tight text-brand-black">
+            <span className="font-mono text-xs uppercase font-medium text-[#9AA3B2]">
+              Explore Options Without Commitment
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {notReadyToTalk.options.map((opt, idx) => (
+              <div
+                key={idx}
+                className="p-7 rounded-2xl border border-white/[0.08] bg-[#171a1e] shadow-[0_12px_32px_-4px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] hover:bg-[#21252a] hover:border-[#3B82F6]/40 transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#F4BA00]/20 text-[#FDE68A] border border-[#F4BA00]/30 mb-4 inline-block">
+                    OPTION {idx + 1}
+                  </span>
+                  <h3 className="text-xl font-heading font-semibold text-[#EFECE4] mb-3">
+                    {opt.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-body text-[#9AA3B2] leading-relaxed mb-6">
+                    {opt.description}
+                  </p>
+                </div>
+
+                <DimensionalButton
+                  variant="outline"
+                  size="sm"
+                  asLink
+                  href={opt.href}
+                  className="w-full justify-between"
+                >
+                  <span>{opt.title}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </DimensionalButton>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. FREQUENTLY ASKED QUESTIONS */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-[#121519] relative">
+        <div className="max-w-4xl mx-auto flex flex-col gap-10">
+          <div className="text-center flex flex-col items-center gap-3">
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#93C5FD]">
+              {faq.badge}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-semibold tracking-tight text-[#EFECE4]">
               {faq.title}
             </h2>
           </div>
 
-          <div className="flex flex-col border-2 border-brand-black bg-brand-white shadow-hard-md">
+          <div className="flex flex-col gap-3">
             {faq.items.map((item, idx) => {
               const isOpen = openFaqIndex === idx;
               return (
-                <div key={idx} className="border-b-2 last:border-b-0 border-brand-black">
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-white/[0.08] bg-[#171a1e] shadow-[0_4px_14px_-2px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.08)] overflow-hidden transition-all duration-200"
+                >
                   <button
+                    type="button"
                     onClick={() => toggleFaq(idx)}
-                    className="w-full p-6 text-left flex items-center justify-between gap-4 font-display font-black text-base sm:text-lg uppercase text-brand-black hover:bg-brand-yellow/20 transition-colors"
+                    className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.03] transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="w-1.5 h-1.5 bg-brand-red shrink-0" />
-                      <span>{item.q}</span>
-                    </div>
+                    <span className="font-heading font-semibold text-base sm:text-lg text-[#EFECE4]">
+                      {item.q}
+                    </span>
                     <ChevronDown
-                      className={`w-5 h-5 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180 text-brand-red" : ""}`}
+                      className={`w-4 h-4 text-[#3B82F6] shrink-0 transition-transform duration-200 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
                     />
                   </button>
 
-                  <div
-                    className={`grid transition-[grid-template-rows] duration-200 ease-out ${
-                      isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="px-6 pb-6 pt-2 bg-brand-gray/30 border-t border-brand-black/10 flex flex-col gap-3 text-sm font-sans text-brand-black/80 leading-relaxed">
-                        {item.a.map((ans, i) => (
-                          <p key={i}>{ans}</p>
-                        ))}
-                      </div>
+                  {isOpen && (
+                    <div className="px-5 sm:px-6 pb-6 pt-1 text-sm font-body text-[#9AA3B2] leading-relaxed border-t border-white/[0.06] bg-[#101215]/50 flex flex-col gap-2">
+                      {item.a.map((paragraph, pIdx) => (
+                        <p key={pIdx}>{paragraph}</p>
+                      ))}
                     </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
           </div>
-
-        </ScrollReveal>
+        </div>
       </section>
-
     </div>
   );
 }

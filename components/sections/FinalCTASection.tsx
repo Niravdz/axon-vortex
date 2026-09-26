@@ -2,14 +2,14 @@
 
 import React, { useRef, useLayoutEffect } from "react";
 import { homeContent } from "@/data/content/home";
-import { Button } from "@/components/ui/Button";
+import { TactileButton } from "@/components/ui/TactileButton";
+import { MatteSection } from "@/components/ui/MatteSection";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { getGSAP } from "@/lib/gsap";
 
 export function FinalCTASection() {
   const containerRef = useRef<HTMLElement>(null);
-  const circleRef = useRef<HTMLDivElement>(null);
-  const squareRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const { finalCta } = homeContent;
 
@@ -21,7 +21,7 @@ export function FinalCTASection() {
       // Content reveal
       gsap.fromTo(
         ".cta-content",
-        { opacity: 0, y: 32, scale: 0.98 },
+        { opacity: 0, y: 30, scale: 0.98 },
         {
           opacity: 1,
           y: 0,
@@ -37,40 +37,17 @@ export function FinalCTASection() {
         }
       );
 
-      // Slow independent geometric motion
-      if (circleRef.current) {
-        gsap.to(circleRef.current, {
-          y: -18,
-          x: 10,
-          rotation: 8,
-          duration: 6,
+      // Slow breathing ambient glow
+      if (glowRef.current) {
+        gsap.to(glowRef.current, {
+          scale: 1.15,
+          opacity: 0.25,
+          duration: 4.5,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
         });
       }
-
-      if (squareRef.current) {
-        gsap.to(squareRef.current, {
-          y: 16,
-          x: -12,
-          rotation: -10,
-          duration: 7,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }
-
-      const handleVisibility = () => {
-        if (document.hidden) {
-          gsap.ticker.sleep();
-        } else {
-          gsap.ticker.wake();
-        }
-      };
-      document.addEventListener("visibilitychange", handleVisibility);
-      return () => document.removeEventListener("visibilitychange", handleVisibility);
     }, containerRef);
 
     return () => ctx.revert();
@@ -79,67 +56,62 @@ export function FinalCTASection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-[#F23B32] text-white border-b-4 border-[#090909] py-20 sm:py-28 px-6 sm:px-12 lg:px-16 overflow-hidden"
+      className="relative w-full bg-[#121519] text-[#EFECE4] border-b border-[#EFECE4]/[0.08] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-hidden"
     >
-      {/* Bauhaus Decorative Geometric Shapes in Background with gentle float */}
+      {/* Central Luminous Amber Growth Ambient Spotlight */}
       <div
-        ref={circleRef}
+        ref={glowRef}
         aria-hidden="true"
-        className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-[#FFD447] border-4 border-[#090909] opacity-40 pointer-events-none will-change-transform"
-      />
-      <div
-        ref={squareRef}
-        aria-hidden="true"
-        className="absolute -bottom-16 -left-16 w-56 h-56 bg-[#0F2747] border-4 border-[#090909] opacity-30 pointer-events-none will-change-transform"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] rounded-full bg-gradient-to-r from-[#F4BA00]/15 via-[#3B82F6]/10 to-transparent blur-[130px] will-change-transform"
       />
 
-      <div className="max-w-4xl mx-auto text-center relative z-10 cta-content will-change-[transform,opacity]">
-        <div className="inline-block px-4 py-1.5 bg-[#090909] text-white font-mono text-xs font-bold uppercase tracking-widest border border-white mb-6 shadow-hard-sm">
-          COMMISSION SCOPING
-        </div>
+      <div className="max-w-5xl mx-auto relative z-10 cta-content will-change-[transform,opacity]">
+        <MatteSection radius="24" glow="amber" className="p-8 sm:p-14 lg:p-16 text-center">
+          {/* Eyebrow Label */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#171a1e] border border-[#F4BA00]/30 text-xs font-mono tracking-wider text-[#F4BA00] mb-6 shadow-[0_2px_6px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00] animate-pulse" />
+            <span>COMMISSION SCOPING READY</span>
+          </div>
 
-        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tight uppercase leading-[0.98] text-white">
-          {finalCta.headline}
-        </h2>
+          {/* Section Headline */}
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-semibold tracking-tight uppercase leading-[1.05] text-[#EFECE4] max-w-3xl mx-auto">
+            {finalCta.headline}
+          </h2>
 
-        <p className="mt-6 text-lg sm:text-xl font-heading font-semibold text-[#FFD447] leading-relaxed max-w-2xl mx-auto">
-          {finalCta.subheading}
-        </p>
+          {/* Supporting description */}
+          <p className="mt-6 text-sm sm:text-lg font-body text-[#9AA3B2] max-w-2xl mx-auto leading-relaxed">
+            {finalCta.subheading}
+          </p>
 
-        <p className="mt-4 font-body text-sm sm:text-base text-white/90 leading-relaxed max-w-2xl mx-auto">
-          {finalCta.body}
-        </p>
+          {/* Action Buttons */}
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <TactileButton
+              variant="primary"
+              size="lg"
+              withArrow
+              asLink
+              href={finalCta.primaryCta.href}
+              className="w-full sm:w-auto min-w-[200px]"
+            >
+              {finalCta.primaryCta.label}
+            </TactileButton>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button
-            variant="yellow"
-            size="lg"
-            withArrow
-            asLink
-            href={finalCta.primaryCta.href}
-            className="w-full sm:w-auto min-h-[54px] text-base"
-          >
-            {finalCta.primaryCta.label}
-          </Button>
+            <TactileButton
+              variant="charcoal"
+              size="lg"
+              asLink
+              href={finalCta.secondaryCta.href}
+              className="w-full sm:w-auto min-w-[200px]"
+            >
+              {finalCta.secondaryCta.label}
+            </TactileButton>
+          </div>
 
-          <Button
-            variant="outline"
-            size="lg"
-            asLink
-            href="/growth-audit"
-            className="w-full sm:w-auto min-h-[54px] text-base bg-white text-[#090909]"
-          >
-            {finalCta.secondaryCta.label}
-          </Button>
-        </div>
-
-        <div className="mt-12 pt-8 border-t-2 border-white/20 flex flex-wrap items-center justify-center gap-6 font-mono text-xs text-white/80">
-          <span>NO OBLIGATION</span>
-          <span>·</span>
-          <span>STRATEGIC ALIGNMENT</span>
-          <span>·</span>
-          <span>DIRECT EXPERT REVIEW</span>
-        </div>
+          {/* Direct contact hint */}
+          <p className="mt-8 font-mono text-xs text-[#9AA3B2]/70">
+            Typical diagnostic turnaround: 48 hours · Direct strategic partnership
+          </p>
+        </MatteSection>
       </div>
     </section>
   );

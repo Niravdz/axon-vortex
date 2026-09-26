@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { X, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { X } from "lucide-react";
 import { navigationConfig } from "./navigationConfig";
 import {
   AccordionSection,
@@ -25,12 +26,10 @@ export function MobileNavigation({
 }: MobileNavigationProps) {
   const [openSection, setOpenSection] = useState<string | null>("services");
 
-  // Toggle single active accordion section
   const toggleSection = (section: string) => {
     setOpenSection((prev) => (prev === section ? null : section));
   };
 
-  // Lock body scroll when open and clean up on unmount
   useEffect(() => {
     if (isOpen) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
@@ -41,7 +40,6 @@ export function MobileNavigation({
     }
   }, [isOpen]);
 
-  // Handle Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -52,9 +50,12 @@ export function MobileNavigation({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Close when path changes
+  const prevPathRef = React.useRef(currentPath);
   useEffect(() => {
-    onClose();
+    if (prevPathRef.current !== currentPath) {
+      prevPathRef.current = currentPath;
+      onClose();
+    }
   }, [currentPath, onClose]);
 
   return (
@@ -64,20 +65,24 @@ export function MobileNavigation({
       aria-modal="true"
       aria-label="Mobile Navigation Menu"
       aria-hidden={!isOpen}
-      className={`fixed inset-0 z-50 bg-white flex flex-col justify-between transition-all duration-300 ease-out lg:hidden overflow-y-auto ${
+      className={`fixed inset-0 z-[100] bg-[#141619] flex flex-col justify-between transition-all duration-300 ease-out lg:hidden overflow-y-auto ${
         isOpen
-          ? "opacity-100 pointer-events-auto translate-y-0 [clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]"
-          : "opacity-0 pointer-events-none -translate-y-3 [clip-path:polygon(0_0,100%_0,100%_0,0_0)]"
+          ? "opacity-100 pointer-events-auto translate-y-0"
+          : "opacity-0 pointer-events-none -translate-y-3"
       }`}
     >
       {/* Top Header Bar inside Drawer */}
-      <div className="sticky top-0 z-10 bg-white border-b-2 border-brand-black px-5 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 bg-brand-red border border-brand-black" aria-hidden="true" />
-          <span className="w-2.5 h-2.5 bg-brand-yellow border border-brand-black" aria-hidden="true" />
-          <span className="w-2.5 h-2.5 bg-brand-blue border border-brand-black" aria-hidden="true" />
-          <span className="font-heading font-black text-xs uppercase tracking-widest text-brand-black ml-2">
-            NAVIGATION ARCHITECTURE
+      <div className="sticky top-0 z-10 bg-[#1b1e22] border-b border-white/[0.08] px-5 py-4 flex items-center justify-between shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
+        <div className="flex items-center gap-3">
+          <Image
+            src="/brand/axon-vortex-monogram.png"
+            alt="AxonVortex"
+            width={32}
+            height={28}
+            className="h-7 w-auto object-contain"
+          />
+          <span className="font-heading font-semibold text-xs tracking-wider uppercase text-[#EFECE4]">
+            AxonVortex System
           </span>
         </div>
 
@@ -85,7 +90,7 @@ export function MobileNavigation({
           type="button"
           onClick={onClose}
           aria-label="Close navigation menu"
-          className="w-10 h-10 border-2 border-brand-black bg-brand-gray flex items-center justify-center text-brand-black hover:bg-brand-red hover:text-white transition-colors shadow-[2px_2px_0px_0px_#090909] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+          className="w-9 h-9 rounded-[8px] bg-[#171a1e] border border-white/[0.08] flex items-center justify-center text-[#EFECE4] shadow-[0_2px_4px_rgba(0,0,0,0.4)] hover:bg-[#21252a] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -118,7 +123,6 @@ export function MobileNavigation({
           <MobileServicesList
             columns={navigationConfig.services.columns}
             viewAll={navigationConfig.services.viewAll}
-            cta={navigationConfig.services.cta}
             currentPath={currentPath}
             onItemClick={onClose}
           />
@@ -138,32 +142,34 @@ export function MobileNavigation({
           />
         </AccordionSection>
 
-        {/* Contact direct link note */}
-        <div className="mt-4 p-3 border border-brand-black/20 bg-brand-gray/30 flex items-center justify-between text-xs font-mono">
-          <span className="text-brand-black/70">DIRECT LINE</span>
+        {/* Section 4: Contact Us Direct Link */}
+        <div className="mt-2">
           <Link
             href="/contact"
             onClick={onClose}
-            className="text-brand-red font-bold flex items-center gap-1 hover:underline"
+            className={`w-full min-h-[50px] px-4 py-3 rounded-[10px] border flex items-center justify-between text-sm font-medium tracking-wide transition-all shadow-[0_2px_6px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] ${
+              currentPath === "/contact"
+                ? "bg-[#21252a] border-[#3B82F6]/60 text-[#3B82F6]"
+                : "bg-[#171a1e] border-white/[0.08] text-[#EFECE4] hover:bg-[#21252a] hover:border-[#3B82F6]/40"
+            }`}
           >
-            <span>Consultation Desk</span>
-            <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
+            <span>{navigationConfig.contactUs.label}</span>
+            <span className="text-xs text-[#3B82F6] font-mono">→</span>
           </Link>
         </div>
       </div>
 
-      {/* Drawer Bottom Action Bar */}
-      <div className="sticky bottom-0 bg-white border-t-2 border-brand-black p-5 max-w-lg mx-auto w-full flex flex-col gap-3 shadow-[0_-4px_0_0_#090909]">
+      {/* Bottom CTA Action Strip inside Drawer */}
+      <div className="sticky bottom-0 bg-[#141619]/95 backdrop-blur-xl border-t border-white/[0.08] p-5 max-w-lg mx-auto w-full">
         <Button
-          variant="primary"
-          size="lg"
+          variant="amber"
+          size="md"
           withArrow
           asLink
-          href={navigationConfig.primaryCta.href}
-          onClick={onClose}
-          className="w-full justify-center min-h-[48px] text-xs uppercase tracking-wider"
+          href="/growth-audit"
+          className="w-full justify-center shadow-[0_4px_16px_rgba(244,186,0,0.35)]"
         >
-          {navigationConfig.primaryCta.label}
+          Book Growth Audit
         </Button>
       </div>
     </div>

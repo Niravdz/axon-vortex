@@ -2,14 +2,10 @@
 
 import React, { useRef, useLayoutEffect } from "react";
 import { homeContent } from "@/data/content/home";
-import { BauhausBadge } from "@/components/ui/BauhausBadge";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { getGSAP } from "@/lib/gsap";
+import { MatteSection } from "@/components/ui/MatteSection";
+import { DimensionalAccordion } from "@/components/ui/DimensionalAccordion";
 
 export function BuildingAxonSection() {
   const containerRef = useRef<HTMLElement>(null);
@@ -19,19 +15,37 @@ export function BuildingAxonSection() {
   useLayoutEffect(() => {
     if (prefersReducedMotion || !containerRef.current) return;
 
+    const { gsap } = getGSAP();
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        ".building-row",
+        "[data-building-manifesto]",
         { opacity: 0, x: -20 },
         {
           opacity: 1,
           x: 0,
-          duration: 0.5,
-          stagger: 0.1,
+          duration: 0.6,
           ease: "power2.out",
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        "[data-building-accordion]",
+        { opacity: 0, x: 20 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          delay: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 75%",
+            once: true,
           },
         }
       );
@@ -40,55 +54,79 @@ export function BuildingAxonSection() {
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
+  const accordionItems = buildingAxon.points.map((pt, idx) => ({
+    id: idx,
+    title: pt.title,
+    description: pt.description,
+  }));
+
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-white text-[#090909] border-b-4 border-[#090909]"
+      className="relative w-full bg-[#121519] text-[#EFECE4] py-16 sm:py-24 px-4 sm:px-8 lg:px-12 overflow-hidden border-b border-[#EFECE4]/[0.08]"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12">
-        {/* Left Editorial Manifesto (5 cols, Soft Gray) */}
-        <div className="lg:col-span-5 bg-[#E9EDF2] p-8 sm:p-12 lg:p-16 border-b-4 lg:border-b-0 lg:border-r-4 border-[#090909] flex flex-col justify-between gap-8">
-          <div>
-            <BauhausBadge variant="red" shape="square" size="sm" className="mb-6">
-              {buildingAxon.badge}
-            </BauhausBadge>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight uppercase leading-[1.02] text-[#090909]">
-              {buildingAxon.headline}
-            </h2>
-            <p className="mt-6 font-body text-base text-[#090909]/80 leading-relaxed">
-              {buildingAxon.intro}
-            </p>
-          </div>
+      {/* Background Ambient Glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-1/4 right-1/4 w-[500px] h-[400px] bg-[#F4BA00]/[0.05] rounded-full blur-[140px]"
+      />
 
-          <div className="p-6 bg-[#F23B32] text-white border-2 border-[#090909] shadow-[4px_4px_0px_0px_#090909]">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#FFD447] block mb-2 font-bold">
-              TRANSPARENCY STANDARD
-            </span>
-            <p className="font-heading font-bold text-base uppercase leading-snug">
-              &ldquo;{buildingAxon.closing}&rdquo;
-            </p>
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto">
+        <MatteSection radius="24" className="p-6 sm:p-10 lg:p-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left Column: Editorial Manifesto */}
+            <div data-building-manifesto className="lg:col-span-5 flex flex-col justify-between gap-8">
+              <div>
+                {/* Eyebrow System Badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#171a1e] border border-[#3B82F6]/30 text-xs font-mono tracking-wider text-[#3B82F6] mb-5 shadow-[0_2px_6px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
+                  <span>{buildingAxon.badge}</span>
+                </div>
 
-        {/* Right 5-Point Roadmap List (7 cols, White) */}
-        <div className="lg:col-span-7 bg-white divide-y-2 divide-[#090909]">
-          {buildingAxon.points.map((pt, idx) => (
-            <div
-              key={idx}
-              className="building-row p-6 sm:p-8 flex items-start sm:items-center justify-between gap-4 sm:gap-6 hover:bg-[#E9EDF2]/40 transition-colors group"
-            >
-              <div className="flex-1">
-                <h3 className="font-heading font-bold text-lg uppercase tracking-tight text-[#090909] group-hover:text-[#F23B32] transition-colors">
-                  {pt.title}
-                </h3>
-                <p className="mt-1 font-body text-sm text-[#090909]/70 leading-relaxed">
-                  {pt.description}
+                {/* Prominent Editorial Headline */}
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold tracking-tight uppercase leading-[1.08] text-[#EFECE4]">
+                  {buildingAxon.headline}
+                </h2>
+
+                {/* Supporting Body Copy */}
+                <p className="mt-5 font-body text-sm sm:text-base text-[#9AA3B2] leading-relaxed">
+                  {buildingAxon.intro}
                 </p>
               </div>
-              <div className="w-2.5 h-2.5 bg-[#090909] group-hover:bg-[#F23B32] transition-colors shrink-0 hidden sm:block" />
+
+              {/* Recessed Amber Transparency Standard Module */}
+              <div className="p-6 rounded-[14px] bg-[#101215] border border-[#F4BA00]/25 shadow-[inset_0_2px_5px_rgba(0,0,0,0.78),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.04)]">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-[#F4BA00] shadow-[0_0_8px_#F4BA00]" />
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#F4BA00] font-semibold">
+                    TRANSPARENCY STANDARD
+                  </span>
+                </div>
+                <p className="font-heading font-medium text-sm sm:text-base text-[#EFECE4] uppercase leading-snug">
+                  &ldquo;{buildingAxon.closing}&rdquo;
+                </p>
+              </div>
             </div>
-          ))}
-        </div>
+
+            {/* Right Column: Stacked Dimensional Accordion Rows on Recessed Track */}
+            <div data-building-accordion className="lg:col-span-7">
+              <div className="mb-4 flex items-center justify-between">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2]">
+                  [OPERATIONAL BLUEPRINT]
+                </span>
+                <span className="text-xs text-[#9AA3B2]/70 font-mono">
+                  {buildingAxon.points.length} PRACTICE AREAS
+                </span>
+              </div>
+
+              <DimensionalAccordion
+                items={accordionItems}
+                defaultOpenId={0}
+                allowMultiple={false}
+              />
+            </div>
+          </div>
+        </MatteSection>
       </div>
     </section>
   );

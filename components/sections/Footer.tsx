@@ -2,11 +2,15 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowUp, Phone, Mail, MapPin } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ArrowUp, Mail, MapPin } from "lucide-react";
 import { BrandLogo } from "@/components/navigation/BrandLogo";
-import { siteConfig } from "@/data/siteConfig";
+import { TactileButton } from "@/components/ui/TactileButton";
 
 export function Footer() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -25,237 +29,220 @@ export function Footer() {
   return (
     <footer
       id="site-footer"
-      className="relative z-content w-full bg-[#0F2747] text-white border-t-4 border-[#090909]"
+      className={`relative z-content w-full text-[#EFECE4] border-t border-[#EFECE4]/[0.08] ${
+        isHomePage
+          ? "home-footer-tactile"
+          : "bg-[#0D1014]"
+      }`}
     >
-      <div className="w-full max-w-[1720px] mx-auto">
-        {/* Top Split Section: Giant Callout & Brand Coordinates */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 border-b-2 border-white/20">
-          {/* Left Hero Anchor (7 cols) */}
-          <div className="lg:col-span-7 p-8 md:p-12 lg:p-16 border-b-2 lg:border-b-0 lg:border-r-2 border-white/20 flex flex-col justify-between gap-10">
-            <div>
-              <div className="inline-block px-3 py-1 bg-[#FFD447] text-[#090909] font-mono text-xs font-bold uppercase tracking-widest border border-[#090909] mb-6">
-                GROWTH SYSTEM READY
-              </div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tight uppercase leading-[0.95] text-white">
-                BUILD SMARTER.<br />
-                MARKET BETTER.<br />
-                <span className="text-[#F23B32]">GROW FASTER.</span>
-              </h2>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+        {/* Top Callout Strip */}
+        <div className="py-16 sm:py-20 border-b border-[#EFECE4]/[0.08] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-8 flex flex-col gap-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#181C21] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00] animate-pulse" />
+              <span className="text-[#EFECE4]/90">COMMISSION SCOPING READY</span>
             </div>
-
-            <div className="pt-4">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-4 bg-[#F23B32] text-white text-lg sm:text-xl font-heading font-bold uppercase tracking-wider px-8 py-5 border-2 border-white shadow-[4px_4px_0px_0px_#FFFFFF] hover:bg-[#d92c24] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-              >
-                <span>START A PROJECT</span>
-                <ArrowUpRight className="w-6 h-6 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </Link>
-            </div>
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-semibold tracking-tight uppercase leading-[1.05] text-[#EFECE4]">
+              <span className="text-[#3B82F6]">Build Smarter.</span>{" "}
+              <span className="text-[#EFECE4]">Market Better.</span><br className="hidden sm:inline" />{" "}
+              <span className="text-[#F4BA00]">Grow Faster.</span>
+            </h2>
+            <p className="text-sm sm:text-base text-[#9AA3B2] max-w-2xl leading-relaxed mt-1">
+              Combining strategy, creativity, automation and data into practical digital growth systems tailored to your commercial goals.
+            </p>
           </div>
 
-          {/* Right Direct Contact & Coordinates (5 cols) */}
-          <div className="lg:col-span-5 p-8 md:p-12 lg:p-16 flex flex-col justify-between gap-8 bg-[#091a30]">
-            <div>
-              <BrandLogo tone="dark" />
-              <p className="font-body text-sm text-white/80 mt-6 leading-relaxed max-w-sm">
-                AxonVortex is an AI-driven digital growth agency that helps businesses build, market and scale smarter through strategy, creativity, automation and data.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4 border-t-2 border-white/20 pt-6">
-              <div className="flex items-center gap-3 text-sm font-mono">
-                <Mail className="w-4 h-4 text-[#FFD447]" />
-                <a
-                  href="mailto:info@axonvortex.com"
-                  className="text-white hover:text-[#FFD447] underline underline-offset-4 transition-colors"
-                >
-                  info@axonvortex.com
-                </a>
-              </div>
-              <div className="flex items-center gap-3 text-sm font-mono">
-                <Phone className="w-4 h-4 text-[#FFD447]" />
-                <a
-                  href="tel:+919933112213"
-                  className="text-white hover:text-[#FFD447] transition-colors"
-                >
-                  +91 9933112213
-                </a>
-              </div>
-              <div className="flex items-start gap-3 text-xs font-mono text-white/60">
-                <MapPin className="w-4 h-4 text-[#FFD447] shrink-0 mt-0.5" />
-                <span>India · Serving ambitious clients worldwide</span>
-              </div>
-            </div>
+          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-4">
+            <TactileButton
+              variant="primary"
+              size="lg"
+              withArrow
+              asLink
+              href="/contact"
+              className="w-full sm:w-auto"
+            >
+              Start a Project
+            </TactileButton>
+            <TactileButton
+              variant="charcoal"
+              size="lg"
+              asLink
+              href="/growth-audit"
+              className="w-full sm:w-auto"
+            >
+              Take Growth Audit
+            </TactileButton>
           </div>
         </div>
 
         {/* Middle Navigation Grid: 4 Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-b-2 border-white/20 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-white/20">
-          {/* Col 1: Solutions Domains */}
-          <div className="p-8 flex flex-col gap-4">
-            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              DOMAINS
+        <div className="py-14 sm:py-16 border-b border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* Col 1: Brand Info */}
+          <div className="flex flex-col gap-5">
+            <BrandLogo variant="horizontal" />
+            <p className="text-xs text-[#9AA3B2] leading-relaxed">
+              AxonVortex is an AI-driven digital growth agency that helps ambitious businesses build, market and scale through unified strategy, design, automation and engineering.
+            </p>
+            <div className="flex flex-col gap-2 pt-2 text-xs font-mono text-[#9AA3B2]">
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-[#3B82F6]" />
+                <a
+                  href="mailto:info@axonvortex.com"
+                  className="hover:text-[#3B82F6] transition-colors"
+                >
+                  info@axonvortex.com
+                </a>
+              </div>
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[#F4BA00] shrink-0 mt-0.5" />
+                <span>India · Global Delivery</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Col 2: Solutions Domains */}
+          <div className="flex flex-col gap-3">
+            <span className="font-heading text-xs uppercase tracking-wider text-[#3B82F6] font-semibold">
+              Commercial Domains
             </span>
-            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
+            <ul className="flex flex-col gap-2 text-xs text-[#9AA3B2]" role="list">
               <li>
-                <Link href="/digital-marketing" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#F23B32] shrink-0" />
-                  <span>Digital Marketing</span>
+                <Link href="/digital-marketing" className="hover:text-[#EFECE4] transition-colors">
+                  Digital Marketing
                 </Link>
               </li>
               <li>
-                <Link href="/ai-automation" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#2F5FA7] shrink-0" />
-                  <span>AI & Automation</span>
+                <Link href="/ai-automation" className="hover:text-[#EFECE4] transition-colors">
+                  AI & Automation
                 </Link>
               </li>
               <li>
-                <Link href="/websites-ecommerce" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#FFD447] shrink-0" />
-                  <span>Websites & E-Commerce</span>
+                <Link href="/websites-ecommerce" className="hover:text-[#EFECE4] transition-colors">
+                  Websites & E-Commerce
                 </Link>
               </li>
               <li>
-                <Link href="/lead-generation" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#F23B32] shrink-0" />
-                  <span>Lead Generation</span>
+                <Link href="/lead-generation" className="hover:text-[#EFECE4] transition-colors">
+                  Lead Generation
                 </Link>
               </li>
               <li>
-                <Link href="/technology-digital-transformation" className="hover:text-[#FFD447] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#2F5FA7] shrink-0" />
-                  <span>Technology & Transformation</span>
+                <Link href="/technology-digital-transformation" className="hover:text-[#EFECE4] transition-colors">
+                  Technology & Transformation
+                </Link>
+              </li>
+              <li>
+                <Link href="/solutions" className="text-[#3B82F6] hover:underline pt-1">
+                  View All Solutions →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 2: Services Directory */}
-          <div className="p-8 flex flex-col gap-4">
-            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              SERVICES
+          {/* Col 3: Specialized Capabilities */}
+          <div className="flex flex-col gap-3">
+            <span className="font-heading text-xs uppercase tracking-wider text-[#3B82F6] font-semibold">
+              Capabilities
             </span>
-            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
+            <ul className="flex flex-col gap-2 text-xs text-[#9AA3B2]" role="list">
               <li>
-                <Link href="/services/social-media-marketing" className="hover:text-[#FFD447] transition-colors">
-                  Social Media Marketing
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/meta-ads" className="hover:text-[#FFD447] transition-colors">
+                <Link href="/services/meta-ads" className="hover:text-[#EFECE4] transition-colors">
                   Meta Ads
                 </Link>
               </li>
               <li>
-                <Link href="/services/google-ads" className="hover:text-[#FFD447] transition-colors">
-                  Google Ads & SEO
+                <Link href="/services/google-ads" className="hover:text-[#EFECE4] transition-colors">
+                  Google Ads
                 </Link>
               </li>
               <li>
-                <Link href="/services/ai-chatbots" className="hover:text-[#FFD447] transition-colors">
+                <Link href="/services/seo" className="hover:text-[#EFECE4] transition-colors">
+                  SEO & Search Authority
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/ai-chatbots" className="hover:text-[#EFECE4] transition-colors">
                   AI Chatbots & Agents
                 </Link>
               </li>
               <li>
-                <Link href="/services/website-development" className="hover:text-[#FFD447] transition-colors">
-                  Website & E-Commerce Development
+                <Link href="/services/custom-software" className="hover:text-[#EFECE4] transition-colors">
+                  Custom Software Development
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="font-bold text-[#FFD447] hover:underline pt-1 inline-flex items-center gap-1">
-                  <span>View All Services →</span>
+                <Link href="/services" className="text-[#3B82F6] hover:underline pt-1">
+                  Explore 14 Workstreams →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Company & Approach */}
-          <div className="p-8 flex flex-col gap-4">
-            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              COMPANY
+          {/* Col 4: Company & Governance */}
+          <div className="flex flex-col gap-3">
+            <span className="font-heading text-xs uppercase tracking-wider text-[#3B82F6] font-semibold">
+              Company & Insights
             </span>
-            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
+            <ul className="flex flex-col gap-2 text-xs text-[#9AA3B2]" role="list">
               <li>
-                <Link href="/solutions" className="hover:text-[#FFD447] transition-colors">
-                  Solutions Capability Map
-                </Link>
-              </li>
-              <li>
-                <Link href="/approach" className="hover:text-[#FFD447] transition-colors">
-                  Our Growth Framework
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-[#FFD447] transition-colors">
+                <Link href="/about" className="hover:text-[#EFECE4] transition-colors">
                   About AxonVortex
                 </Link>
               </li>
               <li>
-                <Link href="/growth-audit" className="hover:text-[#FFD447] transition-colors">
-                  Digital Growth Audit
+                <Link href="/approach" className="hover:text-[#EFECE4] transition-colors">
+                  Our Approach
                 </Link>
               </li>
               <li>
-                <Link href="/insights" className="hover:text-[#FFD447] transition-colors">
-                  Insights & Research
+                <Link href="/growth-audit" className="hover:text-[#EFECE4] transition-colors">
+                  Growth Diagnostic Audit
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#FFD447] transition-colors">
-                  Contact Consultation
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Governance & Legal */}
-          <div className="p-8 flex flex-col gap-4">
-            <span className="font-heading text-xs font-black uppercase tracking-widest text-[#FFD447]">
-              LEGAL & COMPLIANCE
-            </span>
-            <ul className="flex flex-col gap-2.5 font-body text-sm" role="list">
-              <li>
-                <Link href="/privacy" className="hover:text-[#FFD447] transition-colors">
-                  Privacy Policy (DPDP / GDPR)
+                <Link href="/insights" className="hover:text-[#EFECE4] transition-colors">
+                  Insights & Strategy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-[#FFD447] transition-colors">
-                  Terms of Service
+                <Link href="/contact" className="hover:text-[#EFECE4] transition-colors">
+                  Contact Us
                 </Link>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={handleOpenCookieSettings}
-                  className="text-left hover:text-[#FFD447] transition-colors underline underline-offset-4 cursor-pointer"
-                >
-                  Cookie Preferences
-                </button>
-              </li>
-              <li className="pt-2 text-xs font-mono text-white/50 leading-relaxed">
-                Registered under India DPDP Act 2023. Governed by Indian arbitration law.
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Utility Bar */}
-        <div className="p-6 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/60 bg-[#090909]">
-          <div className="flex flex-wrap items-center gap-4">
-            <span>© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</span>
-            <span className="hidden md:inline">·</span>
-            <span className="text-white/40">Concept 9: Bauhaus Tech / Swiss Modernism</span>
+        {/* Bottom Utility Strip */}
+        <div className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9AA3B2]/80">
+          <div className="flex items-center gap-6">
+            <span>© {new Date().getFullYear()} AxonVortex. All rights reserved.</span>
+            <div className="flex items-center gap-4">
+              <Link href="/privacy" className="hover:text-[#EFECE4] transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="hover:text-[#EFECE4] transition-colors">
+                Terms of Service
+              </Link>
+              <button
+                type="button"
+                onClick={handleOpenCookieSettings}
+                className="hover:text-[#EFECE4] transition-colors cursor-pointer"
+              >
+                Cookie Preferences
+              </button>
+            </div>
           </div>
 
           <button
+            type="button"
             onClick={scrollToTop}
-            className="group flex items-center gap-2 text-white hover:text-[#FFD447] font-bold uppercase tracking-widest transition-colors py-2 px-3 border border-white/20 hover:border-[#FFD447]"
-            aria-label="Scroll to top of page"
+            aria-label="Back to top"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-[#171a1e] border border-white/[0.08] text-xs font-mono text-[#EFECE4] shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#21252a] hover:border-[#3B82F6]/50 transition-all cursor-pointer"
           >
-            <span>BACK TO TOP</span>
-            <ArrowUp className="w-3.5 h-3.5 transform group-hover:-translate-y-0.5 transition-transform text-[#FFD447]" />
+            <span>TOP</span>
+            <ArrowUp className="w-3.5 h-3.5 text-[#3B82F6]" />
           </button>
         </div>
       </div>

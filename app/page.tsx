@@ -11,7 +11,7 @@ import { FinalCTASection } from "@/components/sections/FinalCTASection";
 
 export default function HomePage() {
   return (
-    <>
+    <div className="home-grain-theme relative w-full min-h-screen">
       {/* 1. Hero */}
       <HomeHero />
 
@@ -41,6 +41,6 @@ export default function HomePage() {
 
       {/* 10. Final Homepage CTA */}
       <FinalCTASection />
-    </>
+    </div>
   );
 }

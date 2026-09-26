@@ -23,7 +23,7 @@
   div,
   label,
   li {
-    font-family: var(--font-body), 'Space Grotesk', sans-serif;
+    font-family: var(--font-body), 'Poppins', sans-serif;
   }
 
   h1,
@@ -32,13 +32,13 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-heading), 'Space Grotesk', sans-serif;
-    letter-spacing: var(--tracking-heading, 0.02em);
+    font-family: var(--font-heading), 'Poppins', sans-serif;
+    letter-spacing: -0.015em;
+    color: #EFECE4;
   }
 
   h1 {
-    font-weight: 700;
-    letter-spacing: var(--tracking-hero, 0.015em);
+    font-weight: 600;
   }
 
   h2,
@@ -49,139 +49,238 @@
     font-weight: 600;
   }
 
-  .font-heading,
-  .font-headline,
-  .font-display {
-    font-family: var(--font-heading), 'Space Grotesk', sans-serif;
-    letter-spacing: var(--tracking-heading, 0.02em);
-  }
-
   button,
   .font-button {
-    font-family: var(--font-button), 'Space Grotesk', sans-serif;
-    letter-spacing: var(--tracking-button, 0.05em);
+    font-family: var(--font-button), 'Poppins', sans-serif;
+    letter-spacing: 0.02em;
   }
 
   label,
   .font-label {
-    font-family: var(--font-label), 'Space Grotesk', sans-serif;
-    letter-spacing: var(--tracking-label, 0.06em);
+    font-family: var(--font-label), 'Poppins', sans-serif;
+    letter-spacing: 0.025em;
   }
 
   code,
   pre,
   .font-mono {
     font-family: var(--font-mono), 'Space Mono', monospace;
-    letter-spacing: var(--tracking-mono, 0.04em);
+    letter-spacing: 0.03em;
   }
 
   p {
-    font-family: var(--font-body), 'Space Grotesk', sans-serif;
+    font-family: var(--font-body), 'Poppins', sans-serif;
     font-weight: 400;
-    line-height: var(--line-height-body, 1.6);
+    line-height: 1.65;
+    color: #9AA3B2;
   }
 
   input,
   textarea,
   select {
-    font-family: var(--font-body), 'Space Grotesk', sans-serif;
+    font-family: var(--font-body), 'Poppins', sans-serif;
     font-weight: 400;
+    background: rgba(15, 39, 71, 0.8);
+    color: #EFECE4;
   }
 
   input::placeholder,
   textarea::placeholder {
-    font-family: var(--font-body), 'Space Grotesk', sans-serif;
+    font-family: var(--font-body), 'Poppins', sans-serif;
     font-weight: 400;
+    color: #9AA3B2;
     opacity: 0.65;
   }
 
   html {
-    background-color: #FFFFFF;
-    color: #090909;
+    background-color: #121519;
+    color: #EFECE4;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
 
   body {
-    background-color: #FFFFFF;
-    color: #090909;
+    background-color: #121519;
+    color: #EFECE4;
     overflow-x: clip;
     min-height: 100vh;
     position: relative;
-    font-family: var(--font-body), 'Space Grotesk', sans-serif;
-    line-height: var(--line-height-body, 1.6);
+    font-family: var(--font-body), 'Poppins', sans-serif;
+    line-height: 1.65;
   }
 
   ::selection {
-    background: #F23B32;
+    background: #3B82F6;
     color: #FFFFFF;
   }
 
-  /* Architectural technical scrollbar */
+  /* Dimensional Tech Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #E9EDF2;
-    border-left: 2px solid #090909;
+    background: #0D1014;
+    border-left: 1px solid rgba(239, 236, 228, 0.06);
   }
   ::-webkit-scrollbar-thumb {
-    background: #090909;
-    border-radius: 0px;
+    background: #20252B;
+    border-radius: 4px;
+    border: 1px solid rgba(239, 236, 228, 0.1);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #F23B32;
+    background: #2D5BB9;
   }
 }
 
-/* Bauhaus Grid Utilities & Helper Classes */
-.bauhaus-grid-bg {
+/* 3D Tactile Material System Utilities (From 3D UI Reference) */
+.felt-background {
+  background-color: #121519;
   background-image: 
-    linear-gradient(#09090912 1px, transparent 1px),
-    linear-gradient(90deg, #09090912 1px, transparent 1px);
-  background-size: 32px 32px;
+    radial-gradient(ellipse at 50% 0%, rgba(45, 91, 185, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(244, 186, 0, 0.08) 0%, transparent 50%);
 }
 
-.bauhaus-dots-bg {
-  background-image: radial-gradient(#09090920 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+.surface-vignette {
+  box-shadow: inset 0 0 100px 20px rgba(10, 12, 15, 0.7);
 }
 
-.hard-shadow {
-  box-shadow: 4px 4px 0px 0px #090909;
+/* ==========================================================================
+   Nested Neumorphic 3D Component System
+   ========================================================================== */
+
+/* 1. Neumorphic Outer Container (Raised above page surface) */
+.neumorphic-outer {
+  background: var(--surface-raised);
+  border: 1px solid var(--edge-highlight);
+  box-shadow: 
+    0 16px 38px -6px var(--shadow-dark),
+    0 6px 14px -3px var(--shadow-soft),
+    inset 0 1px 0 var(--edge-highlight);
+  border-radius: 20px;
+  position: relative;
 }
 
-.hard-shadow-sm {
-  box-shadow: 2px 2px 0px 0px #090909;
+/* 2. Neumorphic Inner Container (Embedded / recessed into outer surface) */
+.neumorphic-inner {
+  background: var(--surface-recessed);
+  border: 1px solid var(--edge-highlight-soft);
+  box-shadow: 
+    inset 0 2px 5px rgba(0, 0, 0, 0.78),
+    inset 0 1px 1px rgba(0, 0, 0, 0.92),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
 }
 
-.hard-shadow-lg {
-  box-shadow: 6px 6px 0px 0px #090909;
+/* 3. Neumorphic Inner Raised (Cards / Tiles / Steps nested inside outer panel) */
+.neumorphic-inner-raised {
+  background: var(--surface-inner);
+  border: 1px solid var(--edge-highlight-soft);
+  box-shadow: 
+    0 4px 14px -2px var(--shadow-dark),
+    0 2px 6px -1px var(--shadow-soft),
+    inset 0 1px 0 var(--edge-highlight);
+  border-radius: 12px;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
 }
 
-.hard-shadow-hover {
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+.neumorphic-inner-raised:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.4);
+  background: var(--surface-raised-light);
+  box-shadow: 
+    0 10px 24px -4px var(--shadow-dark),
+    0 0 16px -2px rgba(59, 130, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
-.hard-shadow-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px 0px #090909;
+/* 4. Neumorphic Input & Control Group (Carved into form panel) */
+.neumorphic-input {
+  background: var(--surface-recessed);
+  color: var(--text-primary);
+  border: 1px solid var(--edge-highlight-soft);
+  box-shadow: 
+    inset 0 2px 5px rgba(0, 0, 0, 0.82),
+    inset 0 1px 1px rgba(0, 0, 0, 0.92),
+    0 1px 0 rgba(255, 255, 255, 0.035);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.hard-shadow-hover:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px 0px #090909;
+.neumorphic-input:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.85),
+    0 0 16px rgba(59, 130, 246, 0.22);
 }
 
-/* Mechanical Button Press */
-.btn-press {
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+/* Backward-compatible Base / Matte Surface (Outer Shell) */
+.matte-surface {
+  background: var(--surface-raised);
+  border: 1px solid var(--edge-highlight);
+  box-shadow: 
+    0 16px 38px -6px var(--shadow-dark),
+    0 6px 14px -3px var(--shadow-soft),
+    inset 0 1px 0 var(--edge-highlight);
+  border-radius: 20px;
 }
-.btn-press:active {
-  transform: translate(2px, 2px);
-  box-shadow: none !important;
+
+/* Backward-compatible Raised Surface (Standard Cards) */
+.raised-surface {
+  background: var(--surface-inner);
+  border: 1px solid var(--edge-highlight-soft);
+  box-shadow: 
+    0 4px 14px -2px var(--shadow-dark),
+    0 2px 6px -1px var(--shadow-soft),
+    inset 0 1px 0 var(--edge-highlight);
+  border-radius: 12px;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+}
+
+.raised-surface:hover {
+  transform: translateY(-3px);
+  border-color: rgba(59, 130, 246, 0.4);
+  background: var(--surface-raised-light);
+  box-shadow: 
+    0 12px 28px -4px var(--shadow-dark),
+    0 0 16px -2px rgba(59, 130, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Backward-compatible Recessed Surface (Tracks, Inset Containers, Inputs) */
+.recessed-surface {
+  background: var(--surface-recessed);
+  border: 1px solid var(--edge-highlight-soft);
+  box-shadow: 
+    inset 0 2px 5px rgba(0, 0, 0, 0.78),
+    inset 0 1px 1px rgba(0, 0, 0, 0.92),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+
+/* Featured Surface */
+.featured-surface {
+  background: linear-gradient(135deg, rgba(45, 91, 185, 0.85) 0%, rgba(27, 30, 34, 0.95) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  box-shadow: 
+    0 12px 32px -4px var(--shadow-dark),
+    0 0 24px -2px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 var(--edge-highlight);
+  border-radius: 14px;
+}
+
+/* Frosted Surface */
+.frosted-surface {
+  background: rgba(27, 30, 34, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--edge-highlight);
+  box-shadow: 
+    0 16px 40px -6px var(--shadow-dark),
+    inset 0 1px 0 var(--edge-highlight);
 }
 
 /* Lenis CSS integration */
@@ -204,3 +303,86 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Home Page Flat Dark-Charcoal Background with Procedural Monochromatic Grain */
+.home-grain-theme {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  background: #141619;
+  color: var(--color-soft-white);
+}
+
+.home-grain-theme::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  filter: grayscale(1) contrast(1.38);
+}
+
+/* Ensure Home page sections let the flat grain background show through */
+.home-grain-theme > section,
+.home-grain-theme section {
+  background-color: transparent !important;
+}
+
+/* Suppress ambient glow spotlights and blurred gradients on Home page */
+.home-grain-theme [class*="blur-"][class*="rounded-full"],
+.home-grain-theme [class*="blur-[140px]"] {
+  display: none !important;
+}
+
+/* Home Header Procedural Flat Charcoal Grain */
+.home-header-tactile {
+  position: relative;
+  isolation: isolate;
+  background: #141619;
+  border-bottom: 1px solid rgba(239, 236, 228, 0.08);
+}
+
+.home-header-tactile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  filter: grayscale(1) contrast(1.38);
+}
+
+.home-header-tactile [class*="via-[#3B82F6]"] {
+  display: none !important;
+}
+
+/* Home Footer Procedural Flat Charcoal Grain */
+.home-footer-tactile {
+  position: relative;
+  isolation: isolate;
+  background: #141619;
+  border-top: 1px solid rgba(239, 236, 228, 0.08);
+}
+
+.home-footer-tactile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  filter: grayscale(1) contrast(1.38);
+}
+
+
+

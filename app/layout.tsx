@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Poppins, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { AnimationProvider } from "@/components/providers/AnimationProvider";
@@ -12,15 +12,15 @@ import { Footer } from "@/components/sections/Footer";
 import { CookieConsent } from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/data/siteConfig";
 
-// Primary typography: Space Grotesk (Regular 400, Medium 500, Semibold 600, Bold 700)
-const spaceGrotesk = Space_Grotesk({
+// Official Primary Typeface: Poppins (Brand Guidelines v2.0)
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
-// Technical accent typography: Space Mono (Regular 400, Bold 700)
+// Technical accent typography: Space Mono for restrained technical numbers
 const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
-  colorScheme: "light",
+  themeColor: "#141619",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -69,9 +69,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${spaceMono.variable}`}
+      className={`${poppins.variable} ${spaceMono.variable} dark`}
     >
-      <body className="bg-brand-white text-brand-black min-h-screen selection:bg-brand-red selection:text-white antialiased font-body relative">
+      <body className="bg-void text-soft-white min-h-screen selection:bg-electricBlue selection:text-white antialiased font-body relative overflow-x-hidden">
         <SmoothScrollProvider>
           <AnimationProvider>
             <PageLoader />

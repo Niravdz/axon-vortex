@@ -32,6 +32,7 @@ export interface NavigationConfig {
     description: string;
     items: NavLinkItem[];
   };
+  contactUs: NavLinkItem;
   primaryCta: NavLinkItem;
 }
 
@@ -161,6 +162,11 @@ export const navigationConfig: NavigationConfig = {
         description: "Direct consultation intake & corporate channels",
       },
     ],
+  },
+
+  contactUs: {
+    label: "Contact Us",
+    href: "/contact",
   },
 
   primaryCta: {

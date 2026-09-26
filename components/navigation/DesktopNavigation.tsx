@@ -1,19 +1,16 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { navigationConfig } from "./navigationConfig";
 import { DropdownMenu } from "./DropdownMenu";
 import { MegaMenu } from "./MegaMenu";
 
-interface DesktopNavigationProps {
-  isDarkPage?: boolean;
-}
-
 type MenuKey = "solutions" | "services" | "company" | null;
 
-export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps) {
+export function DesktopNavigation() {
   const [activeMenu, setActiveMenu] = useState<MenuKey>(null);
   const pathname = usePathname();
   const navContainerRef = useRef<HTMLDivElement>(null);
@@ -31,7 +28,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
   );
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Clear pending close timeout
   const clearCloseTimeout = useCallback(() => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -39,7 +35,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     }
   }, []);
 
-  // Set delayed close timeout (safe hover corridor)
   const scheduleClose = useCallback(() => {
     clearCloseTimeout();
     closeTimeoutRef.current = setTimeout(() => {
@@ -47,7 +42,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     }, 180);
   }, [clearCloseTimeout]);
 
-  // Immediate menu opening or switching
   const handleTriggerMouseEnter = (menu: "solutions" | "services" | "company") => {
     clearCloseTimeout();
     setActiveMenu(menu);
@@ -58,13 +52,11 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
-  // Close when pathname changes
   useEffect(() => {
     setActiveMenu(null);
     clearCloseTimeout();
   }, [pathname, clearCloseTimeout]);
 
-  // Click outside listener
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -83,7 +75,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     };
   }, [clearCloseTimeout]);
 
-  // Keyboard accessibility: Escape to close and refocus trigger
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && activeMenu) {
@@ -98,7 +89,6 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeMenu, clearCloseTimeout, triggerRefs]);
 
-  // Active section detection
   const isSolutionsActive =
     pathname === "/solutions" ||
     pathname === "/digital-marketing" ||
@@ -115,18 +105,9 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     pathname === "/approach" ||
     pathname === "/growth-audit" ||
     pathname === "/insights" ||
-    pathname.startsWith("/insights/") ||
-    pathname === "/contact";
+    pathname.startsWith("/insights/");
 
-  // Visual styling variables based on hero tone
-  const textMutedColor = isDarkPage
-    ? "text-white/75 hover:text-white"
-    : "text-[#090909]/75 hover:text-[#090909]";
-  const activeColor = isDarkPage ? "text-[#FFD447]" : "text-[#F23B32]";
-  const activeIndicatorColor = isDarkPage ? "bg-[#FFD447]" : "bg-[#F23B32]";
-  const triggerBorderHover = isDarkPage
-    ? "hover:bg-white/10"
-    : "hover:bg-brand-black/5";
+  const isContactActive = pathname === "/contact";
 
   return (
     <nav
@@ -137,7 +118,7 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
     >
       {/* 1. SOLUTIONS TRIGGER & DROPDOWN */}
       <div
-        className="relative"
+        className="relative h-full flex items-center"
         onMouseEnter={() => handleTriggerMouseEnter("solutions")}
         onMouseLeave={scheduleClose}
       >
@@ -150,22 +131,22 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
           aria-expanded={activeMenu === "solutions"}
           aria-controls="nav-dropdown-solutions"
           onClick={() => handleTriggerClick("solutions")}
-          className={`group flex items-center gap-1.5 px-3.5 py-2 text-xs font-heading font-bold uppercase tracking-wider transition-colors select-none ${triggerBorderHover} ${
+          className={`group flex items-center gap-1.5 px-3.5 py-2 text-xs font-heading font-medium tracking-wide transition-all select-none rounded-[6px] hover:bg-white/[0.06] ${
             activeMenu === "solutions" || isSolutionsActive
-              ? activeColor
-              : textMutedColor
+              ? "text-[#3B82F6]"
+              : "text-[#EFECE4]/80 hover:text-[#EFECE4]"
           }`}
         >
           <span>{navigationConfig.solutions.label}</span>
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${
-              activeMenu === "solutions" ? "rotate-180" : ""
+              activeMenu === "solutions" ? "rotate-180 text-[#3B82F6]" : "opacity-60"
             }`}
             aria-hidden="true"
           />
           {isSolutionsActive && (
             <span
-              className={`absolute bottom-0 left-3.5 right-3.5 h-[2px] ${activeIndicatorColor}`}
+              className="absolute bottom-3 left-3.5 right-3.5 h-[2px] bg-[#3B82F6] rounded-full shadow-[0_0_8px_#3B82F6]"
               aria-hidden="true"
             />
           )}
@@ -189,7 +170,7 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
 
       {/* 2. SERVICES TRIGGER & MEGA-MENU */}
       <div
-        className="relative"
+        className="relative h-full flex items-center"
         onMouseEnter={() => handleTriggerMouseEnter("services")}
         onMouseLeave={scheduleClose}
       >
@@ -200,31 +181,31 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
           type="button"
           aria-haspopup="true"
           aria-expanded={activeMenu === "services"}
-          aria-controls="nav-megamenu-services"
+          aria-controls="nav-dropdown-services"
           onClick={() => handleTriggerClick("services")}
-          className={`group flex items-center gap-1.5 px-3.5 py-2 text-xs font-heading font-bold uppercase tracking-wider transition-colors select-none ${triggerBorderHover} ${
+          className={`group flex items-center gap-1.5 px-3.5 py-2 text-xs font-heading font-medium tracking-wide transition-all select-none rounded-[6px] hover:bg-white/[0.06] ${
             activeMenu === "services" || isServicesActive
-              ? activeColor
-              : textMutedColor
+              ? "text-[#3B82F6]"
+              : "text-[#EFECE4]/80 hover:text-[#EFECE4]"
           }`}
         >
           <span>{navigationConfig.services.label}</span>
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${
-              activeMenu === "services" ? "rotate-180" : ""
+              activeMenu === "services" ? "rotate-180 text-[#3B82F6]" : "opacity-60"
             }`}
             aria-hidden="true"
           />
           {isServicesActive && (
             <span
-              className={`absolute bottom-0 left-3.5 right-3.5 h-[2px] ${activeIndicatorColor}`}
+              className="absolute bottom-3 left-3.5 right-3.5 h-[2px] bg-[#3B82F6] rounded-full shadow-[0_0_8px_#3B82F6]"
               aria-hidden="true"
             />
           )}
         </button>
 
         <MegaMenu
-          id="nav-megamenu-services"
+          id="nav-dropdown-services"
           isOpen={activeMenu === "services"}
           tagline={navigationConfig.services.tagline}
           description={navigationConfig.services.description}
@@ -240,7 +221,7 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
 
       {/* 3. COMPANY TRIGGER & DROPDOWN */}
       <div
-        className="relative"
+        className="relative h-full flex items-center"
         onMouseEnter={() => handleTriggerMouseEnter("company")}
         onMouseLeave={scheduleClose}
       >
@@ -253,22 +234,22 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
           aria-expanded={activeMenu === "company"}
           aria-controls="nav-dropdown-company"
           onClick={() => handleTriggerClick("company")}
-          className={`group flex items-center gap-1.5 px-3.5 py-2 text-xs font-heading font-bold uppercase tracking-wider transition-colors select-none ${triggerBorderHover} ${
+          className={`group flex items-center gap-1.5 px-3.5 py-2 text-xs font-heading font-medium tracking-wide transition-all select-none rounded-[6px] hover:bg-white/[0.06] ${
             activeMenu === "company" || isCompanyActive
-              ? activeColor
-              : textMutedColor
+              ? "text-[#3B82F6]"
+              : "text-[#EFECE4]/80 hover:text-[#EFECE4]"
           }`}
         >
           <span>{navigationConfig.company.label}</span>
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${
-              activeMenu === "company" ? "rotate-180" : ""
+              activeMenu === "company" ? "rotate-180 text-[#3B82F6]" : "opacity-60"
             }`}
             aria-hidden="true"
           />
           {isCompanyActive && (
             <span
-              className={`absolute bottom-0 left-3.5 right-3.5 h-[2px] ${activeIndicatorColor}`}
+              className="absolute bottom-3 left-3.5 right-3.5 h-[2px] bg-[#3B82F6] rounded-full shadow-[0_0_8px_#3B82F6]"
               aria-hidden="true"
             />
           )}
@@ -287,6 +268,27 @@ export function DesktopNavigation({ isDarkPage = false }: DesktopNavigationProps
           onMouseEnter={clearCloseTimeout}
           onMouseLeave={scheduleClose}
         />
+      </div>
+
+      {/* 4. CONTACT US DIRECT LINK */}
+      <div className="relative h-full flex items-center">
+        <Link
+          href="/contact"
+          data-nav-item
+          className={`px-3.5 py-2 text-xs font-heading font-medium tracking-wide transition-all select-none rounded-[6px] hover:bg-white/[0.06] ${
+            isContactActive
+              ? "text-[#3B82F6]"
+              : "text-[#EFECE4]/80 hover:text-[#EFECE4]"
+          }`}
+        >
+          <span>Contact Us</span>
+          {isContactActive && (
+            <span
+              className="absolute bottom-3 left-3.5 right-3.5 h-[2px] bg-[#3B82F6] rounded-full shadow-[0_0_8px_#3B82F6]"
+              aria-hidden="true"
+            />
+          )}
+        </Link>
       </div>
     </nav>
   );

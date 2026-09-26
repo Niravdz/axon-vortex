@@ -1,68 +1,165 @@
-/* GPU Layer */
+/* ==========================================================================
+   AxonVortex 3D Dimensional Technology Animation & Material Styles
+   ========================================================================== */
+
+/* GPU Layer acceleration */
 .gpu-layer {
   transform: translateZ(0);
   backface-visibility: hidden;
   will-change: transform, opacity;
 }
 
-/* Frosted Editorial Card */
-.editorial-card {
-  background: rgba(255, 255, 255, 0.75) !important;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(30, 30, 46, 0.12) !important;
-  border-radius: 4px;
+/* 1. Frosted Glass Material Token */
+.glass-surface {
+  background: rgba(15, 39, 71, 0.68);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(239, 236, 228, 0.12);
+  box-shadow: 
+    0 10px 30px -5px rgba(5, 15, 30, 0.6),
+    0 2px 6px -1px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 0 rgba(239, 236, 228, 0.15),
+    inset 0 -1px 0 0 rgba(10, 25, 45, 0.4);
   position: relative;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px -4px rgba(30, 30, 46, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.editorial-card:hover {
-  border-color: rgba(0, 194, 199, 0.85) !important;
-  background: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 16px 36px -8px rgba(30, 30, 46, 0.12);
+.glass-surface:hover {
+  background: rgba(22, 50, 88, 0.78);
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 
+    0 16px 36px -6px rgba(5, 15, 30, 0.7),
+    0 0 20px -2px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 0 rgba(239, 236, 228, 0.25);
 }
 
-.editorial-card .card-hover-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 0%;
-  background: #00C2C7;
-  transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+/* 2. Soft Elevation Material Token */
+.soft-elevation {
+  background: #112847;
+  border: 1px solid rgba(45, 91, 185, 0.28);
+  box-shadow:
+    0 8px 24px -4px rgba(4, 12, 24, 0.6),
+    inset 0 1px 0 0 rgba(239, 236, 228, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.editorial-card:hover .card-hover-accent {
-  height: 100%;
+.soft-elevation:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow:
+    0 14px 32px -4px rgba(4, 12, 24, 0.75),
+    0 0 16px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 0 rgba(239, 236, 228, 0.2);
 }
 
-.editorial-card:hover .card-shift-content {
-  transform: translateX(4px);
+/* 3. Blue Glow (Axon / Intelligence / Systems) */
+.glow-blue {
+  box-shadow: 
+    0 0 24px rgba(59, 130, 246, 0.35),
+    0 8px 20px -4px rgba(5, 15, 30, 0.6),
+    inset 0 1px 0 0 rgba(239, 236, 228, 0.2);
 }
 
-.card-shift-content {
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+.glow-blue-subtle {
+  box-shadow: 
+    0 0 14px rgba(59, 130, 246, 0.2),
+    0 4px 12px -2px rgba(5, 15, 30, 0.5);
 }
 
-/* Subtle Architectural Grid Overlay */
-.editorial-grid {
-  background-size: 60px 60px;
+/* 4. Amber Glow (Vortex / Momentum / Growth) */
+.glow-amber {
+  box-shadow: 
+    0 0 26px rgba(244, 186, 0, 0.4),
+    0 8px 20px -4px rgba(5, 15, 30, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+.glow-amber-subtle {
+  box-shadow: 
+    0 0 14px rgba(244, 186, 0, 0.22),
+    0 4px 12px -2px rgba(5, 15, 30, 0.5);
+}
+
+/* 3D Perspective Container */
+.perspective-container {
+  perspective: 1000px;
+}
+
+/* Smooth Tilt Card for 3D depth */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+/* Tactile 3D Button Actions */
+.btn-tactile {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
+}
+
+.btn-tactile:hover {
+  transform: translateY(-2px);
+}
+
+.btn-tactile:active {
+  transform: translateY(1px);
+}
+
+/* Fine atmospheric grid */
+.tech-grid {
+  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(30, 30, 46, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(30, 30, 46, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(45, 91, 185, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(45, 91, 185, 0.08) 1px, transparent 1px);
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+.tech-grid-dots {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px);
+}
+
+/* Specular light sweep animation */
+@keyframes lightSweep {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+    opacity: 0;
   }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+.animate-sweep {
+  animation: lightSweep 4s ease-in-out infinite;
+}
+
+/* Pulse glow keyframe */
+@keyframes bluePulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.55);
+  }
+}
+
+@keyframes amberPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(244, 186, 0, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(244, 186, 0, 0.55);
+  }
+}
+
+.pulse-blue {
+  animation: bluePulse 3.5s ease-in-out infinite;
+}
+
+.pulse-amber {
+  animation: amberPulse 3.5s ease-in-out infinite;
 }
 
 /* Taxonomy Scroll Story (Unified Two-Column Stage) */
@@ -100,6 +197,24 @@
   visibility: visible;
 }
 
-.taxonomy-story__step {
-  min-height: clamp(580px, 78svh, 860px);
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .btn-tactile:hover,
+  .btn-tactile:active,
+  .tilt-card:hover {
+    transform: none !important;
+  }
+  .pulse-blue,
+  .pulse-amber,
+  .animate-sweep {
+    animation: none !important;
+  }
 }

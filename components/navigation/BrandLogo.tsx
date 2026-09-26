@@ -3,53 +3,102 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface BrandLogoProps {
   className?: string;
-  showText?: boolean;
+  variant?: "responsive" | "horizontal" | "monogram" | "stacked";
   tone?: "light" | "dark";
+  priority?: boolean;
 }
 
-/** Render the official AxonVortex logo asset without redrawing, distortion, or artificial effects */
+/**
+ * Official AxonVortex Brand Logo Component
+ * Uses the official Brand Guidelines Version 2.0 assets
+ * Preserves exact aspect ratios, clear space, and brand colors
+ */
 export function BrandLogo({
   className = "",
-  showText = true,
-  tone = "light",
+  variant = "responsive",
+  priority = true,
 }: BrandLogoProps) {
-  const isDark = tone === "dark";
-
   return (
     <Link
       href="/"
-      aria-label="AxonVortex home"
-      className={`group inline-flex items-center gap-3 select-none transition-opacity hover:opacity-95 ${className}`}
+      aria-label="AxonVortex Home"
+      className={cn(
+        "group inline-flex items-center select-none transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electricBlue focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-md",
+        className
+      )}
     >
-      <div className="relative size-10 sm:size-11 shrink-0 overflow-hidden rounded-full border-2 border-[#090909] shadow-[2px_2px_0px_0px_#090909] bg-white">
-        <Image
-          src="/assets/axon-vortex-logo.jpeg"
-          alt="AxonVortex official logo"
-          width={44}
-          height={44}
-          priority
-          className="size-full object-cover"
-        />
-      </div>
-      {showText && (
-        <div className="flex flex-col leading-none">
-          <span
-            className={`font-heading font-black text-lg sm:text-xl tracking-tight uppercase ${
-              isDark ? "text-white" : "text-[#090909]"
-            }`}
-          >
-            AXON<span className="text-[#F23B32]">VORTEX</span>
-          </span>
-          <span
-            className={`font-mono text-[9px] tracking-widest uppercase mt-0.5 ${
-              isDark ? "text-white/60" : "text-[#090909]/60"
-            }`}
-          >
-            DIGITAL GROWTH
-          </span>
+      {/* 1. Responsive: Monogram on mobile, Full horizontal lockup on sm+ */}
+      {variant === "responsive" && (
+        <div className="flex items-center">
+          {/* Mobile compact monogram */}
+          <div className="relative h-10 w-11 sm:hidden flex items-center justify-center">
+            <Image
+              src="/brand/axon-vortex-monogram.png"
+              alt="AxonVortex"
+              width={130}
+              height={112}
+              priority={priority}
+              className="h-full w-auto object-contain drop-shadow-[0_0_12px_rgba(59,130,246,0.35)]"
+            />
+          </div>
+
+          {/* Desktop horizontal lockup */}
+          <div className="relative hidden sm:flex items-center h-11 w-44 md:h-12 md:w-48">
+            <Image
+              src="/brand/axon-vortex-horizontal-logo.png"
+              alt="AxonVortex"
+              width={288}
+              height={98}
+              priority={priority}
+              className="h-full w-auto object-contain drop-shadow-[0_0_16px_rgba(59,130,246,0.3)]"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* 2. Explicit Horizontal Lockup */}
+      {variant === "horizontal" && (
+        <div className="relative h-11 w-44 md:h-12 md:w-48 flex items-center">
+          <Image
+            src="/brand/axon-vortex-horizontal-logo.png"
+            alt="AxonVortex"
+            width={288}
+            height={98}
+            priority={priority}
+            className="h-full w-auto object-contain drop-shadow-[0_0_16px_rgba(59,130,246,0.3)]"
+          />
+        </div>
+      )}
+
+      {/* 3. Explicit Monogram Icon */}
+      {variant === "monogram" && (
+        <div className="relative h-12 w-12 flex items-center justify-center">
+          <Image
+            src="/brand/axon-vortex-monogram.png"
+            alt="AxonVortex Monogram"
+            width={130}
+            height={112}
+            priority={priority}
+            className="h-full w-auto object-contain drop-shadow-[0_0_14px_rgba(59,130,246,0.4)]"
+          />
+        </div>
+      )}
+
+      {/* 4. Explicit Stacked Lockup */}
+      {variant === "stacked" && (
+        <div className="relative h-20 w-24 flex items-center justify-center">
+          <Image
+            src="/brand/axon-vortex-stacked-logo.png"
+            alt="AxonVortex Stacked Logo"
+            width={145}
+            height={122}
+            priority={priority}
+            className="h-full w-auto object-contain drop-shadow-[0_0_16px_rgba(59,130,246,0.35)]"
+          />
         </div>
       )}
     </Link>

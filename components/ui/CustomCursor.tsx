@@ -42,7 +42,9 @@ export function CustomCursor() {
         target?.closest("button") ||
         target?.closest("a") ||
         target?.closest("[data-magnetic]") ||
-        target?.closest("[data-cursor-hover]")
+        target?.closest("[data-cursor-hover]") ||
+        target?.closest("input") ||
+        target?.closest("textarea")
       ) {
         setIsHovered(true);
       } else {
@@ -77,16 +79,16 @@ export function CustomCursor() {
       {/* Precision center dot */}
       <div
         ref={cursorDotRef}
-        className="fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-accent pointer-events-none transition-transform duration-200"
+        className="fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] pointer-events-none transition-transform duration-200"
       />
 
       {/* Trailing follower ring */}
       <div
         ref={cursorRingRef}
-        className={`fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/40 pointer-events-none transition-all duration-300 ease-out ${
+        className={`fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full border pointer-events-none transition-all duration-300 ease-out ${
           isHovered
-            ? "w-12 h-12 bg-accent/10 border-accent scale-110"
-            : "w-8 h-8 scale-100"
+            ? "w-11 h-11 bg-[#3B82F6]/10 border-[#3B82F6] shadow-[0_0_16px_rgba(59,130,246,0.35)] scale-110"
+            : "w-7 h-7 border-white/25 scale-100"
         }`}
       />
     </div>

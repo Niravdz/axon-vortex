@@ -30,28 +30,13 @@ export function Navbar() {
       ).fromTo(
         "[data-nav-item]",
         { y: -8, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, stagger: 0.07 },
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
         "-=0.3"
       );
     }, headerRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
-
-  // Determine if current hero section uses a dark surface
-  const isDarkPage =
-    pathname === "/about" ||
-    pathname === "/ai-automation" ||
-    pathname === "/technology-digital-transformation";
-
-  const isSoftGrayPage =
-    pathname === "/solutions" ||
-    pathname === "/services" ||
-    pathname === "/lead-generation" ||
-    pathname === "/approach" ||
-    pathname === "/growth-audit" ||
-    pathname === "/contact" ||
-    pathname.startsWith("/services/");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,69 +46,81 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Determine background styling that merges seamlessly with hero without unnecessary divider
-  const headerBgClass = isScrolled
-    ? isDarkPage
-      ? "bg-[#0F2747]/95 backdrop-blur-md border-b-2 border-white/20 shadow-[0_4px_0_0_#090909]"
-      : isSoftGrayPage
-        ? "bg-[#E9EDF2]/95 backdrop-blur-md border-b-2 border-[#090909] shadow-[0_4px_0_0_#090909]"
-        : "bg-white/95 backdrop-blur-md border-b-2 border-[#090909] shadow-[0_4px_0_0_#090909]"
-    : isDarkPage
-      ? "bg-[#0F2747]"
-      : isSoftGrayPage
-        ? "bg-[#E9EDF2]"
-        : "bg-white";
+  const handleCloseMobile = React.useCallback(() => {
+    setIsMobileOpen(false);
+  }, []);
+
+  const isHomePage = pathname === "/";
 
   return (
     <>
       <header
         ref={headerRef}
         role="banner"
-        className={`sticky top-0 z-50 w-full transition-colors duration-200 ${headerBgClass}`}
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+          isHomePage
+            ? `home-header-tactile ${
+                isScrolled
+                  ? "shadow-[0_12px_36px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(239,236,228,0.1)] h-18 sm:h-20"
+                  : "shadow-[0_4px_20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(239,236,228,0.06)] h-20"
+              }`
+            : isScrolled
+            ? "bg-[#141619]/95 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_12px_32px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)] h-18 sm:h-20"
+            : "bg-[#141619]/85 backdrop-blur-md border-b border-white/[0.08] h-20"
+        }`}
       >
-        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 md:px-12 h-20 flex items-center justify-between gap-4 xl:gap-8">
-          {/* Brand Logo */}
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-full flex items-center justify-between gap-4 xl:gap-8">
+          {/* Official AxonVortex Brand Logo */}
           <div className="shrink-0">
-            <BrandLogo tone={isDarkPage ? "dark" : "light"} />
+            <BrandLogo variant="responsive" />
           </div>
 
           {/* Desktop Multi-Level Dropdown Navigation */}
-          <DesktopNavigation isDarkPage={isDarkPage} />
+          <DesktopNavigation />
 
-          {/* Desktop Primary CTA Button */}
+          {/* Desktop Primary Growth CTA Button with Amber Glow */}
           <div className="hidden lg:flex items-center gap-4 shrink-0">
             <Button
-              variant={isDarkPage ? "yellow" : "primary"}
+              variant="amber"
               size="sm"
               withArrow
               asLink
-              href="/contact"
-              className="min-h-11 shadow-[3px_3px_0px_0px_#090909] hover:shadow-[1px_1px_0px_0px_#090909] active:translate-x-[1px] active:translate-y-[1px]"
+              href="/growth-audit"
+              className="font-medium tracking-wide shadow-[0_4px_16px_rgba(244,186,0,0.35)]"
             >
-              Start a Project
+              Book Growth Audit
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            type="button"
-            onClick={() => setIsMobileOpen((prev) => !prev)}
-            className={`lg:hidden w-11 h-11 flex items-center justify-center border-2 border-brand-black shadow-[2px_2px_0px_0px_#090909] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all ${
-              isDarkPage ? "bg-brand-yellow text-brand-black" : "bg-white text-brand-black"
-            }`}
-            aria-label={isMobileOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={isMobileOpen}
-            aria-controls="mobile-navigation-drawer"
-          >
-            {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Hamburger Trigger */}
+          <div className="flex lg:hidden items-center gap-3">
+            <button
+              type="button"
+              aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileOpen}
+              onClick={() => setIsMobileOpen((prev) => !prev)}
+              className="p-2.5 rounded-[8px] bg-[#171a1e] border border-white/[0.08] text-[#EFECE4] shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#21252a] hover:border-[#3B82F6]/50 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electricBlue"
+            >
+              {isMobileOpen ? (
+                <X className="w-5 h-5 text-[#EFECE4]" />
+              ) : (
+                <Menu className="w-5 h-5 text-[#EFECE4]" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Soft Blue Edge Ambient Light */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#3B82F6]/30 to-transparent"
+        />
       </header>
 
       {/* Mobile Drawer Navigation */}
       <MobileNavigation
         isOpen={isMobileOpen}
-        onClose={() => setIsMobileOpen(false)}
+        onClose={handleCloseMobile}
         currentPath={pathname}
       />
     </>

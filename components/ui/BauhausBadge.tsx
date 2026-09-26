@@ -10,35 +10,35 @@ interface BauhausBadgeProps {
 
 export function BauhausBadge({
   children,
-  variant = "red",
-  shape = "square",
+  variant = "blue",
+  shape = "pill",
   size = "md",
   className = "",
 }: BauhausBadgeProps) {
   const variantStyles = {
-    red: "bg-[#F23B32] text-white border-2 border-[#090909]",
-    yellow: "bg-[#FFD447] text-[#090909] border-2 border-[#090909]",
-    blue: "bg-[#2F5FA7] text-white border-2 border-[#090909]",
-    slate: "bg-[#0F2747] text-white border-2 border-[#090909]",
-    white: "bg-[#FFFFFF] text-[#090909] border-2 border-[#090909]",
-    outline: "bg-transparent text-[#090909] border-2 border-[#090909]",
-  }[variant];
+    red: "bg-[#171a1e] text-[#3B82F6] border border-[#3B82F6]/35 shadow-[0_2px_8px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]",
+    yellow: "bg-[#171a1e] text-[#F4BA00] border border-[#F4BA00]/35 shadow-[0_2px_8px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]",
+    blue: "bg-[#171a1e] text-[#60A5FA] border border-[#3B82F6]/35 shadow-[0_2px_8px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]",
+    slate: "bg-[#1b1e22] text-[#EFECE4] border border-white/[0.08] shadow-[0_2px_8px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]",
+    white: "bg-[#21252a] text-[#EFECE4] border border-white/[0.12] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]",
+    outline: "bg-white/[0.04] text-[#EFECE4] border border-white/[0.08] backdrop-blur-sm",
+  }[variant] || "bg-[#171a1e] text-[#3B82F6] border border-[#3B82F6]/35";
 
   const shapeStyles = {
     pill: "rounded-full",
     circle: "rounded-full aspect-square flex items-center justify-center p-0",
-    square: "rounded-none",
+    square: "rounded-[4px]",
   }[shape];
 
   const sizeStyles = {
-    sm: "text-[11px] px-2.5 py-0.5 tracking-[0.06em] uppercase",
-    md: "text-xs px-3 py-1 tracking-[0.06em] uppercase",
-    lg: "text-sm px-4 py-1.5 tracking-[0.06em] uppercase",
+    sm: "text-[10px] px-2.5 py-0.5 tracking-wider uppercase font-medium",
+    md: "text-xs px-3 py-1 tracking-wider uppercase font-medium",
+    lg: "text-sm px-4 py-1.5 tracking-wider uppercase font-medium",
   }[size];
 
   return (
     <span
-      className={`inline-flex items-center justify-center font-heading font-bold select-none ${variantStyles} ${shapeStyles} ${sizeStyles} ${className}`}
+      className={`inline-flex items-center justify-center select-none backdrop-blur-md ${variantStyles} ${shapeStyles} ${sizeStyles} ${className}`}
     >
       {children}
     </span>

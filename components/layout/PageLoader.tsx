@@ -31,11 +31,11 @@ export function PageLoader() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-loader bg-brand-navy pointer-events-none transition-opacity duration-500 ease-out select-none flex items-center justify-center"
+      className="fixed inset-0 z-loader bg-[#141619] pointer-events-none transition-opacity duration-500 ease-out select-none flex items-center justify-center"
       style={{ opacity: isVisible ? 1 : 0 }}
     >
-      <div className="w-32 h-[2px] bg-border relative overflow-hidden rounded-full">
-        <div className="h-full bg-brand-turquoise animate-pulse w-full origin-left" />
+      <div className="w-32 h-[3px] bg-[#101215] relative overflow-hidden rounded-full border border-white/[0.08] shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]">
+        <div className="h-full bg-gradient-to-r from-[#3B82F6] to-[#F4BA00] animate-pulse w-full origin-left" />
       </div>
     </div>
   );

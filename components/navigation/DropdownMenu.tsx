@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { NavigationLink } from "./NavigationLink";
 import { NavLinkItem } from "./navigationConfig";
 
@@ -11,7 +11,6 @@ interface DropdownMenuProps {
   isOpen: boolean;
   type: "solutions" | "company";
   title: string;
-  number?: string;
   tagline: string;
   description: string;
   items: NavLinkItem[];
@@ -44,34 +43,34 @@ export function DropdownMenu({
       aria-label={`${title} Submenu`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`pt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200 ${
+      className={`pt-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200 ${
         type === "solutions"
           ? "fixed top-20 left-1/2 -translate-x-1/2"
           : "absolute top-full left-1/2 -translate-x-1/2"
       }`}
     >
       {/* Invisible hover bridge connecting trigger to menu */}
-      <div className="absolute top-0 left-0 right-0 h-3 pointer-events-auto" />
+      <div className="absolute top-0 left-0 right-0 h-4 pointer-events-auto" />
 
       {type === "solutions" ? (
-        /* SOLUTIONS DROPDOWN (Wide multi-column Bauhaus grid) */
-        <div className="w-[720px] max-w-[calc(100vw-32px)] border-2 border-brand-black bg-white shadow-[6px_6px_0px_0px_#090909] overflow-hidden">
+        /* SOLUTIONS DROPDOWN: Nested Neumorphic 3D Surface */
+        <div className="w-[720px] max-w-[calc(100vw-32px)] rounded-[16px] border border-white/[0.08] bg-[#1b1e22] shadow-[0_24px_60px_-8px_rgba(0,0,0,0.85),0_8px_20px_-4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] overflow-hidden">
           {/* Header Strip */}
-          <div className="bg-brand-gray border-b-2 border-brand-black p-4 px-6 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="font-heading font-black text-xs uppercase tracking-widest text-brand-black">
+          <div className="bg-[#141619] border-b border-white/[0.06] p-4 px-6 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
+              <span className="font-mono text-xs uppercase tracking-widest text-[#EFECE4]/90 font-medium">
                 {tagline}
               </span>
             </div>
-            <div className="flex items-center gap-1.5" aria-hidden="true">
-              <span className="w-2.5 h-2.5 bg-brand-red border border-brand-black" />
-              <span className="w-2.5 h-2.5 bg-brand-yellow border border-brand-black" />
-              <span className="w-2.5 h-2.5 bg-brand-blue border border-brand-black" />
+            <div className="flex items-center gap-2" aria-hidden="true">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" />
             </div>
           </div>
 
-          {/* Solutions Content Grid (Structured 2-column Bauhaus matrix) */}
-          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-brand-white">
+          {/* Solutions Content Grid (Recessed Container holding Inner Raised Cards) */}
+          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5 bg-[#101215]">
             {items.map((item) => {
               const isActive = currentPath === item.href;
               return (
@@ -90,66 +89,37 @@ export function DropdownMenu({
 
           {/* Bottom Action Strip */}
           {viewAll && (
-            <div className="border-t-2 border-brand-black bg-brand-gray p-3.5 px-6 flex items-center justify-between">
-              <span className="text-xs font-sans text-brand-black/70">
-                Need to map all capabilities into an integrated operating system?
+            <div className="border-t border-white/[0.06] bg-[#141619] p-3.5 px-6 flex items-center justify-between">
+              <span className="text-xs text-[#9AA3B2]">
+                Explore all 5 synchronized commercial domains
               </span>
               <Link
                 href={viewAll.href}
                 onClick={onLinkClick}
-                className="font-heading font-black text-xs uppercase tracking-wider text-brand-black hover:text-brand-red flex items-center gap-1.5 transition-colors"
+                className="font-medium text-xs tracking-wider text-[#3B82F6] hover:text-[#60A5FA] flex items-center gap-1.5 transition-colors group"
               >
                 <span>{viewAll.label}</span>
-                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           )}
         </div>
       ) : (
-        /* COMPANY DROPDOWN (Compact structured editorial list) */
-        <div className="w-[420px] max-w-[calc(100vw-32px)] border-2 border-brand-black bg-white shadow-[6px_6px_0px_0px_#090909] overflow-hidden">
-          {/* Header Strip */}
-          <div className="bg-brand-gray border-b-2 border-brand-black p-4 px-5 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="font-heading font-black text-xs uppercase tracking-widest text-brand-black">
-                {tagline}
-              </span>
-            </div>
-            <span className="font-mono text-[10px] uppercase font-bold text-brand-black/50">
-              AXONVORTEX
-            </span>
-          </div>
-
-          {/* Company Links List */}
-          <div className="p-3 divide-y divide-brand-black/10 flex flex-col bg-white">
-            {items.map((item) => {
-              const isActive = currentPath === item.href;
-              return (
-                <NavigationLink
-                  key={item.href}
-                  href={item.href}
-                  label={item.label}
-                  description={item.description}
-                  isActive={isActive}
-                  onClick={onLinkClick}
-                  variant="line"
-                />
-              );
-            })}
-          </div>
-
-          {/* Footer Notice */}
-          <div className="border-t-2 border-brand-black bg-brand-gray/50 p-3 px-5 flex items-center justify-between text-[11px] font-mono text-brand-black/70">
-            <span>Direct consultation desk</span>
-            <Link
-              href="/contact"
-              onClick={onLinkClick}
-              className="text-brand-red font-bold hover:underline flex items-center gap-1"
-            >
-              <span>Intake Form</span>
-              <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
-            </Link>
-          </div>
+        /* COMPANY DROPDOWN: Compact Dimensional Raised Card */
+        <div className="w-64 rounded-[14px] border border-white/[0.08] bg-[#1b1e22] shadow-[0_20px_48px_-8px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] p-2.5 flex flex-col gap-1 overflow-hidden">
+          {items.map((item) => {
+            const isActive = currentPath === item.href;
+            return (
+              <NavigationLink
+                key={item.href}
+                href={item.href}
+                label={item.label}
+                isActive={isActive}
+                onClick={onLinkClick}
+                variant="simple"
+              />
+            );
+          })}
         </div>
       )}
     </div>
