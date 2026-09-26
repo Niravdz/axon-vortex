@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 export interface JourneyStage {
   step?: string;
@@ -30,7 +31,10 @@ export function HorizontalJourney({
   const [activeStage, setActiveStage] = useState<number>(0);
 
   return (
-    <div className={cn("w-full flex flex-col gap-10", className)}>
+    <MotionSection
+      signature="horizontal-flow-reveal"
+      className={cn("w-full flex flex-col gap-10", className)}
+    >
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
         <div className="flex flex-col gap-3 max-w-2xl">
@@ -74,17 +78,17 @@ export function HorizontalJourney({
                 key={idx}
                 onClick={() => setActiveStage(idx)}
                 className={cn(
-                  "p-5 rounded-[16px] border flex flex-col justify-between gap-4 transition-all duration-200 cursor-pointer group",
+                  "motion-item p-5 rounded-[16px] border flex flex-col justify-between gap-4 box-interactive cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]",
                   isSelected
-                    ? "bg-[#1b1e22] border-[#3B82F6]/50 shadow-[0_8px_24px_rgba(0,0,0,0.6),0_0_16px_rgba(59,130,246,0.15),inset_0_1px_0_rgba(255,255,255,0.1)]"
+                    ? "bg-[#1b1e22] border-[#3B82F6] shadow-box-selected"
                     : isLast
-                    ? "bg-[#141619] border-[#F4BA00]/30 hover:bg-[#171a1e]"
-                    : "bg-[#141619] border-white/[0.06] hover:bg-[#171a1e] hover:border-white/[0.12]"
+                    ? "bg-[#141619] border-[#F4BA00]/30 shadow-box-sm hover:shadow-box-hover hover:bg-[#171a1e]"
+                    : "bg-[#141619] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:bg-[#171a1e] hover:border-white/[0.12]"
                 )}
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b border-white/[0.06] mb-3">
-                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] text-[#3B82F6]">
+                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] text-[#3B82F6] shadow-box-inset">
                       {num}
                     </span>
                     <span
@@ -121,7 +125,7 @@ export function HorizontalJourney({
 
       {/* Recessed Conclusion Strip */}
       {conclusion && (
-        <div className="p-5 rounded-[14px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.78)] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-5 rounded-[14px] bg-[#101215] border border-white/[0.04] shadow-box-inset flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#F4BA00] animate-pulse" />
             <p className="font-heading font-semibold text-xs sm:text-sm uppercase text-[#F4BA00]">
@@ -133,6 +137,6 @@ export function HorizontalJourney({
           </p>
         </div>
       )}
-    </div>
+    </MotionSection>
   );
 }

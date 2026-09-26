@@ -12,6 +12,7 @@ import { DiagnosticMatrix } from "@/components/patterns/DiagnosticMatrix";
 import { ManifestoSection } from "@/components/patterns/ManifestoSection";
 import { OpenNumberedList } from "@/components/patterns/OpenNumberedList";
 import { CTASection } from "@/components/patterns/CTASection";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 export default function ApproachPageClient() {
   const {
@@ -89,14 +90,14 @@ export default function ApproachPageClient() {
                 href: "/growth-audit",
               }}
               rightContent={
-                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6">
+                <div className="rounded-[20px] bg-[#141619] border border-white/[0.08] p-6 sm:p-8 shadow-box-lg flex flex-col gap-6">
                   <span className="font-mono text-xs uppercase tracking-widest text-[#F4BA00] font-semibold">
                     CORE OPERATING PRINCIPLE
                   </span>
                   <p className="font-heading font-medium text-lg sm:text-xl text-[#EFECE4] leading-snug">
                     &ldquo;{startWithProblem.centralQuestion}&rdquo;
                   </p>
-                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] text-xs font-body text-[#9AA3B2] leading-relaxed">
+                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset text-xs font-body text-[#9AA3B2] leading-relaxed">
                     {startWithProblem.conclusion}
                   </div>
                 </div>
@@ -132,10 +133,14 @@ export default function ApproachPageClient() {
         </section>
 
         {/* 4. THE AXONVORTEX GROWTH LOOP */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="sticky-story-step"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Visual Column */}
-            <div className="lg:col-span-6 rounded-[20px] border border-white/[0.08] p-4 bg-[#1b1e22] shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <div className="motion-left lg:col-span-6 rounded-[20px] border border-white/[0.08] p-4 bg-[#141619] shadow-box-lg">
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] border border-white/[0.04] bg-[#101215]">
                 <Image
                   src="/images/bauhaus-diagram-growth-loop.jpg"
@@ -148,8 +153,8 @@ export default function ApproachPageClient() {
             </div>
 
             {/* Content Column */}
-            <div className="lg:col-span-6 flex flex-col gap-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#F4BA00]/30 text-xs font-mono tracking-wider w-fit text-[#FDE68A]">
+            <div className="motion-right lg:col-span-6 flex flex-col gap-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#F4BA00]/30 text-xs font-mono tracking-wider w-fit text-[#FDE68A] shadow-box-sm">
                 <RefreshCw className="w-3.5 h-3.5" />
                 <span>{growthLoop.badge}</span>
               </div>
@@ -164,12 +169,12 @@ export default function ApproachPageClient() {
                 ))}
               </div>
 
-              <div className="p-5 rounded-[14px] bg-[#101215] border border-white/[0.04] text-xs sm:text-sm font-mono text-[#F4BA00]">
+              <div className="p-5 rounded-[14px] bg-[#101215] border border-white/[0.04] shadow-box-inset text-xs sm:text-sm font-mono text-[#F4BA00]">
                 {growthLoop.sequence}
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 4.5 DATA PHILOSOPHY MANIFESTO */}
         <section className="border-b border-[#EFECE4]/[0.08] px-4 sm:px-8 lg:px-12 py-12">
@@ -184,10 +189,14 @@ export default function ApproachPageClient() {
         </section>
 
         {/* 5. HUMAN + AI CO-INTELLIGENCE MODEL */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="contrast-dual-slide"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-12">
             <div className="max-w-3xl flex flex-col gap-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD] shadow-box-sm">
                 <User className="w-3.5 h-3.5" />
                 <span>{humanAi.badge}</span>
               </div>
@@ -201,7 +210,7 @@ export default function ApproachPageClient() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Left: What AI Handles */}
-              <div className="p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-[0_12px_28px_rgba(0,0,0,0.6)] flex flex-col gap-5">
+              <div className="motion-left p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-box-lg flex flex-col gap-5">
                 <div className="flex items-center gap-3 border-b border-white/[0.06] pb-3">
                   <Cpu className="w-5 h-5 text-[#3B82F6]" />
                   <h3 className="font-heading font-semibold text-lg uppercase text-[#EFECE4]">
@@ -219,7 +228,7 @@ export default function ApproachPageClient() {
               </div>
 
               {/* Right: What Humans Handle */}
-              <div className="p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-[0_12px_28px_rgba(0,0,0,0.6)] flex flex-col gap-5">
+              <div className="motion-right p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-box-lg flex flex-col gap-5">
                 <div className="flex items-center gap-3 border-b border-white/[0.06] pb-3">
                   <User className="w-5 h-5 text-[#F4BA00]" />
                   <h3 className="font-heading font-semibold text-lg uppercase text-[#EFECE4]">
@@ -237,7 +246,7 @@ export default function ApproachPageClient() {
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 6. NUMBERED OPERATING PRINCIPLES */}
         <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">

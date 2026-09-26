@@ -24,7 +24,7 @@ export function MobileNavigation({
   onClose,
   currentPath,
 }: MobileNavigationProps) {
-  const [openSection, setOpenSection] = useState<string | null>("services");
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
   const toggleSection = (section: string) => {
     setOpenSection((prev) => (prev === section ? null : section));
@@ -72,7 +72,7 @@ export function MobileNavigation({
       }`}
     >
       {/* Top Header Bar inside Drawer */}
-      <div className="sticky top-0 z-10 bg-[#1b1e22] border-b border-white/[0.08] px-5 py-4 flex items-center justify-between shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
+      <div className="sticky top-0 z-10 bg-[#141619] border-b border-white/[0.08] px-5 py-4 flex items-center justify-between shadow-box-md">
         <div className="flex items-center gap-3">
           <Image
             src="/brand/axon-vortex-monogram.png"
@@ -90,7 +90,7 @@ export function MobileNavigation({
           type="button"
           onClick={onClose}
           aria-label="Close navigation menu"
-          className="w-9 h-9 rounded-[8px] bg-[#171a1e] border border-white/[0.08] flex items-center justify-center text-[#EFECE4] shadow-[0_2px_4px_rgba(0,0,0,0.4)] hover:bg-[#21252a] transition-colors"
+          className="w-11 h-11 rounded-[8px] bg-[#141619] border border-white/[0.08] flex items-center justify-center text-[#EFECE4] shadow-box-sm hover:shadow-box-hover box-interactive hover:bg-[#181c20] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -147,10 +147,10 @@ export function MobileNavigation({
           <Link
             href="/contact"
             onClick={onClose}
-            className={`w-full min-h-[50px] px-4 py-3 rounded-[10px] border flex items-center justify-between text-sm font-medium tracking-wide transition-all shadow-[0_2px_6px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] ${
+            className={`w-full min-h-[50px] px-4 py-3 rounded-[10px] border flex items-center justify-between text-sm font-medium tracking-wide box-interactive shadow-box-sm hover:shadow-box-hover ${
               currentPath === "/contact"
-                ? "bg-[#21252a] border-[#3B82F6]/60 text-[#3B82F6]"
-                : "bg-[#171a1e] border-white/[0.08] text-[#EFECE4] hover:bg-[#21252a] hover:border-[#3B82F6]/40"
+                ? "bg-[#1b1e22] border-[#3B82F6] text-[#3B82F6] shadow-box-selected"
+                : "bg-[#141619] border-white/[0.08] text-[#EFECE4] hover:bg-[#181c20] hover:border-[#3B82F6]/40"
             }`}
           >
             <span>{navigationConfig.contactUs.label}</span>

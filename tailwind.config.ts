@@ -119,6 +119,13 @@ const config: Config = {
         mono: ["var(--font-space-mono)", "Space Mono", "ui-monospace", "monospace"],
       },
       boxShadow: {
+        "box-sm": "var(--shadow-box-sm)",
+        "box-md": "var(--shadow-box-md)",
+        "box-lg": "var(--shadow-box-lg)",
+        "box-hover": "var(--shadow-box-hover)",
+        "box-pressed": "var(--shadow-box-pressed)",
+        "box-selected": "var(--shadow-box-selected)",
+        "box-inset": "var(--shadow-box-inset)",
         "level-0": "none",
         "level-1": "inset 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(239, 236, 228, 0.04)",
         "level-2": "0 4px 14px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(239, 236, 228, 0.12)",

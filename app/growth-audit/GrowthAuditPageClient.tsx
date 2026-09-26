@@ -9,6 +9,7 @@ import { EditorialSplit } from "@/components/patterns/EditorialSplit";
 import { ProcessTimeline } from "@/components/patterns/ProcessTimeline";
 import { AudienceFitChecklist } from "@/components/patterns/AudienceFitChecklist";
 import { CTASection } from "@/components/patterns/CTASection";
+import { MotionSection } from "@/components/animation/MotionSection";
 import { cn } from "@/lib/utils";
 
 export default function GrowthAuditPageClient() {
@@ -80,26 +81,26 @@ export default function GrowthAuditPageClient() {
                 href: "#checkpoints",
               }}
               rightContent={
-                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6">
+                <div className="rounded-[20px] bg-[#141619] border border-white/[0.08] p-6 sm:p-8 shadow-box-lg flex flex-col gap-6">
                   <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 text-xs font-mono">
                     <span className="text-[#3B82F6] font-semibold">DIAGNOSTIC SCOPE</span>
                     <span className="text-[#F4BA00]">ZERO FLUFF</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">AREAS INSPECTED:</span>
                       <span className="font-semibold text-[#EFECE4]">4 System Domains</span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">TOTAL CHECKPOINTS:</span>
                       <span className="font-semibold text-[#F4BA00]">28 Inspection Nodes</span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">DELIVERY TIME:</span>
                       <span className="font-semibold text-[#EFECE4]">5-7 Business Days</span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">OUTPUT FORMAT:</span>
                       <span className="font-semibold text-[#3B82F6]">Actionable Roadmap</span>
                     </div>
@@ -115,11 +116,15 @@ export default function GrowthAuditPageClient() {
         </section>
 
         {/* 2. AUDIT-CATEGORY MATRIX (28 CHECKPOINTS ACROSS 4 DOMAINS) */}
-        <section id="checkpoints" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          id="checkpoints"
+          signature="interactive-matrix-slide"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
               <div className="flex flex-col gap-3 max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#F4BA00]/30 text-xs font-mono tracking-wider w-fit text-[#FDE68A]">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#F4BA00]/30 text-xs font-mono tracking-wider w-fit text-[#FDE68A] shadow-box-sm">
                   <span>28 CHECKPOINT INSPECTION</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
@@ -137,7 +142,7 @@ export default function GrowthAuditPageClient() {
             {/* Desktop Category Selector + Details Console */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Category Buttons Column (4 cols) */}
-              <div className="lg:col-span-5 flex flex-col gap-3">
+              <div className="motion-left lg:col-span-5 flex flex-col gap-3">
                 {scope.categories.map((cat, idx) => {
                   const isActive = activeCategoryIdx === idx;
 
@@ -147,10 +152,10 @@ export default function GrowthAuditPageClient() {
                       type="button"
                       onClick={() => setActiveCategoryIdx(idx)}
                       className={cn(
-                        "w-full text-left p-5 rounded-[14px] border transition-all duration-200 flex items-center justify-between cursor-pointer",
+                        "w-full text-left p-5 rounded-[14px] border box-interactive flex items-center justify-between cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]",
                         isActive
-                          ? "bg-[#1b1e22] text-[#EFECE4] border-[#F4BA00]/50 shadow-[0_8px_20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.1)]"
-                          : "bg-[#141619] text-[#9AA3B2] border-white/[0.06] hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4]"
+                          ? "bg-[#1b1e22] text-[#EFECE4] border-[#F4BA00] shadow-box-selected"
+                          : "bg-[#141619] text-[#9AA3B2] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4]"
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -173,7 +178,7 @@ export default function GrowthAuditPageClient() {
               </div>
 
               {/* Inspection Checkpoints Console (7 cols) */}
-              <div className="lg:col-span-7 rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-10 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6">
+              <div className="motion-right lg:col-span-7 rounded-[20px] bg-[#141619] border border-white/[0.08] p-8 sm:p-10 shadow-box-lg flex flex-col gap-6">
                 <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
                   <span className="font-mono text-xs font-semibold text-[#F4BA00] uppercase tracking-wider">
                     CHECKPOINT LEDGER // {activeCategory.name}
@@ -187,7 +192,7 @@ export default function GrowthAuditPageClient() {
                   {activeCategory.items.map((it, idx) => (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-[10px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-start gap-2.5 text-xs font-body text-[#EFECE4]"
+                      className="p-3.5 rounded-[10px] bg-[#101215] border border-white/[0.04] shadow-box-inset flex items-start gap-2.5 text-xs font-body text-[#EFECE4]"
                     >
                       <Check className="w-3.5 h-3.5 text-[#3B82F6] shrink-0 mt-0.5" />
                       <span>{it}</span>
@@ -202,14 +207,18 @@ export default function GrowthAuditPageClient() {
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 3. LAYERED DELIVERABLES STACK */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="staggered-system-grid"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
               <div className="flex flex-col gap-3 max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD]">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD] shadow-box-sm">
                   <span>DELIVERABLE ARTIFACTS</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
@@ -225,10 +234,10 @@ export default function GrowthAuditPageClient() {
               {deliverables.items.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-[16px] bg-[#141619] border border-white/[0.06] flex flex-col justify-between gap-4"
+                  className="motion-item p-6 rounded-[16px] bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover box-interactive flex flex-col justify-between gap-4"
                 >
                   <div className="flex flex-col gap-3">
-                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] text-[#3B82F6] w-fit">
+                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] shadow-box-inset text-[#3B82F6] w-fit">
                       ARTIFACT 0{idx + 1}
                     </span>
                     <h3 className="font-heading font-semibold text-lg uppercase tracking-tight text-[#EFECE4]">
@@ -242,7 +251,7 @@ export default function GrowthAuditPageClient() {
               ))}
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 4. AUDIT PROCESS TIMELINE */}
         <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">

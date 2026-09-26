@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getGSAP } from "@/lib/gsap";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 export interface NumberedListItem {
   number?: string;
@@ -32,8 +34,41 @@ export function OpenNumberedList({
   items,
   className,
 }: OpenNumberedListProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (prefersReducedMotion || !containerRef.current) return;
+
+    const { gsap } = getGSAP();
+    const el = containerRef.current;
+
+    const ctx = gsap.context(() => {
+      const rows = el.querySelectorAll(".numbered-list-row");
+      gsap.fromTo(
+        rows,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          stagger: 0.1,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 82%",
+            once: true,
+          },
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
+
   return (
-    <div className={cn("w-full flex flex-col gap-10", className)}>
+    <div ref={containerRef} className={cn("w-full flex flex-col gap-10", className)}>
       {(badge || title) && (
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
           <div className="flex flex-col gap-3 max-w-2xl">
@@ -65,7 +100,7 @@ export function OpenNumberedList({
           return (
             <div
               key={idx}
-              className="py-10 sm:py-12 first:pt-4 last:pb-4 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-baseline group"
+              className="numbered-list-row py-10 sm:py-12 first:pt-4 last:pb-4 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-baseline group will-change-[transform,opacity]"
             >
               {/* Massive Tech Number */}
               <div className="lg:col-span-2 font-mono text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3B82F6]/70 group-hover:text-[#3B82F6] transition-colors">
@@ -93,21 +128,21 @@ export function OpenNumberedList({
 
               {/* Description & Link */}
               <div className="lg:col-span-5 flex flex-col gap-4">
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="font-body text-sm sm:text-base text-[#9AA3B2] leading-relaxed">
                   {item.description}
                 </p>
                 {item.subtext && (
-                  <p className="text-xs font-mono text-[#9AA3B2]/70 leading-relaxed border-l border-[#3B82F6]/50 pl-3">
+                  <p className="text-xs font-mono text-[#9AA3B2]/70 leading-relaxed border-l border-[#3B82F6] pl-3">
                     {item.subtext}
                   </p>
                 )}
                 {item.link && (
                   <Link
                     href={item.link.href}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#3B82F6] hover:text-[#60A5FA] transition-colors mt-2"
+                    className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#3B82F6] hover:text-[#60A5FA] group transition-colors pt-1"
                   >
                     <span>{item.link.label}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </Link>
                 )}
               </div>

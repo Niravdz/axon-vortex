@@ -9,3 +9,5 @@ export * from "./ManifestoSection";
 export * from "./RecessedAccordion";
 export * from "./AudienceFitChecklist";
 export * from "./CTASection";
+export * from "./LivingSynapseVisual";
+export * from "./InteractiveDiagnosticEngine";

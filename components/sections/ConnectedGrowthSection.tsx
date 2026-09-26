@@ -1,220 +1,176 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight, Zap, Target, Globe, Database, Cpu, TrendingUp } from "lucide-react";
 import { homeContent } from "@/data/content/home";
-import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import { getGSAP } from "@/lib/gsap";
-import { MatteSection } from "@/components/ui/MatteSection";
-import { RaisedCard } from "@/components/ui/RaisedCard";
+import { MotionSection } from "@/components/animation/MotionSection";
+import { cn } from "@/lib/utils";
+
+const STAGE_ICONS = [Zap, Globe, Target, Database, Cpu, TrendingUp];
+const STAGE_ROUTES = [
+  "/digital-marketing",
+  "/websites-ecommerce",
+  "/lead-generation",
+  "/technology-digital-transformation",
+  "/ai-automation",
+  "/approach",
+];
 
 export function ConnectedGrowthSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
   const { connectedGrowth } = homeContent;
-
-  useLayoutEffect(() => {
-    if (prefersReducedMotion || !containerRef.current) return;
-
-    const { gsap } = getGSAP();
-    const ctx = gsap.context(() => {
-      // Header block entrance
-      gsap.fromTo(
-        "[data-growth-header]",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.65,
-          ease: "power3.out",
-          clearProps: "transform,opacity",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-            once: true,
-          },
-        }
-      );
-
-      // Connecting energy conduit line draw
-      if (lineRef.current) {
-        gsap.fromTo(
-          lineRef.current,
-          { scaleX: 0, transformOrigin: "left center" },
-          {
-            scaleX: 1,
-            duration: 0.9,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: lineRef.current,
-              start: "top 80%",
-              once: true,
-            },
-          }
-        );
-      }
-
-      // Sequential activation of the 6 framework nodes
-      gsap.fromTo(
-        ".pipeline-node",
-        { opacity: 0, y: 28, scale: 0.97 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: "power3.out",
-          clearProps: "transform,opacity",
-          scrollTrigger: {
-            trigger: ".pipeline-node",
-            start: "top 82%",
-            once: true,
-          },
-        }
-      );
-
-      // Feedback loop conduit bar
-      gsap.fromTo(
-        "[data-conduit-bar]",
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          delay: 0.4,
-          ease: "power2.out",
-          clearProps: "transform,opacity",
-          scrollTrigger: {
-            trigger: ".pipeline-node",
-            start: "top 82%",
-            once: true,
-          },
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [prefersReducedMotion]);
+  const [activeStageIdx, setActiveStageIdx] = useState<number>(0);
+  const activeStep = connectedGrowth.steps[activeStageIdx] || connectedGrowth.steps[0];
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full bg-[#121519] text-[#EFECE4] border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12 overflow-hidden"
+    <MotionSection
+      signature="pipeline-assembly-stagger"
+      direction="right"
+      threshold="top 80%"
+      className="relative w-full bg-[#101215] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08] overflow-x-clip"
     >
-      {/* Background Subtle Ambient Glow */}
+      {/* Background Subtle Gradient Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-10 right-1/4 w-[600px] h-[500px] bg-[#3B82F6]/[0.05] rounded-full blur-[140px]"
+        className="pointer-events-none absolute top-1/2 left-1/3 w-[600px] h-[500px] bg-[#3B82F6]/[0.05] rounded-full blur-[160px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-10 right-1/4 w-[400px] h-[400px] bg-[#F4BA00]/[0.04] rounded-full blur-[140px]"
       />
 
-      <div className="max-w-7xl mx-auto">
-        <MatteSection radius="24" className="p-6 sm:p-10 lg:p-12">
-          {/* Header Block */}
-          <div
-            data-growth-header
-            className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-[#EFECE4]/[0.08] will-change-[transform,opacity]"
-          >
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#20252B] border border-[#3B82F6]/30 text-xs font-mono tracking-wider text-[#3B82F6] mb-4 shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00] animate-pulse" />
-                <span>{connectedGrowth.badge}</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold tracking-tight uppercase leading-[1.05] text-[#EFECE4]">
-                {connectedGrowth.headline}
-              </h2>
-              <p className="mt-4 font-body text-sm sm:text-base text-[#9AA3B2]">
-                {connectedGrowth.subheading}
-              </p>
+      <div className="max-w-7xl mx-auto flex flex-col gap-14 sm:gap-16">
+        {/* Open Editorial Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-4">
+          <div data-motion-title className="max-w-3xl flex flex-col gap-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD] shadow-box-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
+              <span>{connectedGrowth.badge}</span>
             </div>
 
-            <div className="rounded-[14px] border border-white/[0.08] p-5 bg-[#171a1e] max-w-sm shrink-0 shadow-[0_8px_20px_-3px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)]">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#F4BA00] block mb-1 font-semibold">
-                SYSTEM MANDATE
-              </span>
-              <p className="font-body text-xs text-[#EFECE4]/85 leading-relaxed">
-                {connectedGrowth.objective}
-              </p>
-            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold tracking-tight uppercase leading-[1.06] text-[#EFECE4]">
+              {connectedGrowth.headline}
+            </h2>
+
+            <p className="font-body text-base sm:text-lg text-[#9AA3B2] leading-relaxed">
+              {connectedGrowth.subheading}{" "}
+              <span className="text-[#EFECE4] font-medium">{connectedGrowth.objective}</span>
+            </p>
           </div>
 
-          {/* Connected Growth System Diagram with Conduit Line */}
-          <div className="mt-10 pt-4 relative">
-            {/* Architectural blue-to-amber energy conduit line */}
-            <div
-              ref={lineRef}
-              aria-hidden="true"
-              className="hidden xl:block absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-[#3B82F6] via-[#2D5BB9] to-[#F4BA00] z-0 will-change-transform shadow-[0_0_12px_rgba(59,130,246,0.4)]"
-            />
+          <div data-motion-title className="flex items-center gap-3 font-mono text-xs text-[#9AA3B2]">
+            <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-ping" />
+            <span>CONTINUOUS CLOSED-LOOP ARCHITECTURE</span>
+          </div>
+        </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 items-stretch relative z-10">
-              {connectedGrowth.steps.map((step, idx) => {
-                const isAccent = idx === 5; // Final conversion step
+        {/* The Living Connected System Architecture Stream */}
+        <div className="w-full flex flex-col gap-8">
+          {/* Continuous Connected Nodes (Desktop Horizontal / Mobile Vertical) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4 relative">
+            {connectedGrowth.steps.map((step, idx) => {
+              const Icon = STAGE_ICONS[idx % STAGE_ICONS.length];
+              const isSelected = idx === activeStageIdx;
+              return (
+                <button
+                  key={idx}
+                  data-motion-card
+                  type="button"
+                  onClick={() => setActiveStageIdx(idx)}
+                  className={cn(
+                    "p-5 rounded-[16px] text-left box-interactive flex flex-col justify-between gap-4 group cursor-pointer relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] will-change-[transform,opacity]",
+                    isSelected
+                      ? "bg-[#1b1e22] border border-[#3B82F6] shadow-box-selected"
+                      : "bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:border-white/[0.14] hover:bg-[#181c20]"
+                  )}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span
+                      className={cn(
+                        "font-mono text-xs font-semibold tracking-wider",
+                        isSelected ? "text-[#3B82F6]" : "text-[#9AA3B2]"
+                      )}
+                    >
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
 
-                return (
-                  <RaisedCard
-                    key={idx}
-                    radius="12"
-                    glowOnHover={isAccent ? "amber" : "blue"}
-                    className={`pipeline-node relative p-5 flex flex-col justify-between group will-change-[transform,opacity] ${
-                      isAccent
-                        ? "border-[#F4BA00]/40 shadow-[0_8px_24px_rgba(0,0,0,0.6),0_0_16px_rgba(244,186,0,0.2),inset_0_1px_0_rgba(239,236,228,0.2)]"
-                        : ""
-                    }`}
-                  >
-                    <div>
-                      {/* Top Row: Category and indicator */}
-                      <div className="flex items-center justify-between pb-3 border-b border-white/[0.06] mb-3">
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-[#9AA3B2] font-medium truncate">
-                          {step.category}
-                        </span>
-                        <span
-                          className={`w-2 h-2 rounded-full shrink-0 transition-colors ${
-                            isAccent
-                              ? "bg-[#F4BA00] shadow-[0_0_8px_#F4BA00]"
-                              : "bg-[#3B82F6]/60 group-hover:bg-[#3B82F6]"
-                          }`}
-                          aria-hidden="true"
-                        />
-                      </div>
-
-                      {/* Number and Step Name */}
-                      <div className="flex items-baseline gap-2 mb-2">
-                        <span className="font-mono text-xs font-semibold text-[#3B82F6]">
-                          0{idx + 1}
-                        </span>
-                        <h3 className="font-heading font-semibold text-sm uppercase text-[#EFECE4] group-hover:text-[#60A5FA] transition-colors leading-tight">
-                          {step.name}
-                        </h3>
-                      </div>
-
-                      <p className="font-body text-xs text-[#9AA3B2] leading-relaxed">
-                        {step.description}
-                      </p>
+                    <div
+                      className={cn(
+                        "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
+                        isSelected
+                          ? "bg-[#3B82F6] text-white shadow-[0_0_10px_rgba(59,130,246,0.6)]"
+                          : "bg-white/[0.04] text-[#9AA3B2] group-hover:text-[#EFECE4]"
+                      )}
+                    >
+                      <Icon className="w-4 h-4" />
                     </div>
-                  </RaisedCard>
-                );
-              })}
-            </div>
+                  </div>
 
-            {/* Recessed Continuous Feedback Loop Bar */}
-            <div
-              data-conduit-bar
-              className="mt-8 p-4 sm:p-5 rounded-[14px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.78),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.04)] flex flex-col sm:flex-row items-center justify-between gap-4 will-change-[transform,opacity]"
-            >
+                  <div>
+                    <h3
+                      className={cn(
+                        "font-heading font-semibold text-lg uppercase leading-tight mb-1",
+                        isSelected ? "text-[#EFECE4]" : "text-[#EFECE4]/85"
+                      )}
+                    >
+                      {step.name}
+                    </h3>
+                    <span className="block font-mono text-[11px] text-[#F4BA00] uppercase tracking-wider mb-2">
+                      {step.category}
+                    </span>
+                    <p className="font-body text-xs text-[#9AA3B2] leading-relaxed line-clamp-2">
+                      {step.description}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Selected Stage Live Deep Dive Telemetry */}
+          <div
+            data-motion-card
+            className="rounded-[20px] bg-[#141619] border border-white/[0.08] p-6 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 shadow-box-lg will-change-[transform,opacity]"
+          >
+            <div className="flex flex-col gap-3 max-w-2xl">
               <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#F4BA00] animate-pulse" />
-                <span className="font-mono text-xs uppercase tracking-wider text-[#EFECE4]/90 font-medium">
-                  CONTINUOUS LOOP: DATA → ADAPTATION → SCALE
+                <span className="font-mono text-xs uppercase tracking-widest text-[#3B82F6] font-semibold px-2.5 py-1 rounded bg-[#3B82F6]/10 border border-[#3B82F6]/20">
+                  SYSTEM NODE 0{activeStageIdx + 1} {"//"} {activeStep.category}
                 </span>
               </div>
-              <p className="text-xs font-body text-[#9AA3B2] text-center sm:text-right max-w-md">
-                Systems don&apos;t end at conversion. Conversion data feeds directly back into positioning, paid acquisition, and automated follow-ups.
+              <h4 className="font-heading font-semibold text-2xl sm:text-3xl text-[#EFECE4]">
+                Phase {activeStageIdx + 1}: {activeStep.name}
+              </h4>
+              <p className="font-body text-sm sm:text-base text-[#9AA3B2] leading-relaxed">
+                {activeStep.description} This stage feeds real-time performance telemetry directly into the adjacent operational layers, ensuring marketing, technology, and AI execution compound synergistically.
               </p>
             </div>
+
+            <Link
+              href={STAGE_ROUTES[activeStageIdx] || "/solutions"}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#1b1e22] border border-[#3B82F6]/40 hover:border-[#3B82F6] hover:bg-[#20252b] text-[#EFECE4] hover:text-white font-mono text-xs uppercase tracking-wider transition-all shrink-0 shadow-box-sm hover:shadow-box-hover box-interactive group"
+            >
+              <span>Explore {activeStep.category} Architecture</span>
+              <ArrowUpRight className="w-4 h-4 text-[#3B82F6] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
           </div>
-        </MatteSection>
+
+          {/* Feedback Loop Telemetry Bar */}
+          <div
+            data-motion-card
+            className="p-4 sm:p-5 rounded-[14px] bg-[#121519] border border-white/[0.04] shadow-box-inset flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#9AA3B2] will-change-[transform,opacity]"
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" />
+              <span className="text-[#EFECE4] font-medium">CONTINUOUS IMPROVEMENT LOOP:</span>
+              <span className="hidden sm:inline">Build → Launch → Measure → Learn → Improve → Scale</span>
+            </div>
+            <span className="text-[#3B82F6] uppercase tracking-wider">
+              CLOSED-LOOP REVENUE ARCHITECTURE
+            </span>
+          </div>
+        </div>
       </div>
-    </section>
+    </MotionSection>
   );
 }

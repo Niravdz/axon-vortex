@@ -249,7 +249,7 @@ export default function TermsOfServiceContent() {
         <h2 className="text-2xl font-heading font-semibold text-[#EFECE4]">
           17. Contact
         </h2>
-        <div className="p-6 rounded-2xl bg-[#1b1e22] border border-white/[0.08] shadow-[0_12px_28px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-3 font-mono text-xs">
+        <div className="p-6 rounded-2xl bg-[#1b1e22] border border-white/[0.08] shadow-box-md flex flex-col gap-3 font-mono text-xs">
           <span className="font-semibold text-[#EFECE4] text-sm">
             <LegalPlaceholder text="AxonVortex Legal Entity Name" />
           </span>

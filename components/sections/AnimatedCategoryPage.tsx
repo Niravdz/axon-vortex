@@ -356,7 +356,7 @@ export function AnimatedCategoryPage({
 
                     <div className="pt-8 border-t border-white/[0.08] mt-8 flex items-center justify-between">
                       <span className="font-mono text-xs text-[#9AA3B2]">
-                        CORE PRODUCTION WORKSTREAM
+                        CORE CAPABILITY
                       </span>
                       {primaryService.slug && (
                         <Link

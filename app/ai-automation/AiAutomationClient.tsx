@@ -91,7 +91,7 @@ export function AiAutomationClient() {
                 href: "#capabilities",
               }}
               rightContent={
-                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-4">
+                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-7 shadow-box-lg flex flex-col gap-4">
                   <div className="flex items-center justify-between text-xs font-mono text-[#9AA3B2] border-b border-white/[0.06] pb-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#F4BA00] animate-pulse" />
@@ -100,7 +100,7 @@ export function AiAutomationClient() {
                     <span className="text-[#3B82F6]">ACTIVE RUNTIME</span>
                   </div>
 
-                  <div className="relative w-full aspect-[16/10] rounded-[12px] bg-[#101215] border border-white/[0.04] overflow-hidden shadow-[inset_0_2px_6px_rgba(0,0,0,0.85)]">
+                  <div className="relative w-full aspect-[16/10] rounded-[12px] bg-[#101215] border border-white/[0.04] overflow-hidden shadow-box-inset">
                     <Image
                       src="/images/bauhaus-diagram-ai.png"
                       alt="Neural Workflow Architecture and Systematic Integration Schematic"

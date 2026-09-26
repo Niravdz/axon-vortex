@@ -59,9 +59,9 @@ export function TactileButton({
     // Charcoal Tactile Surface (From 3D UI Reference)
     charcoal: cn(
       "bg-[#20252B] text-[#EFECE4] border border-[#EFECE4]/[0.12]",
-      "shadow-[0_4px_12px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(239,236,228,0.16)]",
-      "hover:-translate-y-0.5 hover:bg-[#282E36] hover:border-[#3B82F6]/50 hover:shadow-[0_8px_20px_rgba(0,0,0,0.7),0_0_14px_rgba(59,130,246,0.2),inset_0_1px_0_rgba(239,236,228,0.24)]",
-      "active:translate-y-0.5 active:shadow-[0_1px_4px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(0,0,0,0.4)]"
+      "shadow-box-sm box-interactive",
+      "hover:bg-[#282E36] hover:border-[#3B82F6]/50 hover:shadow-box-hover",
+      "active:shadow-box-pressed"
     ),
 
     // Ghost

@@ -1,202 +1,221 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { TactileButton } from "@/components/ui/TactileButton";
 import { homeContent } from "@/data/content/home";
-import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { TactileButton } from "@/components/ui/TactileButton";
+import { LivingSynapseVisual } from "@/components/patterns/LivingSynapseVisual";
 import { getGSAP } from "@/lib/gsap";
-import { ThreeDHeroFallback } from "@/components/3d/ThreeDHeroFallback";
-
-const HeroCanvas = dynamic(() => import("@/components/3d/HeroCanvas"), {
-  ssr: false,
-  loading: () => <ThreeDHeroFallback />,
-});
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 export function HomeHero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const visualRef = useRef<HTMLDivElement>(null);
+  const { hero } = homeContent;
+  const heroRef = useRef<HTMLElement>(null);
+  const glow1Ref = useRef<HTMLDivElement>(null);
+  const glow2Ref = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  useLayoutEffect(() => {
-    if (prefersReducedMotion || !containerRef.current) return;
+  useEffect(() => {
+    if (prefersReducedMotion || !heroRef.current) return;
 
     const { gsap } = getGSAP();
+    const el = heroRef.current;
+
     const ctx = gsap.context(() => {
+      const eyebrow = el.querySelector(".hero-eyebrow");
+      const titleLines = el.querySelectorAll(".hero-title-line");
+      const subtitle = el.querySelector(".hero-subtitle");
+      const desc = el.querySelector(".hero-desc");
+      const ctas = el.querySelector(".hero-ctas");
+      const domains = el.querySelector(".hero-domains");
+      const synapse = el.querySelector(".hero-synapse");
+
+      // 1. Cinematic entrance sequence
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // 1. Atmosphere fade and eyebrow badge
-      tl.fromTo(
-        "[data-hero-eyebrow]",
-        { opacity: 0, y: -12 },
-        { opacity: 1, y: 0, duration: 0.5 }
-      )
-        // 2. Headline line-by-line reveal
-        .fromTo(
-          ".hero-headline-line",
+      if (eyebrow) {
+        tl.fromTo(eyebrow, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
+      }
+
+      if (titleLines.length > 0) {
+        tl.fromTo(
+          titleLines,
           { y: "115%", opacity: 0 },
-          { y: "0%", opacity: 1, duration: 0.8, stagger: 0.12 },
-          "-=0.2"
-        )
-        // 3. Supporting thesis & description
-        .fromTo(
-          "[data-hero-paragraph]",
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
-          "-=0.4"
-        )
-        // 4. CTAs entrance
-        .fromTo(
-          "[data-hero-cta]",
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-          "-=0.3"
-        )
-        // 5. 3D visual container
-        .fromTo(
-          visualRef.current,
-          { opacity: 0, scale: 0.95 },
-          { opacity: 1, scale: 1, duration: 0.85 },
-          "-=0.5"
+          { y: "0%", opacity: 1, duration: 0.85, stagger: 0.12, clearProps: "transform,opacity" },
+          0.15
         );
-    }, containerRef);
+      }
+
+      if (subtitle) {
+        tl.fromTo(subtitle, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.7 }, 0.45);
+      }
+
+      if (desc) {
+        tl.fromTo(desc, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.65 }, 0.55);
+      }
+
+      if (ctas) {
+        tl.fromTo(ctas, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, 0.65);
+      }
+
+      if (domains) {
+        tl.fromTo(domains, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.7 }, 0.5);
+      }
+
+      if (synapse) {
+        tl.fromTo(synapse, { opacity: 0, scale: 0.95, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1.0 }, 0.4);
+      }
+
+      // 2. Subtle pointer-ambient lighting on desktop
+      const handlePointerMove = (e: MouseEvent) => {
+        if (!glow1Ref.current || !glow2Ref.current) return;
+        const { clientX, clientY } = e;
+        const xOffset = (clientX / window.innerWidth - 0.5) * 40;
+        const yOffset = (clientY / window.innerHeight - 0.5) * 40;
+
+        gsap.to(glow1Ref.current, {
+          x: xOffset,
+          y: yOffset,
+          duration: 1.8,
+          ease: "power2.out",
+        });
+
+        gsap.to(glow2Ref.current, {
+          x: -xOffset * 0.8,
+          y: -yOffset * 0.8,
+          duration: 2.2,
+          ease: "power2.out",
+        });
+      };
+
+      window.addEventListener("pointermove", handlePointerMove, { passive: true });
+      return () => window.removeEventListener("pointermove", handlePointerMove);
+    }, heroRef);
 
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   return (
     <section
-      ref={containerRef}
-      className="relative w-full bg-[#121519] text-[#EFECE4] overflow-hidden border-b border-[#EFECE4]/[0.08]"
+      ref={heroRef}
+      data-motion-signature="masked-hero-depth"
+      className="relative w-full bg-[#121519] text-[#EFECE4] overflow-x-clip border-b border-[#EFECE4]/[0.08] pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 opacity-100"
     >
-      {/* Background Radial Glow Spotlights */}
+      {/* Background Radial Glow Spotlights with subtle pointer tracking */}
       <div
+        ref={glow1Ref}
         aria-hidden="true"
-        className="pointer-events-none absolute top-10 left-1/4 w-[500px] h-[400px] bg-[#3B82F6]/[0.08] rounded-full blur-[140px]"
+        className="pointer-events-none absolute top-10 left-1/4 w-[600px] h-[500px] bg-[#3B82F6]/[0.07] rounded-full blur-[160px] will-change-transform"
       />
       <div
+        ref={glow2Ref}
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-10 right-1/4 w-[450px] h-[350px] bg-[#F4BA00]/[0.06] rounded-full blur-[140px]"
+        className="pointer-events-none absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-[#F4BA00]/[0.05] rounded-full blur-[150px] will-change-transform"
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-12 lg:py-20 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 min-h-[calc(100vh-80px)]">
-        {/* Left Side: Content Hierarchy */}
-        <div className="w-full lg:w-[54%] flex flex-col justify-center">
-          {/* Eyebrow System Badge */}
-          <div data-hero-eyebrow className="flex items-center gap-3 mb-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#20252B] border border-[#3B82F6]/30 text-xs font-mono tracking-wider shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
-              <span className="text-[#EFECE4]/90 font-medium">AI-DRIVEN DIGITAL GROWTH</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col gap-12 sm:gap-16 relative z-10">
+        {/* Top: Confident Editorial Title Block */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-4">
+          <div className="max-w-3xl flex flex-col gap-5">
+            {/* Live Telemetry Eyebrow */}
+            <div className="hero-eyebrow flex items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider shadow-box-sm">
+                <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
+                <span className="text-[#EFECE4] font-medium">AXON·VORTEX // LIVING GROWTH SYSTEM</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" />
+              </div>
+              <span className="hidden sm:inline font-mono text-xs uppercase tracking-widest text-[#9AA3B2]/70">
+                SYSTEM 2.0
+              </span>
             </div>
-            <span className="hidden sm:inline font-mono text-xs uppercase tracking-widest text-[#9AA3B2]/70">
-              AXON·VORTEX SYSTEM 2.0
-            </span>
-          </div>
 
-          {/* Core Headline: "Build Smarter. Market Better. Grow Faster." */}
-          <div className="py-2">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-heading font-semibold tracking-tight uppercase leading-[1.02]">
-              <span className="block overflow-hidden pb-1">
-                <span className="hero-headline-line block text-[#3B82F6] drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-                  BUILD SMARTER.
+            {/* Core Headline with Line-by-Line Masking */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-heading font-semibold tracking-tight uppercase leading-[1.02] text-[#EFECE4]">
+              <span className="block overflow-hidden pb-1 -mb-1">
+                <span className="hero-title-line block will-change-[transform,opacity]">
+                  Build Smarter.
                 </span>
               </span>
-              <span className="block overflow-hidden pb-1">
-                <span className="hero-headline-line block text-[#EFECE4]">
-                  MARKET BETTER.
+              <span className="block overflow-hidden pb-1 -mb-1 text-[#3B82F6]">
+                <span className="hero-title-line block will-change-[transform,opacity]">
+                  Market Better.
                 </span>
               </span>
-              <span className="block overflow-hidden pb-1">
-                <span className="hero-headline-line block text-[#F4BA00] drop-shadow-[0_0_20px_rgba(244,186,0,0.3)]">
-                  GROW FASTER.
+              <span className="block overflow-hidden pb-1 -mb-1 text-[#F4BA00]">
+                <span className="hero-title-line block will-change-[transform,opacity]">
+                  Grow Faster.
                 </span>
               </span>
             </h1>
 
-            {/* Subtitle with subtle edge indicator */}
-            <p
-              data-hero-paragraph
-              className="mt-6 text-lg sm:text-xl font-heading font-medium text-[#EFECE4]/90 leading-snug border-l-2 border-[#3B82F6] pl-4"
-            >
-              {homeContent.hero.subtitle}
+            {/* Subtitle */}
+            <p className="hero-subtitle text-lg sm:text-xl font-heading font-medium text-[#EFECE4]/90 leading-snug border-l-2 border-[#3B82F6] pl-4 mt-2">
+              {hero.subtitle}
             </p>
 
-            {/* Body Copy */}
-            <div
-              data-hero-paragraph
-              className="mt-5 text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed max-w-xl space-y-3"
-            >
-              <p>
-                AxonVortex helps businesses build, market and scale smarter by combining AI, human strategy, creativity, marketing, automation and data.
-              </p>
-              <p>
-                From building your digital presence to generating leads, improving customer experiences and automating repetitive work, we create practical digital growth systems around your business goals.
-              </p>
+            {/* Thesis description */}
+            <p className="hero-desc text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed max-w-2xl">
+              {hero.description}
+            </p>
+
+            {/* Dual CTAs */}
+            <div className="hero-ctas flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              <TactileButton
+                variant="primary"
+                size="lg"
+                withArrow
+                asLink
+                href={hero.primaryCta.href}
+                className="justify-center min-h-[50px]"
+              >
+                {hero.primaryCta.label}
+              </TactileButton>
+
+              <TactileButton
+                variant="charcoal"
+                size="lg"
+                asLink
+                href="#solutions"
+                className="justify-center min-h-[50px]"
+              >
+                {hero.secondaryCta.label}
+              </TactileButton>
             </div>
+          </div>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <div data-hero-cta className="flex-1 sm:flex-initial">
-                <TactileButton
-                  variant="primary"
-                  size="lg"
-                  withArrow
-                  asLink
-                  href={homeContent.hero.primaryCta.href}
-                  className="w-full justify-center min-h-[50px]"
-                >
-                  {homeContent.hero.primaryCta.label}
-                </TactileButton>
-              </div>
-
-              <div data-hero-cta className="flex-1 sm:flex-initial">
-                <TactileButton
-                  variant="charcoal"
-                  size="lg"
-                  asLink
-                  href="#solutions"
-                  className="w-full justify-center min-h-[50px]"
-                >
-                  {homeContent.hero.secondaryCta.label}
-                </TactileButton>
-              </div>
-            </div>
-
-            {/* Domain Quick-Access Tags */}
-            <div
-              data-hero-paragraph
-              className="mt-10 pt-6 border-t border-[#EFECE4]/[0.08] flex flex-wrap items-center gap-2"
-            >
-              <span className="text-xs font-mono text-[#9AA3B2]/70 mr-1">DOMAINS:</span>
+          {/* Quick Domain Directory Navigation */}
+          <div className="hero-domains flex flex-col gap-3 font-mono text-xs text-[#9AA3B2] max-w-sm lg:text-right">
+            <span className="uppercase tracking-widest text-[#9AA3B2]/70">
+              SIX CONNECTED DOMAINS:
+            </span>
+            <div className="flex flex-wrap lg:justify-end gap-2">
               <Link
                 href="/digital-marketing"
-                className="px-3 py-1 rounded-[6px] bg-[#171a1e] border border-white/[0.06] hover:border-[#3B82F6]/50 text-xs font-medium text-[#EFECE4]/85 hover:text-[#3B82F6] transition-all shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                className="px-3 py-1.5 rounded-full bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover box-interactive hover:border-[#3B82F6]/50 text-xs text-[#EFECE4] hover:text-[#3B82F6] transition-colors"
               >
                 Marketing
               </Link>
               <Link
                 href="/ai-automation"
-                className="px-3 py-1 rounded-[6px] bg-[#171a1e] border border-white/[0.06] hover:border-[#3B82F6]/50 text-xs font-medium text-[#EFECE4]/85 hover:text-[#3B82F6] transition-all shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                className="px-3 py-1.5 rounded-full bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover box-interactive hover:border-[#3B82F6]/50 text-xs text-[#EFECE4] hover:text-[#3B82F6] transition-colors"
               >
-                AI & Automation
+                AI &amp; Automation
               </Link>
               <Link
                 href="/websites-ecommerce"
-                className="px-3 py-1 rounded-[6px] bg-[#171a1e] border border-white/[0.06] hover:border-[#3B82F6]/50 text-xs font-medium text-[#EFECE4]/85 hover:text-[#3B82F6] transition-all shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                className="px-3 py-1.5 rounded-full bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover box-interactive hover:border-[#3B82F6]/50 text-xs text-[#EFECE4] hover:text-[#3B82F6] transition-colors"
               >
-                Web & E-Commerce
+                Web &amp; E-Commerce
               </Link>
               <Link
                 href="/lead-generation"
-                className="px-3 py-1 rounded-[6px] bg-[#171a1e] border border-white/[0.06] hover:border-[#3B82F6]/50 text-xs font-medium text-[#EFECE4]/85 hover:text-[#3B82F6] transition-all shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                className="px-3 py-1.5 rounded-full bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover box-interactive hover:border-[#3B82F6]/50 text-xs text-[#EFECE4] hover:text-[#3B82F6] transition-colors"
               >
                 Lead Generation
               </Link>
               <Link
                 href="/technology-digital-transformation"
-                className="px-3 py-1 rounded-[6px] bg-[#171a1e] border border-white/[0.06] hover:border-[#3B82F6]/50 text-xs font-medium text-[#EFECE4]/85 hover:text-[#3B82F6] transition-all shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                className="px-3 py-1.5 rounded-full bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover box-interactive hover:border-[#3B82F6]/50 text-xs text-[#EFECE4] hover:text-[#3B82F6] transition-colors"
               >
                 Technology
               </Link>
@@ -204,30 +223,9 @@ export function HomeHero() {
           </div>
         </div>
 
-        {/* Right Side: Central 3D Dimensional Axon/Vortex Visual */}
-        <div
-          ref={visualRef}
-          className="w-full lg:w-[46%] h-[420px] sm:h-[500px] lg:h-[560px] relative rounded-[20px] bg-[#1b1e22] border border-white/[0.08] shadow-[0_24px_64px_-8px_rgba(0,0,0,0.85),0_8px_20px_-4px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)] overflow-hidden flex items-center justify-center"
-        >
-          {/* Top Panel Status Strip */}
-          <div className="absolute top-4 left-5 right-5 z-10 flex items-center justify-between text-xs font-mono pointer-events-none">
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#101215]/80 border border-white/[0.04] shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]">
-              <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
-              <span className="text-[#EFECE4]/90 font-medium">3D SPATIAL SYSTEM</span>
-            </div>
-            <span className="text-[#F4BA00] text-[11px] px-2 py-0.5 rounded-[4px] bg-[#101215]/80 border border-white/[0.04]">AXON·VORTEX ENGINE</span>
-          </div>
-
-          {/* Interactive 3D Canvas */}
-          <div className="w-full h-full">
-            <HeroCanvas />
-          </div>
-
-          {/* Bottom Coordinates & Node System Indicator */}
-          <div className="absolute bottom-4 left-5 right-5 z-10 flex items-center justify-between text-[11px] font-mono text-[#9AA3B2]/70 pointer-events-none">
-            <span className="px-2 py-0.5 rounded-[4px] bg-[#101215]/80 border border-white/[0.04]">[NODES: CONNECTED]</span>
-            <span className="text-[#3B82F6] px-2 py-0.5 rounded-[4px] bg-[#101215]/80 border border-white/[0.04]">[ENERGY: OPTIMIZED]</span>
-          </div>
+        {/* Signature Interactive System Synapse Visual */}
+        <div className="hero-synapse">
+          <LivingSynapseVisual />
         </div>
       </div>
     </section>

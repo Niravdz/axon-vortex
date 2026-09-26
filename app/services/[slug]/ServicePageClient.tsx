@@ -86,7 +86,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 href: "/growth-audit",
               }}
               rightContent={
-                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6">
+                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-box-lg flex flex-col gap-6">
                   <div className="border-b border-white/[0.08] pb-4">
                     <span className="font-mono text-xs font-semibold tracking-widest text-[#9AA3B2] block mb-1 uppercase">
                       Capability Module
@@ -97,7 +97,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   </div>
 
                   {/* Specification Details Grid */}
-                  <div className="grid grid-cols-2 gap-3.5 p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.7)] text-xs font-mono">
+                  <div className="grid grid-cols-2 gap-3.5 p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset text-xs font-mono">
                     <div>
                       <span className="text-[#9AA3B2] block mb-1">DOMAIN:</span>
                       <span className="font-semibold text-[#EFECE4] uppercase">{domainInfo.name}</span>
@@ -116,7 +116,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.7)]">
+                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                     <span className="font-mono text-xs font-semibold tracking-widest text-[#F4BA00] uppercase block mb-1">
                       System Alignment
                     </span>
@@ -151,7 +151,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               </h2>
 
               {data.problem.purposeLead && (
-                <p className="text-sm font-heading font-medium text-[#F4BA00] p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_4px_rgba(0,0,0,0.7)]">
+                <p className="text-sm font-heading font-medium text-[#F4BA00] p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                   {data.problem.purposeLead}
                 </p>
               )}
@@ -172,7 +172,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   {data.problem.points.map((pt, idx) => (
                     <div
                       key={idx}
-                      className="p-4 sm:p-5 rounded-[12px] bg-[#141619] border border-white/[0.06] hover:border-[#3B82F6]/40 transition-colors flex items-start gap-4"
+                      className="p-4 sm:p-5 rounded-[12px] bg-[#141619] border border-white/[0.06] hover:border-[#3B82F6]/40 shadow-box-sm hover:shadow-box-hover box-interactive transition-colors flex items-start gap-4"
                     >
                       <span className="font-mono text-xs font-semibold text-[#3B82F6] px-2.5 py-1 rounded bg-[#101215] border border-white/[0.04] shrink-0">
                         {String(idx + 1).padStart(2, "0")}
@@ -186,14 +186,14 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               )}
 
               {data.problem.flow && (
-                <div className="p-5 rounded-[14px] bg-[#141619] border border-white/[0.06] flex flex-col gap-3">
+                <div className="p-5 rounded-[14px] bg-[#141619] border border-white/[0.06] shadow-box-md flex flex-col gap-3">
                   <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#F4BA00]">
                     OPTIMIZED WORKFLOW CONDUIT:
                   </span>
                   <div className="flex flex-wrap items-center gap-2 pt-1">
                     {data.problem.flow.map((item, idx) => (
                       <React.Fragment key={idx}>
-                        <span className="px-3 py-1 rounded-[6px] bg-[#101215] border border-white/[0.04] font-mono text-xs text-[#EFECE4]">
+                        <span className="px-3 py-1 rounded-[6px] bg-[#101215] border border-white/[0.04] font-mono text-xs text-[#EFECE4] shadow-box-inset">
                           {item}
                         </span>
                         {idx < data.problem.flow!.length - 1 && (
@@ -206,7 +206,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               )}
 
               {data.problem.conclusion && (
-                <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] text-xs font-mono text-[#EFECE4]">
+                <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] text-xs font-mono text-[#EFECE4] shadow-box-inset">
                   <strong className="text-[#3B82F6] mr-2">MANDATE:</strong>
                   {data.problem.conclusion}
                 </div>
@@ -293,7 +293,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   <Link
                     key={rel.slug}
                     href={`/services/${rel.slug}`}
-                    className="p-6 rounded-[16px] bg-[#141619] border border-white/[0.06] hover:bg-[#171a1e] hover:border-[#3B82F6]/50 transition-all flex flex-col justify-between gap-4 group"
+                    className="p-6 rounded-[16px] bg-[#141619] border border-white/[0.06] hover:bg-[#171a1e] hover:border-[#3B82F6]/50 shadow-box-sm hover:shadow-box-hover box-interactive transition-all flex flex-col justify-between gap-4 group"
                   >
                     <div>
                       <div className="flex items-center justify-between pb-3 border-b border-white/[0.04] mb-3">

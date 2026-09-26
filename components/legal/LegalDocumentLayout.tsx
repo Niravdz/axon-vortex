@@ -1,9 +1,8 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 import { SiteTextureBackground } from "@/components/layout/SiteTextureBackground";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 interface LegalSection {
   id: string;
@@ -37,7 +36,7 @@ export function LegalDocumentLayout({
   unresolvedCount,
 }: LegalDocumentLayoutProps) {
   return (
-    <SiteTextureBackground>
+    <SiteTextureBackground className="overflow-x-clip">
       <div className="w-full text-[#EFECE4] selection:bg-[#3B82F6] selection:text-white min-h-screen">
         {/* 0. TOP BREADCRUMB BAR */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-6 md:px-12 py-3">
@@ -60,8 +59,12 @@ export function LegalDocumentLayout({
           </div>
         </div>
 
-        {/* 1. HERO BANNER */}
-        <section className="pt-20 md:pt-24 pb-12 px-6 md:px-12 border-b border-white/[0.08]">
+        {/* 1. HERO BANNER - Minimal, accessible title reveal */}
+        <MotionSection
+          as="section"
+          signature="editorial-split-mask"
+          className="pt-20 md:pt-24 pb-12 px-6 md:px-12 border-b border-white/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-6">
             <div className="flex flex-wrap items-center gap-3">
               <span className="px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#93C5FD]">
@@ -77,8 +80,8 @@ export function LegalDocumentLayout({
             </h1>
 
             {/* Legal Review Warning Box (Raised Panel with Recessed Icon Badge) */}
-            <div className="p-6 rounded-2xl border border-[#F4BA00]/30 bg-[#1b1e22] shadow-[0_12px_28px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col sm:flex-row items-start gap-4">
-              <div className="w-9 h-9 rounded-xl bg-[#101215] border border-[#F4BA00]/40 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center shrink-0 mt-0.5">
+            <div className="p-6 rounded-2xl border border-[#F4BA00]/30 bg-[#1b1e22] shadow-box-md flex flex-col sm:flex-row items-start gap-4">
+              <div className="w-9 h-9 rounded-xl bg-[#101215] border border-[#F4BA00]/40 shadow-box-inset flex items-center justify-center shrink-0 mt-0.5">
                 <AlertTriangle className="w-5 h-5 text-[#F4BA00]" />
               </div>
               <div className="flex flex-col gap-1 text-xs font-body text-[#9AA3B2] leading-relaxed">
@@ -91,13 +94,13 @@ export function LegalDocumentLayout({
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 2. BODY CONTENT WITH STICKY NAV */}
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Sticky Sidebar Navigation (Raised Shell with Recessed Inquiries Tray) */}
           <aside className="lg:col-span-4 sticky top-28 hidden lg:flex flex-col gap-4">
-            <div className="rounded-2xl border border-white/[0.08] bg-[#1b1e22] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <div className="rounded-2xl border border-white/[0.08] bg-[#1b1e22] p-6 shadow-box-md">
               <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9AA3B2] block mb-4 border-b border-white/10 pb-2">
                 Document Table of Contents
               </span>
@@ -114,7 +117,7 @@ export function LegalDocumentLayout({
               </nav>
             </div>
 
-            <div className="p-4 rounded-xl border border-white/[0.04] bg-[#101215] text-xs font-body text-[#9AA3B2] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
+            <div className="p-4 rounded-xl border border-white/[0.04] bg-[#101215] text-xs font-body text-[#9AA3B2] shadow-box-inset">
               <span className="font-mono font-semibold text-[#EFECE4] block mb-1">Direct Inquiries:</span>
               Reach our data protection desk at{" "}
               <a href="mailto:info@axonvortex.com" className="text-[#3B82F6] font-medium underline hover:text-[#93C5FD]">

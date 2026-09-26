@@ -41,7 +41,7 @@ export function DimensionalAccordion({
     <div
       className={cn(
         "p-2.5 sm:p-3 rounded-[16px] bg-[#101215] border border-white/[0.04]",
-        "shadow-[inset_0_2px_6px_rgba(0,0,0,0.85),inset_0_1px_2px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]",
+        "shadow-box-inset",
         "flex flex-col gap-2.5",
         className
       )}
@@ -55,8 +55,8 @@ export function DimensionalAccordion({
             className={cn(
               "rounded-[10px] border transition-all duration-200 overflow-hidden",
               isOpen
-                ? "bg-[#21252a] border-[#3B82F6]/50 shadow-[0_8px_20px_-2px_rgba(0,0,0,0.75),0_0_16px_rgba(59,130,246,0.18),inset_0_1px_0_rgba(255,255,255,0.18)]"
-                : "bg-[#171a1e] border-white/[0.08] shadow-[0_2px_8px_-1px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.08)] hover:bg-[#21252a] hover:border-[#3B82F6]/30"
+                ? "bg-[#21252a] border-[#3B82F6]/50 shadow-box-selected"
+                : "bg-[#171a1e] border-white/[0.08] shadow-box-sm hover:shadow-box-hover box-interactive hover:bg-[#21252a] hover:border-[#3B82F6]/30"
             )}
           >
             {/* Header Trigger */}

@@ -197,6 +197,116 @@
   visibility: visible;
 }
 
+/* ==========================================================================
+   AxonVortex Systems Console Mega-Menu System
+   ========================================================================== */
+
+.mega-menu-shell {
+  position: absolute;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  border: 1px solid var(--mega-border);
+  border-radius: var(--mega-radius);
+  background: var(--mega-surface);
+  box-shadow: var(--mega-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  will-change: opacity, transform;
+  transform-origin: top center;
+  transition:
+    opacity 190ms ease,
+    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mega-menu-shell--large {
+  width: min(1180px, calc(100vw - 48px));
+}
+
+.mega-menu-shell--medium {
+  width: min(720px, calc(100vw - 32px));
+}
+
+.mega-menu-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.85),
+    rgba(244, 186, 0, 0.75),
+    transparent
+  );
+  z-index: 20;
+  pointer-events: none;
+}
+
+.mega-menu-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+  opacity: 0.28;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  filter: grayscale(1) contrast(1.38);
+}
+
+.mega-menu-backdrop {
+  background: rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: opacity 180ms ease;
+}
+
+.mega-menu-bridge {
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  pointer-events: auto;
+}
+
+/* Solutions Submenu Card Hover Lift & Border Lighting */
+.solution-card-hover {
+  transition:
+    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.solution-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.8);
+  background-color: var(--surface-hover);
+  box-shadow:
+    0 10px 24px -4px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(59, 130, 246, 0.35);
+}
+
+.solution-card-hover:active {
+  transform: translateY(0px);
+}
+
+/* Services Row Interaction */
+.service-row-hover {
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.service-row-hover:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,

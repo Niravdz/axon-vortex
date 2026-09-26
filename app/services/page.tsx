@@ -6,6 +6,7 @@ import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { SiteTextureBackground } from "@/components/layout/SiteTextureBackground";
 import { EditorialSplit } from "@/components/patterns/EditorialSplit";
 import { CTASection } from "@/components/patterns/CTASection";
+import { MotionSection } from "@/components/animation/MotionSection";
 import { individualServicesData } from "@/data/content/individualServices";
 import { cn } from "@/lib/utils";
 
@@ -99,7 +100,7 @@ export default function ServicesDirectoryPage() {
                 href: "/contact",
               }}
               rightContent={
-                <div className="rounded-[20px] border border-white/[0.08] bg-[#1b1e22] p-6 sm:p-8 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-4">
+                <div className="rounded-[20px] border border-white/[0.08] bg-[#1b1e22] p-6 sm:p-8 shadow-box-lg flex flex-col gap-4">
                   <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
                     <span className="font-mono text-xs uppercase text-[#9AA3B2]">Total Capabilities</span>
                     <span className="font-heading font-semibold text-base text-[#EFECE4]">14 Workstreams</span>
@@ -119,10 +120,14 @@ export default function ServicesDirectoryPage() {
         </section>
 
         {/* 2. DIRECTORY LAYOUT */}
-        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="architectural-assembly-stagger"
+          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             {/* Desktop Domain Filter Tabs */}
-            <div className="hidden lg:flex items-center gap-2 p-2 rounded-[16px] bg-[#141619] border border-white/[0.08] shadow-[inset_0_2px_6px_rgba(0,0,0,0.85)]">
+            <div className="hidden lg:flex items-center gap-2 p-2 rounded-[16px] bg-[#141619] border border-white/[0.08] shadow-box-inset">
               {DOMAINS.map((domain) => {
                 const isActive = activeDomainId === domain.id;
                 return (
@@ -136,8 +141,8 @@ export default function ServicesDirectoryPage() {
                     className={cn(
                       "flex-1 py-3 px-4 rounded-[10px] font-mono text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center justify-center gap-2.5",
                       isActive
-                        ? "bg-[#1b1e22] text-[#3B82F6] border border-[#3B82F6]/40 shadow-[0_4px_14px_rgba(59,130,246,0.2),inset_0_1px_0_rgba(255,255,255,0.1)] font-semibold"
-                        : "text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-[#171a1e]"
+                        ? "bg-[#1b1e22] text-[#3B82F6] border border-[#3B82F6]/40 shadow-box-selected font-semibold"
+                        : "text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-[#171a1e] shadow-box-sm hover:shadow-box-hover box-interactive"
                     )}
                   >
                     <span
@@ -155,7 +160,7 @@ export default function ServicesDirectoryPage() {
             {/* Desktop Content Grid (8 cols list + 4 cols live preview) */}
             <div className="hidden lg:grid grid-cols-12 gap-8 items-start">
               {/* Services List Column (7 cols) */}
-              <div className="col-span-7 flex flex-col rounded-[20px] bg-[#141619] border border-white/[0.08] divide-y divide-white/[0.06] overflow-hidden shadow-[0_12px_32px_rgba(0,0,0,0.7)]">
+              <div className="col-span-7 flex flex-col rounded-[20px] bg-[#141619] border border-white/[0.08] divide-y divide-white/[0.06] overflow-hidden shadow-box-lg">
                 {activeDomain.services.map((slug, idx) => {
                   const svc = individualServicesData[slug];
                   if (!svc) return null;
@@ -187,7 +192,7 @@ export default function ServicesDirectoryPage() {
 
                       <Link
                         href={`/services/${slug}`}
-                        className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-[6px] bg-[#101215] border border-white/[0.06] text-xs font-mono uppercase tracking-wider text-[#EFECE4] hover:text-[#3B82F6] hover:border-[#3B82F6]/50 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-[6px] bg-[#101215] border border-white/[0.06] text-xs font-mono uppercase tracking-wider text-[#EFECE4] hover:text-[#3B82F6] hover:border-[#3B82F6]/50 transition-all shadow-box-sm hover:shadow-box-hover box-interactive"
                       >
                         <span>Inspect</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
@@ -198,7 +203,7 @@ export default function ServicesDirectoryPage() {
               </div>
 
               {/* Desktop Live Preview Column (5 cols) */}
-              <div className="col-span-5 rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6 sticky top-28">
+              <div className="col-span-5 rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 shadow-box-lg flex flex-col gap-6 sticky top-28">
                 {activeServiceData ? (
                   <>
                     <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
@@ -220,7 +225,7 @@ export default function ServicesDirectoryPage() {
                     </div>
 
                     {activeServiceData.whatWeDo?.items && (
-                      <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.78)] flex flex-col gap-2">
+                      <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-box-inset flex flex-col gap-2">
                         <span className="font-mono text-[11px] uppercase tracking-wider text-[#F4BA00] block mb-1">
                           Core Scope ({activeServiceData.whatWeDo.items.length} Deliverables):
                         </span>
@@ -240,7 +245,7 @@ export default function ServicesDirectoryPage() {
                     <div className="pt-2">
                       <Link
                         href={`/services/${activeServiceData.slug}`}
-                        className="w-full inline-flex items-center justify-between px-5 py-3 rounded-[8px] bg-[#171a1e] border border-[#3B82F6]/30 text-[#EFECE4] hover:text-[#3B82F6] hover:border-[#3B82F6]/60 transition-colors font-mono text-xs uppercase tracking-wider shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
+                        className="w-full inline-flex items-center justify-between px-5 py-3 rounded-[8px] bg-[#171a1e] border border-[#3B82F6]/30 text-[#EFECE4] hover:text-[#3B82F6] hover:border-[#3B82F6]/60 transition-colors font-mono text-xs uppercase tracking-wider shadow-box-sm hover:shadow-box-hover box-interactive"
                       >
                         <span>Full Deliverable Specifications</span>
                         <ArrowUpRight className="w-4 h-4" />
@@ -263,7 +268,7 @@ export default function ServicesDirectoryPage() {
                 return (
                   <div
                     key={domain.id}
-                    className="rounded-[16px] bg-[#141619] border border-white/[0.08] overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+                    className="rounded-[16px] bg-[#141619] border border-white/[0.08] overflow-hidden shadow-box-sm"
                   >
                     <button
                       type="button"
@@ -301,7 +306,7 @@ export default function ServicesDirectoryPage() {
 
                     {/* Accordion Content: Directly Tappable Capability Rows */}
                     {isOpen && (
-                      <div className="p-4 bg-[#101215] border-t border-white/[0.06] flex flex-col gap-3">
+                      <div className="p-4 bg-[#101215] border-t border-white/[0.06] flex flex-col gap-3 shadow-box-inset">
                         {domain.services.map((slug, idx) => {
                           const svc = individualServicesData[slug];
                           if (!svc) return null;
@@ -309,7 +314,7 @@ export default function ServicesDirectoryPage() {
                           return (
                             <div
                               key={slug}
-                              className="p-4 rounded-[12px] bg-[#171a1e] border border-white/[0.06] flex flex-col gap-3"
+                              className="p-4 rounded-[12px] bg-[#171a1e] border border-white/[0.06] shadow-box-sm flex flex-col gap-3"
                             >
                               <div className="flex items-center justify-between">
                                 <span className="font-mono text-xs font-semibold text-[#3B82F6]">
@@ -317,7 +322,7 @@ export default function ServicesDirectoryPage() {
                                 </span>
                                 <Link
                                   href={`/services/${slug}`}
-                                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#101215] border border-white/[0.06] font-mono text-xs uppercase text-[#3B82F6] hover:text-[#60A5FA]"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#101215] border border-white/[0.06] font-mono text-xs uppercase text-[#3B82F6] hover:text-[#60A5FA] shadow-box-sm hover:shadow-box-hover box-interactive"
                                 >
                                   <span>Inspect</span>
                                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -341,7 +346,7 @@ export default function ServicesDirectoryPage() {
               })}
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 3. FINAL DIRECTORY CTA */}
         <CTASection

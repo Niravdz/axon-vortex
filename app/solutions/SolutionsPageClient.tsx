@@ -12,6 +12,7 @@ import { EditorialSplit } from "@/components/patterns/EditorialSplit";
 import { DiagnosticMatrix } from "@/components/patterns/DiagnosticMatrix";
 import { HorizontalJourney } from "@/components/patterns/HorizontalJourney";
 import { CTASection } from "@/components/patterns/CTASection";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 const DOMAIN_VISUALS: Record<string, string> = {
   "digital-marketing": "/images/bauhaus-diagram-marketing.png",
@@ -52,7 +53,7 @@ export default function SolutionsPageClient() {
               }}
               rightContent={
                 <div className="flex flex-col gap-4">
-                  <div className="p-6 rounded-[16px] bg-[#171a1e] border border-white/[0.08] shadow-[0_8px_20px_-3px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)]">
+                  <div className="p-6 rounded-[16px] bg-[#171a1e] border border-white/[0.08] shadow-box-sm">
                     <span className="font-mono text-xs font-semibold text-[#3B82F6] uppercase tracking-wider block mb-2">
                       FIRST PRINCIPLE
                     </span>
@@ -60,7 +61,7 @@ export default function SolutionsPageClient() {
                       {hero.statementPrimary}
                     </p>
                   </div>
-                  <div className="p-6 rounded-[16px] bg-[#171a1e] border border-[#F4BA00]/30 shadow-[0_8px_20px_-3px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.08)]">
+                  <div className="p-6 rounded-[16px] bg-[#171a1e] border border-[#F4BA00]/30 shadow-box-sm">
                     <span className="font-mono text-xs font-semibold text-[#F4BA00] uppercase tracking-wider block mb-2">
                       STRATEGIC FOCUS
                     </span>
@@ -75,11 +76,15 @@ export default function SolutionsPageClient() {
         </section>
 
         {/* 2. THE GROWTH SYSTEM PHILOSOPHY */}
-        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="system-assembly-depth"
+          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto">
             <MatteSection radius="24" className="overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
-                <div className="lg:col-span-6 p-8 sm:p-10 lg:p-14 flex flex-col gap-6 border-b lg:border-b-0 lg:border-r border-white/[0.08] bg-[#1b1e22]">
+                <div className="motion-left lg:col-span-6 p-8 sm:p-10 lg:p-14 flex flex-col gap-6 border-b lg:border-b-0 lg:border-r border-white/[0.08] bg-[#1b1e22]">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#171a1e] border border-[#F4BA00]/35 text-xs font-mono tracking-wider text-[#FDE68A] w-fit">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00] animate-pulse" />
                     <span>{growthSystem.badge}</span>
@@ -97,15 +102,15 @@ export default function SolutionsPageClient() {
                     ))}
                   </div>
 
-                  <div className="p-5 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.78)]">
+                  <div className="p-5 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-box-inset">
                     <p className="font-heading font-medium text-xs sm:text-sm text-[#EFECE4] leading-relaxed">
                       {growthSystem.conclusion}
                     </p>
                   </div>
                 </div>
 
-                <div className="lg:col-span-6 p-8 sm:p-10 lg:p-14 bg-[#141619] flex flex-col items-center justify-center">
-                  <div className="relative w-full aspect-[16/10] rounded-[16px] bg-[#101215] border border-white/[0.06] overflow-hidden shadow-[inset_0_2px_8px_rgba(0,0,0,0.85)]">
+                <div className="motion-right lg:col-span-6 p-8 sm:p-10 lg:p-14 bg-[#141619] flex flex-col items-center justify-center">
+                  <div className="relative w-full aspect-[16/10] rounded-[16px] bg-[#101215] border border-white/[0.06] overflow-hidden shadow-box-inset">
                     <Image
                       src="/images/bauhaus-diagram-growth-loop.jpg"
                       alt="AxonVortex Growth Loop & Continuous Framework"
@@ -121,10 +126,14 @@ export default function SolutionsPageClient() {
               </div>
             </MatteSection>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 3. CONNECTED SOLUTION ECOSYSTEM (Large Active-Domain Index + Content Preview) */}
-        <section id="ecosystem" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          id="ecosystem"
+          signature="staggered-system-grid"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             {/* Section Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
@@ -160,8 +169,8 @@ export default function SolutionsPageClient() {
                         onClick={() => setActiveDomainIdx(idx)}
                         className={`text-left p-5 rounded-[14px] border transition-all duration-200 flex items-center justify-between cursor-pointer ${
                           isActive
-                            ? "bg-[#1b1e22] text-[#EFECE4] border-[#3B82F6]/50 shadow-[0_8px_20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.1)]"
-                            : "bg-[#141619] text-[#9AA3B2] border-white/[0.06] hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4]"
+                            ? "bg-[#1b1e22] text-[#EFECE4] border-[#3B82F6]/50 shadow-box-selected font-semibold"
+                            : "bg-[#141619] text-[#9AA3B2] border-white/[0.06] hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4] shadow-box-sm hover:shadow-box-hover box-interactive"
                         }`}
                         aria-expanded={isActive}
                       >
@@ -194,7 +203,7 @@ export default function SolutionsPageClient() {
 
                       {/* Mobile Expandable Preview (Under Active Item) */}
                       {isActive && (
-                        <div className="lg:hidden mt-3 p-5 rounded-[14px] bg-[#101215] border border-white/[0.06] shadow-[inset_0_2px_6px_rgba(0,0,0,0.85)] flex flex-col gap-4">
+                        <div className="lg:hidden mt-3 p-5 rounded-[14px] bg-[#101215] border border-white/[0.06] shadow-box-inset flex flex-col gap-4">
                           <div className="relative w-full aspect-[16/9] rounded-[10px] bg-[#141619] overflow-hidden border border-white/[0.04]">
                             <Image
                               src={DOMAIN_VISUALS[dom.id] || "/images/bauhaus-tech-hero.png"}
@@ -242,7 +251,7 @@ export default function SolutionsPageClient() {
               </div>
 
               {/* Desktop Live Preview Console (7 cols) */}
-              <div className="hidden lg:flex lg:col-span-7 flex-col rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-10 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),inset_0_1px_0_rgba(255,255,255,0.08)] gap-6">
+              <div className="hidden lg:flex lg:col-span-7 flex-col rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-10 shadow-box-lg gap-6">
                 <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
                   <div className="flex items-center gap-3">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#3B82F6] animate-pulse" />
@@ -269,7 +278,7 @@ export default function SolutionsPageClient() {
                 </div>
 
                 {/* Architectural Diagram */}
-                <div className="relative w-full aspect-[16/9] rounded-[14px] bg-[#101215] border border-white/[0.06] overflow-hidden shadow-[inset_0_2px_8px_rgba(0,0,0,0.85)]">
+                <div className="relative w-full aspect-[16/9] rounded-[14px] bg-[#101215] border border-white/[0.06] overflow-hidden shadow-box-inset">
                   <Image
                     src={DOMAIN_VISUALS[activeDomain.id] || "/images/bauhaus-tech-hero.png"}
                     alt={`${activeDomain.title} technical diagram`}
@@ -289,7 +298,7 @@ export default function SolutionsPageClient() {
 
                 {/* 2-Column Specs: What We Build vs Best For */}
                 <div className="grid grid-cols-2 gap-4 pt-2 border-t border-white/[0.08]">
-                  <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04]">
+                  <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-box-inset">
                     <span className="font-mono text-[11px] uppercase tracking-wider text-[#3B82F6] block mb-2 font-medium">
                       What We Build:
                     </span>
@@ -303,7 +312,7 @@ export default function SolutionsPageClient() {
                     </ul>
                   </div>
 
-                  <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04]">
+                  <div className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-box-inset">
                     <span className="font-mono text-[11px] uppercase tracking-wider text-[#F4BA00] block mb-2 font-medium">
                       Best For Businesses That:
                     </span>
@@ -340,7 +349,7 @@ export default function SolutionsPageClient() {
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 4. PROBLEM-TO-SOLUTION MATCHER */}
         <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">

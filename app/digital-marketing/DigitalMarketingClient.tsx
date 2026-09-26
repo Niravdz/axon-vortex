@@ -10,6 +10,7 @@ import { AlternatingFeatureRows } from "@/components/patterns/AlternatingFeature
 import { ProcessTimeline } from "@/components/patterns/ProcessTimeline";
 import { AudienceFitChecklist } from "@/components/patterns/AudienceFitChecklist";
 import { CTASection } from "@/components/patterns/CTASection";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 export function DigitalMarketingClient() {
   const { hero, problem, services, approach, whoThisIsFor, finalCta } = digitalMarketingData;
@@ -65,7 +66,7 @@ export function DigitalMarketingClient() {
                 href: "#capabilities",
               }}
               rightContent={
-                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-4">
+                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-7 shadow-box-lg flex flex-col gap-4">
                   <div className="flex items-center justify-between text-xs font-mono text-[#9AA3B2] border-b border-white/[0.06] pb-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
@@ -74,7 +75,7 @@ export function DigitalMarketingClient() {
                     <span className="text-[#F4BA00]">MULTI-CHANNEL</span>
                   </div>
 
-                  <div className="relative w-full aspect-[16/10] rounded-[12px] bg-[#101215] border border-white/[0.04] overflow-hidden shadow-[inset_0_2px_6px_rgba(0,0,0,0.85)]">
+                  <div className="relative w-full aspect-[16/10] rounded-[12px] bg-[#101215] border border-white/[0.04] overflow-hidden shadow-box-inset">
                     <Image
                       src="/images/bauhaus-diagram-marketing.png"
                       alt="Digital Marketing Funnel & Signal Distribution Schematic"
@@ -96,7 +97,11 @@ export function DigitalMarketingClient() {
         </section>
 
         {/* 2. AUDIENCE-TO-CONVERSION FLOW (Marketing Friction & Pipeline) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="signal-path-reveal"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-12">
             <div className="max-w-3xl flex flex-col gap-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#F4BA00]/30 text-xs font-mono tracking-wider w-fit text-[#FDE68A]">
@@ -110,7 +115,7 @@ export function DigitalMarketingClient() {
                 {problem.points.map((pt, i) => (
                   <div
                     key={i}
-                    className="p-3.5 rounded-[10px] bg-[#141619] border border-white/[0.04] text-xs font-body text-[#9AA3B2]"
+                    className="motion-item p-3.5 rounded-[10px] bg-[#141619] border border-white/[0.04] shadow-box-sm text-xs font-body text-[#9AA3B2]"
                   >
                     {pt}
                   </div>
@@ -127,7 +132,7 @@ export function DigitalMarketingClient() {
               conclusion={problem.conclusion}
             />
           </div>
-        </section>
+        </MotionSection>
 
         {/* 3. ALTERNATING SERVICE ROWS & CAPABILITIES */}
         <section id="capabilities" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">

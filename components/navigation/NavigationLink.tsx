@@ -31,10 +31,10 @@ export function NavigationLink({
         href={href}
         onClick={onClick}
         className={cn(
-          "group relative p-3.5 rounded-[10px] border transition-all duration-200 flex flex-col justify-between min-h-[92px]",
+          "group relative p-3.5 rounded-[10px] border box-interactive flex flex-col justify-between min-h-[92px]",
           isActive
-            ? "bg-[#21252a] border-[#3B82F6]/60 shadow-[0_4px_16px_rgba(59,130,246,0.25),inset_0_1px_0_rgba(255,255,255,0.18)]"
-            : "bg-[#171a1e] border-white/[0.07] shadow-[0_4px_12px_-2px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[#3B82F6]/45 hover:bg-[#21252a] hover:shadow-[0_8px_20px_-3px_rgba(0,0,0,0.75),0_0_14px_rgba(59,130,246,0.2),inset_0_1px_0_rgba(255,255,255,0.14)] hover:-translate-y-0.5",
+            ? "bg-[#1b1e22] border-[#3B82F6] shadow-box-selected"
+            : "bg-[#141619] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:border-[#3B82F6]/45 hover:bg-[#181c20]",
           className
         )}
       >

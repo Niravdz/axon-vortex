@@ -31,7 +31,7 @@ export function Footer() {
         {/* Top Callout Strip */}
         <div className="py-16 sm:py-20 border-b border-[#EFECE4]/[0.08] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-8 flex flex-col gap-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#181C21] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#181C21] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit shadow-box-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00] animate-pulse" />
               <span className="text-[#EFECE4]/90">COMMISSION SCOPING READY</span>
             </div>
@@ -227,15 +227,15 @@ export function Footer() {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={scrollToTop}
-            aria-label="Back to top"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-[#171a1e] border border-white/[0.08] text-xs font-mono text-[#EFECE4] shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#21252a] hover:border-[#3B82F6]/50 transition-all cursor-pointer"
-          >
-            <span>TOP</span>
-            <ArrowUp className="w-3.5 h-3.5 text-[#3B82F6]" />
-          </button>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              aria-label="Back to top"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-[#141619] border border-white/[0.08] text-xs font-mono text-[#EFECE4] shadow-box-sm hover:shadow-box-hover box-interactive hover:bg-[#181c20] hover:border-[#3B82F6]/50 transition-all cursor-pointer"
+            >
+              <span>TOP</span>
+              <ArrowUp className="w-3.5 h-3.5 text-[#3B82F6]" />
+            </button>
         </div>
       </div>
     </footer>

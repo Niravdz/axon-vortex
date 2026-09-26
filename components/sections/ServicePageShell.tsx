@@ -2,6 +2,7 @@
 
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 interface ServicePageShellProps {
   category: string;
@@ -30,7 +31,10 @@ export function ServicePageShell({
   return (
     <div className="pt-8 pb-24 px-6 sm:px-10 lg:px-12 flex flex-col gap-20 max-w-7xl mx-auto text-[#EFECE4]">
       {/* 1. Hero Section */}
-      <div className="flex flex-col gap-6 max-w-4xl pt-6">
+      <MotionSection
+        signature="masked-hero-depth"
+        className="flex flex-col gap-6 max-w-4xl pt-6"
+      >
         <div className="flex items-center gap-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#16335C]/60 border border-[#3B82F6]/35 text-xs font-mono tracking-wider text-[#3B82F6]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
@@ -61,10 +65,13 @@ export function ServicePageShell({
             Explore All Services
           </Button>
         </div>
-      </div>
+      </MotionSection>
 
       {/* 2. Problem Diagnosis Box */}
-      <div className="rounded-[16px] border border-white/[0.08] bg-[#1b1e22] p-8 sm:p-12 flex flex-col gap-8 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),0_6px_14px_-3px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)]">
+      <MotionSection
+        signature="diagnostic-radar-reveal"
+        className="rounded-[16px] border border-white/[0.08] bg-[#1b1e22] p-8 sm:p-12 flex flex-col gap-8 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),0_6px_14px_-3px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)]"
+      >
         <div className="flex flex-col gap-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#171a1e] border border-[#F4BA00]/30 text-xs font-mono tracking-wider text-[#F4BA00] w-fit shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00] animate-pulse" />
@@ -79,7 +86,7 @@ export function ServicePageShell({
           {problemPoints.map((pt, i) => (
             <div
               key={i}
-              className="p-6 rounded-[12px] bg-[#101215] border border-white/[0.04] flex flex-col gap-3 shadow-[inset_0_2px_5px_rgba(0,0,0,0.78),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.04)] hover:border-[#3B82F6]/30 transition-colors"
+              className="motion-item p-6 rounded-[12px] bg-[#101215] border border-white/[0.04] flex flex-col gap-3 shadow-[inset_0_2px_5px_rgba(0,0,0,0.78),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.04)] hover:border-[#3B82F6]/30 transition-colors"
             >
               <span className="font-mono text-xs text-[#3B82F6] px-2.5 py-1 rounded-[4px] bg-[#171a1e] border border-white/[0.06] w-fit font-semibold shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 {String(i + 1).padStart(2, "0")}
@@ -90,10 +97,13 @@ export function ServicePageShell({
             </div>
           ))}
         </div>
-      </div>
+      </MotionSection>
 
       {/* 3. Capabilities / What We Do */}
-      <div className="flex flex-col gap-8">
+      <MotionSection
+        signature="staggered-system-grid"
+        className="flex flex-col gap-8"
+      >
         <div className="flex flex-col gap-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/35 text-xs font-mono tracking-wider text-[#3B82F6] w-fit shadow-[0_2px_6px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]">
             <span>CAPABILITIES MATRIX</span>
@@ -107,7 +117,7 @@ export function ServicePageShell({
           {capabilities.map((cap, i) => (
             <div
               key={i}
-              className="p-7 sm:p-8 rounded-[14px] border border-white/[0.08] bg-[#171a1e] shadow-[0_10px_28px_-4px_rgba(0,0,0,0.72),0_4px_10px_-2px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col justify-between hover:border-[#3B82F6]/50 hover:bg-[#21252a] hover:shadow-[0_16px_34px_rgba(0,0,0,0.8),0_0_20px_rgba(59,130,246,0.15)] hover:-translate-y-1 transition-all duration-200 group"
+              className="motion-item p-7 sm:p-8 rounded-[14px] border border-white/[0.08] bg-[#171a1e] shadow-[0_10px_28px_-4px_rgba(0,0,0,0.72),0_4px_10px_-2px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col justify-between hover:border-[#3B82F6]/50 hover:bg-[#21252a] hover:shadow-[0_16px_34px_rgba(0,0,0,0.8),0_0_20px_rgba(59,130,246,0.15)] hover:-translate-y-1 transition-all duration-200 group"
             >
               <div>
                 <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4 transition-colors">
@@ -126,10 +136,13 @@ export function ServicePageShell({
             </div>
           ))}
         </div>
-      </div>
+      </MotionSection>
 
       {/* 4. Execution Process */}
-      <div className="flex flex-col gap-8">
+      <MotionSection
+        signature="scroll-progress-timeline"
+        className="flex flex-col gap-8"
+      >
         <div className="flex flex-col gap-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/35 text-xs font-mono tracking-wider text-[#3B82F6] w-fit shadow-[0_2px_6px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]">
             <span>EXECUTION PIPELINE</span>
@@ -143,7 +156,7 @@ export function ServicePageShell({
           {processSteps.map((st, i) => (
             <div
               key={i}
-              className="p-6 rounded-[12px] border border-white/[0.08] bg-[#171a1e] flex flex-col gap-2 shadow-[0_8px_20px_-3px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[#3B82F6]/40 hover:bg-[#21252a] transition-all"
+              className="motion-item p-6 rounded-[12px] border border-white/[0.08] bg-[#171a1e] flex flex-col gap-2 shadow-[0_8px_20px_-3px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-[#3B82F6]/40 hover:bg-[#21252a] transition-all"
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className="font-mono text-xs text-[#F4BA00] font-semibold px-2 py-0.5 rounded-[4px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]">
@@ -159,10 +172,13 @@ export function ServicePageShell({
             </div>
           ))}
         </div>
-      </div>
+      </MotionSection>
 
       {/* 5. Bottom Conversion Callout */}
-      <div className="rounded-[16px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),0_6px_14px_-3px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)]">
+      <MotionSection
+        signature="ambient-focus-reveal"
+        className="rounded-[16px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),0_6px_14px_-3px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)]"
+      >
         <div>
           <h3 className="text-2xl font-heading font-semibold uppercase text-[#EFECE4]">
             Ready to deploy {title}?
@@ -181,7 +197,7 @@ export function ServicePageShell({
         >
           {ctaText}
         </Button>
-      </div>
+      </MotionSection>
     </div>
   );
 }

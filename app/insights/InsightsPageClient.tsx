@@ -8,6 +8,7 @@ import { EditorialSplit } from "@/components/patterns/EditorialSplit";
 import { HorizontalJourney } from "@/components/patterns/HorizontalJourney";
 import { OpenNumberedList } from "@/components/patterns/OpenNumberedList";
 import { CTASection } from "@/components/patterns/CTASection";
+import { MotionSection } from "@/components/animation/MotionSection";
 import { cn } from "@/lib/utils";
 
 export default function InsightsPageClient() {
@@ -78,26 +79,26 @@ export default function InsightsPageClient() {
                 href: "/growth-audit",
               }}
               rightContent={
-                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-5">
+                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-box-lg flex flex-col gap-5">
                   <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 text-xs font-mono">
                     <span className="text-[#3B82F6] font-semibold">TAXONOMY METRICS</span>
                     <span className="text-[#F4BA00]">UPDATED WEEKLY</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 text-xs font-mono">
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">CORE TOPICS:</span>
                       <span className="font-semibold text-[#EFECE4]">5 Disciplines</span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">ESSAY FORMATS:</span>
                       <span className="font-semibold text-[#F4BA00]">5 Deep Formats</span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">FOUNDATION:</span>
                       <span className="font-semibold text-[#EFECE4]">Production Code</span>
                     </div>
-                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04]">
+                    <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
                       <span className="text-[#9AA3B2] block mb-1">ACCESS:</span>
                       <span className="font-semibold text-[#3B82F6]">100% Open Access</span>
                     </div>
@@ -113,7 +114,11 @@ export default function InsightsPageClient() {
         </section>
 
         {/* 2. TOPIC TAXONOMY INDEX & SYNCHRONIZED TOPIC CONTENT */}
-        <section id="taxonomy" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          id="taxonomy"
+          signature="editorial-alternate-reveal"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
               <div className="flex flex-col gap-3 max-w-2xl">
@@ -133,7 +138,7 @@ export default function InsightsPageClient() {
             </div>
 
             {/* Desktop & Mobile Responsive Topic Switcher */}
-            <div className="flex flex-wrap items-center gap-2 p-2 rounded-[16px] bg-[#141619] border border-white/[0.08]">
+            <div className="flex flex-wrap items-center gap-2 p-2 rounded-[16px] bg-[#141619] border border-white/[0.08] shadow-box-inset">
               {insights.topics.map((topic, idx) => {
                 const isActive = activeTopicIdx === idx;
 
@@ -145,8 +150,8 @@ export default function InsightsPageClient() {
                     className={cn(
                       "py-2.5 px-4 sm:px-5 rounded-[10px] font-mono text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-2",
                       isActive
-                        ? "bg-[#1b1e22] text-[#3B82F6] border border-[#3B82F6]/50 shadow-[0_4px_14px_rgba(59,130,246,0.2),inset_0_1px_0_rgba(255,255,255,0.1)] font-semibold"
-                        : "text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-[#171a1e]"
+                        ? "bg-[#1b1e22] text-[#3B82F6] border border-[#3B82F6]/50 shadow-box-selected font-semibold"
+                        : "text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-[#171a1e] shadow-box-sm hover:shadow-box-hover box-interactive"
                     )}
                   >
                     <span
@@ -162,7 +167,7 @@ export default function InsightsPageClient() {
             </div>
 
             {/* Synchronized Content Console (No blank columns, natural height!) */}
-            <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-12 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-8">
+            <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-12 shadow-box-lg flex flex-col gap-8">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
                 <div>
                   <span className="font-mono text-xs uppercase tracking-wider text-[#F4BA00] block mb-1">
@@ -191,7 +196,7 @@ export default function InsightsPageClient() {
                     {activeTopic.items.map((item, qIdx) => (
                       <div
                         key={qIdx}
-                        className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] flex items-center gap-3 shadow-[inset_0_1px_2px_rgba(0,0,0,0.7)]"
+                        className="p-4 rounded-[12px] bg-[#101215] border border-white/[0.04] flex items-center gap-3 shadow-box-inset"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shrink-0" />
                         <p className="font-heading font-medium text-xs sm:text-sm text-[#EFECE4] leading-snug">
@@ -204,7 +209,7 @@ export default function InsightsPageClient() {
               )}
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 3. EDITORIAL CONTENT-TYPE DIRECTORY */}
         <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 export interface StackLayer {
   id: string;
@@ -35,7 +36,10 @@ export function LayeredContentStack({
   const activeLayer = layers[activeIndex] || layers[0];
 
   return (
-    <div className={cn("w-full flex flex-col gap-10", className)}>
+    <MotionSection
+      signature="interactive-matrix-slide"
+      className={cn("w-full flex flex-col gap-10", className)}
+    >
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
         <div className="flex flex-col gap-3 max-w-2xl">
@@ -62,7 +66,7 @@ export function LayeredContentStack({
       {/* Layered Desktop Console / Mobile Stacked Accordion */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Layer Selector Column (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col gap-3">
+        <div className="motion-left lg:col-span-5 flex flex-col gap-3">
           {layers.map((layer, idx) => {
             const isActive = activeIndex === idx;
 
@@ -72,10 +76,10 @@ export function LayeredContentStack({
                   type="button"
                   onClick={() => setActiveIndex(idx)}
                   className={cn(
-                    "w-full text-left p-4 sm:p-5 rounded-[14px] border transition-all duration-200 flex items-center justify-between gap-4 cursor-pointer",
+                    "w-full text-left p-4 sm:p-5 rounded-[14px] border box-interactive flex items-center justify-between gap-4 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]",
                     isActive
-                      ? "bg-[#1b1e22] border-[#3B82F6]/50 shadow-[0_8px_20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.1)] text-[#EFECE4]"
-                      : "bg-[#141619] border-white/[0.06] text-[#9AA3B2] hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4]"
+                      ? "bg-[#1b1e22] border-[#3B82F6] shadow-box-selected text-[#EFECE4]"
+                      : "bg-[#141619] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:border-white/[0.12] hover:bg-[#171a1e] text-[#9AA3B2] hover:text-[#EFECE4]"
                   )}
                   aria-expanded={isActive}
                 >
@@ -102,7 +106,7 @@ export function LayeredContentStack({
 
                 {/* Mobile Dropdown Preview when Active */}
                 {isActive && (
-                  <div className="lg:hidden mt-2 p-5 rounded-[12px] bg-[#101215] border border-white/[0.08] shadow-[inset_0_2px_6px_rgba(0,0,0,0.85)] flex flex-col gap-4">
+                  <div className="lg:hidden mt-2 p-5 rounded-[12px] bg-[#101215] border border-white/[0.08] shadow-box-inset flex flex-col gap-4">
                     <p className="text-xs sm:text-sm font-body text-[#9AA3B2] leading-relaxed">
                       {layer.description}
                     </p>
@@ -116,7 +120,7 @@ export function LayeredContentStack({
                           {layer.useCases.map((uc, uIdx) => (
                             <span
                               key={uIdx}
-                              className="px-2.5 py-1 rounded bg-[#171a1e] border border-white/[0.04] text-[11px] font-mono text-[#EFECE4]"
+                              className="px-2.5 py-1 rounded bg-[#171a1e] border border-white/[0.04] text-[11px] font-mono text-[#EFECE4] shadow-box-inset"
                             >
                               {uc}
                             </span>
@@ -142,7 +146,7 @@ export function LayeredContentStack({
         </div>
 
         {/* Desktop Active Layer Preview Console (7 cols) */}
-        <div className="hidden lg:flex lg:col-span-7 flex-col rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-8 sm:p-10 shadow-[0_16px_38px_-6px_rgba(0,0,0,0.72),inset_0_1px_0_rgba(255,255,255,0.08)] gap-6">
+        <div className="motion-right hidden lg:flex lg:col-span-7 flex-col rounded-[20px] bg-[#141619] border border-white/[0.08] p-8 sm:p-10 shadow-box-lg gap-6">
           <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
             <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-[#101215] text-[#3B82F6] border border-white/[0.04]">
               ACTIVE LAYER // {String(activeIndex + 1).padStart(2, "0")}
@@ -169,7 +173,7 @@ export function LayeredContentStack({
 
           {/* Practical Use Cases or Deliverables */}
           {activeLayer.useCases && activeLayer.useCases.length > 0 && (
-            <div className="p-6 rounded-[14px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.78)]">
+            <div className="p-6 rounded-[14px] bg-[#101215] border border-white/[0.04] shadow-box-inset">
               <span className="font-mono text-xs uppercase tracking-wider text-[#F4BA00] block mb-3 font-medium">
                 {activeLayer.useCasesLabel || "DEPLOYMENT SCENARIOS & WORKFLOWS:"}
               </span>
@@ -177,7 +181,7 @@ export function LayeredContentStack({
                 {activeLayer.useCases.map((uc, uIdx) => (
                   <div
                     key={uIdx}
-                    className="p-3 rounded-[8px] bg-[#171a1e] border border-white/[0.04] font-mono text-xs text-[#EFECE4] flex items-center gap-2"
+                    className="p-3 rounded-[8px] bg-[#171a1e] border border-white/[0.04] shadow-box-inset font-mono text-xs text-[#EFECE4] flex items-center gap-2"
                   >
                     <Check className="w-3.5 h-3.5 text-[#3B82F6] shrink-0" />
                     <span>{uc}</span>
@@ -201,6 +205,6 @@ export function LayeredContentStack({
           )}
         </div>
       </div>
-    </div>
+    </MotionSection>
   );
 }

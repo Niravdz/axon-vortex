@@ -56,15 +56,15 @@ export function DimensionalCard({
   };
 
   const elevationMap = {
-    1: "shadow-[0_4px_14px_-2px_rgba(0,0,0,0.72),0_2px_6px_-1px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)]",
-    2: "shadow-[0_10px_26px_-4px_rgba(0,0,0,0.75),0_4px_10px_-2px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.12)]",
-    3: "shadow-[0_18px_40px_-6px_rgba(0,0,0,0.85),0_6px_14px_-2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.16)]",
+    1: "shadow-box-sm",
+    2: "shadow-box-md",
+    3: "shadow-box-lg",
   };
 
   const glowHoverMap = {
-    none: "hover:bg-[#21252a]",
-    blue: "hover:border-[#3B82F6]/50 hover:bg-[#21252a] hover:shadow-[0_14px_32px_-4px_rgba(0,0,0,0.8),0_0_20px_rgba(59,130,246,0.22),inset_0_1px_0_rgba(255,255,255,0.18)]",
-    amber: "hover:border-[#F4BA00]/50 hover:bg-[#21252a] hover:shadow-[0_14px_32px_-4px_rgba(0,0,0,0.8),0_0_20px_rgba(244,186,0,0.22),inset_0_1px_0_rgba(255,255,255,0.18)]",
+    none: "hover:bg-[#21252a] hover:shadow-box-hover",
+    blue: "hover:border-[#3B82F6]/50 hover:bg-[#21252a] hover:shadow-box-hover",
+    amber: "hover:border-[#F4BA00]/50 hover:bg-[#21252a] hover:shadow-box-hover",
   };
 
   return (

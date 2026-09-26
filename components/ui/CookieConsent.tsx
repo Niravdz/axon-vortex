@@ -65,7 +65,7 @@ export function CookieConsent() {
     <div
       role="region"
       aria-label="Cookie consent banner"
-      className="fixed bottom-4 left-4 right-4 md:left-8 md:right-auto md:max-w-xl z-modal rounded-2xl bg-[#1b1e22] border border-white/[0.08] p-6 shadow-[0_20px_50px_-6px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.1)] text-[#EFECE4] animate-in fade-in slide-in-from-bottom-4 duration-200"
+      className="fixed bottom-4 left-4 right-4 md:left-8 md:right-auto md:max-w-xl z-modal rounded-2xl bg-[#1b1e22] border border-white/[0.08] p-6 shadow-box-lg text-[#EFECE4] animate-in fade-in slide-in-from-bottom-4 duration-200"
     >
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ export function CookieConsent() {
       </p>
 
       {showDetails && (
-        <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.05] shadow-[inset_0_2px_5px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(0,0,0,0.9),0_1px_0_rgba(255,255,255,0.035)] my-3 flex flex-col gap-2.5 text-xs font-body">
+        <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.05] shadow-box-inset my-3 flex flex-col gap-2.5 text-xs font-body">
           <label className="flex items-center justify-between cursor-not-allowed opacity-75">
             <span className="font-medium text-[#EFECE4]">Strictly Necessary (Required)</span>
             <input type="checkbox" checked disabled className="accent-[#3B82F6] w-4 h-4 rounded" />

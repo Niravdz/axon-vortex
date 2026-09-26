@@ -24,7 +24,7 @@ export function RecessedPanel({
     <div
       className={cn(
         "relative bg-[#101215] border border-white/[0.04]",
-        "shadow-[inset_0_2px_5px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]",
+        "shadow-box-inset",
         radiusClasses[radius],
         className
       )}

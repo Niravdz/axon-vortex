@@ -25,18 +25,18 @@ export function RaisedCard({
 
   const hoverGlow = {
     none: "hover:bg-[#21252a]",
-    blue: "hover:border-[#3B82F6]/45 hover:bg-[#21252a] hover:shadow-[0_12px_28px_-4px_rgba(0,0,0,0.78),0_0_18px_rgba(59,130,246,0.2),inset_0_1px_0_rgba(255,255,255,0.18)]",
-    amber: "hover:border-[#F4BA00]/45 hover:bg-[#21252a] hover:shadow-[0_12px_28px_-4px_rgba(0,0,0,0.78),0_0_18px_rgba(244,186,0,0.2),inset_0_1px_0_rgba(255,255,255,0.18)]",
+    blue: "hover:border-[#3B82F6]/45 hover:bg-[#21252a]",
+    amber: "hover:border-[#F4BA00]/45 hover:bg-[#21252a]",
   };
 
   return (
     <div
       className={cn(
         "relative bg-[#171a1e] border border-white/[0.08]",
-        "shadow-[0_4px_14px_-2px_rgba(0,0,0,0.72),0_2px_6px_-1px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.08)]",
+        "shadow-box-md",
         radiusClasses[radius],
         interactive &&
-          "transition-all duration-200 ease-out hover:-translate-y-1 active:translate-y-0",
+          "box-interactive hover:shadow-box-hover active:shadow-box-pressed",
         interactive && hoverGlow[glowOnHover],
         className
       )}

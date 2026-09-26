@@ -57,7 +57,7 @@ export default function PrivacyPolicyContent() {
           <h3 className="font-heading font-semibold text-lg text-[#EFECE4] mb-3">
             Information you give us directly
           </h3>
-          <div className="rounded-2xl border border-white/[0.08] overflow-x-auto bg-[#1b1e22] shadow-[0_12px_28px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <div className="rounded-2xl border border-white/[0.08] overflow-x-auto bg-[#1b1e22] shadow-box-md">
             <table className="w-full text-left text-xs sm:text-sm font-body">
               <thead className="bg-[#101215] border-b border-white/[0.08] font-mono text-xs text-[#EFECE4] uppercase">
                 <tr>
@@ -87,7 +87,7 @@ export default function PrivacyPolicyContent() {
           <h3 className="font-heading font-semibold text-lg text-[#EFECE4] mb-3">
             Information collected automatically
           </h3>
-          <div className="rounded-2xl border border-white/[0.08] overflow-x-auto bg-[#1b1e22] shadow-[0_12px_28px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <div className="rounded-2xl border border-white/[0.08] overflow-x-auto bg-[#1b1e22] shadow-box-md">
             <table className="w-full text-left text-xs sm:text-sm font-body">
               <thead className="bg-[#101215] border-b border-white/[0.08] font-mono text-xs text-[#EFECE4] uppercase">
                 <tr>
@@ -162,7 +162,7 @@ export default function PrivacyPolicyContent() {
           <li><strong className="text-[#EFECE4]">Analytics</strong> — Google Analytics, to understand site usage. Requires your consent in the EU/UK and under DPDP where the data can identify you.</li>
           <li><strong className="text-[#EFECE4]">Advertising</strong> — Meta Pixel and Google Ads remarketing, to measure and target ads. Requires your consent in the EU/UK and under DPDP.</li>
         </ul>
-        <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] text-xs font-body text-[#9AA3B2] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
+        <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] text-xs font-body text-[#9AA3B2] shadow-box-inset">
           <strong className="text-[#EFECE4]">Interactive Cookie Controls:</strong> You can manage or revoke your consent preferences at any time by opening our{" "}
           <button
             type="button"
@@ -292,7 +292,7 @@ export default function PrivacyPolicyContent() {
         <p className="text-sm text-[#9AA3B2]">
           In accordance with the DPDP Act 2023, our Grievance Officer details are:
         </p>
-        <div className="p-6 rounded-2xl bg-[#1b1e22] border border-white/[0.08] shadow-[0_12px_28px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-2 font-mono text-xs text-[#EFECE4]">
+        <div className="p-6 rounded-2xl bg-[#1b1e22] border border-white/[0.08] shadow-box-md flex flex-col gap-2 font-mono text-xs text-[#EFECE4]">
           <div>
             <span className="text-[#9AA3B2] block">NAME:</span>
             <LegalPlaceholder text="Grievance Officer Name" />
@@ -336,7 +336,7 @@ export default function PrivacyPolicyContent() {
         <h2 className="text-2xl font-heading font-semibold text-[#EFECE4]">
           13. Contact us
         </h2>
-        <div className="p-6 rounded-2xl bg-[#1b1e22] border border-white/[0.08] shadow-[0_12px_28px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-3 font-mono text-xs">
+        <div className="p-6 rounded-2xl bg-[#1b1e22] border border-white/[0.08] shadow-box-md flex flex-col gap-3 font-mono text-xs">
           <span className="font-semibold text-[#EFECE4] text-sm">
             <LegalPlaceholder text="AxonVortex Legal Entity Name" />
           </span>

@@ -41,7 +41,7 @@ export function RecessedAccordion({
   return (
     <div
       className={cn(
-        "rounded-[20px] bg-[#141619] border border-white/[0.08] overflow-hidden shadow-[0_12px_32px_rgba(0,0,0,0.7)] divide-y divide-white/[0.06]",
+        "rounded-[20px] bg-[#141619] border border-white/[0.08] overflow-hidden shadow-box-lg divide-y divide-white/[0.06]",
         className
       )}
     >
@@ -105,7 +105,7 @@ export function RecessedAccordion({
                   : "max-h-0"
               )}
             >
-              <div className="p-5 sm:p-6 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.85)] font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+              <div className="p-5 sm:p-6 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-box-inset font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
                 {item.content}
               </div>
             </div>

@@ -10,6 +10,7 @@ import { ManifestoSection } from "@/components/patterns/ManifestoSection";
 import { OpenNumberedList } from "@/components/patterns/OpenNumberedList";
 import { RecessedAccordion } from "@/components/patterns/RecessedAccordion";
 import { CTASection } from "@/components/patterns/CTASection";
+import { MotionSection } from "@/components/animation/MotionSection";
 
 export function AboutPageClient() {
   const {
@@ -112,7 +113,7 @@ export function AboutPageClient() {
                 href: "/growth-audit",
               }}
               rightContent={
-                <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-6">
+                <div className="rounded-[20px] bg-[#141619] border border-white/[0.08] p-6 sm:p-8 shadow-box-lg flex flex-col gap-6">
                   <div className="border-b border-white/[0.06] pb-3">
                     <span className="font-mono text-xs uppercase tracking-widest text-[#9AA3B2] block mb-1">
                       MULTI-DOMAIN DISCIPLINE
@@ -126,7 +127,7 @@ export function AboutPageClient() {
                     {about.intersections.map((item, idx) => (
                       <div
                         key={idx}
-                        className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] font-mono text-xs font-semibold text-[#EFECE4] flex items-center justify-between shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]"
+                        className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] font-mono text-xs font-semibold text-[#EFECE4] flex items-center justify-between shadow-box-inset"
                       >
                         <span>{item}</span>
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
@@ -166,9 +167,9 @@ export function AboutPageClient() {
                 {whyExists.questions.map((q, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-[14px] bg-[#141619] border border-white/[0.06] flex items-start gap-3.5 hover:border-[#3B82F6]/40 transition-colors"
+                    className="p-5 rounded-[14px] bg-[#141619] border border-white/[0.06] shadow-box-sm hover:shadow-box-hover box-interactive flex items-start gap-3.5 hover:border-[#3B82F6]/40"
                   >
-                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] text-[#3B82F6] shrink-0">
+                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] shadow-box-inset text-[#3B82F6] shrink-0">
                       0{idx + 1}
                     </span>
                     <p className="font-heading font-medium text-xs sm:text-sm text-[#EFECE4] leading-snug">
@@ -194,10 +195,14 @@ export function AboutPageClient() {
         </section>
 
         {/* 4. BUILDING IN PUBLIC SPLIT & EXPERIMENT ACCORDION */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="editorial-alternate-reveal"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-5 flex flex-col gap-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD]">
+            <div className="motion-left lg:col-span-5 flex flex-col gap-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD] shadow-box-sm">
                 <span>{buildingInPublic.badge}</span>
               </div>
 
@@ -213,30 +218,34 @@ export function AboutPageClient() {
                 {buildingInPublic.verbs.map((verb, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1.5 rounded-full bg-[#101215] border border-white/[0.06] font-mono text-xs uppercase font-medium text-[#F4BA00]"
+                    className="px-3 py-1.5 rounded-full bg-[#101215] border border-white/[0.06] font-mono text-xs uppercase font-medium text-[#F4BA00] shadow-box-inset"
                   >
                     {verb}
                   </span>
                 ))}
               </div>
 
-              <div className="p-5 rounded-[12px] bg-[#141619] border border-white/[0.06] text-xs font-mono text-[#EFECE4]">
+              <div className="p-5 rounded-[12px] bg-[#141619] border border-white/[0.06] shadow-box-sm text-xs font-mono text-[#EFECE4]">
                 &ldquo;{buildingInPublic.closing}&rdquo;
               </div>
             </div>
 
             {/* Recessed Accordion Column */}
-            <div className="lg:col-span-7 flex flex-col gap-4">
+            <div className="motion-right lg:col-span-7 flex flex-col gap-4">
               <RecessedAccordion items={publicAccordionRows} defaultOpenIndex={0} />
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 5. CODE OF INTEGRITY: REJECTION VS EMBRACE */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <MotionSection
+          as="section"
+          signature="contrast-dual-slide"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+        >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="max-w-2xl flex flex-col gap-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#3B82F6]/30 text-xs font-mono tracking-wider w-fit text-[#93C5FD] shadow-box-sm">
                 <span>DISCRIMINATION MATRIX</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
@@ -246,7 +255,7 @@ export function AboutPageClient() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* What We Reject */}
-              <div className="p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-[0_12px_28px_rgba(0,0,0,0.6)] flex flex-col gap-5">
+              <div className="motion-left p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-box-lg flex flex-col gap-5">
                 <div className="flex items-center gap-3 border-b border-white/[0.06] pb-3">
                   <X className="w-5 h-5 text-red-400" />
                   <h3 className="font-heading font-semibold text-lg uppercase text-red-300">
@@ -264,7 +273,7 @@ export function AboutPageClient() {
               </div>
 
               {/* What We Embrace */}
-              <div className="p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-[0_12px_28px_rgba(0,0,0,0.6)] flex flex-col gap-5">
+              <div className="motion-right p-8 rounded-[20px] bg-[#141619] border border-white/[0.08] shadow-box-lg flex flex-col gap-5">
                 <div className="flex items-center gap-3 border-b border-white/[0.06] pb-3">
                   <Check className="w-5 h-5 text-[#3B82F6]" />
                   <h3 className="font-heading font-semibold text-lg uppercase text-[#60A5FA]">
@@ -282,7 +291,7 @@ export function AboutPageClient() {
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* 6. FINAL ABOUT CTA */}
         <CTASection

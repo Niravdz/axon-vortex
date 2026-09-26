@@ -12,6 +12,35 @@
   --color-soft-white: #EFECE4;
   --color-muted-gray: #9AA3B2;
 
+  /* Brand Palette Direct Tokens */
+  --void: #0F2747;
+  --surface: #121416;
+  --surface-raised: #171A1F;
+  --surface-hover: #1C222B;
+  --glass-navy: #2D5BB9;
+  --electric-blue: #3B82F6;
+  --amber-gold: #F4BA00;
+  --soft-white: #EFECE4;
+  --muted-gray: #9AA3B2;
+
+  /* Systems Console Mega-Menu Design Tokens */
+  --mega-radius: 24px;
+  --mega-item-radius: 16px;
+  --mega-border: rgba(255, 255, 255, 0.09);
+  --mega-border-hover: rgba(59, 130, 246, 0.8);
+  --mega-surface: rgba(16, 18, 21, 0.96);
+  --mega-surface-raised: rgba(24, 27, 32, 0.98);
+  --mega-surface-hover: rgba(27, 34, 44, 0.98);
+  --mega-padding: clamp(20px, 2.4vw, 34px);
+  --mega-gap: clamp(12px, 1.5vw, 22px);
+  --mega-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.62),
+    0 10px 28px rgba(0, 0, 0, 0.46),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  --mega-item-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
   /* RGB Values for Alpha Composition */
   --rgb-void: 15, 39, 71;
   --rgb-glass-navy: 45, 91, 185;
@@ -96,8 +125,25 @@
   --radius-3xl: 24px;
   --radius-full: 9999px;
 
-  /* Motion Tokens */
-  --motion-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* Luxury Motion System Tokens */
+  --motion-fast: 180ms;
+  --motion-medium: 420ms;
+  --motion-slow: 720ms;
+  --motion-cinematic: 1000ms;
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-expressive: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --reveal-distance-sm: 20px;
+  --reveal-distance-md: 48px;
+  --reveal-distance-lg: 80px;
+
+  --stagger-tight: 45ms;
+  --stagger-normal: 80ms;
+  --stagger-editorial: 120ms;
+
+  /* Backward Compatible Motion Mappings */
   --motion-standard: 280ms cubic-bezier(0.16, 1, 0.3, 1);
   --motion-reveal: 650ms cubic-bezier(0.16, 1, 0.3, 1);
   --motion-ambient: 14s ease-in-out infinite;
@@ -143,4 +189,94 @@
   --border-default: var(--color-border);
   --border-subtle: var(--color-border-subtle);
   --border-bright: var(--color-electric-blue);
+
+  /* ==========================================================================
+     Consistent 3D Elevation & Shadow System (Source of Truth)
+     Scaled proportionately to mirror the large architectural preview panel
+     ========================================================================== */
+  --shadow-box-sm:
+    0 3px 8px rgba(0, 0, 0, 0.42),
+    0 8px 18px -2px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  --shadow-box-md:
+    0 5px 12px rgba(0, 0, 0, 0.45),
+    0 14px 28px -4px rgba(0, 0, 0, 0.68),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  --shadow-box-lg:
+    0 8px 18px rgba(0, 0, 0, 0.48),
+    0 20px 45px -10px rgba(0, 0, 0, 0.82),
+    inset 0 1px 0 rgba(255, 255, 255, 0.065);
+
+  --shadow-box-hover:
+    0 10px 22px rgba(0, 0, 0, 0.52),
+    0 24px 48px -8px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  --shadow-box-pressed:
+    0 2px 6px rgba(0, 0, 0, 0.45),
+    0 6px 12px rgba(0, 0, 0, 0.52),
+    inset 0 2px 5px rgba(0, 0, 0, 0.35);
+
+  --shadow-box-selected:
+    0 6px 14px rgba(0, 0, 0, 0.45),
+    0 16px 32px -4px rgba(0, 0, 0, 0.7),
+    0 0 16px -2px rgba(59, 130, 246, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  --shadow-box-inset:
+    inset 0 2px 5px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Tablet adjustments (-15%) */
+@media (max-width: 1023px) {
+  :root {
+    --shadow-box-sm:
+      0 3px 7px rgba(0, 0, 0, 0.4),
+      0 7px 15px -2px rgba(0, 0, 0, 0.54),
+      inset 0 1px 0 rgba(255, 255, 255, 0.045);
+
+    --shadow-box-md:
+      0 4px 10px rgba(0, 0, 0, 0.42),
+      0 12px 24px -4px rgba(0, 0, 0, 0.64),
+      inset 0 1px 0 rgba(255, 255, 255, 0.055);
+
+    --shadow-box-lg:
+      0 7px 15px rgba(0, 0, 0, 0.46),
+      0 17px 38px -8px rgba(0, 0, 0, 0.78),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    --shadow-box-hover:
+      0 8px 18px rgba(0, 0, 0, 0.5),
+      0 20px 40px -6px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+}
+
+/* Mobile adjustments (-30% to -40%) */
+@media (max-width: 767px) {
+  :root {
+    --shadow-box-sm:
+      0 2px 5px rgba(0, 0, 0, 0.38),
+      0 5px 11px -2px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    --shadow-box-md:
+      0 3px 8px rgba(0, 0, 0, 0.4),
+      0 8px 18px -3px rgba(0, 0, 0, 0.58),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    --shadow-box-lg:
+      0 5px 12px rgba(0, 0, 0, 0.44),
+      0 12px 28px -6px rgba(0, 0, 0, 0.72),
+      inset 0 1px 0 rgba(255, 255, 255, 0.055);
+
+    --shadow-box-hover:
+      0 6px 14px rgba(0, 0, 0, 0.48),
+      0 14px 30px -4px rgba(0, 0, 0, 0.74),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
 }

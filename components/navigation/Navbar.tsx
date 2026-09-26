@@ -26,13 +26,26 @@ export function Navbar() {
       tl.fromTo(
         headerRef.current,
         { y: -16, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6 }
-      ).fromTo(
-        "[data-nav-item]",
-        { y: -8, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
-        "-=0.3"
-      );
+        { y: 0, opacity: 1, duration: 0.5, clearProps: "transform,opacity" }
+      )
+        .fromTo(
+          "[data-nav-logo]",
+          { x: -12, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.4, clearProps: "transform,opacity" },
+          "-=0.25"
+        )
+        .fromTo(
+          "[data-nav-item]",
+          { y: -8, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.35, stagger: 0.05, clearProps: "transform,opacity" },
+          "-=0.2"
+        )
+        .fromTo(
+          "[data-nav-cta]",
+          { scale: 0.95, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.35, clearProps: "transform,opacity" },
+          "-=0.15"
+        );
     }, headerRef);
 
     return () => ctx.revert();
@@ -63,7 +76,7 @@ export function Navbar() {
       >
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-full flex items-center justify-between gap-4 xl:gap-8">
           {/* Official AxonVortex Brand Logo */}
-          <div className="shrink-0">
+          <div data-nav-logo className="shrink-0">
             <BrandLogo variant="responsive" />
           </div>
 
@@ -71,7 +84,7 @@ export function Navbar() {
           <DesktopNavigation />
 
           {/* Desktop Primary Growth CTA Button with Amber Glow */}
-          <div className="hidden lg:flex items-center gap-4 shrink-0">
+          <div data-nav-cta className="hidden lg:flex items-center gap-4 shrink-0">
             <Button
               variant="amber"
               size="sm"

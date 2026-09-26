@@ -33,10 +33,10 @@ export const FocusInput = forwardRef<HTMLInputElement, FocusInputProps>(
             ref={ref}
             className={cn(
               "w-full bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 text-sm px-4 py-3 rounded-xl border transition-all duration-200 outline-none",
-              "border-white/[0.04] shadow-[inset_0_2px_5px_rgba(0,0,0,0.78),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.04)]",
-              "focus:border-[#3B82F6]/50 focus:bg-[#0c0e10] focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.9),0_0_16px_rgba(59,130,246,0.25)]",
+              "border-white/[0.04] shadow-box-inset",
+              "focus:border-[#3B82F6] focus:bg-[#0c0e10] focus:ring-2 focus:ring-[#3B82F6]/30 focus:shadow-box-inset",
               error
-                ? "border-[#F87171] focus:border-[#F87171] focus:shadow-[0_0_16px_rgba(248,113,113,0.35)]"
+                ? "border-[#F87171] focus:border-[#F87171] focus:ring-rose-500/30"
                 : "",
               className
             )}

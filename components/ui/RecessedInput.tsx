@@ -33,10 +33,10 @@ export const RecessedInput = forwardRef<HTMLInputElement, RecessedInputProps>(
             className={cn(
               "w-full px-4 py-2.5 rounded-[8px] bg-[#101215] text-[#EFECE4] text-sm font-body",
               "border border-white/[0.06]",
-              "shadow-[inset_0_2px_5px_rgba(0,0,0,0.82),inset_0_1px_1px_rgba(0,0,0,0.92),0_1px_0_rgba(255,255,255,0.035)]",
+              "shadow-box-inset",
               "placeholder:text-[#9AA3B2]/50 placeholder:font-normal",
               "transition-all duration-200",
-              "focus:outline-none focus:border-[#3B82F6]/60 focus:ring-2 focus:ring-[#3B82F6]/30 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.85),0_0_16px_rgba(59,130,246,0.22)]",
+              "focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/30 focus:shadow-box-inset",
               "disabled:cursor-not-allowed disabled:opacity-45 disabled:bg-[#141619]",
               error && "border-rose-500/60 focus:border-rose-500 focus:ring-rose-500/30",
               className

@@ -48,7 +48,7 @@ export function DimensionalButton({
 
     /* Frosted Dark Glass Surface with soft illumination */
     glass:
-      "bg-[#1b1e22] text-[#EFECE4] border border-white/[0.08] shadow-[0_4px_14px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)] hover:-translate-y-0.5 hover:bg-[#21252a] hover:border-white/20 hover:shadow-[0_8px_22px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.12)] active:translate-y-0.5 active:shadow-[0_2px_8px_rgba(0,0,0,0.5)]",
+      "bg-[#1b1e22] text-[#EFECE4] border border-white/[0.08] shadow-box-sm hover:shadow-box-hover active:shadow-box-pressed box-interactive hover:bg-[#21252a] hover:border-white/20",
 
     /* Subtle Glass Outline */
     outline:
