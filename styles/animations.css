@@ -202,7 +202,7 @@
    ========================================================================== */
 
 .mega-menu-shell {
-  position: absolute;
+  position: relative;
   max-height: calc(100vh - 110px);
   overflow-y: auto;
   border: 1px solid var(--mega-border);

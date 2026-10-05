@@ -93,7 +93,7 @@ export default function ContactPageClient() {
         {/* 0. TOP SPEC BAR */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-4 sm:px-8 lg:px-12 py-3">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Home
               </Link>
@@ -113,7 +113,7 @@ export default function ContactPageClient() {
         <MotionSection
           as="section"
           signature="editorial-split-mask"
-          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             {/* Left: Strong Introductory Statement */}
@@ -127,27 +127,27 @@ export default function ContactPageClient() {
                 {contactSection.headline}
               </h1>
 
-              <div className="flex flex-col gap-3 font-body text-base text-[#9AA3B2] leading-relaxed border-l-2 border-[#3B82F6] pl-4">
+              <div className="flex flex-col gap-3 font-body text-base text-[#C2C7D0] leading-relaxed border-l-2 border-[#3B82F6] pl-4">
                 <p className="text-base text-[#EFECE4]">{contactSection.subheading}</p>
                 <div className="flex flex-col gap-1.5 pt-1">
-                  <span className="font-mono text-xs text-[#9AA3B2] uppercase">{contactSection.needToKnowLabel}</span>
+                  <span className="font-mono text-xs text-[#C2C7D0] uppercase">{contactSection.needToKnowLabel}</span>
                   {contactSection.needToKnowPoints.map((point, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-sm text-[#9AA3B2]">
+                    <div key={idx} className="flex items-center gap-2 text-sm text-[#C2C7D0]">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
                       <span>{point}</span>
                     </div>
                   ))}
                 </div>
-                <p className="text-sm text-[#9AA3B2] pt-2">{contactSection.closingParagraph}</p>
+                <p className="text-sm text-[#C2C7D0] pt-2">{contactSection.closingParagraph}</p>
               </div>
 
               {/* Service Commitments Box */}
               <div className="p-6 rounded-[16px] bg-[#141619] border border-white/[0.06] shadow-box-sm flex flex-col gap-4 mt-2">
-                <div className="flex items-center gap-3 text-xs font-mono text-[#9AA3B2]">
+                <div className="flex items-center gap-3 text-xs font-mono text-[#C2C7D0]">
                   <Clock className="w-4 h-4 text-[#F4BA00]" />
                   <span>RESPONSE TIME: WITHIN 24 BUSINESS HOURS</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs font-mono text-[#9AA3B2]">
+                <div className="flex items-center gap-3 text-xs font-mono text-[#C2C7D0]">
                   <Mail className="w-4 h-4 text-[#3B82F6]" />
                   <span>DIRECT INTAKE: INFO@AXONVORTEX.COM</span>
                 </div>
@@ -158,7 +158,7 @@ export default function ContactPageClient() {
                 <span className="font-mono text-xs uppercase tracking-wider text-[#F4BA00] font-semibold">
                   {notReadyToTalk.headline}
                 </span>
-                <div className="flex flex-col gap-1 text-xs text-[#9AA3B2]">
+                <div className="flex flex-col gap-1 text-xs text-[#C2C7D0]">
                   {notReadyToTalk.statements.map((s, idx) => (
                     <p key={idx}>{s}</p>
                   ))}
@@ -189,7 +189,7 @@ export default function ContactPageClient() {
                     <h3 className="text-2xl font-heading font-semibold uppercase text-[#EFECE4]">
                       Inquiry Received
                     </h3>
-                    <p className="text-xs sm:text-sm font-body text-[#9AA3B2] max-w-md leading-relaxed">
+                    <p className="text-xs sm:text-sm font-body text-[#C2C7D0] max-w-md leading-relaxed">
                       Thank you. Your commercial inquiry has been logged in our queue. Our senior engineering leads will review your challenge and follow up within 24 business hours.
                     </p>
                     <div className="p-3 rounded-[8px] bg-[#171a1e] font-mono text-xs text-[#F4BA00]">
@@ -202,7 +202,7 @@ export default function ContactPageClient() {
                       <h2 className="text-2xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                         {formSection.title}
                       </h2>
-                      <p className="font-body text-xs sm:text-sm text-[#9AA3B2] mt-1">
+                      <p className="font-body text-xs sm:text-sm text-[#C2C7D0] mt-1">
                         Tell us about your business goals and current system friction points.
                       </p>
                     </div>
@@ -216,7 +216,7 @@ export default function ContactPageClient() {
 
                     {/* Service / Interest Selection Pills */}
                     <div className="flex flex-col gap-2.5">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2]">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#C2C7D0]">
                         Areas of Strategic Focus:
                       </span>
                       <div className="flex flex-wrap gap-2">
@@ -232,7 +232,7 @@ export default function ContactPageClient() {
                                 "px-3.5 py-1.5 rounded-[8px] font-mono text-xs transition-all duration-200 cursor-pointer",
                                 isSelected
                                   ? "bg-[#3B82F6] text-white border border-[#3B82F6] shadow-[0_0_10px_rgba(59,130,246,0.4)]"
-                                  : "bg-[#101215] text-[#9AA3B2] border border-white/[0.06] hover:text-[#EFECE4] hover:bg-[#171a1e]"
+                                  : "bg-[#101215] text-[#C2C7D0] border border-white/[0.06] hover:text-[#EFECE4] hover:bg-[#171a1e]"
                               )}
                             >
                               {opt}
@@ -245,7 +245,7 @@ export default function ContactPageClient() {
                     {/* Inputs Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1.5">
-                        <label className="font-mono text-xs text-[#9AA3B2] uppercase">
+                        <label className="font-mono text-xs text-[#C2C7D0] uppercase">
                           Your Name *
                         </label>
                         <input
@@ -254,12 +254,12 @@ export default function ContactPageClient() {
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="e.g. Alex Mercer"
-                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#9AA3B2]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
+                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#C2C7D0]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
                         />
                       </div>
 
                       <div className="flex flex-col gap-1.5">
-                        <label className="font-mono text-xs text-[#9AA3B2] uppercase">
+                        <label className="font-mono text-xs text-[#C2C7D0] uppercase">
                           Business / Organization
                         </label>
                         <input
@@ -267,12 +267,12 @@ export default function ContactPageClient() {
                           value={formData.businessName}
                           onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                           placeholder="e.g. Apex Dynamics Ltd"
-                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#9AA3B2]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
+                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#C2C7D0]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
                         />
                       </div>
 
                       <div className="flex flex-col gap-1.5">
-                        <label className="font-mono text-xs text-[#9AA3B2] uppercase">
+                        <label className="font-mono text-xs text-[#C2C7D0] uppercase">
                           Work Email *
                         </label>
                         <input
@@ -281,12 +281,12 @@ export default function ContactPageClient() {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="alex@company.com"
-                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#9AA3B2]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
+                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#C2C7D0]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
                         />
                       </div>
 
                       <div className="flex flex-col gap-1.5">
-                        <label className="font-mono text-xs text-[#9AA3B2] uppercase">
+                        <label className="font-mono text-xs text-[#C2C7D0] uppercase">
                           Phone / WhatsApp (Optional)
                         </label>
                         <input
@@ -294,13 +294,13 @@ export default function ContactPageClient() {
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="+1 555 019 2834"
-                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#9AA3B2]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
+                          className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#C2C7D0]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
                         />
                       </div>
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="font-mono text-xs text-[#9AA3B2] uppercase">
+                      <label className="font-mono text-xs text-[#C2C7D0] uppercase">
                         Website or Current Digital Channels
                       </label>
                       <input
@@ -308,12 +308,12 @@ export default function ContactPageClient() {
                         value={formData.website}
                         onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                         placeholder="https://yourcompany.com"
-                        className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#9AA3B2]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
+                        className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#C2C7D0]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="font-mono text-xs text-[#9AA3B2] uppercase">
+                      <label className="font-mono text-xs text-[#C2C7D0] uppercase">
                         Project Scope &amp; Core Challenge
                       </label>
                       <textarea
@@ -321,7 +321,7 @@ export default function ContactPageClient() {
                         value={formData.tellUsMore}
                         onChange={(e) => setFormData({ ...formData, tellUsMore: e.target.value })}
                         placeholder="Describe your current bottlenecks, upcoming commercial targets, or specific system capabilities needed..."
-                        className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#9AA3B2]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors resize-y"
+                        className="w-full px-4 py-3 rounded-[10px] bg-[#101215] border border-white/[0.08] text-xs sm:text-sm text-[#EFECE4] placeholder-[#C2C7D0]/50 shadow-box-inset focus:outline-none focus:border-[#3B82F6]/60 transition-colors resize-y"
                       />
                     </div>
 
@@ -336,7 +336,7 @@ export default function ContactPageClient() {
                       />
                       <label
                         htmlFor="privacy-consent"
-                        className="font-body text-xs text-[#9AA3B2] leading-relaxed cursor-pointer"
+                        className="font-body text-xs text-[#C2C7D0] leading-relaxed cursor-pointer"
                       >
                         I understand that AxonVortex processes commercial inquiries strictly under our{" "}
                         <Link href="/privacy" className="text-[#3B82F6] underline hover:text-[#60A5FA]">
@@ -370,7 +370,7 @@ export default function ContactPageClient() {
         <MotionSection
           as="section"
           signature="editorial-terminal-reveal"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-4xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col gap-3 text-center items-center">

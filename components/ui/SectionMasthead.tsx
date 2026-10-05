@@ -32,7 +32,7 @@ export function SectionMasthead({
 
         {/* Centre: Supporting Context/Descriptor */}
         {descriptor && (
-          <div className="hidden md:flex items-center text-center text-[11px] font-mono text-[#9AA3B2] uppercase tracking-widest truncate">
+          <div className="hidden md:flex items-center text-center text-[11px] font-mono text-[#C2C7D0] uppercase tracking-widest truncate">
             {descriptor}
           </div>
         )}

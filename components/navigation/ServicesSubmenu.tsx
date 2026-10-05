@@ -43,7 +43,7 @@ export function ServicesSubmenu({
         </span>
       </div>
       <div className="flex items-center gap-3 text-xs font-mono">
-        <span className="text-[#9AA3B2] uppercase text-[10px] tracking-wider">DIRECTORY:</span>
+        <span className="text-[#C2C7D0] uppercase text-[10px] tracking-wider">DIRECTORY:</span>
         <span className="font-semibold text-[#3B82F6]">4 DOMAINS</span>
         <span className="text-white/20">|</span>
         <span className="font-semibold text-[#F4BA00]">14 CAPABILITIES</span>
@@ -55,7 +55,7 @@ export function ServicesSubmenu({
     <>
       <div className="flex items-center gap-3">
         <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" aria-hidden="true" />
-        <span className="text-xs text-[#9AA3B2]">
+        <span className="text-xs text-[#C2C7D0]">
           Need help structuring the exact growth roadmap for your business?
         </span>
       </div>
@@ -113,7 +113,7 @@ export function ServicesSubmenu({
               <h3 className="font-heading font-semibold text-2xl tracking-tight text-[#EFECE4] leading-tight">
                 Services
               </h3>
-              <p className="text-xs text-[#9AA3B2] leading-relaxed mt-2.5">
+              <p className="text-xs text-[#C2C7D0] leading-relaxed mt-2.5">
                 {description}
               </p>
             </div>
@@ -136,7 +136,7 @@ export function ServicesSubmenu({
                 <Sparkles className="w-3.5 h-3.5 text-[#F4BA00]" />
                 <span className="text-[#EFECE4] font-medium">Modular Delivery</span>
               </div>
-              <p className="text-[11px] text-[#9AA3B2] leading-normal">
+              <p className="text-[11px] text-[#C2C7D0] leading-normal">
                 Deploy standalone specialized capabilities or synchronize them into a full continuous growth pipeline.
               </p>
             </div>
@@ -170,7 +170,7 @@ export function ServicesSubmenu({
                       style={{ backgroundColor: colorTheme.accent }}
                       aria-hidden="true"
                     />
-                    <p className="text-[11px] text-[#9AA3B2]/80 leading-normal">
+                    <p className="text-[11px] text-[#C2C7D0]/80 leading-normal">
                       {col.description}
                     </p>
                   </div>
@@ -198,7 +198,7 @@ export function ServicesSubmenu({
                                 "w-1.5 h-1.5 rounded-full shrink-0 transition-all",
                                 isActive
                                   ? "bg-[#3B82F6] scale-110"
-                                  : "bg-[#9AA3B2]/40 group-hover:scale-125"
+                                  : "bg-[#C2C7D0]/40 group-hover:scale-125"
                               )}
                               style={{
                                 backgroundColor: isActive ? "#3B82F6" : undefined,
@@ -216,7 +216,7 @@ export function ServicesSubmenu({
                               "w-3.5 h-3.5 shrink-0 transition-all duration-160",
                               isActive
                                 ? "text-[#3B82F6] opacity-100 translate-x-0"
-                                : "text-[#9AA3B2]/40 opacity-0 group-hover:opacity-100 group-hover:text-[#3B82F6] group-hover:translate-x-1"
+                                : "text-[#C2C7D0]/40 opacity-0 group-hover:opacity-100 group-hover:text-[#3B82F6] group-hover:translate-x-1"
                             )}
                             aria-hidden="true"
                           />

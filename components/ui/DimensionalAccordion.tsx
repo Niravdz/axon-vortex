@@ -75,7 +75,7 @@ export function DimensionalAccordion({
                     "w-2 h-2 rounded-full transition-colors shrink-0",
                     isOpen
                       ? "bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"
-                      : "bg-[#9AA3B2]/40"
+                      : "bg-[#C2C7D0]/40"
                   )}
                 />
                 <span
@@ -93,7 +93,7 @@ export function DimensionalAccordion({
                   "p-1.5 rounded-[6px] transition-transform duration-200 shrink-0",
                   isOpen
                     ? "rotate-180 text-[#3B82F6] bg-[#3B82F6]/10"
-                    : "text-[#9AA3B2] bg-[#20252B]"
+                    : "text-[#C2C7D0] bg-[#20252B]"
                 )}
               >
                 <ChevronDown className="w-4 h-4" />
@@ -111,7 +111,7 @@ export function DimensionalAccordion({
               )}
             >
               <div className="overflow-hidden">
-                <div className="px-5 pb-5 pt-1 pl-9 sm:pl-10 text-sm font-body text-[#9AA3B2] leading-relaxed border-t border-[#EFECE4]/[0.06]">
+                <div className="px-5 pb-5 pt-1 pl-9 sm:pl-10 text-sm font-body text-[#C2C7D0] leading-relaxed border-t border-[#EFECE4]/[0.06]">
                   {item.description}
                 </div>
               </div>

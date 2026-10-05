@@ -32,7 +32,7 @@ export const FocusInput = forwardRef<HTMLInputElement, FocusInputProps>(
             id={inputId}
             ref={ref}
             className={cn(
-              "w-full bg-[#101215] text-[#EFECE4] placeholder-[#9AA3B2]/50 text-sm px-4 py-3 rounded-xl border transition-all duration-200 outline-none",
+              "w-full bg-[#101215] text-[#EFECE4] placeholder-[#C2C7D0]/50 text-sm px-4 py-3 rounded-xl border transition-all duration-200 outline-none",
               "border-white/[0.04] shadow-box-inset",
               "focus:border-[#3B82F6] focus:bg-[#0c0e10] focus:ring-2 focus:ring-[#3B82F6]/30 focus:shadow-box-inset",
               error
@@ -52,7 +52,7 @@ export const FocusInput = forwardRef<HTMLInputElement, FocusInputProps>(
         )}
 
         {hint && !error && (
-          <span className="text-[11px] text-[#9AA3B2]/70">{hint}</span>
+          <span className="text-[11px] text-[#C2C7D0]/70">{hint}</span>
         )}
       </div>
     );

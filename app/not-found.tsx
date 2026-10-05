@@ -41,7 +41,7 @@ export default function NotFound() {
             Page Not Found
           </h1>
 
-          <p className="text-xs sm:text-sm font-body text-[#9AA3B2] max-w-md mb-8 leading-relaxed">
+          <p className="text-xs sm:text-sm font-body text-[#C2C7D0] max-w-md mb-8 leading-relaxed">
             The page or resource coordinate you requested has shifted or does not exist in the AxonVortex system index.
           </p>
 

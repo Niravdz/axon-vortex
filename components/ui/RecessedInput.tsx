@@ -19,7 +19,7 @@ export const RecessedInput = forwardRef<HTMLInputElement, RecessedInputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-xs font-label font-medium uppercase tracking-wider text-[#9AA3B2]"
+            className="text-xs font-label font-medium uppercase tracking-wider text-[#C2C7D0]"
           >
             {label}
           </label>
@@ -34,7 +34,7 @@ export const RecessedInput = forwardRef<HTMLInputElement, RecessedInputProps>(
               "w-full px-4 py-2.5 rounded-[8px] bg-[#101215] text-[#EFECE4] text-sm font-body",
               "border border-white/[0.06]",
               "shadow-box-inset",
-              "placeholder:text-[#9AA3B2]/50 placeholder:font-normal",
+              "placeholder:text-[#C2C7D0]/50 placeholder:font-normal",
               "transition-all duration-200",
               "focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/30 focus:shadow-box-inset",
               "disabled:cursor-not-allowed disabled:opacity-45 disabled:bg-[#141619]",
@@ -49,7 +49,7 @@ export const RecessedInput = forwardRef<HTMLInputElement, RecessedInputProps>(
           <p className="text-xs text-rose-400 font-body mt-0.5">{error}</p>
         )}
         {hint && !error && (
-          <p className="text-xs text-[#9AA3B2]/70 font-body mt-0.5">{hint}</p>
+          <p className="text-xs text-[#C2C7D0]/70 font-body mt-0.5">{hint}</p>
         )}
       </div>
     );

@@ -48,7 +48,7 @@ export function HorizontalJourney({
             {title}
           </h2>
           {subtitle && (
-            <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+            <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
               {subtitle}
             </p>
           )}
@@ -107,7 +107,7 @@ export function HorizontalJourney({
                     {st.name}
                   </h3>
 
-                  <p className="font-body text-xs text-[#9AA3B2] leading-relaxed">
+                  <p className="font-body text-xs text-[#C2C7D0] leading-relaxed">
                     {st.description}
                   </p>
                 </div>
@@ -132,7 +132,7 @@ export function HorizontalJourney({
               Continuous Pipeline Integration
             </p>
           </div>
-          <p className="font-body text-xs text-[#9AA3B2] text-center sm:text-right max-w-xl leading-relaxed">
+          <p className="font-body text-xs text-[#C2C7D0] text-center sm:text-right max-w-xl leading-relaxed">
             {conclusion}
           </p>
         </div>

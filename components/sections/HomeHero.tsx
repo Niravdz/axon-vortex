@@ -99,7 +99,7 @@ export function HomeHero() {
     <section
       ref={heroRef}
       data-motion-signature="masked-hero-depth"
-      className="relative w-full bg-[#121519] text-[#EFECE4] overflow-x-clip border-b border-[#EFECE4]/[0.08] pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 opacity-100"
+      className="relative w-full bg-[#121519] text-[#EFECE4] overflow-x-clip pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 opacity-100"
     >
       {/* Background Radial Glow Spotlights with subtle pointer tracking */}
       <div
@@ -124,9 +124,6 @@ export function HomeHero() {
                 <span className="text-[#EFECE4] font-medium">AXON·VORTEX // LIVING GROWTH SYSTEM</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" />
               </div>
-              <span className="hidden sm:inline font-mono text-xs uppercase tracking-widest text-[#9AA3B2]/70">
-                SYSTEM 2.0
-              </span>
             </div>
 
             {/* Core Headline with Line-by-Line Masking */}
@@ -154,7 +151,7 @@ export function HomeHero() {
             </p>
 
             {/* Thesis description */}
-            <p className="hero-desc text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed max-w-2xl">
+            <p className="hero-desc text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed max-w-2xl">
               {hero.description}
             </p>
 
@@ -184,8 +181,8 @@ export function HomeHero() {
           </div>
 
           {/* Quick Domain Directory Navigation */}
-          <div className="hero-domains flex flex-col gap-3 font-mono text-xs text-[#9AA3B2] max-w-sm lg:text-right">
-            <span className="uppercase tracking-widest text-[#9AA3B2]/70">
+          <div className="hero-domains flex flex-col gap-3 font-mono text-xs text-[#C2C7D0] max-w-sm lg:text-right">
+            <span className="uppercase tracking-widest text-[#C2C7D0]/70">
               SIX CONNECTED DOMAINS:
             </span>
             <div className="flex flex-wrap lg:justify-end gap-2">

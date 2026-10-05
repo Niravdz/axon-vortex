@@ -106,9 +106,6 @@ export function LivingSynapseVisual({ className }: { className?: string }) {
             <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
             <span>LIVING GROWTH ENGINE</span>
           </div>
-          <span className="hidden sm:inline font-mono text-xs text-[#9AA3B2]">
-            AUTONOMOUS PIPELINE SYNAPSE
-          </span>
         </div>
 
         <div className="flex items-center gap-2 font-mono text-xs text-[#F4BA00]">
@@ -170,7 +167,7 @@ export function LivingSynapseVisual({ className }: { className?: string }) {
                   <span
                     className={cn(
                       "font-mono text-[11px] font-semibold tracking-wider",
-                      isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]"
+                      isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]"
                     )}
                   >
                     {node.step}
@@ -180,7 +177,7 @@ export function LivingSynapseVisual({ className }: { className?: string }) {
                       "w-7 h-7 rounded-full flex items-center justify-center transition-colors",
                       isActive
                         ? "bg-[#3B82F6] text-white shadow-[0_0_10px_rgba(59,130,246,0.6)]"
-                        : "bg-white/[0.04] text-[#9AA3B2] group-hover:text-[#EFECE4]"
+                        : "bg-white/[0.04] text-[#C2C7D0] group-hover:text-[#EFECE4]"
                     )}
                   >
                     <Icon className="w-3.5 h-3.5" />
@@ -188,7 +185,7 @@ export function LivingSynapseVisual({ className }: { className?: string }) {
                 </div>
 
                 <div>
-                  <span className="block font-mono text-[10px] text-[#9AA3B2] uppercase tracking-wider mb-0.5">
+                  <span className="block font-mono text-[10px] text-[#C2C7D0] uppercase tracking-wider mb-0.5">
                     {node.category}
                   </span>
                   <h4
@@ -217,7 +214,7 @@ export function LivingSynapseVisual({ className }: { className?: string }) {
           <h3 className="font-heading font-semibold text-xl sm:text-2xl text-[#EFECE4]">
             {activeNode.name}
           </h3>
-          <p className="font-body text-sm text-[#9AA3B2] leading-relaxed">
+          <p className="font-body text-sm text-[#C2C7D0] leading-relaxed">
             {activeNode.description}
           </p>
         </div>
@@ -228,7 +225,7 @@ export function LivingSynapseVisual({ className }: { className?: string }) {
             <span className="block font-heading font-semibold text-2xl sm:text-3xl text-[#3B82F6]">
               {activeNode.metric}
             </span>
-            <span className="block font-mono text-[11px] text-[#9AA3B2] uppercase tracking-wider">
+            <span className="block font-mono text-[11px] text-[#C2C7D0] uppercase tracking-wider">
               {activeNode.metricLabel}
             </span>
           </div>

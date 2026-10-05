@@ -37,7 +37,7 @@ export function AboutPageClient() {
       title: "What We Document & Share Publicly",
       content: (
         <div className="flex flex-col gap-3">
-          <p className="font-body text-xs sm:text-sm text-[#9AA3B2]">
+          <p className="font-body text-xs sm:text-sm text-[#C2C7D0]">
             {buildingInPublic.shareLabel}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
@@ -57,7 +57,7 @@ export function AboutPageClient() {
     {
       title: "Why We Build From Zero",
       content: (
-        <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+        <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
           Starting from zero means we carry zero legacy agency debt, zero inflated overhead, and zero obligation to push outdated marketing retainers. Every client solution is built with modern tooling, AI automation, and clean architectural principles.
         </p>
       ),
@@ -70,7 +70,7 @@ export function AboutPageClient() {
         {/* 0. BREADCRUMB / TOP SPEC BAR */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-4 sm:px-8 lg:px-12 py-3">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Home
               </Link>
@@ -87,7 +87,7 @@ export function AboutPageClient() {
         </div>
 
         {/* 1. HERO - Editorial Brand Story */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={about.badge}
@@ -115,10 +115,10 @@ export function AboutPageClient() {
               rightContent={
                 <div className="rounded-[20px] bg-[#141619] border border-white/[0.08] p-6 sm:p-8 shadow-box-lg flex flex-col gap-6">
                   <div className="border-b border-white/[0.06] pb-3">
-                    <span className="font-mono text-xs uppercase tracking-widest text-[#9AA3B2] block mb-1">
+                    <span className="font-mono text-xs uppercase tracking-widest text-[#C2C7D0] block mb-1">
                       MULTI-DOMAIN DISCIPLINE
                     </span>
-                    <p className="text-xs font-body text-[#9AA3B2]">
+                    <p className="text-xs font-body text-[#C2C7D0]">
                       {about.intersectionLabel}
                     </p>
                   </div>
@@ -145,7 +145,7 @@ export function AboutPageClient() {
         </section>
 
         {/* 2. WHY AXONVORTEX EXISTS (MANIFESTO & 5 CRITICAL CHECKS) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto flex flex-col gap-12">
             <ManifestoSection
               badge={whyExists.badge}
@@ -160,7 +160,6 @@ export function AboutPageClient() {
                 <span className="font-mono text-xs uppercase tracking-wider text-[#3B82F6] font-semibold">
                   {whyExists.challengeIntro}
                 </span>
-                <span className="font-mono text-xs text-[#9AA3B2]">5 ESSENTIAL CRITERIA</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -183,7 +182,7 @@ export function AboutPageClient() {
         </section>
 
         {/* 3. STRUCTURAL CONVICTION PILLARS (OPEN NUMBERED LIST - BREAKING REPETITIVE 2X2 CARDS) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <OpenNumberedList
               badge={beliefs.badge}
@@ -198,7 +197,7 @@ export function AboutPageClient() {
         <MotionSection
           as="section"
           signature="editorial-alternate-reveal"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="motion-left lg:col-span-5 flex flex-col gap-6">
@@ -210,7 +209,7 @@ export function AboutPageClient() {
                 {buildingInPublic.title}
               </h2>
 
-              <p className="text-base font-body text-[#9AA3B2] leading-relaxed border-l-2 border-[#3B82F6] pl-4">
+              <p className="text-base font-body text-[#C2C7D0] leading-relaxed border-l-2 border-[#3B82F6] pl-4">
                 {buildingInPublic.opening}
               </p>
 
@@ -241,7 +240,7 @@ export function AboutPageClient() {
         <MotionSection
           as="section"
           signature="contrast-dual-slide"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="max-w-2xl flex flex-col gap-3">
@@ -264,7 +263,7 @@ export function AboutPageClient() {
                 </div>
                 <div className="flex flex-col gap-3">
                   {whatWeDontBelieveIn.items.map((it, idx) => (
-                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-body text-[#9AA3B2]">
+                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-body text-[#C2C7D0]">
                       <span className="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0 mt-2" />
                       <span>{it}</span>
                     </div>
@@ -282,7 +281,7 @@ export function AboutPageClient() {
                 </div>
                 <div className="flex flex-col gap-3">
                   {whatWeDoBelieveIn.items.map((it, idx) => (
-                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-body text-[#9AA3B2]">
+                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-body text-[#C2C7D0]">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shrink-0 mt-2" />
                       <span className="text-[#EFECE4]">{it}</span>
                     </div>

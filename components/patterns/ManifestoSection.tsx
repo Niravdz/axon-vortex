@@ -132,7 +132,7 @@ export function ManifestoSection({
 
       {/* Supporting Text */}
       {supportingText && (
-        <p className="manifesto-support text-base sm:text-xl font-body text-[#9AA3B2] max-w-3xl leading-relaxed border-l-2 border-[#3B82F6] pl-6">
+        <p className="manifesto-support text-base sm:text-xl font-body text-[#C2C7D0] max-w-3xl leading-relaxed border-l-2 border-[#3B82F6] pl-6">
           {supportingText}
         </p>
       )}
@@ -156,7 +156,7 @@ export function ManifestoSection({
 
       {conclusion && (
         <div className="pt-4 border-t border-white/[0.08]">
-          <p className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2]">
+          <p className="font-mono text-xs uppercase tracking-wider text-[#C2C7D0]">
             {conclusion}
           </p>
         </div>

@@ -43,7 +43,7 @@ export function DesktopNavigation() {
     clearCloseTimeout();
     closeTimeoutRef.current = setTimeout(() => {
       setActiveMenu(null);
-    }, 120);
+    }, 280);
   }, [clearCloseTimeout]);
 
   // Measure and clamp Company dropdown position when opened
@@ -176,6 +176,7 @@ export function DesktopNavigation() {
         ref={navContainerRef}
         role="navigation"
         aria-label="Desktop Main Navigation"
+        onMouseEnter={clearCloseTimeout}
         className="hidden lg:flex items-center gap-1 xl:gap-2 h-full"
       >
         {/* 1. SOLUTIONS TRIGGER & SUBMENU */}

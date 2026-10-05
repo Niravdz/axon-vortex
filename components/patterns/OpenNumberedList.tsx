@@ -84,7 +84,7 @@ export function OpenNumberedList({
               </h2>
             )}
             {subtitle && (
-              <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+              <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                 {subtitle}
               </p>
             )}
@@ -128,11 +128,11 @@ export function OpenNumberedList({
 
               {/* Description & Link */}
               <div className="lg:col-span-5 flex flex-col gap-4">
-                <p className="font-body text-sm sm:text-base text-[#9AA3B2] leading-relaxed">
+                <p className="font-body text-sm sm:text-base text-[#C2C7D0] leading-relaxed">
                   {item.description}
                 </p>
                 {item.subtext && (
-                  <p className="text-xs font-mono text-[#9AA3B2]/70 leading-relaxed border-l border-[#3B82F6] pl-3">
+                  <p className="text-xs font-mono text-[#C2C7D0]/70 leading-relaxed border-l border-[#3B82F6] pl-3">
                     {item.subtext}
                   </p>
                 )}

@@ -83,9 +83,9 @@ export function MegaMenuShell({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {/* Invisible safe interaction bridge connecting header trigger to dropdown */}
+      {/* Invisible safe interaction bridge connecting header trigger to dropdown across any gap */}
       <div
-        className="absolute -top-4 left-0 right-0 h-4 pointer-events-auto"
+        className="absolute -top-8 left-0 right-0 h-8 pointer-events-auto"
         aria-hidden="true"
       />
 
@@ -98,9 +98,10 @@ export function MegaMenuShell({
         className={cn(
           "mega-menu-shell relative flex flex-col overflow-hidden text-[#EFECE4]",
           variant === "large" ? "mega-menu-shell--large" : "mega-menu-shell--medium",
+          isOpen ? "pointer-events-auto" : "pointer-events-none",
           isVisible
             ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-2.5 scale-[0.985] pointer-events-none",
+            : "opacity-0 translate-y-2.5 scale-[0.985]",
           className
         )}
       >

@@ -11,7 +11,7 @@ export function BuildingAxonSection() {
     <MotionSection
       as="section"
       signature="editorial-terminal-reveal"
-      className="relative w-full bg-[#101215] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08] overflow-x-clip"
+      className="relative w-full bg-[#101215] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-x-clip"
     >
       {/* Background Subtle Gradient Glow */}
       <div
@@ -33,7 +33,7 @@ export function BuildingAxonSection() {
               {buildingAxon.headline}
             </h2>
 
-            <p className="font-body text-base text-[#9AA3B2] leading-relaxed">
+            <p className="font-body text-base text-[#C2C7D0] leading-relaxed">
               {buildingAxon.intro}
             </p>
 
@@ -58,12 +58,11 @@ export function BuildingAxonSection() {
 
           {/* Right Column: Open Experimentation Log (7 cols) */}
           <div className="motion-right lg:col-span-7 flex flex-col gap-4">
-            <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] font-mono text-xs text-[#9AA3B2]">
+            <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] font-mono text-xs text-[#C2C7D0]">
               <div className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-[#F4BA00]" />
                 <span>PUBLIC LAB EXPERIMENTS</span>
               </div>
-              <span>STATUS: ACTIVE SPRINT</span>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -80,7 +79,7 @@ export function BuildingAxonSection() {
                     <h3 className="font-heading font-semibold text-base sm:text-lg text-[#EFECE4]">
                       {pt.title}
                     </h3>
-                    <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+                    <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
                       {pt.description}
                     </p>
                   </div>

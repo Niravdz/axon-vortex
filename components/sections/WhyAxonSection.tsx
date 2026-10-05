@@ -11,7 +11,7 @@ export function WhyAxonSection() {
     <MotionSection
       as="section"
       signature="contrast-dual-slide"
-      className="relative w-full bg-[#101215] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08] overflow-x-clip"
+      className="relative w-full bg-[#101215] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-x-clip"
     >
       {/* Background Subtle Amber Glow */}
       <div
@@ -32,7 +32,7 @@ export function WhyAxonSection() {
               {whyAxon.headline}
             </h2>
 
-            <p className="font-body text-base sm:text-lg text-[#9AA3B2] leading-relaxed">
+            <p className="font-body text-base sm:text-lg text-[#C2C7D0] leading-relaxed">
               {whyAxon.subheading}{" "}
               <span className="text-[#EFECE4]">We build systems where strategy dictates tooling, not the other way around.</span>
             </p>
@@ -61,7 +61,7 @@ export function WhyAxonSection() {
                 </h3>
               </div>
 
-              <div className="flex flex-col gap-3 font-body text-sm text-[#9AA3B2]">
+              <div className="flex flex-col gap-3 font-body text-sm text-[#C2C7D0]">
                 <div className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-400/60 shrink-0 mt-2" />
                   <span>Tools and software deployed before understanding the core business problem.</span>
@@ -98,7 +98,7 @@ export function WhyAxonSection() {
                 </h3>
               </div>
 
-              <div className="flex flex-col gap-3 font-body text-sm text-[#9AA3B2]">
+              <div className="flex flex-col gap-3 font-body text-sm text-[#C2C7D0]">
                 <div className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shrink-0 mt-2" />
                   <span className="text-[#EFECE4]">Rigorous root-cause diagnosis before any tool or ad dollar is spent.</span>
@@ -126,7 +126,7 @@ export function WhyAxonSection() {
 
         {/* 6 Core Pillars — Open Numbered List (No enclosing boxes) */}
         <div className="pt-8 border-t border-white/[0.08]">
-          <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] block mb-6">
+          <span className="font-mono text-xs uppercase tracking-wider text-[#C2C7D0] block mb-6">
             OUR SIX OPERATING PILLARS:
           </span>
 
@@ -144,7 +144,7 @@ export function WhyAxonSection() {
                     {pillar.title}
                   </h4>
                 </div>
-                <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+                <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
                   {pillar.description}
                 </p>
               </div>

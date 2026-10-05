@@ -51,7 +51,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
         {/* 0. BREADCRUMB / TOP SPEC BAR */}
         <div className="w-full border-b border-[#EFECE4]/[0.08] px-4 sm:px-8 lg:px-12 py-3 bg-[#101215]/60 backdrop-blur-md">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/services" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Services
               </Link>
@@ -72,7 +72,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
         </div>
 
         {/* 1. HERO - Editorial Split with Specification Console */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge="CAPABILITY SPEC"
@@ -88,7 +88,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               rightContent={
                 <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-6 sm:p-8 shadow-box-lg flex flex-col gap-6">
                   <div className="border-b border-white/[0.08] pb-4">
-                    <span className="font-mono text-xs font-semibold tracking-widest text-[#9AA3B2] block mb-1 uppercase">
+                    <span className="font-mono text-xs font-semibold tracking-widest text-[#C2C7D0] block mb-1 uppercase">
                       Capability Module
                     </span>
                     <h2 className="font-heading font-semibold text-2xl text-[#EFECE4] uppercase">
@@ -99,19 +99,19 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   {/* Specification Details Grid */}
                   <div className="grid grid-cols-2 gap-3.5 p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset text-xs font-mono">
                     <div>
-                      <span className="text-[#9AA3B2] block mb-1">DOMAIN:</span>
+                      <span className="text-[#C2C7D0] block mb-1">DOMAIN:</span>
                       <span className="font-semibold text-[#EFECE4] uppercase">{domainInfo.name}</span>
                     </div>
                     <div>
-                      <span className="text-[#9AA3B2] block mb-1">STANDARD:</span>
+                      <span className="text-[#C2C7D0] block mb-1">STANDARD:</span>
                       <span className="font-semibold text-[#F4BA00]">ENTERPRISE</span>
                     </div>
                     <div>
-                      <span className="text-[#9AA3B2] block mb-1">SCOPE:</span>
+                      <span className="text-[#C2C7D0] block mb-1">SCOPE:</span>
                       <span className="font-semibold text-[#EFECE4]">{data.whatWeDo.items.length} Deliverables</span>
                     </div>
                     <div>
-                      <span className="text-[#9AA3B2] block mb-1">INTEGRATION:</span>
+                      <span className="text-[#C2C7D0] block mb-1">INTEGRATION:</span>
                       <span className="font-semibold text-[#3B82F6]">Closed Loop</span>
                     </div>
                   </div>
@@ -120,7 +120,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                     <span className="font-mono text-xs font-semibold tracking-widest text-[#F4BA00] uppercase block mb-1">
                       System Alignment
                     </span>
-                    <p className="text-xs text-[#9AA3B2] font-body leading-relaxed">
+                    <p className="text-xs text-[#C2C7D0] font-body leading-relaxed">
                       Engineered to synchronize upstream demand generation directly with downstream conversion and retention.
                     </p>
                   </div>
@@ -139,7 +139,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
         </section>
 
         {/* 2. THE PROBLEM (SYSTEM FRICTION) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-5 flex flex-col gap-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b1e22] border border-[#F4BA00]/30 text-xs font-mono tracking-wider w-fit text-[#FDE68A]">
@@ -157,7 +157,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
               )}
 
               {data.problem.paragraphs && (
-                <div className="flex flex-col gap-3 text-sm text-[#9AA3B2] font-body leading-relaxed border-l-2 border-[#3B82F6] pl-4">
+                <div className="flex flex-col gap-3 text-sm text-[#C2C7D0] font-body leading-relaxed border-l-2 border-[#3B82F6] pl-4">
                   {data.problem.paragraphs.map((p, idx) => (
                     <p key={idx}>{p}</p>
                   ))}
@@ -177,7 +177,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                       <span className="font-mono text-xs font-semibold text-[#3B82F6] px-2.5 py-1 rounded bg-[#101215] border border-white/[0.04] shrink-0">
                         {String(idx + 1).padStart(2, "0")}
                       </span>
-                      <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed pt-0.5">
+                      <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed pt-0.5">
                         {pt}
                       </p>
                     </div>
@@ -216,7 +216,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
         </section>
 
         {/* 3. WHAT WE DO (DELIVERABLE MODULES) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
               <div className="flex flex-col gap-3 max-w-2xl">
@@ -226,13 +226,10 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                   {data.whatWeDo.title}
                 </h2>
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                   Every scope item is structured with clear inputs, production milestones, and verifiable deliverables.
                 </p>
               </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-                [{data.whatWeDo.items.length} MODULES]
-              </span>
             </div>
 
             <AlternatingFeatureRows items={deliverableItems} />
@@ -241,7 +238,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
 
         {/* 4. EXECUTION PROCESS (IF AVAILABLE) */}
         {timelineSteps && timelineSteps.length > 0 && (
-          <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+          <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
             <div className="max-w-7xl mx-auto">
               <ProcessTimeline
                 badge="EXECUTION METHODOLOGY"
@@ -255,7 +252,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
         )}
 
         {/* 5. SUITABLE BUSINESSES (AUDIENCE FIT) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <AudienceFitChecklist
               badge="QUALIFICATION CRITERIA"
@@ -268,7 +265,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
 
         {/* 6. RELATED SERVICES RAIL */}
         {relatedServices.length > 0 && (
-          <section className="py-20 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+          <section className="py-20 px-4 sm:px-8 lg:px-12">
             <div className="max-w-7xl mx-auto flex flex-col gap-8">
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
                 <div>
@@ -281,7 +278,7 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 </div>
                 <Link
                   href={domainInfo.href}
-                  className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs uppercase text-[#9AA3B2] hover:text-[#3B82F6] transition-colors"
+                  className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs uppercase text-[#C2C7D0] hover:text-[#3B82F6] transition-colors"
                 >
                   <span>View All in {domainInfo.name}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -297,15 +294,15 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                   >
                     <div>
                       <div className="flex items-center justify-between pb-3 border-b border-white/[0.04] mb-3">
-                        <span className="font-mono text-xs text-[#9AA3B2] uppercase">
+                        <span className="font-mono text-xs text-[#C2C7D0] uppercase">
                           {rel.category}
                         </span>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-[#9AA3B2] group-hover:text-[#3B82F6] transition-colors" />
+                        <ArrowUpRight className="w-3.5 h-3.5 text-[#C2C7D0] group-hover:text-[#3B82F6] transition-colors" />
                       </div>
                       <h4 className="font-heading font-semibold text-base uppercase tracking-tight text-[#EFECE4] group-hover:text-[#60A5FA] transition-colors mb-2">
                         {rel.title}
                       </h4>
-                      <p className="font-body text-xs text-[#9AA3B2] line-clamp-2 leading-relaxed">
+                      <p className="font-body text-xs text-[#C2C7D0] line-clamp-2 leading-relaxed">
                         {rel.hero.headline}
                       </p>
                     </div>

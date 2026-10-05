@@ -69,7 +69,7 @@ export function WebsiteEcommerceClient() {
     <SiteTextureBackground className="overflow-x-clip">
       <div className="w-full text-[#EFECE4]">
         {/* 1. LAYERED INTERFACE COMPOSITION HERO */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={hero.badge}
@@ -91,7 +91,7 @@ export function WebsiteEcommerceClient() {
               }}
               rightContent={
                 <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-7 shadow-box-lg flex flex-col gap-4">
-                  <div className="flex items-center justify-between text-xs font-mono text-[#9AA3B2] border-b border-white/[0.06] pb-3">
+                  <div className="flex items-center justify-between text-xs font-mono text-[#C2C7D0] border-b border-white/[0.06] pb-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
                       <span className="text-[#EFECE4] uppercase">BLUEPRINT SPEC</span>
@@ -110,7 +110,7 @@ export function WebsiteEcommerceClient() {
                     />
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] font-mono text-[#9AA3B2] pt-1">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[#C2C7D0] pt-1">
                     <span>NEXT.JS &amp; SHOPIFY</span>
                     <span className="text-[#3B82F6] font-semibold">PERFORMANCE RATED</span>
                   </div>
@@ -121,7 +121,7 @@ export function WebsiteEcommerceClient() {
         </section>
 
         {/* 2. CONVERSION ARCHITECTURE & FRICTION DIAGNOSTIC */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <DiagnosticMatrix
               badge={problem.badge}
@@ -134,7 +134,7 @@ export function WebsiteEcommerceClient() {
         </section>
 
         {/* 3. OPEN SERVICE LIST (Business Sites, Landing Pages, E-Com, Shopify) */}
-        <section id="capabilities" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section id="capabilities" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
               <div className="flex flex-col gap-3 max-w-2xl">
@@ -144,13 +144,10 @@ export function WebsiteEcommerceClient() {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                   What We Build
                 </h2>
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                   Tailored web and e-commerce platforms engineered for speed, responsiveness and commercial conversion.
                 </p>
               </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-                [{services.length} CORE CAPABILITIES]
-              </span>
             </div>
 
             <AlternatingFeatureRows items={serviceItems} />
@@ -158,7 +155,7 @@ export function WebsiteEcommerceClient() {
         </section>
 
         {/* 4. DESIGN & DEVELOPMENT PROCESS TIMELINE */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <ProcessTimeline
               badge={approach.badge}
@@ -171,7 +168,7 @@ export function WebsiteEcommerceClient() {
         </section>
 
         {/* 5. PURPOSE & OUTCOME MANIFESTO */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <ManifestoSection
               badge={purpose.badge}

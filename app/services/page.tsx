@@ -74,7 +74,7 @@ export default function ServicesDirectoryPage() {
     <SiteTextureBackground className="overflow-x-clip">
       <div className="w-full text-[#EFECE4]">
         {/* 1. HERO - Editorial Split */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge="SERVICES DIRECTORY"
@@ -102,15 +102,15 @@ export default function ServicesDirectoryPage() {
               rightContent={
                 <div className="rounded-[20px] border border-white/[0.08] bg-[#1b1e22] p-6 sm:p-8 shadow-box-lg flex flex-col gap-4">
                   <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
-                    <span className="font-mono text-xs uppercase text-[#9AA3B2]">Total Capabilities</span>
+                    <span className="font-mono text-xs uppercase text-[#C2C7D0]">Total Capabilities</span>
                     <span className="font-heading font-semibold text-base text-[#EFECE4]">14 Workstreams</span>
                   </div>
                   <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
-                    <span className="font-mono text-xs uppercase text-[#9AA3B2]">Strategic Architecture</span>
+                    <span className="font-mono text-xs uppercase text-[#C2C7D0]">Strategic Architecture</span>
                     <span className="font-heading font-semibold text-base text-[#3B82F6]">5 Domains</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs uppercase text-[#9AA3B2]">System Integration</span>
+                    <span className="font-mono text-xs uppercase text-[#C2C7D0]">System Integration</span>
                     <span className="font-mono font-semibold text-xs text-[#F4BA00] uppercase">Closed Loop</span>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export default function ServicesDirectoryPage() {
         <MotionSection
           as="section"
           signature="architectural-assembly-stagger"
-          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             {/* Desktop Domain Filter Tabs */}
@@ -142,7 +142,7 @@ export default function ServicesDirectoryPage() {
                       "flex-1 py-3 px-4 rounded-[10px] font-mono text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center justify-center gap-2.5",
                       isActive
                         ? "bg-[#1b1e22] text-[#3B82F6] border border-[#3B82F6]/40 shadow-box-selected font-semibold"
-                        : "text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-[#171a1e] shadow-box-sm hover:shadow-box-hover box-interactive"
+                        : "text-[#C2C7D0] hover:text-[#EFECE4] hover:bg-[#171a1e] shadow-box-sm hover:shadow-box-hover box-interactive"
                     )}
                   >
                     <span
@@ -184,7 +184,7 @@ export default function ServicesDirectoryPage() {
                           <h3 className="font-heading font-semibold text-lg uppercase tracking-tight text-[#EFECE4] group-hover:text-[#60A5FA] transition-colors">
                             {svc.title}
                           </h3>
-                          <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed line-clamp-2 mt-1">
+                          <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed line-clamp-2 mt-1">
                             {svc.hero.headline}
                           </p>
                         </div>
@@ -219,7 +219,7 @@ export default function ServicesDirectoryPage() {
                       <h4 className="text-2xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4] leading-tight">
                         {activeServiceData.title}
                       </h4>
-                      <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed mt-2">
+                      <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed mt-2">
                         {activeServiceData.hero.paragraphs[0]}
                       </p>
                     </div>
@@ -253,7 +253,7 @@ export default function ServicesDirectoryPage() {
                     </div>
                   </>
                 ) : (
-                  <p className="font-mono text-xs text-[#9AA3B2]">
+                  <p className="font-mono text-xs text-[#C2C7D0]">
                     Hover over any capability row to inspect detailed specifications.
                   </p>
                 )}
@@ -290,7 +290,7 @@ export default function ServicesDirectoryPage() {
                           <h3 className="font-heading font-semibold text-base uppercase tracking-tight text-[#EFECE4]">
                             {domain.name}
                           </h3>
-                          <span className="font-mono text-xs text-[#9AA3B2]">
+                          <span className="font-mono text-xs text-[#C2C7D0]">
                             {domain.services.length} Capabilities
                           </span>
                         </div>
@@ -298,7 +298,7 @@ export default function ServicesDirectoryPage() {
 
                       <ChevronDown
                         className={cn(
-                          "w-4 h-4 text-[#9AA3B2] transition-transform",
+                          "w-4 h-4 text-[#C2C7D0] transition-transform",
                           isOpen ? "rotate-180 text-[#3B82F6]" : ""
                         )}
                       />
@@ -333,7 +333,7 @@ export default function ServicesDirectoryPage() {
                                 {svc.title}
                               </h4>
 
-                              <p className="font-body text-xs text-[#9AA3B2] leading-relaxed">
+                              <p className="font-body text-xs text-[#C2C7D0] leading-relaxed">
                                 {svc.hero.headline}
                               </p>
                             </div>

@@ -31,28 +31,26 @@ export function BrandLogo({
         className
       )}
     >
-      {/* 1. Responsive: Monogram on mobile, Full horizontal lockup on sm+ */}
+      {/* 1. Responsive supplied brand lockup */}
       {variant === "responsive" && (
         <div className="flex items-center">
-          {/* Mobile compact monogram */}
-          <div className="relative h-10 w-11 sm:hidden flex items-center justify-center">
+          <div className="relative h-10 w-32 sm:hidden flex items-center">
             <Image
-              src="/brand/axon-vortex-monogram.png"
+              src="/brand/axon-vortex-logo.png"
               alt="AxonVortex"
-              width={130}
-              height={112}
+              width={2172}
+              height={724}
               priority={priority}
               className="h-full w-auto object-contain drop-shadow-[0_0_12px_rgba(59,130,246,0.35)]"
             />
           </div>
 
-          {/* Desktop horizontal lockup */}
           <div className="relative hidden sm:flex items-center h-11 w-44 md:h-12 md:w-48">
             <Image
-              src="/brand/axon-vortex-horizontal-logo.png"
+              src="/brand/axon-vortex-logo.png"
               alt="AxonVortex"
-              width={288}
-              height={98}
+              width={2172}
+              height={724}
               priority={priority}
               className="h-full w-auto object-contain drop-shadow-[0_0_16px_rgba(59,130,246,0.3)]"
             />
@@ -64,10 +62,10 @@ export function BrandLogo({
       {variant === "horizontal" && (
         <div className="relative h-11 w-44 md:h-12 md:w-48 flex items-center">
           <Image
-            src="/brand/axon-vortex-horizontal-logo.png"
+            src="/brand/axon-vortex-logo.png"
             alt="AxonVortex"
-            width={288}
-            height={98}
+            width={2172}
+            height={724}
             priority={priority}
             className="h-full w-auto object-contain drop-shadow-[0_0_16px_rgba(59,130,246,0.3)]"
           />
@@ -76,12 +74,12 @@ export function BrandLogo({
 
       {/* 3. Explicit Monogram Icon */}
       {variant === "monogram" && (
-        <div className="relative h-12 w-12 flex items-center justify-center">
+        <div className="relative h-12 w-36 flex items-center justify-center">
           <Image
-            src="/brand/axon-vortex-monogram.png"
-            alt="AxonVortex Monogram"
-            width={130}
-            height={112}
+            src="/brand/axon-vortex-logo.png"
+            alt="AxonVortex"
+            width={2172}
+            height={724}
             priority={priority}
             className="h-full w-auto object-contain drop-shadow-[0_0_14px_rgba(59,130,246,0.4)]"
           />
@@ -90,12 +88,12 @@ export function BrandLogo({
 
       {/* 4. Explicit Stacked Lockup */}
       {variant === "stacked" && (
-        <div className="relative h-20 w-24 flex items-center justify-center">
+        <div className="relative h-16 w-48 flex items-center justify-center">
           <Image
-            src="/brand/axon-vortex-stacked-logo.png"
-            alt="AxonVortex Stacked Logo"
-            width={145}
-            height={122}
+            src="/brand/axon-vortex-logo.png"
+            alt="AxonVortex"
+            width={2172}
+            height={724}
             priority={priority}
             className="h-full w-auto object-contain drop-shadow-[0_0_16px_rgba(59,130,246,0.35)]"
           />

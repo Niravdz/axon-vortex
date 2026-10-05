@@ -75,10 +75,10 @@ export function MobileNavigation({
       <div className="sticky top-0 z-10 bg-[#141619] border-b border-white/[0.08] px-5 py-4 flex items-center justify-between shadow-box-md">
         <div className="flex items-center gap-3">
           <Image
-            src="/brand/axon-vortex-monogram.png"
+            src="/brand/axon-vortex-logo.png"
             alt="AxonVortex"
-            width={32}
-            height={28}
+            width={2172}
+            height={724}
             className="h-7 w-auto object-contain"
           />
           <span className="font-heading font-semibold text-xs tracking-wider uppercase text-[#EFECE4]">

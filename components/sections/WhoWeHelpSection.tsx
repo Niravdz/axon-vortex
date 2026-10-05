@@ -20,7 +20,7 @@ export function WhoWeHelpSection() {
     <MotionSection
       as="section"
       signature="staggered-audience-matrix"
-      className="relative w-full bg-[#121519] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08] overflow-x-clip"
+      className="relative w-full bg-[#121519] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-x-clip"
     >
       {/* Background Subtle Glow */}
       <div
@@ -41,14 +41,11 @@ export function WhoWeHelpSection() {
               {whoWeHelp.headline}
             </h2>
 
-            <p className="font-body text-base sm:text-lg text-[#9AA3B2] leading-relaxed">
+            <p className="font-body text-base sm:text-lg text-[#C2C7D0] leading-relaxed">
               We work with ambitious organizations at critical inflexion points—transforming isolated digital efforts into an integrated growth engine.
             </p>
           </div>
 
-          <div className="font-mono text-xs text-[#9AA3B2]">
-            [GROWTH STAGE &amp; SITUATION MATCHER]
-          </div>
         </div>
 
         {/* Open 2-Column Responsive List (No enclosing card box) */}
@@ -70,14 +67,14 @@ export function WhoWeHelpSection() {
 
                   <Link
                     href={AUDIENCE_PATHS[idx] || "/contact"}
-                    className="text-[#9AA3B2] hover:text-[#3B82F6] transition-colors p-1"
+                    className="text-[#C2C7D0] hover:text-[#3B82F6] transition-colors p-1"
                     aria-label={`Explore solutions for ${aud.title}`}
                   >
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
 
-                <p className="font-body text-sm text-[#9AA3B2] leading-relaxed">
+                <p className="font-body text-sm text-[#C2C7D0] leading-relaxed">
                   {aud.description}
                 </p>
               </div>

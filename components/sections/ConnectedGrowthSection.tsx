@@ -27,7 +27,7 @@ export function ConnectedGrowthSection() {
       signature="pipeline-assembly-stagger"
       direction="right"
       threshold="top 80%"
-      className="relative w-full bg-[#101215] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08] overflow-x-clip"
+      className="relative w-full bg-[#101215] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-x-clip"
     >
       {/* Background Subtle Gradient Glow */}
       <div
@@ -52,15 +52,10 @@ export function ConnectedGrowthSection() {
               {connectedGrowth.headline}
             </h2>
 
-            <p className="font-body text-base sm:text-lg text-[#9AA3B2] leading-relaxed">
+            <p className="font-body text-base sm:text-lg text-[#C2C7D0] leading-relaxed">
               {connectedGrowth.subheading}{" "}
               <span className="text-[#EFECE4] font-medium">{connectedGrowth.objective}</span>
             </p>
-          </div>
-
-          <div data-motion-title className="flex items-center gap-3 font-mono text-xs text-[#9AA3B2]">
-            <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-ping" />
-            <span>CONTINUOUS CLOSED-LOOP ARCHITECTURE</span>
           </div>
         </div>
 
@@ -88,7 +83,7 @@ export function ConnectedGrowthSection() {
                     <span
                       className={cn(
                         "font-mono text-xs font-semibold tracking-wider",
-                        isSelected ? "text-[#3B82F6]" : "text-[#9AA3B2]"
+                        isSelected ? "text-[#3B82F6]" : "text-[#C2C7D0]"
                       )}
                     >
                       {String(idx + 1).padStart(2, "0")}
@@ -99,7 +94,7 @@ export function ConnectedGrowthSection() {
                         "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
                         isSelected
                           ? "bg-[#3B82F6] text-white shadow-[0_0_10px_rgba(59,130,246,0.6)]"
-                          : "bg-white/[0.04] text-[#9AA3B2] group-hover:text-[#EFECE4]"
+                          : "bg-white/[0.04] text-[#C2C7D0] group-hover:text-[#EFECE4]"
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -118,7 +113,7 @@ export function ConnectedGrowthSection() {
                     <span className="block font-mono text-[11px] text-[#F4BA00] uppercase tracking-wider mb-2">
                       {step.category}
                     </span>
-                    <p className="font-body text-xs text-[#9AA3B2] leading-relaxed line-clamp-2">
+                    <p className="font-body text-xs text-[#C2C7D0] leading-relaxed line-clamp-2">
                       {step.description}
                     </p>
                   </div>
@@ -141,7 +136,7 @@ export function ConnectedGrowthSection() {
               <h4 className="font-heading font-semibold text-2xl sm:text-3xl text-[#EFECE4]">
                 Phase {activeStageIdx + 1}: {activeStep.name}
               </h4>
-              <p className="font-body text-sm sm:text-base text-[#9AA3B2] leading-relaxed">
+              <p className="font-body text-sm sm:text-base text-[#C2C7D0] leading-relaxed">
                 {activeStep.description} This stage feeds real-time performance telemetry directly into the adjacent operational layers, ensuring marketing, technology, and AI execution compound synergistically.
               </p>
             </div>
@@ -158,7 +153,7 @@ export function ConnectedGrowthSection() {
           {/* Feedback Loop Telemetry Bar */}
           <div
             data-motion-card
-            className="p-4 sm:p-5 rounded-[14px] bg-[#121519] border border-white/[0.04] shadow-box-inset flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#9AA3B2] will-change-[transform,opacity]"
+            className="p-4 sm:p-5 rounded-[14px] bg-[#121519] border border-white/[0.04] shadow-box-inset flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#C2C7D0] will-change-[transform,opacity]"
           >
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" />

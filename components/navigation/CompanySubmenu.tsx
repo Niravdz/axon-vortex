@@ -67,7 +67,7 @@ export function CompanySubmenu({
         </span>
       </div>
       <div className="flex items-center gap-2 text-xs font-mono">
-        <span className="text-[#9AA3B2] uppercase text-[10px] tracking-wider">CORP:</span>
+        <span className="text-[#C2C7D0] uppercase text-[10px] tracking-wider">CORP:</span>
         <span className="font-semibold text-[#3B82F6]">5 CHANNELS</span>
       </div>
     </>
@@ -125,7 +125,7 @@ export function CompanySubmenu({
                       {item.label}
                     </span>
                     {item.description && (
-                      <p className="text-[11px] text-[#9AA3B2] leading-tight mt-1 line-clamp-1">
+                      <p className="text-[11px] text-[#C2C7D0] leading-tight mt-1 line-clamp-1">
                         {item.description}
                       </p>
                     )}
@@ -135,7 +135,7 @@ export function CompanySubmenu({
                 <ArrowUpRight
                   className={cn(
                     "w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-                    isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]/50 group-hover:text-[#3B82F6]"
+                    isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]/50 group-hover:text-[#3B82F6]"
                   )}
                   aria-hidden="true"
                 />
@@ -164,7 +164,7 @@ export function CompanySubmenu({
               <h4 className="font-heading font-semibold text-base text-[#EFECE4] leading-snug">
                 Digital Growth Audit
               </h4>
-              <p className="text-xs text-[#9AA3B2] leading-relaxed mt-2">
+              <p className="text-xs text-[#C2C7D0] leading-relaxed mt-2">
                 Full-system evaluation across 28 checkpoints to identify friction, operational silos, and uncaptured revenue.
               </p>
             </div>

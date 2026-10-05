@@ -43,12 +43,12 @@ export function ThreeDHeroFallback({ className }: ThreeDHeroFallbackProps) {
         {/* Luminous Official Monogram */}
         <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center">
           <Image
-            src="/brand/axon-vortex-monogram.png"
-            alt="AxonVortex System Monogram"
-            width={140}
-            height={120}
+            src="/brand/axon-vortex-logo.png"
+            alt="AxonVortex"
+            width={2172}
+            height={724}
             priority
-            className="object-contain drop-shadow-[0_0_24px_rgba(59,130,246,0.45)]"
+            className="w-full h-auto object-contain drop-shadow-[0_0_24px_rgba(59,130,246,0.45)]"
           />
         </div>
 

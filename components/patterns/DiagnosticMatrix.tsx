@@ -81,14 +81,11 @@ export function DiagnosticMatrix({
             {title}
           </h2>
           {subtitle && (
-            <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+            <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
               {subtitle}
             </p>
           )}
         </div>
-        <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-          [DECISION PATHWAY LEDGER]
-        </span>
       </div>
 
       {/* Pathway Ledger Rows */}
@@ -117,7 +114,7 @@ export function DiagnosticMatrix({
                       {item.indicators.map((ind, iIdx) => (
                         <span
                           key={iIdx}
-                          className="font-mono text-[11px] text-[#9AA3B2] px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] shadow-box-inset"
+                          className="font-mono text-[11px] text-[#C2C7D0] px-2 py-0.5 rounded bg-[#101215] border border-white/[0.04] shadow-box-inset"
                         >
                           {ind}
                         </span>
@@ -130,7 +127,7 @@ export function DiagnosticMatrix({
               {/* Solution / Outcome Pathway */}
               <div className="flex items-center gap-4 shrink-0 sm:self-end lg:self-center">
                 <div className="px-4 py-2 rounded-[8px] bg-[#101215] border border-white/[0.06] shadow-box-inset flex items-center gap-3">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-[#9AA3B2]">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-[#C2C7D0]">
                     Pathway:
                   </span>
                   <strong className="font-heading font-semibold text-xs sm:text-sm uppercase tracking-wide text-[#F4BA00]">
@@ -149,7 +146,7 @@ export function DiagnosticMatrix({
                 ) : (
                   <ChevronRight
                     className={cn(
-                      "w-4 h-4 text-[#9AA3B2] transition-transform",
+                      "w-4 h-4 text-[#C2C7D0] transition-transform",
                       isSelected ? "rotate-90 text-[#3B82F6]" : ""
                     )}
                   />
@@ -171,9 +168,6 @@ export function DiagnosticMatrix({
               {conclusion}
             </p>
           </div>
-          <span className="hidden sm:inline font-mono text-xs uppercase text-[#9AA3B2]">
-            SYSTEM DIAGNOSIS COMPLETE
-          </span>
         </div>
       )}
     </div>

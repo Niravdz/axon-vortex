@@ -69,7 +69,7 @@ export function RecessedAccordion({
                     "w-2 h-2 rounded-full shrink-0 transition-colors",
                     isOpen
                       ? "bg-[#3B82F6] shadow-[0_0_8px_#3B82F6]"
-                      : "bg-[#9AA3B2]/40"
+                      : "bg-[#C2C7D0]/40"
                   )}
                 />
                 <span className="font-heading font-semibold text-base sm:text-lg uppercase tracking-tight text-[#EFECE4]">
@@ -85,7 +85,7 @@ export function RecessedAccordion({
               <div
                 className={cn(
                   "w-8 h-8 rounded-[8px] bg-[#101215] border border-white/[0.06] flex items-center justify-center shrink-0 transition-transform duration-200",
-                  isOpen ? "rotate-180 border-[#3B82F6]/50 text-[#3B82F6]" : "text-[#9AA3B2]"
+                  isOpen ? "rotate-180 border-[#3B82F6]/50 text-[#3B82F6]" : "text-[#C2C7D0]"
                 )}
               >
                 <ChevronDown className="w-4 h-4" />
@@ -105,7 +105,7 @@ export function RecessedAccordion({
                   : "max-h-0"
               )}
             >
-              <div className="p-5 sm:p-6 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-box-inset font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+              <div className="p-5 sm:p-6 rounded-[12px] bg-[#101215] border border-white/[0.04] shadow-box-inset font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
                 {item.content}
               </div>
             </div>

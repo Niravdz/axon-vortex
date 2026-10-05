@@ -31,7 +31,7 @@ export default function SolutionsPageClient() {
     <SiteTextureBackground className="overflow-x-clip">
       <div className="w-full text-[#EFECE4]">
         {/* 1. HERO - Editorial Split */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={hero.badge}
@@ -79,7 +79,7 @@ export default function SolutionsPageClient() {
         <MotionSection
           as="section"
           signature="system-assembly-depth"
-          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto">
             <MatteSection radius="24" className="overflow-hidden">
@@ -96,7 +96,7 @@ export default function SolutionsPageClient() {
 
                   <div className="flex flex-col gap-3 pl-5 border-l-2 border-[#3B82F6] my-2">
                     {growthSystem.needStatements.map((statement, idx) => (
-                      <p key={idx} className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                      <p key={idx} className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                         {statement}
                       </p>
                     ))}
@@ -119,7 +119,7 @@ export default function SolutionsPageClient() {
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
-                  <span className="block mt-4 text-center font-mono text-xs uppercase tracking-widest text-[#9AA3B2]">
+                  <span className="block mt-4 text-center font-mono text-xs uppercase tracking-widest text-[#C2C7D0]">
                     CONTINUOUS GROWTH LOOP SYSTEM
                   </span>
                 </div>
@@ -132,7 +132,7 @@ export default function SolutionsPageClient() {
         <MotionSection
           id="ecosystem"
           signature="staggered-system-grid"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             {/* Section Header */}
@@ -145,13 +145,10 @@ export default function SolutionsPageClient() {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                   Five Strategic Domains
                 </h2>
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                   Select any domain below to inspect deliverables, suitability metrics, and technical architecture.
                 </p>
               </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-                [5 CORE DISCIPLINES]
-              </span>
             </div>
 
             {/* Desktop Ecosystem Split / Mobile Accordion Stack */}
@@ -170,7 +167,7 @@ export default function SolutionsPageClient() {
                         className={`text-left p-5 rounded-[14px] border transition-all duration-200 flex items-center justify-between cursor-pointer ${
                           isActive
                             ? "bg-[#1b1e22] text-[#EFECE4] border-[#3B82F6]/50 shadow-box-selected font-semibold"
-                            : "bg-[#141619] text-[#9AA3B2] border-white/[0.06] hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4] shadow-box-sm hover:shadow-box-hover box-interactive"
+                            : "bg-[#141619] text-[#C2C7D0] border-white/[0.06] hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4] shadow-box-sm hover:shadow-box-hover box-interactive"
                         }`}
                         aria-expanded={isActive}
                       >
@@ -179,7 +176,7 @@ export default function SolutionsPageClient() {
                             className={`font-mono text-xs font-semibold px-2 py-0.5 rounded ${
                               isActive
                                 ? "bg-[#3B82F6] text-white"
-                                : "bg-[#101215] text-[#9AA3B2]"
+                                : "bg-[#101215] text-[#C2C7D0]"
                             }`}
                           >
                             {num}
@@ -188,7 +185,7 @@ export default function SolutionsPageClient() {
                             <h3 className="font-heading font-semibold text-sm sm:text-base uppercase tracking-tight">
                               {dom.title}
                             </h3>
-                            <span className="font-mono text-[11px] text-[#9AA3B2] block sm:hidden mt-0.5">
+                            <span className="font-mono text-[11px] text-[#C2C7D0] block sm:hidden mt-0.5">
                               {dom.tagline}
                             </span>
                           </div>
@@ -196,7 +193,7 @@ export default function SolutionsPageClient() {
 
                         <ChevronDown
                           className={`w-4 h-4 shrink-0 transition-transform lg:hidden ${
-                            isActive ? "rotate-180 text-[#3B82F6]" : "text-[#9AA3B2]"
+                            isActive ? "rotate-180 text-[#3B82F6]" : "text-[#C2C7D0]"
                           }`}
                         />
                       </button>
@@ -214,7 +211,7 @@ export default function SolutionsPageClient() {
                             />
                           </div>
 
-                          <p className="text-xs sm:text-sm font-body text-[#9AA3B2] leading-relaxed">
+                          <p className="text-xs sm:text-sm font-body text-[#C2C7D0] leading-relaxed">
                             {dom.descriptions[0]}
                           </p>
 
@@ -255,7 +252,7 @@ export default function SolutionsPageClient() {
                 <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
                   <div className="flex items-center gap-3">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#3B82F6] animate-pulse" />
-                    <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2]">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[#C2C7D0]">
                       SPECIFICATION PREVIEW
                     </span>
                   </div>
@@ -290,7 +287,7 @@ export default function SolutionsPageClient() {
 
                 <div className="flex flex-col gap-2.5 border-l-2 border-[#3B82F6] pl-4">
                   {activeDomain.descriptions.map((desc, idx) => (
-                    <p key={idx} className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+                    <p key={idx} className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
                       {desc}
                     </p>
                   ))}
@@ -302,7 +299,7 @@ export default function SolutionsPageClient() {
                     <span className="font-mono text-[11px] uppercase tracking-wider text-[#3B82F6] block mb-2 font-medium">
                       What We Build:
                     </span>
-                    <ul className="flex flex-col gap-1.5 font-body text-xs text-[#9AA3B2]">
+                    <ul className="flex flex-col gap-1.5 font-body text-xs text-[#C2C7D0]">
                       {activeDomain.helpWith.map((item, idx) => (
                         <li key={idx} className="flex items-center gap-2">
                           <CheckSquare className="w-3 h-3 text-[#3B82F6] shrink-0" />
@@ -316,7 +313,7 @@ export default function SolutionsPageClient() {
                     <span className="font-mono text-[11px] uppercase tracking-wider text-[#F4BA00] block mb-2 font-medium">
                       Best For Businesses That:
                     </span>
-                    <ul className="flex flex-col gap-1.5 font-body text-xs text-[#9AA3B2]">
+                    <ul className="flex flex-col gap-1.5 font-body text-xs text-[#C2C7D0]">
                       {activeDomain.bestFor.slice(0, 3).map((item, idx) => (
                         <li key={idx} className="flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00] shrink-0" />
@@ -341,7 +338,7 @@ export default function SolutionsPageClient() {
 
                   <Link
                     href="/contact"
-                    className="font-mono text-xs uppercase text-[#9AA3B2] hover:text-[#EFECE4] transition-colors"
+                    className="font-mono text-xs uppercase text-[#C2C7D0] hover:text-[#EFECE4] transition-colors"
                   >
                     Scope This Workstream →
                   </Link>
@@ -352,7 +349,7 @@ export default function SolutionsPageClient() {
         </MotionSection>
 
         {/* 4. PROBLEM-TO-SOLUTION MATCHER */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <DiagnosticMatrix
               badge={problemMatcher.badge}
@@ -365,7 +362,7 @@ export default function SolutionsPageClient() {
         </section>
 
         {/* 5. CONNECTED GROWTH JOURNEY */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <HorizontalJourney
               badge="LIFECYCLE PIPELINE"

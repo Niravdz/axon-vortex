@@ -36,7 +36,7 @@ export default function InsightsPageClient() {
         {/* 0. BREADCRUMB / TOP SPEC BAR */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-4 sm:px-8 lg:px-12 py-3">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Home
               </Link>
@@ -53,7 +53,7 @@ export default function InsightsPageClient() {
         </div>
 
         {/* 1. HERO - Editorial Opening */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={insights.badge}
@@ -87,24 +87,24 @@ export default function InsightsPageClient() {
 
                   <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">CORE TOPICS:</span>
+                      <span className="text-[#C2C7D0] block mb-1">CORE TOPICS:</span>
                       <span className="font-semibold text-[#EFECE4]">5 Disciplines</span>
                     </div>
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">ESSAY FORMATS:</span>
+                      <span className="text-[#C2C7D0] block mb-1">ESSAY FORMATS:</span>
                       <span className="font-semibold text-[#F4BA00]">5 Deep Formats</span>
                     </div>
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">FOUNDATION:</span>
+                      <span className="text-[#C2C7D0] block mb-1">FOUNDATION:</span>
                       <span className="font-semibold text-[#EFECE4]">Production Code</span>
                     </div>
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">ACCESS:</span>
+                      <span className="text-[#C2C7D0] block mb-1">ACCESS:</span>
                       <span className="font-semibold text-[#3B82F6]">100% Open Access</span>
                     </div>
                   </div>
 
-                  <p className="text-xs font-body text-[#9AA3B2] leading-relaxed pt-1">
+                  <p className="text-xs font-body text-[#C2C7D0] leading-relaxed pt-1">
                     Every article and breakdown is synthesized directly from active client deployments and empirical experiments.
                   </p>
                 </div>
@@ -117,7 +117,7 @@ export default function InsightsPageClient() {
         <MotionSection
           id="taxonomy"
           signature="editorial-alternate-reveal"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
@@ -128,13 +128,10 @@ export default function InsightsPageClient() {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                   Five Core Disciplines
                 </h2>
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                   Filter by discipline to inspect the key operational questions and strategic frameworks covered.
                 </p>
               </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-                [SYNCHRONIZED DIRECTORY]
-              </span>
             </div>
 
             {/* Desktop & Mobile Responsive Topic Switcher */}
@@ -151,7 +148,7 @@ export default function InsightsPageClient() {
                       "py-2.5 px-4 sm:px-5 rounded-[10px] font-mono text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-2",
                       isActive
                         ? "bg-[#1b1e22] text-[#3B82F6] border border-[#3B82F6]/50 shadow-box-selected font-semibold"
-                        : "text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-[#171a1e] shadow-box-sm hover:shadow-box-hover box-interactive"
+                        : "text-[#C2C7D0] hover:text-[#EFECE4] hover:bg-[#171a1e] shadow-box-sm hover:shadow-box-hover box-interactive"
                     )}
                   >
                     <span
@@ -177,12 +174,9 @@ export default function InsightsPageClient() {
                     {activeTopic.category}
                   </h3>
                 </div>
-                <div className="font-mono text-xs text-[#9AA3B2]">
-                  AXON·VORTEX KNOWLEDGE ARCHIVE
-                </div>
               </div>
 
-              <p className="font-body text-base text-[#9AA3B2] leading-relaxed max-w-3xl">
+              <p className="font-body text-base text-[#C2C7D0] leading-relaxed max-w-3xl">
                 {activeTopic.intro}
               </p>
 
@@ -212,7 +206,7 @@ export default function InsightsPageClient() {
         </MotionSection>
 
         {/* 3. EDITORIAL CONTENT-TYPE DIRECTORY */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <OpenNumberedList
               badge={contentTypes.badge}
@@ -224,7 +218,7 @@ export default function InsightsPageClient() {
         </section>
 
         {/* 4. KNOWLEDGE / CONTENT LOOP */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <HorizontalJourney
               badge={contentLoop.badge}

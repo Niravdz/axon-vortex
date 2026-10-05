@@ -91,7 +91,7 @@ export default function AuthorityPageClient() {
         {/* 0. BREADCRUMB */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-4 sm:px-8 lg:px-12 py-3">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Home
               </Link>
@@ -108,7 +108,7 @@ export default function AuthorityPageClient() {
         </div>
 
         {/* 1. HERO - Editorial Split */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge="STRATEGIC POSITIONING"
@@ -141,7 +141,7 @@ export default function AuthorityPageClient() {
                   <p className="font-heading font-medium text-lg sm:text-xl text-[#EFECE4] leading-snug">
                     &ldquo;We don&apos;t sell disconnected digital services. We build connected growth systems.&rdquo;
                   </p>
-                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] text-xs font-mono text-[#9AA3B2] leading-relaxed">
+                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] text-xs font-mono text-[#C2C7D0] leading-relaxed">
                     Closed-loop systems designed around clear commercial targets.
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default function AuthorityPageClient() {
         </section>
 
         {/* 2. OPERATIONAL PRINCIPLES (OPEN NUMBERED LIST) */}
-        <section id="principles" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section id="principles" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <OpenNumberedList
               badge="CORE PRINCIPLES"
@@ -163,7 +163,7 @@ export default function AuthorityPageClient() {
         </section>
 
         {/* 3. FREQUENTLY ASKED QUESTIONS */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col gap-3 text-center items-center">
               <span className="font-mono text-xs uppercase tracking-widest text-[#3B82F6] font-semibold">

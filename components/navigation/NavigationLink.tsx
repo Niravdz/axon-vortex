@@ -42,14 +42,14 @@ export function NavigationLink({
           <span
             className={cn(
               "w-1.5 h-1.5 rounded-full transition-colors",
-              isActive ? "bg-[#3B82F6]" : "bg-[#9AA3B2]/40 group-hover:bg-[#3B82F6]"
+              isActive ? "bg-[#3B82F6]" : "bg-[#C2C7D0]/40 group-hover:bg-[#3B82F6]"
             )}
             aria-hidden="true"
           />
           <ArrowUpRight
             className={cn(
               "w-3.5 h-3.5 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-              isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]/50 group-hover:text-[#3B82F6]"
+              isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]/50 group-hover:text-[#3B82F6]"
             )}
             aria-hidden="true"
           />
@@ -64,7 +64,7 @@ export function NavigationLink({
             {label}
           </span>
           {description && (
-            <span className="text-[11px] text-[#9AA3B2] line-clamp-2 mt-1 leading-snug">
+            <span className="text-[11px] text-[#C2C7D0] line-clamp-2 mt-1 leading-snug">
               {description}
             </span>
           )}
@@ -90,7 +90,7 @@ export function NavigationLink({
           <span
             className={cn(
               "w-1.5 h-1.5 rounded-full shrink-0 transition-colors",
-              isActive ? "bg-[#3B82F6]" : "bg-[#9AA3B2]/40 group-hover:bg-[#3B82F6]"
+              isActive ? "bg-[#3B82F6]" : "bg-[#C2C7D0]/40 group-hover:bg-[#3B82F6]"
             )}
             aria-hidden="true"
           />
@@ -99,7 +99,7 @@ export function NavigationLink({
           </span>
         </div>
         <ArrowUpRight
-          className="w-3 h-3 text-[#9AA3B2]/40 group-hover:text-[#3B82F6] shrink-0 transition-transform group-hover:translate-x-0.5"
+          className="w-3 h-3 text-[#C2C7D0]/40 group-hover:text-[#3B82F6] shrink-0 transition-transform group-hover:translate-x-0.5"
           aria-hidden="true"
         />
       </Link>
@@ -148,7 +148,7 @@ export function NavigationLink({
           />
         </span>
         {description && (
-          <span className="text-[11px] text-[#9AA3B2]/80 leading-snug mt-0.5">
+          <span className="text-[11px] text-[#C2C7D0]/80 leading-snug mt-0.5">
             {description}
           </span>
         )}

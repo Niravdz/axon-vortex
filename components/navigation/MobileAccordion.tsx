@@ -60,7 +60,7 @@ export function AccordionSection({
         </div>
         <ChevronDown
           className={cn(
-            "w-4 h-4 text-[#9AA3B2] transition-transform duration-200",
+            "w-4 h-4 text-[#C2C7D0] transition-transform duration-200",
             isOpen && "rotate-180 text-[#3B82F6]"
           )}
           aria-hidden="true"
@@ -117,7 +117,7 @@ export function MobileSolutionsList({
                 <span
                   className={cn(
                     "px-1.5 py-0.5 rounded-[4px] font-mono text-[10px] font-bold shrink-0",
-                    isActive ? "bg-[#3B82F6] text-white" : "bg-white/[0.06] text-[#9AA3B2]"
+                    isActive ? "bg-[#3B82F6] text-white" : "bg-white/[0.06] text-[#C2C7D0]"
                   )}
                 >
                   {indexFormatted}
@@ -129,7 +129,7 @@ export function MobileSolutionsList({
               <ArrowUpRight
                 className={cn(
                   "w-4 h-4 shrink-0 transition-colors",
-                  isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]"
+                  isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]"
                 )}
                 aria-hidden="true"
               />
@@ -202,7 +202,7 @@ export function MobileServicesList({
                     <ArrowUpRight
                       className={cn(
                         "w-3.5 h-3.5 shrink-0",
-                        isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]/50"
+                        isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]/50"
                       )}
                     />
                   </Link>
@@ -280,7 +280,7 @@ export function MobileCompanyList({
             <ArrowUpRight
               className={cn(
                 "w-3.5 h-3.5 shrink-0",
-                isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]"
+                isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]"
               )}
             />
           </Link>

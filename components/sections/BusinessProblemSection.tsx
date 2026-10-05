@@ -13,7 +13,7 @@ export function BusinessProblemSection() {
       signature="diagnostic-radar-reveal"
       direction="up"
       threshold="top 82%"
-      className="relative w-full bg-[#121519] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08] overflow-hidden"
+      className="relative w-full bg-[#121519] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-hidden"
     >
       {/* Background Soft Blue Glow */}
       <div
@@ -34,7 +34,7 @@ export function BusinessProblemSection() {
               {businessProblem.headline}
             </h2>
 
-            <p className="font-body text-base sm:text-lg text-[#9AA3B2] leading-relaxed">
+            <p className="font-body text-base sm:text-lg text-[#C2C7D0] leading-relaxed">
               {businessProblem.intro}
             </p>
           </div>

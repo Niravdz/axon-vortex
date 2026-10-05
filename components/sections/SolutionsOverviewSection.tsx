@@ -18,7 +18,7 @@ export function SolutionsOverviewSection() {
       signature="staggered-system-grid"
       direction="scale"
       threshold="top 80%"
-      className="relative w-full bg-[#121519] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08] overflow-x-clip"
+      className="relative w-full bg-[#121519] text-[#EFECE4] py-20 sm:py-28 px-4 sm:px-8 lg:px-12 overflow-x-clip"
     >
       {/* Background Subtle Glow */}
       <div
@@ -39,7 +39,7 @@ export function SolutionsOverviewSection() {
               {solutionsOverview.headline}
             </h2>
 
-            <p className="font-body text-base sm:text-lg text-[#9AA3B2] leading-relaxed">
+            <p className="font-body text-base sm:text-lg text-[#C2C7D0] leading-relaxed">
               {solutionsOverview.philosophy}
             </p>
           </div>
@@ -79,7 +79,7 @@ export function SolutionsOverviewSection() {
                         "font-mono text-sm font-semibold tracking-wider px-2 py-0.5 rounded transition-colors",
                         isSelected
                           ? "bg-[#3B82F6] text-[#0A0D12]"
-                          : "bg-white/[0.05] text-[#9AA3B2]"
+                          : "bg-white/[0.05] text-[#C2C7D0]"
                       )}
                     >
                       {String(idx + 1).padStart(2, "0")}
@@ -89,12 +89,12 @@ export function SolutionsOverviewSection() {
                       <h3
                         className={cn(
                           "font-heading font-semibold text-base uppercase leading-snug transition-colors",
-                          isSelected ? "text-[#EFECE4]" : "text-[#9AA3B2] group-hover:text-[#EFECE4]"
+                          isSelected ? "text-[#EFECE4]" : "text-[#C2C7D0] group-hover:text-[#EFECE4]"
                         )}
                       >
                         {domain.title}
                       </h3>
-                      <span className="font-mono text-[11px] text-[#9AA3B2]/80">
+                      <span className="font-mono text-[11px] text-[#C2C7D0]/80">
                         {domain.services.length} Specialized Capabilities
                       </span>
                     </div>
@@ -121,9 +121,6 @@ export function SolutionsOverviewSection() {
                 <span className="font-mono text-xs uppercase tracking-widest text-[#F4BA00] font-semibold">
                   DOMAIN 0{activeDomainIdx + 1} ARCHITECTURE
                 </span>
-                <span className="font-mono text-xs text-[#9AA3B2]">
-                  AXON·VORTEX OPERATING SYSTEM
-                </span>
               </div>
 
               <div>
@@ -133,14 +130,14 @@ export function SolutionsOverviewSection() {
                 <p className="font-heading font-medium text-lg text-[#F4BA00] mt-1">
                   {activeSolution.tagline}
                 </p>
-                <p className="font-body text-base text-[#9AA3B2] mt-3 leading-relaxed">
+                <p className="font-body text-base text-[#C2C7D0] mt-3 leading-relaxed">
                   {activeSolution.description}
                 </p>
               </div>
 
               {/* Specialized Services Deliverable Pills */}
               <div className="flex flex-col gap-3 pt-2">
-                <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2]">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#C2C7D0]">
                   Integrated Service Deliverables:
                 </span>
                 <div className="flex flex-wrap gap-2.5">
@@ -194,7 +191,7 @@ export function SolutionsOverviewSection() {
                   </div>
                   <ChevronDown
                     className={cn(
-                      "w-4 h-4 text-[#9AA3B2] transition-transform duration-200",
+                      "w-4 h-4 text-[#C2C7D0] transition-transform duration-200",
                       isExpanded && "rotate-180 text-[#3B82F6]"
                     )}
                   />
@@ -205,7 +202,7 @@ export function SolutionsOverviewSection() {
                     <p className="font-heading font-medium text-xs text-[#F4BA00] pt-3">
                       {domain.tagline}
                     </p>
-                    <p className="font-body text-xs text-[#9AA3B2] leading-relaxed">
+                    <p className="font-body text-xs text-[#C2C7D0] leading-relaxed">
                       {domain.description}
                     </p>
                     <div className="flex flex-wrap gap-1.5 pt-1">

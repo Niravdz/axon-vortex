@@ -40,7 +40,7 @@ export function ServicePageShell({
             <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
             <span>CAPABILITY</span>
           </div>
-          <span className="font-mono text-xs uppercase tracking-widest text-[#9AA3B2]">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#C2C7D0]">
             {category}
           </span>
         </div>
@@ -53,7 +53,7 @@ export function ServicePageShell({
           {tagline}
         </p>
 
-        <p className="text-sm sm:text-base text-[#9AA3B2] font-body leading-relaxed max-w-2xl border-l-2 border-[#3B82F6] pl-4">
+        <p className="text-sm sm:text-base text-[#C2C7D0] font-body leading-relaxed max-w-2xl border-l-2 border-[#3B82F6] pl-4">
           {description}
         </p>
 
@@ -91,7 +91,7 @@ export function ServicePageShell({
               <span className="font-mono text-xs text-[#3B82F6] px-2.5 py-1 rounded-[4px] bg-[#171a1e] border border-white/[0.06] w-fit font-semibold shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <p className="text-xs sm:text-sm text-[#9AA3B2] font-body leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#C2C7D0] font-body leading-relaxed">
                 {pt}
               </p>
             </div>
@@ -124,12 +124,12 @@ export function ServicePageShell({
                   <span className="font-mono text-xs font-semibold text-[#3B82F6] px-2 py-0.5 rounded-[4px] bg-[#101215] border border-white/[0.05] shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] group-hover:text-[#60A5FA] transition-colors">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <Plus className="w-4 h-4 text-[#9AA3B2] group-hover:text-[#3B82F6] group-hover:rotate-90 transition-all duration-200" />
+                  <Plus className="w-4 h-4 text-[#C2C7D0] group-hover:text-[#3B82F6] group-hover:rotate-90 transition-all duration-200" />
                 </div>
                 <h3 className="text-lg font-heading font-semibold uppercase text-[#EFECE4] group-hover:text-[#60A5FA] mb-2 transition-colors leading-snug">
                   {cap.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#9AA3B2] font-body leading-relaxed transition-colors">
+                <p className="text-xs sm:text-sm text-[#C2C7D0] font-body leading-relaxed transition-colors">
                   {cap.desc}
                 </p>
               </div>
@@ -166,7 +166,7 @@ export function ServicePageShell({
               <h3 className="text-base font-heading font-semibold uppercase text-[#EFECE4]">
                 {st.title}
               </h3>
-              <p className="text-xs sm:text-sm text-[#9AA3B2] font-body leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#C2C7D0] font-body leading-relaxed">
                 {st.desc}
               </p>
             </div>
@@ -183,7 +183,7 @@ export function ServicePageShell({
           <h3 className="text-2xl font-heading font-semibold uppercase text-[#EFECE4]">
             Ready to deploy {title}?
           </h3>
-          <p className="text-sm text-[#9AA3B2] mt-1">
+          <p className="text-sm text-[#C2C7D0] mt-1">
             Schedule a strategy session to evaluate your current architecture and timeline.
           </p>
         </div>

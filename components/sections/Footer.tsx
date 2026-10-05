@@ -40,7 +40,7 @@ export function Footer() {
               <span className="text-[#EFECE4]">Market Better.</span><br className="hidden sm:inline" />{" "}
               <span className="text-[#F4BA00]">Grow Faster.</span>
             </h2>
-            <p className="text-sm sm:text-base text-[#9AA3B2] max-w-2xl leading-relaxed mt-1">
+            <p className="text-sm sm:text-base text-[#C2C7D0] max-w-2xl leading-relaxed mt-1">
               Combining strategy, creativity, automation and data into practical digital growth systems tailored to your commercial goals.
             </p>
           </div>
@@ -73,10 +73,10 @@ export function Footer() {
           {/* Col 1: Brand Info */}
           <div className="flex flex-col gap-5">
             <BrandLogo variant="horizontal" />
-            <p className="text-xs text-[#9AA3B2] leading-relaxed">
+            <p className="text-xs text-[#C2C7D0] leading-relaxed">
               AxonVortex is an AI-driven digital growth agency that helps ambitious businesses build, market and scale through unified strategy, design, automation and engineering.
             </p>
-            <div className="flex flex-col gap-2 pt-2 text-xs font-mono text-[#9AA3B2]">
+            <div className="flex flex-col gap-2 pt-2 text-xs font-mono text-[#C2C7D0]">
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#3B82F6]" />
                 <a
@@ -98,7 +98,7 @@ export function Footer() {
             <span className="font-heading text-xs uppercase tracking-wider text-[#3B82F6] font-semibold">
               Commercial Domains
             </span>
-            <ul className="flex flex-col gap-2 text-xs text-[#9AA3B2]" role="list">
+            <ul className="flex flex-col gap-2 text-xs text-[#C2C7D0]" role="list">
               <li>
                 <Link href="/digital-marketing" className="hover:text-[#EFECE4] transition-colors">
                   Digital Marketing
@@ -137,7 +137,7 @@ export function Footer() {
             <span className="font-heading text-xs uppercase tracking-wider text-[#3B82F6] font-semibold">
               Capabilities
             </span>
-            <ul className="flex flex-col gap-2 text-xs text-[#9AA3B2]" role="list">
+            <ul className="flex flex-col gap-2 text-xs text-[#C2C7D0]" role="list">
               <li>
                 <Link href="/services/meta-ads" className="hover:text-[#EFECE4] transition-colors">
                   Meta Ads
@@ -176,7 +176,7 @@ export function Footer() {
             <span className="font-heading text-xs uppercase tracking-wider text-[#3B82F6] font-semibold">
               Company & Insights
             </span>
-            <ul className="flex flex-col gap-2 text-xs text-[#9AA3B2]" role="list">
+            <ul className="flex flex-col gap-2 text-xs text-[#C2C7D0]" role="list">
               <li>
                 <Link href="/about" className="hover:text-[#EFECE4] transition-colors">
                   About AxonVortex
@@ -207,7 +207,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Utility Strip */}
-        <div className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9AA3B2]/80">
+        <div className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#C2C7D0]/80">
           <div className="flex items-center gap-6">
             <span>© {new Date().getFullYear()} AxonVortex. All rights reserved.</span>
             <div className="flex items-center gap-4">

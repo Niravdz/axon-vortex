@@ -37,7 +37,7 @@ export default function GrowthAuditPageClient() {
         {/* 0. TOP SPEC BAR */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-4 sm:px-8 lg:px-12 py-3">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Home
               </Link>
@@ -54,7 +54,7 @@ export default function GrowthAuditPageClient() {
         </div>
 
         {/* 1. HERO - Diagnostic Interface */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={hero.badge}
@@ -89,24 +89,24 @@ export default function GrowthAuditPageClient() {
 
                   <div className="grid grid-cols-2 gap-3 font-mono text-xs">
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">AREAS INSPECTED:</span>
+                      <span className="text-[#C2C7D0] block mb-1">AREAS INSPECTED:</span>
                       <span className="font-semibold text-[#EFECE4]">4 System Domains</span>
                     </div>
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">TOTAL CHECKPOINTS:</span>
+                      <span className="text-[#C2C7D0] block mb-1">TOTAL CHECKPOINTS:</span>
                       <span className="font-semibold text-[#F4BA00]">28 Inspection Nodes</span>
                     </div>
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">DELIVERY TIME:</span>
+                      <span className="text-[#C2C7D0] block mb-1">DELIVERY TIME:</span>
                       <span className="font-semibold text-[#EFECE4]">5-7 Business Days</span>
                     </div>
                     <div className="p-3.5 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset">
-                      <span className="text-[#9AA3B2] block mb-1">OUTPUT FORMAT:</span>
+                      <span className="text-[#C2C7D0] block mb-1">OUTPUT FORMAT:</span>
                       <span className="font-semibold text-[#3B82F6]">Actionable Roadmap</span>
                     </div>
                   </div>
 
-                  <p className="text-xs font-body text-[#9AA3B2] leading-relaxed pt-1">
+                  <p className="text-xs font-body text-[#C2C7D0] leading-relaxed pt-1">
                     No automated generic scans. Every audit is conducted by senior growth engineers reviewing your real accounts.
                   </p>
                 </div>
@@ -119,7 +119,7 @@ export default function GrowthAuditPageClient() {
         <MotionSection
           id="checkpoints"
           signature="interactive-matrix-slide"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
@@ -130,13 +130,10 @@ export default function GrowthAuditPageClient() {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                   {scope.title}
                 </h2>
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                   Select a category to review the specific technical and commercial checkpoints evaluated.
                 </p>
               </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-                [4 SYSTEM PILLARS]
-              </span>
             </div>
 
             {/* Desktop Category Selector + Details Console */}
@@ -155,7 +152,7 @@ export default function GrowthAuditPageClient() {
                         "w-full text-left p-5 rounded-[14px] border box-interactive flex items-center justify-between cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]",
                         isActive
                           ? "bg-[#1b1e22] text-[#EFECE4] border-[#F4BA00] shadow-box-selected"
-                          : "bg-[#141619] text-[#9AA3B2] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4]"
+                          : "bg-[#141619] text-[#C2C7D0] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:bg-[#171a1e] hover:border-white/[0.12] hover:text-[#EFECE4]"
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -169,7 +166,7 @@ export default function GrowthAuditPageClient() {
                           {cat.name}
                         </span>
                       </div>
-                      <span className="font-mono text-xs text-[#9AA3B2]">
+                      <span className="font-mono text-xs text-[#C2C7D0]">
                         {cat.items.length} Points
                       </span>
                     </button>
@@ -182,9 +179,6 @@ export default function GrowthAuditPageClient() {
                 <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
                   <span className="font-mono text-xs font-semibold text-[#F4BA00] uppercase tracking-wider">
                     CHECKPOINT LEDGER // {activeCategory.name}
-                  </span>
-                  <span className="font-mono text-xs text-[#9AA3B2]">
-                    [AUDIT MODULE]
                   </span>
                 </div>
 
@@ -200,7 +194,7 @@ export default function GrowthAuditPageClient() {
                   ))}
                 </div>
 
-                <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between font-mono text-xs text-[#9AA3B2]">
+                <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between font-mono text-xs text-[#C2C7D0]">
                   <span>RIGOROUS EVALUATION STANDARD</span>
                   <span className="text-[#3B82F6]">AXON·VORTEX</span>
                 </div>
@@ -213,7 +207,7 @@ export default function GrowthAuditPageClient() {
         <MotionSection
           as="section"
           signature="staggered-system-grid"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
@@ -224,7 +218,7 @@ export default function GrowthAuditPageClient() {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                   {deliverables.title}
                 </h2>
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                   You receive an executive briefing and technical action plan you can execute independently or partner with AxonVortex to deploy.
                 </p>
               </div>
@@ -243,7 +237,7 @@ export default function GrowthAuditPageClient() {
                     <h3 className="font-heading font-semibold text-lg uppercase tracking-tight text-[#EFECE4]">
                       {item.title}
                     </h3>
-                    <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+                    <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -254,7 +248,7 @@ export default function GrowthAuditPageClient() {
         </MotionSection>
 
         {/* 4. AUDIT PROCESS TIMELINE */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <ProcessTimeline
               badge={framework.badge}
@@ -267,7 +261,7 @@ export default function GrowthAuditPageClient() {
         </section>
 
         {/* 5. IDEAL CANDIDATE CHECKLIST */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <AudienceFitChecklist
               badge={ideal.badge}

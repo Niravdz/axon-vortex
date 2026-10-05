@@ -92,7 +92,7 @@ export function InteractiveDiagnosticEngine({
           <Activity className="w-4 h-4 text-[#3B82F6]" />
           <span>INTERACTIVE SYSTEM DIAGNOSIS</span>
         </div>
-        <div className="font-mono text-xs text-[#9AA3B2]">
+        <div className="font-mono text-xs text-[#C2C7D0]">
           SELECT A BUSINESS FRICTION TO RESOLVE
         </div>
       </div>
@@ -101,7 +101,7 @@ export function InteractiveDiagnosticEngine({
       <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
         {/* Left Column: Selectable Friction List (5 cols) */}
         <div className="lg:col-span-5 p-4 sm:p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-white/[0.06] bg-[#121519] flex flex-col gap-2.5">
-          <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] px-2 mb-1">
+          <span className="font-mono text-xs uppercase tracking-wider text-[#C2C7D0] px-2 mb-1">
             Common Growth Roadblocks:
           </span>
 
@@ -124,7 +124,7 @@ export function InteractiveDiagnosticEngine({
                     "w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 font-mono text-xs font-semibold",
                     isSelected
                       ? "bg-[#3B82F6] text-white"
-                      : "bg-white/[0.05] text-[#9AA3B2] group-hover:text-[#EFECE4]"
+                      : "bg-white/[0.05] text-[#C2C7D0] group-hover:text-[#EFECE4]"
                   )}
                 >
                   {String(idx + 1).padStart(2, "0")}
@@ -134,12 +134,12 @@ export function InteractiveDiagnosticEngine({
                   <h4
                     className={cn(
                       "font-heading text-xs sm:text-sm font-semibold capitalize",
-                      isSelected ? "text-[#EFECE4]" : "text-[#9AA3B2] group-hover:text-[#EFECE4]"
+                      isSelected ? "text-[#EFECE4]" : "text-[#C2C7D0] group-hover:text-[#EFECE4]"
                     )}
                   >
                     {prob.title}
                   </h4>
-                  <p className="font-body text-xs text-[#9AA3B2] mt-0.5 line-clamp-1">
+                  <p className="font-body text-xs text-[#C2C7D0] mt-0.5 line-clamp-1">
                     {prob.description}
                   </p>
                 </div>
@@ -166,13 +166,13 @@ export function InteractiveDiagnosticEngine({
             </div>
 
             <div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] block mb-1">
+              <span className="font-mono text-xs uppercase tracking-wider text-[#C2C7D0] block mb-1">
                 Selected Challenge:
               </span>
               <h3 className="font-heading font-semibold text-2xl sm:text-3xl text-[#EFECE4]">
                 {activeProblem.title}
               </h3>
-              <p className="font-body text-sm sm:text-base text-[#9AA3B2] mt-2 leading-relaxed">
+              <p className="font-body text-sm sm:text-base text-[#C2C7D0] mt-2 leading-relaxed">
                 {activeProblem.description}
               </p>
             </div>
@@ -184,7 +184,7 @@ export function InteractiveDiagnosticEngine({
                 <span className="font-mono text-[11px] uppercase tracking-wider text-[#F4BA00] font-semibold">
                   Root Cause Analysis
                 </span>
-                <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+                <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
                   {activeMapping.rootCause}
                 </p>
               </div>
@@ -203,7 +203,7 @@ export function InteractiveDiagnosticEngine({
               <h4 className="font-heading font-semibold text-lg text-[#EFECE4]">
                 {activeMapping.solutionTitle}
               </h4>
-              <p className="font-body text-xs text-[#9AA3B2] leading-relaxed">
+              <p className="font-body text-xs text-[#C2C7D0] leading-relaxed">
                 {activeMapping.solutionDescription}
               </p>
             </div>

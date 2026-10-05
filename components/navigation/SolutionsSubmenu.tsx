@@ -41,7 +41,7 @@ export function SolutionsSubmenu({
         </span>
       </div>
       <div className="flex items-center gap-3 text-xs font-mono">
-        <span className="text-[#9AA3B2] uppercase text-[10px] tracking-wider">ARCHITECTURE:</span>
+        <span className="text-[#C2C7D0] uppercase text-[10px] tracking-wider">ARCHITECTURE:</span>
         <span className="font-semibold text-[#3B82F6]">05 CORE DOMAINS</span>
         <span className="text-white/20">|</span>
         <span className="text-[#F4BA00] font-semibold text-[11px]">SYNCHRONIZED</span>
@@ -74,7 +74,7 @@ export function SolutionsSubmenu({
               <h3 className="font-heading font-semibold text-2xl tracking-tight text-[#EFECE4] leading-tight">
                 Solutions
               </h3>
-              <p className="text-xs text-[#9AA3B2] leading-relaxed mt-2.5">
+              <p className="text-xs text-[#C2C7D0] leading-relaxed mt-2.5">
                 {description}
               </p>
             </div>
@@ -142,7 +142,7 @@ export function SolutionsSubmenu({
                             "px-2 py-0.5 rounded-[4px] font-mono text-[10px] font-semibold tracking-wider transition-colors shrink-0",
                             isActive
                               ? "bg-[#3B82F6] text-white"
-                              : "bg-white/[0.06] text-[#9AA3B2] group-hover:bg-[#3B82F6] group-hover:text-white"
+                              : "bg-white/[0.06] text-[#C2C7D0] group-hover:bg-[#3B82F6] group-hover:text-white"
                           )}
                         >
                           {indexFormatted}
@@ -152,7 +152,7 @@ export function SolutionsSubmenu({
                             <span
                               className={cn(
                                 "w-1.5 h-1.5 rounded-full transition-colors shrink-0",
-                                isActive ? "bg-[#3B82F6]" : "bg-[#9AA3B2]/40 group-hover:bg-[#3B82F6]"
+                                isActive ? "bg-[#3B82F6]" : "bg-[#C2C7D0]/40 group-hover:bg-[#3B82F6]"
                               )}
                               aria-hidden="true"
                             />
@@ -166,7 +166,7 @@ export function SolutionsSubmenu({
                             </h4>
                           </div>
                           {item.description && (
-                            <p className="text-xs text-[#9AA3B2] leading-snug mt-1 pl-3.5">
+                            <p className="text-xs text-[#C2C7D0] leading-snug mt-1 pl-3.5">
                               {item.description}
                             </p>
                           )}
@@ -177,7 +177,7 @@ export function SolutionsSubmenu({
                         <ArrowUpRight
                           className={cn(
                             "w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1",
-                            isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]/50 group-hover:text-[#3B82F6]"
+                            isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]/50 group-hover:text-[#3B82F6]"
                           )}
                           aria-hidden="true"
                         />
@@ -193,7 +193,7 @@ export function SolutionsSubmenu({
                               "px-2 py-0.5 rounded-[4px] font-mono text-[10px] font-semibold tracking-wider transition-colors",
                               isActive
                                 ? "bg-[#3B82F6] text-white"
-                                : "bg-white/[0.06] text-[#9AA3B2] group-hover:bg-[#3B82F6] group-hover:text-white"
+                                : "bg-white/[0.06] text-[#C2C7D0] group-hover:bg-[#3B82F6] group-hover:text-white"
                             )}
                           >
                             {indexFormatted}
@@ -201,7 +201,7 @@ export function SolutionsSubmenu({
                           <span
                             className={cn(
                               "w-1.5 h-1.5 rounded-full transition-colors",
-                              isActive ? "bg-[#3B82F6]" : "bg-[#9AA3B2]/40 group-hover:bg-[#3B82F6]"
+                              isActive ? "bg-[#3B82F6]" : "bg-[#C2C7D0]/40 group-hover:bg-[#3B82F6]"
                             )}
                             aria-hidden="true"
                           />
@@ -210,7 +210,7 @@ export function SolutionsSubmenu({
                         <ArrowUpRight
                           className={cn(
                             "w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1",
-                            isActive ? "text-[#3B82F6]" : "text-[#9AA3B2]/50 group-hover:text-[#3B82F6]"
+                            isActive ? "text-[#3B82F6]" : "text-[#C2C7D0]/50 group-hover:text-[#3B82F6]"
                           )}
                           aria-hidden="true"
                         />
@@ -226,7 +226,7 @@ export function SolutionsSubmenu({
                           {item.label}
                         </h4>
                         {item.description && (
-                          <p className="text-xs text-[#9AA3B2] leading-snug line-clamp-2 mt-1">
+                          <p className="text-xs text-[#C2C7D0] leading-snug line-clamp-2 mt-1">
                             {item.description}
                           </p>
                         )}

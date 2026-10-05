@@ -53,7 +53,7 @@ export default function ApproachPageClient() {
         {/* 0. BREADCRUMB / TOP SPEC BAR */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-4 sm:px-8 lg:px-12 py-3">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Home
               </Link>
@@ -70,7 +70,7 @@ export default function ApproachPageClient() {
         </div>
 
         {/* 1. HERO - Editorial Opening */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={hero.badge}
@@ -97,7 +97,7 @@ export default function ApproachPageClient() {
                   <p className="font-heading font-medium text-lg sm:text-xl text-[#EFECE4] leading-snug">
                     &ldquo;{startWithProblem.centralQuestion}&rdquo;
                   </p>
-                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset text-xs font-body text-[#9AA3B2] leading-relaxed">
+                  <div className="p-4 rounded-xl bg-[#101215] border border-white/[0.04] shadow-box-inset text-xs font-body text-[#C2C7D0] leading-relaxed">
                     {startWithProblem.conclusion}
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export default function ApproachPageClient() {
         </section>
 
         {/* 2. START WITH THE PROBLEM (FIRST PRINCIPLES) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <DiagnosticMatrix
               badge={startWithProblem.badge}
@@ -120,7 +120,7 @@ export default function ApproachPageClient() {
         </section>
 
         {/* 3. CONTINUOUS SYNCHRONIZED TIMELINE (7 INTEGRATED STAGES) */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <ProcessTimeline
               badge={framework.badge}
@@ -136,7 +136,7 @@ export default function ApproachPageClient() {
         <MotionSection
           as="section"
           signature="sticky-story-step"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Visual Column */}
@@ -163,7 +163,7 @@ export default function ApproachPageClient() {
                 {growthLoop.title}
               </h2>
 
-              <div className="flex flex-col gap-2 font-body text-base text-[#9AA3B2] leading-relaxed border-l-2 border-[#3B82F6] pl-4">
+              <div className="flex flex-col gap-2 font-body text-base text-[#C2C7D0] leading-relaxed border-l-2 border-[#3B82F6] pl-4">
                 {growthLoop.paragraphs.map((p, pIdx) => (
                   <p key={pIdx}>{p}</p>
                 ))}
@@ -177,7 +177,7 @@ export default function ApproachPageClient() {
         </MotionSection>
 
         {/* 4.5 DATA PHILOSOPHY MANIFESTO */}
-        <section className="border-b border-[#EFECE4]/[0.08] px-4 sm:px-8 lg:px-12 py-12">
+        <section className="px-4 sm:px-8 lg:px-12 py-12">
           <ManifestoSection
             badge={dataPhilosophy.badge}
             badgeAccent="blue"
@@ -192,7 +192,7 @@ export default function ApproachPageClient() {
         <MotionSection
           as="section"
           signature="contrast-dual-slide"
-          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto flex flex-col gap-12">
             <div className="max-w-3xl flex flex-col gap-3">
@@ -203,7 +203,7 @@ export default function ApproachPageClient() {
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                 {humanAi.title}
               </h2>
-              <p className="text-base font-body text-[#9AA3B2] leading-relaxed">
+              <p className="text-base font-body text-[#C2C7D0] leading-relaxed">
                 {humanAi.headline} — {humanAi.intro}
               </p>
             </div>
@@ -219,7 +219,7 @@ export default function ApproachPageClient() {
                 </div>
                 <div className="flex flex-col gap-2.5">
                   {humanAi.aiCapabilities.map((it, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-body text-[#9AA3B2]">
+                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-body text-[#C2C7D0]">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
                       <span>{it}</span>
                     </div>
@@ -237,7 +237,7 @@ export default function ApproachPageClient() {
                 </div>
                 <div className="flex flex-col gap-2.5">
                   {humanAi.humanCapabilities.map((it, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-body text-[#9AA3B2]">
+                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-body text-[#C2C7D0]">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#F4BA00]" />
                       <span>{it}</span>
                     </div>
@@ -249,7 +249,7 @@ export default function ApproachPageClient() {
         </MotionSection>
 
         {/* 6. NUMBERED OPERATING PRINCIPLES */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <OpenNumberedList
               badge="OPERATIONAL CODE"

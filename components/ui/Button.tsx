@@ -69,7 +69,7 @@ export function Button({
 
     /* Ghost button */
     ghost:
-      "bg-transparent text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-white/[0.05] p-2",
+      "bg-transparent text-[#C2C7D0] hover:text-[#EFECE4] hover:bg-white/[0.05] p-2",
   };
 
   const content = (

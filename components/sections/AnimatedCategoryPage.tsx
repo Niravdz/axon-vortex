@@ -129,7 +129,7 @@ export function AnimatedCategoryPage({
         {/* 1. HERO - 3D Dimensional Split Section */}
         <section
           ref={heroRef}
-          className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12"
+          className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Hero Content (7 cols) */}
@@ -140,7 +140,7 @@ export function AnimatedCategoryPage({
                     <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
                     <span>{hero.badge}</span>
                   </div>
-                  <span className="font-mono text-xs uppercase tracking-widest text-[#9AA3B2]/70">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#C2C7D0]/70">
                     AXON·VORTEX DOMAIN
                   </span>
                 </div>
@@ -154,7 +154,7 @@ export function AnimatedCategoryPage({
 
                 <div
                   data-anim="cat-hero"
-                  className="mt-6 flex flex-col gap-4 font-body text-base text-[#9AA3B2] leading-relaxed border-l-2 border-[#3B82F6] pl-6 max-w-2xl"
+                  className="mt-6 flex flex-col gap-4 font-body text-base text-[#C2C7D0] leading-relaxed border-l-2 border-[#3B82F6] pl-6 max-w-2xl"
                 >
                   {hero.paragraphs.map((p, idx) => (
                     <p key={idx}>{p}</p>
@@ -191,7 +191,7 @@ export function AnimatedCategoryPage({
               data-anim="cat-hero"
               className="lg:col-span-5 rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-6 shadow-[0_24px_64px_-8px_rgba(0,0,0,0.85),0_8px_20px_-4px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]"
             >
-              <div className="flex items-center justify-between text-xs font-mono mb-3 text-[#9AA3B2]">
+              <div className="flex items-center justify-between text-xs font-mono mb-3 text-[#C2C7D0]">
                 <div className="flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#101215] border border-white/[0.04]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
                   <span className="text-[#EFECE4]">SCHEMATIC SPEC</span>
@@ -210,8 +210,7 @@ export function AnimatedCategoryPage({
                 />
               </div>
 
-              <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[#9AA3B2]">
-                <span>[NODES: INTEGRATED]</span>
+              <div className="mt-4 flex items-center justify-end font-mono text-[11px] text-[#C2C7D0]">
                 <span className="text-[#3B82F6] font-semibold">AXON·VORTEX ENGINE</span>
               </div>
             </div>
@@ -219,7 +218,7 @@ export function AnimatedCategoryPage({
         </section>
 
         {/* 2. THE PROBLEM DIAGNOSIS */}
-        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <MatteSection radius="24" className="overflow-hidden">
               {/* Header Bar */}
@@ -228,7 +227,6 @@ export function AnimatedCategoryPage({
                   <span className="w-2 h-2 rounded-full bg-[#F4BA00] animate-pulse" />
                   <span>{problem.badge || "DIAGNOSTIC AUDIT"}</span>
                 </div>
-                <span className="font-mono text-xs text-[#9AA3B2]">DOMAIN FRICTION SCAN</span>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
@@ -266,7 +264,7 @@ export function AnimatedCategoryPage({
                         <span className="font-mono text-xs font-semibold text-[#3B82F6] px-2.5 py-1 rounded-[6px] bg-[#101215] border border-white/[0.05] shrink-0 group-hover:border-[#3B82F6]/60 transition-colors shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]">
                           {String(idx + 1).padStart(2, "0")}
                         </span>
-                        <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed pt-0.5">
+                        <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed pt-0.5">
                           {pt}
                         </p>
                       </div>
@@ -287,7 +285,7 @@ export function AnimatedCategoryPage({
         {/* 3. CAPABILITIES ARCHITECTURE (REDESIGNED: ASYMMETRICAL SHOWCASE) */}
         <section
           id="capabilities"
-          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]"
+          className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12"
         >
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
@@ -300,9 +298,6 @@ export function AnimatedCategoryPage({
                   What We Build
                 </h2>
               </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2]">
-                [{services.length} CORE CAPABILITY MODULES]
-              </span>
             </div>
 
             {/* Asymmetrical Layout: Primary Anchor Module (5 cols) + Secondary Architecture Stack (7 cols) */}
@@ -331,7 +326,7 @@ export function AnimatedCategoryPage({
                         {primaryService.title}
                       </h3>
 
-                      <p className="font-body text-sm text-[#9AA3B2] leading-relaxed mb-6">
+                      <p className="font-body text-sm text-[#C2C7D0] leading-relaxed mb-6">
                         {primaryService.description}
                       </p>
 
@@ -355,7 +350,7 @@ export function AnimatedCategoryPage({
                     </div>
 
                     <div className="pt-8 border-t border-white/[0.08] mt-8 flex items-center justify-between">
-                      <span className="font-mono text-xs text-[#9AA3B2]">
+                      <span className="font-mono text-xs text-[#C2C7D0]">
                         CORE CAPABILITY
                       </span>
                       {primaryService.slug && (
@@ -390,7 +385,7 @@ export function AnimatedCategoryPage({
                           {svc.slug && (
                             <Link
                               href={`/services/${svc.slug}`}
-                              className="font-mono text-xs text-[#9AA3B2] group-hover:text-[#3B82F6] inline-flex items-center gap-1 transition-colors"
+                              className="font-mono text-xs text-[#C2C7D0] group-hover:text-[#3B82F6] inline-flex items-center gap-1 transition-colors"
                             >
                               <span>Specs</span>
                               <ArrowUpRight className="w-3 h-3" />
@@ -402,7 +397,7 @@ export function AnimatedCategoryPage({
                           {svc.title}
                         </h4>
 
-                        <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed">
+                        <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed">
                           {svc.description}
                         </p>
                       </div>
@@ -428,7 +423,7 @@ export function AnimatedCategoryPage({
         </section>
 
         {/* 4. EXECUTION METHODOLOGY (REDESIGNED: CONNECTED LINEAR PIPELINE) */}
-        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <MatteSection radius="24" className="p-6 sm:p-10 lg:p-12">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#EFECE4]/[0.08] mb-10">
@@ -441,9 +436,6 @@ export function AnimatedCategoryPage({
                     How This System Works
                   </h2>
                 </div>
-                <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2]">
-                  [{approach.steps.length} SEQUENTIAL STAGES]
-                </span>
               </div>
 
               {/* Connecting Conduit Pipeline */}
@@ -487,7 +479,7 @@ export function AnimatedCategoryPage({
                           </h3>
                         </div>
 
-                        <p className="font-body text-xs text-[#9AA3B2] leading-relaxed pt-2">
+                        <p className="font-body text-xs text-[#C2C7D0] leading-relaxed pt-2">
                           {st.description}
                         </p>
                       </RaisedCard>
@@ -503,7 +495,7 @@ export function AnimatedCategoryPage({
                       CONTINUOUS ADAPTATION LOOP
                     </span>
                   </div>
-                  <p className="text-xs font-body text-[#9AA3B2] text-center sm:text-right max-w-md">
+                  <p className="text-xs font-body text-[#C2C7D0] text-center sm:text-right max-w-md">
                     Each stage feeds performance data into downstream automations to prevent channel stagnation.
                   </p>
                 </div>
@@ -513,7 +505,7 @@ export function AnimatedCategoryPage({
         </section>
 
         {/* 5. WHO THIS IS FOR (REDESIGNED: SPLIT QUALIFICATION CONSOLE) */}
-        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <MatteSection radius="24" className="overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
@@ -529,7 +521,7 @@ export function AnimatedCategoryPage({
                       {whoThisIsFor.headline}
                     </h2>
 
-                    <p className="mt-4 font-body text-sm text-[#9AA3B2] leading-relaxed">
+                    <p className="mt-4 font-body text-sm text-[#C2C7D0] leading-relaxed">
                       We engineer this domain specifically for operators who prioritize commercial predictability over disconnected vanity metrics.
                     </p>
                   </div>
@@ -578,7 +570,7 @@ export function AnimatedCategoryPage({
                 {finalCta.headline}
               </h2>
 
-              <p className="mt-4 text-sm sm:text-base text-[#9AA3B2] max-w-xl">
+              <p className="mt-4 text-sm sm:text-base text-[#C2C7D0] max-w-xl">
                 Schedule a diagnostic consultation to evaluate your existing stack, bottlenecks, and commercial targets.
               </p>
 

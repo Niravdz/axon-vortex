@@ -133,7 +133,7 @@ export function EditorialSplit({
               </div>
             )}
             {systemLabel && (
-              <span className="font-mono text-xs uppercase tracking-widest text-[#9AA3B2]/80">
+              <span className="font-mono text-xs uppercase tracking-widest text-[#C2C7D0]/80">
                 {systemLabel}
               </span>
             )}
@@ -154,7 +154,7 @@ export function EditorialSplit({
 
         {/* Paragraphs */}
         {paragraphs.length > 0 && (
-          <div className="mt-4 flex flex-col gap-3 font-body text-sm sm:text-base text-[#9AA3B2] leading-relaxed max-w-2xl">
+          <div className="mt-4 flex flex-col gap-3 font-body text-sm sm:text-base text-[#C2C7D0] leading-relaxed max-w-2xl">
             {paragraphs.map((p, idx) => (
               <p key={idx}>{p}</p>
             ))}

@@ -110,7 +110,7 @@ function FeatureRow({
           <h3 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4] leading-tight">
             {item.title}
           </h3>
-          <p className="mt-4 font-body text-sm sm:text-base text-[#9AA3B2] leading-relaxed">
+          <p className="mt-4 font-body text-sm sm:text-base text-[#C2C7D0] leading-relaxed">
             {item.description}
           </p>
         </div>
@@ -172,7 +172,7 @@ function FeatureRow({
                   key={sIdx}
                   className="p-3.5 rounded-[10px] bg-[#101215] border border-white/[0.04] shadow-box-inset flex flex-col gap-1"
                 >
-                  <span className="font-mono text-[11px] uppercase text-[#9AA3B2]">
+                  <span className="font-mono text-[11px] uppercase text-[#C2C7D0]">
                     {spec.label}
                   </span>
                   <span className="font-heading font-medium text-xs sm:text-sm text-[#EFECE4]">
@@ -184,7 +184,7 @@ function FeatureRow({
           </div>
         ) : (
           <div className="rounded-[18px] bg-[#141619] border border-white/[0.06] p-6 sm:p-8 shadow-box-md flex flex-col gap-4">
-            <p className="text-xs sm:text-sm font-mono text-[#9AA3B2] leading-relaxed">
+            <p className="text-xs sm:text-sm font-mono text-[#C2C7D0] leading-relaxed">
               Continuous feedback loops connect this capability with upstream acquisition and downstream conversion.
             </p>
             <div className="flex items-center gap-2 text-[11px] font-mono text-[#F4BA00]">

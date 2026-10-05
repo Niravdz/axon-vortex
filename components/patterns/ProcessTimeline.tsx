@@ -111,14 +111,11 @@ export function ProcessTimeline({
               </h2>
             )}
             {subtitle && (
-              <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+              <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                 {subtitle}
               </p>
             )}
           </div>
-          <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-            [{steps.length} SEQUENTIAL STAGES]
-          </span>
         </div>
       )}
 
@@ -162,7 +159,7 @@ export function ProcessTimeline({
                       ? accent === "amber"
                         ? "bg-[#F4BA00] text-[#0D1014] shadow-[0_0_16px_rgba(244,186,0,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] scale-105"
                         : "bg-[#3B82F6] text-white shadow-[0_0_16px_rgba(59,130,246,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] scale-105"
-                      : "bg-[#171a1e] text-[#9AA3B2] border border-white/[0.08] shadow-[0_2px_4px_rgba(0,0,0,0.6)] group-hover:border-[#3B82F6]/50 group-hover:text-[#EFECE4]"
+                      : "bg-[#171a1e] text-[#C2C7D0] border border-white/[0.08] shadow-[0_2px_4px_rgba(0,0,0,0.6)] group-hover:border-[#3B82F6]/50 group-hover:text-[#EFECE4]"
                   )}
                 >
                   {stepNum}
@@ -190,24 +187,24 @@ export function ProcessTimeline({
                     >
                       {st.title}
                     </h3>
-                    <span className="font-mono text-xs text-[#9AA3B2]/80 uppercase tracking-widest">
+                    <span className="font-mono text-xs text-[#C2C7D0]/80 uppercase tracking-widest">
                       STAGE {stepNum}
                     </span>
                   </div>
 
-                  <p className="font-body text-xs sm:text-sm text-[#9AA3B2] leading-relaxed mt-1">
+                  <p className="font-body text-xs sm:text-sm text-[#C2C7D0] leading-relaxed mt-1">
                     {st.description}
                   </p>
 
                   {st.question && (
                     <div className="mt-3 p-3 rounded-[8px] bg-[#101215] border border-white/[0.04] text-xs font-mono text-[#F4BA00] shadow-box-inset">
-                      <span className="text-[#9AA3B2] mr-2">PRIMARY INQUIRY:</span>
+                      <span className="text-[#C2C7D0] mr-2">PRIMARY INQUIRY:</span>
                       &ldquo;{st.question}&rdquo;
                     </div>
                   )}
 
                   {st.detail && (
-                    <p className="mt-2 text-xs font-body text-[#9AA3B2]/90 border-l border-[#3B82F6] pl-3">
+                    <p className="mt-2 text-xs font-body text-[#C2C7D0]/90 border-l border-[#3B82F6] pl-3">
                       {st.detail}
                     </p>
                   )}

@@ -70,7 +70,7 @@ export function AiAutomationClient() {
     <SiteTextureBackground className="overflow-x-clip">
       <div className="w-full text-[#EFECE4]">
         {/* 1. HUMAN + AI SPLIT HERO */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={hero.badge}
@@ -92,7 +92,7 @@ export function AiAutomationClient() {
               }}
               rightContent={
                 <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-7 shadow-box-lg flex flex-col gap-4">
-                  <div className="flex items-center justify-between text-xs font-mono text-[#9AA3B2] border-b border-white/[0.06] pb-3">
+                  <div className="flex items-center justify-between text-xs font-mono text-[#C2C7D0] border-b border-white/[0.06] pb-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#F4BA00] animate-pulse" />
                       <span className="text-[#EFECE4] uppercase">COGNITIVE ENGINE</span>
@@ -111,7 +111,7 @@ export function AiAutomationClient() {
                     />
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] font-mono text-[#9AA3B2] pt-1">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[#C2C7D0] pt-1">
                     <span>WORKFLOW AUTOMATION</span>
                     <span className="text-[#F4BA00] font-semibold">HUMAN-IN-THE-LOOP</span>
                   </div>
@@ -122,7 +122,7 @@ export function AiAutomationClient() {
         </section>
 
         {/* 2. CONNECTED AI WORKFLOW & FRICTION DIAGNOSTIC */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <DiagnosticMatrix
               badge={problem.badge}
@@ -135,7 +135,7 @@ export function AiAutomationClient() {
         </section>
 
         {/* 3. LAYERED CAPABILITY STACK & PRACTICAL USE CASES */}
-        <section id="capabilities" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section id="capabilities" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <LayeredContentStack
               badge="INTELLIGENT SYSTEMS"
@@ -147,7 +147,7 @@ export function AiAutomationClient() {
         </section>
 
         {/* 4. AUTOMATION PROCESS JOURNEY */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <ProcessTimeline
               badge={approach.badge}
@@ -160,7 +160,7 @@ export function AiAutomationClient() {
         </section>
 
         {/* 5. HUMAN + AI MANIFESTO & QUALIFICATION */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ManifestoSection
               badge="STRATEGIC DIRECTIVE"

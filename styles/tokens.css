@@ -10,7 +10,7 @@
   --color-electric-blue: #3B82F6;
   --color-amber-gold: #F4BA00;
   --color-soft-white: #EFECE4;
-  --color-muted-gray: #9AA3B2;
+  --color-muted-gray: #C2C7D0;
 
   /* Brand Palette Direct Tokens */
   --void: #0F2747;
@@ -21,7 +21,7 @@
   --electric-blue: #3B82F6;
   --amber-gold: #F4BA00;
   --soft-white: #EFECE4;
-  --muted-gray: #9AA3B2;
+  --muted-gray: #C2C7D0;
 
   /* Systems Console Mega-Menu Design Tokens */
   --mega-radius: 24px;
@@ -85,7 +85,7 @@
   --bg-card-hover: #20252B;
 
   --color-text-primary: #EFECE4;
-  --color-text-secondary: #9AA3B2;
+  --color-text-secondary: #C2C7D0;
   --color-text-muted: rgba(154, 163, 178, 0.75);
   --color-text-accent-blue: #3B82F6;
   --color-text-accent-amber: #F4BA00;

@@ -79,13 +79,13 @@ export function CookieConsent() {
         <button
           onClick={handleRejectNonEssential}
           aria-label="Close and decline non-essential cookies"
-          className="p-1 text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+          className="p-1 text-[#C2C7D0] hover:text-[#EFECE4] hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      <p className="font-body text-xs md:text-sm text-[#9AA3B2] mb-4 leading-relaxed">
+      <p className="font-body text-xs md:text-sm text-[#C2C7D0] mb-4 leading-relaxed">
         AxonVortex uses cookies to optimize site performance and deliver personalized digital solutions.
         Per DPDP Act 2023, GDPR, and CCPA guidelines, you can accept all cookies or manage your specific preferences.
         Review our{" "}
@@ -102,7 +102,7 @@ export function CookieConsent() {
             <input type="checkbox" checked disabled className="accent-[#3B82F6] w-4 h-4 rounded" />
           </label>
           <label className="flex items-center justify-between cursor-pointer">
-            <span className="text-[#9AA3B2]">Analytics Cookies (Google Analytics)</span>
+            <span className="text-[#C2C7D0]">Analytics Cookies (Google Analytics)</span>
             <input
               type="checkbox"
               checked={analyticsAllowed}
@@ -111,7 +111,7 @@ export function CookieConsent() {
             />
           </label>
           <label className="flex items-center justify-between cursor-pointer">
-            <span className="text-[#9AA3B2]">Marketing / Retargeting Pixels</span>
+            <span className="text-[#C2C7D0]">Marketing / Retargeting Pixels</span>
             <input
               type="checkbox"
               checked={marketingAllowed}
@@ -131,7 +131,7 @@ export function CookieConsent() {
         </DimensionalButton>
         <button
           onClick={() => (showDetails ? handleSaveCustom() : setShowDetails(true))}
-          className="text-xs font-mono font-medium text-[#9AA3B2] hover:text-[#EFECE4] underline ml-auto transition-colors cursor-pointer"
+          className="text-xs font-mono font-medium text-[#C2C7D0] hover:text-[#EFECE4] underline ml-auto transition-colors cursor-pointer"
         >
           {showDetails ? "SAVE PREFERENCES" : "CUSTOMIZE"}
         </button>

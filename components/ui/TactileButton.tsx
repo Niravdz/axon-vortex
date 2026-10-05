@@ -66,7 +66,7 @@ export function TactileButton({
 
     // Ghost
     ghost: cn(
-      "bg-transparent text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-[#20252B]/60 p-2"
+      "bg-transparent text-[#C2C7D0] hover:text-[#EFECE4] hover:bg-[#20252B]/60 p-2"
     ),
   };
 

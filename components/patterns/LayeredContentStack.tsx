@@ -53,14 +53,11 @@ export function LayeredContentStack({
             {title}
           </h2>
           {subtitle && (
-            <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+            <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
               {subtitle}
             </p>
           )}
         </div>
-        <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-          [{layers.length} INTERFACE LAYERS]
-        </span>
       </div>
 
       {/* Layered Desktop Console / Mobile Stacked Accordion */}
@@ -79,7 +76,7 @@ export function LayeredContentStack({
                     "w-full text-left p-4 sm:p-5 rounded-[14px] border box-interactive flex items-center justify-between gap-4 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]",
                     isActive
                       ? "bg-[#1b1e22] border-[#3B82F6] shadow-box-selected text-[#EFECE4]"
-                      : "bg-[#141619] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:border-white/[0.12] hover:bg-[#171a1e] text-[#9AA3B2] hover:text-[#EFECE4]"
+                      : "bg-[#141619] border-white/[0.06] shadow-box-sm hover:shadow-box-hover hover:border-white/[0.12] hover:bg-[#171a1e] text-[#C2C7D0] hover:text-[#EFECE4]"
                   )}
                   aria-expanded={isActive}
                 >
@@ -99,7 +96,7 @@ export function LayeredContentStack({
                   <ChevronDown
                     className={cn(
                       "w-4 h-4 shrink-0 transition-transform lg:hidden",
-                      isActive ? "rotate-180 text-[#3B82F6]" : "text-[#9AA3B2]"
+                      isActive ? "rotate-180 text-[#3B82F6]" : "text-[#C2C7D0]"
                     )}
                   />
                 </button>
@@ -107,7 +104,7 @@ export function LayeredContentStack({
                 {/* Mobile Dropdown Preview when Active */}
                 {isActive && (
                   <div className="lg:hidden mt-2 p-5 rounded-[12px] bg-[#101215] border border-white/[0.08] shadow-box-inset flex flex-col gap-4">
-                    <p className="text-xs sm:text-sm font-body text-[#9AA3B2] leading-relaxed">
+                    <p className="text-xs sm:text-sm font-body text-[#C2C7D0] leading-relaxed">
                       {layer.description}
                     </p>
 
@@ -166,7 +163,7 @@ export function LayeredContentStack({
             <h3 className="text-2xl sm:text-3xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4] mb-3">
               {activeLayer.title}
             </h3>
-            <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+            <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
               {activeLayer.description}
             </p>
           </div>

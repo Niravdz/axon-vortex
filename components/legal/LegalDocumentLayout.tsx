@@ -41,7 +41,7 @@ export function LegalDocumentLayout({
         {/* 0. TOP BREADCRUMB BAR */}
         <div className="w-full border-b border-white/[0.08] bg-[#101215] px-6 md:px-12 py-3">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-2 text-[#9AA3B2]">
+            <div className="flex items-center gap-2 text-[#C2C7D0]">
               <Link href="/" className="hover:text-[#3B82F6] font-medium transition-colors">
                 Home
               </Link>
@@ -70,7 +70,7 @@ export function LegalDocumentLayout({
               <span className="px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#93C5FD]">
                 {badge}
               </span>
-              <span className="font-mono text-xs text-[#9AA3B2] uppercase tracking-widest">
+              <span className="font-mono text-xs text-[#C2C7D0] uppercase tracking-widest">
                 Last Updated: {lastUpdated}
               </span>
             </div>
@@ -84,7 +84,7 @@ export function LegalDocumentLayout({
               <div className="w-9 h-9 rounded-xl bg-[#101215] border border-[#F4BA00]/40 shadow-box-inset flex items-center justify-center shrink-0 mt-0.5">
                 <AlertTriangle className="w-5 h-5 text-[#F4BA00]" />
               </div>
-              <div className="flex flex-col gap-1 text-xs font-body text-[#9AA3B2] leading-relaxed">
+              <div className="flex flex-col gap-1 text-xs font-body text-[#C2C7D0] leading-relaxed">
                 <span className="font-mono font-semibold uppercase text-[#F4BA00] tracking-wider text-xs">
                   LEGAL COMPLIANCE NOTICE // {unresolvedCount} PENDING STATUTORY PLACEHOLDERS
                 </span>
@@ -101,7 +101,7 @@ export function LegalDocumentLayout({
           {/* Sticky Sidebar Navigation (Raised Shell with Recessed Inquiries Tray) */}
           <aside className="lg:col-span-4 sticky top-28 hidden lg:flex flex-col gap-4">
             <div className="rounded-2xl border border-white/[0.08] bg-[#1b1e22] p-6 shadow-box-md">
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#9AA3B2] block mb-4 border-b border-white/10 pb-2">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#C2C7D0] block mb-4 border-b border-white/10 pb-2">
                 Document Table of Contents
               </span>
               <nav className="flex flex-col gap-1 font-mono text-xs">
@@ -109,7 +109,7 @@ export function LegalDocumentLayout({
                   <a
                     key={sec.id}
                     href={`#${sec.id}`}
-                    className="px-3 py-2 rounded-lg text-[#9AA3B2] hover:text-[#EFECE4] hover:bg-white/5 transition-all truncate"
+                    className="px-3 py-2 rounded-lg text-[#C2C7D0] hover:text-[#EFECE4] hover:bg-white/5 transition-all truncate"
                   >
                     {sec.title}
                   </a>
@@ -117,7 +117,7 @@ export function LegalDocumentLayout({
               </nav>
             </div>
 
-            <div className="p-4 rounded-xl border border-white/[0.04] bg-[#101215] text-xs font-body text-[#9AA3B2] shadow-box-inset">
+            <div className="p-4 rounded-xl border border-white/[0.04] bg-[#101215] text-xs font-body text-[#C2C7D0] shadow-box-inset">
               <span className="font-mono font-semibold text-[#EFECE4] block mb-1">Direct Inquiries:</span>
               Reach our data protection desk at{" "}
               <a href="mailto:info@axonvortex.com" className="text-[#3B82F6] font-medium underline hover:text-[#93C5FD]">

@@ -57,7 +57,7 @@ export function LeadGenerationClient() {
     <SiteTextureBackground className="overflow-x-clip">
       <div className="w-full text-[#EFECE4]">
         {/* 1. ATTENTION-TO-OPPORTUNITY EDITORIAL HERO */}
-        <section className="relative w-full border-b border-[#EFECE4]/[0.08] py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
+        <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <EditorialSplit
               badge={hero.badge}
@@ -82,7 +82,7 @@ export function LeadGenerationClient() {
               }}
               rightContent={
                 <div className="rounded-[20px] bg-[#1b1e22] border border-white/[0.08] p-5 sm:p-7 shadow-box-lg flex flex-col gap-4">
-                  <div className="flex items-center justify-between text-xs font-mono text-[#9AA3B2] border-b border-white/[0.06] pb-3">
+                  <div className="flex items-center justify-between text-xs font-mono text-[#C2C7D0] border-b border-white/[0.06] pb-3">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#F4BA00] animate-pulse" />
                       <span className="text-[#EFECE4] uppercase">FUNNEL PIPELINE</span>
@@ -101,7 +101,7 @@ export function LeadGenerationClient() {
                     />
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] font-mono text-[#9AA3B2] pt-1">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[#C2C7D0] pt-1">
                     <span>ATTENTION → REVENUE</span>
                     <span className="text-[#F4BA00] font-semibold">AUTOMATED TRIAGE</span>
                   </div>
@@ -112,7 +112,7 @@ export function LeadGenerationClient() {
         </section>
 
         {/* 2. ATTENTION-TO-OPPORTUNITY CONNECTED FUNNEL */}
-        <section id="pipeline" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section id="pipeline" className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <HorizontalJourney
               badge={leadJourney.badge}
@@ -125,7 +125,7 @@ export function LeadGenerationClient() {
         </section>
 
         {/* 3. LEAD-SYSTEM ARCHITECTURE & CAPABILITIES */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
               <div className="flex flex-col gap-3 max-w-2xl">
@@ -135,13 +135,10 @@ export function LeadGenerationClient() {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-semibold uppercase tracking-tight text-[#EFECE4]">
                   Lead System Architecture
                 </h2>
-                <p className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed">
+                <p className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed">
                   Five specialized systems working together so no commercial inquiry slips through the cracks.
                 </p>
               </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#9AA3B2] shrink-0">
-                [{services.length} CONNECTED MODULES]
-              </span>
             </div>
 
             <AlternatingFeatureRows items={serviceItems} />
@@ -149,7 +146,7 @@ export function LeadGenerationClient() {
         </section>
 
         {/* 4. PROBLEM MATCHER & FULL-SYSTEM DIAGNOSTIC */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <DiagnosticMatrix
               badge={problem.badge}
@@ -162,7 +159,7 @@ export function LeadGenerationClient() {
         </section>
 
         {/* 5. QUALIFICATION STEPS & AUDIENCE FIT */}
-        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12 border-b border-[#EFECE4]/[0.08]">
+        <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-12">
           <div className="max-w-7xl mx-auto">
             <AudienceFitChecklist
               badge={whoThisIsFor.badge}

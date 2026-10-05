@@ -97,7 +97,7 @@ export function CTASection({
               {descParagraphs.map((p, i) => (
                 <p
                   key={i}
-                  className="text-sm sm:text-base font-body text-[#9AA3B2] leading-relaxed"
+                  className="text-sm sm:text-base font-body text-[#C2C7D0] leading-relaxed"
                 >
                   {p}
                 </p>
