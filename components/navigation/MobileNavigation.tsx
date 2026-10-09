@@ -65,14 +65,14 @@ export function MobileNavigation({
       aria-modal="true"
       aria-label="Mobile Navigation Menu"
       aria-hidden={!isOpen}
-      className={`fixed inset-0 z-[100] bg-[#141619] flex flex-col justify-between transition-all duration-300 ease-out lg:hidden overflow-y-auto ${
+      className={`fixed inset-0 z-[100] bg-black flex flex-col justify-between transition-all duration-300 ease-out lg:hidden overflow-y-auto ${
         isOpen
           ? "opacity-100 pointer-events-auto translate-y-0"
           : "opacity-0 pointer-events-none -translate-y-3"
       }`}
     >
       {/* Top Header Bar inside Drawer */}
-      <div className="sticky top-0 z-10 bg-[#141619] border-b border-white/[0.08] px-5 py-4 flex items-center justify-between shadow-box-md">
+      <div className="sticky top-0 z-10 bg-black border-b border-white/[0.08] px-5 py-4 flex items-center justify-between shadow-box-md">
         <div className="flex items-center gap-3">
           <Image
             src="/brand/axon-vortex-logo.png"
@@ -90,7 +90,7 @@ export function MobileNavigation({
           type="button"
           onClick={onClose}
           aria-label="Close navigation menu"
-          className="w-11 h-11 rounded-[8px] bg-[#141619] border border-white/[0.08] flex items-center justify-center text-[#EFECE4] shadow-box-sm hover:shadow-box-hover box-interactive hover:bg-[#181c20] transition-colors"
+          className="w-11 h-11 rounded-[8px] bg-black border border-white/[0.08] flex items-center justify-center text-[#EFECE4] shadow-box-sm hover:shadow-box-hover box-interactive hover:bg-[#111111] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>

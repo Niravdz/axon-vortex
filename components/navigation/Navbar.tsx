@@ -68,7 +68,7 @@ export function Navbar() {
       <header
         ref={headerRef}
         role="banner"
-        className={`sticky top-0 z-50 w-full transition-all duration-300 site-header-tactile ${
+        className={`sticky top-0 z-50 w-full transition-all duration-300 bg-black site-header-tactile ${
           isScrolled
             ? "shadow-[0_12px_36px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(239,236,228,0.1)] h-18 sm:h-20"
             : "shadow-[0_4px_20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(239,236,228,0.06)] h-20"
@@ -76,8 +76,8 @@ export function Navbar() {
       >
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-full flex items-center justify-between gap-4 xl:gap-8">
           {/* Official AxonVortex Brand Logo */}
-          <div data-nav-logo className="shrink-0">
-            <BrandLogo variant="responsive" />
+          <div data-nav-logo className="shrink-0 flex items-center">
+            <BrandLogo variant="responsive" size="lg" />
           </div>
 
           {/* Desktop Multi-Level Dropdown Navigation */}
@@ -104,7 +104,7 @@ export function Navbar() {
               aria-label={isMobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileOpen}
               onClick={() => setIsMobileOpen((prev) => !prev)}
-              className="p-2.5 rounded-[8px] bg-[#171a1e] border border-white/[0.08] text-[#EFECE4] shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#21252a] hover:border-[#3B82F6]/50 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electricBlue"
+              className="p-2.5 rounded-[8px] bg-[#111111] border border-white/[0.1] text-[#EFECE4] shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-[#1a1a1a] hover:border-[#3B82F6]/50 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electricBlue"
             >
               {isMobileOpen ? (
                 <X className="w-5 h-5 text-[#EFECE4]" />
